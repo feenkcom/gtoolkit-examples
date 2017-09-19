@@ -1,5 +1,5 @@
 GT-Examples-UI
 gtInspectorSourceIn: composite
 	<gtInspectorPresentationOrder: 0>
-	^ (self method gtInspectorSourceIn: composite)
+	^ (self method asRingDefinition gtInspectorSourceIn: composite)
 		title: 'Source'
