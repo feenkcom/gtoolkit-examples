@@ -1,0 +1,16 @@
+{
+	"commentStamp" : "",
+	"super" : "GtExampleAspect",
+	"category" : "GToolkit-Examples-Organization",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"methodClassName",
+		"methodClass",
+		"meta",
+		"selector"
+	],
+	"name" : "GtAbstractExampleMethod",
+	"type" : "normal"
+}

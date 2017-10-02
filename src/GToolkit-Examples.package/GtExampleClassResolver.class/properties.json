@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "GTExampleAspectResolver",
+	"category" : "GToolkit-Examples-Organization",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"theClassName"
+	],
+	"name" : "GtExampleClassResolver",
+	"type" : "normal"
+}

@@ -11,10 +11,10 @@ process: anExample withArguments: aBlock
 		on: anExample signalableExceptions
 		do: [ :exception | currentResult expectedError: exception ].
 	
-	"self
+	self
 		do: [ self processAfter: anExample ]
 		on: anExample signalableExceptions
-		do: [ :exception | currentResult expectedError: exception ]."
+		do: [ :exception | currentResult expectedError: exception ].
 	anExample == self example ifTrue: [ result := currentResult ].
 	anExample exceptions signaledBy: currentResult expectedError.
 	^ currentResult returnValue

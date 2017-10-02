@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "GtExampleProcessor",
+	"category" : "GToolkit-Examples-Runtime",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"processing",
+		"onProcess"
+	],
+	"name" : "GtExampleDependenciesProcessor",
+	"type" : "normal"
+}

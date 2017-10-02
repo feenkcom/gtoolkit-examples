@@ -1,0 +1,4 @@
+examples
+b
+	<gtExample>
+	^ true

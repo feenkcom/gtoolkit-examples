@@ -1,11 +1,13 @@
 {
 	"commentStamp" : "",
-	"super" : "GtExampleProcessor",
+	"super" : "GtExampleDependenciesProcessor",
 	"category" : "GToolkit-Examples-Runtime",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
-	"instvars" : [ ],
+	"instvars" : [
+		"action"
+	],
 	"name" : "GtExampleTraverser",
 	"type" : "normal"
 }
