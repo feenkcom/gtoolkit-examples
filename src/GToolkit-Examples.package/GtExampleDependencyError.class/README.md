@@ -1,0 +1,1 @@
+I represent a static error induced by a wrong declaration of an example. 

@@ -1,6 +1,6 @@
 {
 	"commentStamp" : "",
-	"super" : "GTExampleAspectResolver",
+	"super" : "GtExampleAspectResolver",
 	"category" : "GToolkit-Examples-Organization",
 	"classinstvars" : [ ],
 	"pools" : [ ],

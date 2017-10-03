@@ -6,7 +6,7 @@ initializeSubjects: aCollection forExample: aGTExample
 		[ aGTExample addSubject: subject ]
 			on:Error
 			do: [ :exception | 
-				aGTExample addProblem: (GTExampleSubjectError new 
+				aGTExample addProblem: (GtExampleSubjectError new 
 					example: aGTExample;
 					subject: subject;
 					signaledException: exception;

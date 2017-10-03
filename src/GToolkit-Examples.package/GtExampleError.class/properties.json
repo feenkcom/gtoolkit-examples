@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "AndreiChis 10/3/2017 15:37",
+	"super" : "Error",
+	"category" : "GToolkit-Examples-Exceptions",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"example",
+		"signaledException"
+	],
+	"name" : "GtExampleError",
+	"type" : "normal"
+}

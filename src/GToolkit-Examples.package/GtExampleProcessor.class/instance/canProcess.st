@@ -5,6 +5,6 @@ canProcess
 	the given example that does not make it possible to apply the processor. "
 	
 	[ self value ]
-		on: GTExampleError
+		on: GtExampleError
 		do: [ ^ false ].
 	^ true

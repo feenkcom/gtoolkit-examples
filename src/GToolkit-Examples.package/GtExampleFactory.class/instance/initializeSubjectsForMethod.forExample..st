@@ -5,7 +5,7 @@ initializeSubjectsForMethod: aCompiledMethod forExample: aGTExample
 				self initializeSubjects: aProvider gtExamplesSubjects forExample: aGTExample ] ] ]
 		on: Error
 		do: [ :exception | 
-			aGTExample addProblem: (GTExampleSubjectError new 
+			aGTExample addProblem: (GtExampleSubjectError new 
 				example: aGTExample;
 				signaledException: exception;
 				yourself) ]

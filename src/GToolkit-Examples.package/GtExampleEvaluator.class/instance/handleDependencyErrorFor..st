@@ -1,6 +1,6 @@
 private
 handleDependencyErrorFor: anExample
-	^ (GTExampleDependencyError new
+	^ (GtExampleDependencyError new
 		example: anExample;
 		defined: anExample arguments;
 		expected: anExample methodArgumentNames;

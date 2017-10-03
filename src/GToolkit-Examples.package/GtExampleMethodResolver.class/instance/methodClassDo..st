@@ -1,7 +1,7 @@
 private
 methodClassDo: aBlock
 	^ self methodClassDo: aBlock ifNone: [ 
-		(GTExampleDeclaredClassMissing new
+		(GtExampleDeclaredClassMissing new
 			example: self example;
 			classNamed: self methodClassName;
 			meta: self meta;

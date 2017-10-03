@@ -1,6 +1,6 @@
 private
 handleRecursionErrorFor: anExample
-	^ (GTExampleRecursionDetected new 
+	^ (GtExampleRecursionDetected new 
 		example: self example;
 		resolved: processing;
 		next: anExample;

@@ -5,7 +5,7 @@ initializePragmas: aCollection forExample: aGTExample
 			[ aGTExample perform: pragma keyword withArguments: pragma arguments ]
 				on:Error
 				do:[ :exception | 
-					aGTExample addProblem: (GTExamplePragmaError new 
+					aGTExample addProblem: (GtExamplePragmaError new 
 						example: aGTExample;
 						pragma: pragma;
 						signaledException: exception;

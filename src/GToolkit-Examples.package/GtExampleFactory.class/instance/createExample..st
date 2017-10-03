@@ -5,7 +5,7 @@ createExample: aCompiledMethod
 	[ newExample initializeFromMethod: aCompiledMethod usingFactory: self ]
 		on: Deprecation
 		do: [ :exception | 
-			newExample addProblem: (GTExampleDeprecationDetected new
+			newExample addProblem: (GtExampleDeprecationDetected new
 				example: newExample;
 				signaledException: exception; 
 				yourself).

@@ -13,6 +13,6 @@ dependenciesFor: anExample
 	  ^ dependencies 
 	] on: Error
 	  do: [ :anError | 
-		(GTExampleUnexpectedExceptionRaised new 
+		(GtExampleUnexpectedExceptionRaised new 
 			unexpectedError: anError;
 			yourself) signal  ].

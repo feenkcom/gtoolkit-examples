@@ -1,0 +1,1 @@
+I am an abstract error related to the way the pragmas are used within an example method.

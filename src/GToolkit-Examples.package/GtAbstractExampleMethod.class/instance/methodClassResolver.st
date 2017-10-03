@@ -1,6 +1,6 @@
 private
 methodClassResolver
-	^ GTExampleMethodResolver new 
+	^ GtExampleMethodResolver new 
 		methodClassName: self methodClassName;
 		meta: self meta;
 		selector: self selector;

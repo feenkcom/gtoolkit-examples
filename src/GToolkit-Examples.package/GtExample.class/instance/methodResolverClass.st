@@ -1,3 +1,3 @@
 private
 methodResolverClass
-	^ GTExampleMethodResolver
+	^ GtExampleMethodResolver

@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "AndreiChis 10/3/2017 15:38",
+	"super" : "GtExamplePragmaError",
+	"category" : "GToolkit-Examples-Exceptions",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"classNamed"
+	],
+	"name" : "GtExampleDeclaredClassMissing",
+	"type" : "normal"
+}

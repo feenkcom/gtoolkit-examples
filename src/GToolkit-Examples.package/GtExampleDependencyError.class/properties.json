@@ -1,0 +1,15 @@
+{
+	"commentStamp" : "AndreiChis 10/3/2017 15:37",
+	"super" : "GtExampleError",
+	"category" : "GToolkit-Examples-Exceptions",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"expected",
+		"defined",
+		"invalid"
+	],
+	"name" : "GtExampleDependencyError",
+	"type" : "normal"
+}
