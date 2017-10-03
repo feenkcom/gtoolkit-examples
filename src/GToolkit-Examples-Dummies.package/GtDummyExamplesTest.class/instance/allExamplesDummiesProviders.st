@@ -1,4 +1,4 @@
 accessing
 allExamplesDummiesProviders
-	^ GTAbstractDummyExamples withAllSubclasses select: [ :each | 
+	^ GtAbstractDummyExamples withAllSubclasses select: [ :each | 
 		each isAbstract not ]

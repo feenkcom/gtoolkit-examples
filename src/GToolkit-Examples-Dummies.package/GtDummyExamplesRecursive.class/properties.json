@@ -6,6 +6,6 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [ ],
-	"name" : "GtDummyExamplesInvalid",
+	"name" : "GtDummyExamplesRecursive",
 	"type" : "normal"
 }

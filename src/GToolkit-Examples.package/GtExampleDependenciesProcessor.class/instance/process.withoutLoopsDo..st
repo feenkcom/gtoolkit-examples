@@ -1,7 +1,7 @@
 private
 process: anExample withoutLoopsDo: aBlock
+	"I check whether we already scheduled the given example for processing to prevent recursion."
 	| value |
-	" check whether we already scheduled the given example for processing -> prevent recursion "
 	value := nil.
 	processing do: [ :processingExample |
 		(processingExample = anExample) ifTrue: [

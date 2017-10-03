@@ -1,9 +1,10 @@
 private
 process: anExample withArguments: aBlock
-	| currentResult |
+	| currentResult dependencies |
 	currentResult := self newResultFor: anExample.
-	"anExample hasValidDependencies" " dynamic check "
-		"ifFalse: [ ^ self handleDependencyErrorFor: anExample ]."
+	dependencies := self dependenciesFor: anExample.
+	(dependencies anySatisfy: [ :anotherExample | anotherExample isValid not ])
+		ifTrue: [ ^ self handleDependencyErrorFor: anExample ].
 	self 
 		do: [ 
 			currentResult returnValue: (self 
@@ -12,7 +13,7 @@ process: anExample withArguments: aBlock
 		do: [ :exception | currentResult expectedError: exception ].
 	
 	self
-		do: [ self processAfter: anExample ]
+		do: [ self processAfter: anExample withDependencies: dependencies ]
 		on: anExample signalableExceptions
 		do: [ :exception | currentResult expectedError: exception ].
 	anExample == self example ifTrue: [ result := currentResult ].
