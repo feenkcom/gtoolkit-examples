@@ -1,6 +1,6 @@
 private
 newResultFor: anExample
-	^ GTExampleResult new 
+	^ GtExampleResult new 
 		example: anExample;
 		context: self context;
 		yourself.
