@@ -3,7 +3,7 @@ initializeSubjects: aCollection forExample: aGTExample
 	aCollection isEmptyOrNil ifTrue: [ ^ self ].
 	
 	aCollection do: [ :subject | 
-		[ aGTExample addSubject: subject ]
+		[ aGTExample addSubject: (self class subjectFrom: subject) ]
 			on:Error
 			do: [ :exception | 
 				aGTExample addProblem: (GtExampleSubjectError new 

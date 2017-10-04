@@ -1,3 +1,3 @@
 accessing
 subjects
-	^ subjects
+	^ subjects asArray
