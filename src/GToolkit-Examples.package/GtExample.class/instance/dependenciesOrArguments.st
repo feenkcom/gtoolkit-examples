@@ -1,12 +1,15 @@
 accessing-dynamic
 dependenciesOrArguments
-	| exampleMethod selfMessages |
+	| exampleMethod possibleExamples |
+	possibleExamples := OrderedCollection new.
 	exampleMethod := self method.
-	selfMessages := exampleMethod messages select: [ :aMessagename | 
-		exampleMethod methodClass canPerform: aMessagename ].
+	exampleMethod ast nodesDo: [ :aNode | 
+		aNode isMessage ifTrue: [
+			aNode isSelfSend ifTrue: [ 
+				possibleExamples add: (exampleMethod methodClass lookupSelector: aNode selector) ].
+			aNode isSuperSend ifTrue: [  
+				possibleExamples add: (exampleMethod methodClass superclass lookupSelector: aNode selector) ] ] ].
 	
-	^ (((selfMessages 
-		collect: [ :aMessagename | 
-			(exampleMethod methodClass lookupSelector: aMessagename) ])
+	^ ((possibleExamples 
 		select: [ :aMethod | aMethod isGtExampleMethod ])
 		collect: [ :aMethod | aMethod gtExample ]) asOrderedCollection

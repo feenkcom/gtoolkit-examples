@@ -5,6 +5,7 @@ process: anExample withArguments: aBlock
 	dependencies := self dependenciesFor: anExample.
 	(dependencies anySatisfy: [ :anotherExample | anotherExample isValid not ])
 		ifTrue: [ ^ self handleDependencyErrorFor: anExample ].
+	context example: anExample.
 	self 
 		do: [ 
 			currentResult returnValue: (self 
