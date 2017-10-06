@@ -12,5 +12,5 @@ baseline: spec
 			
 		spec 
 			group: 'Core' with: #('GToolkit-Examples' );
-			group: 'default' with: #('GToolkit-Examples' 'GToolkit-Examples-Extensions' 'GToolkit-Examples-UI' 'GToolkit-Tests-Examples' #'GToolkit-Examples-Dummies' #'GToolkit-Examples-Roassal2' ).
+			group: 'default' with: #('GToolkit-Examples' 'GToolkit-Examples-Extensions' 'GToolkit-Examples-UI' 'GToolkit-Tests-Examples' #'GToolkit-Examples-Dummies' #'GToolkit-Examples-Roassal2UI' ).
 	]
