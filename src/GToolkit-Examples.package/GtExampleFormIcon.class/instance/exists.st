@@ -1,5 +1,5 @@
 testing
 exists
 	^ self converter notNil
-		and: [ (GTExampleMethodIcon includesSelector: self converter)
+		and: [ (GtExampleMethodIcon includesSelector: self converter)
 			and: [ self form notNil ] ]
