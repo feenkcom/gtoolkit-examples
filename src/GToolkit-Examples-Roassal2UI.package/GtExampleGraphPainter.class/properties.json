@@ -1,0 +1,19 @@
+{
+	"commentStamp" : "",
+	"super" : "Object",
+	"category" : "GToolkit-Examples-Roassal2UI",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"example",
+		"view",
+		"group",
+		"edges",
+		"nodes",
+		"fromTo",
+		"processing"
+	],
+	"name" : "GtExampleGraphPainter",
+	"type" : "normal"
+}

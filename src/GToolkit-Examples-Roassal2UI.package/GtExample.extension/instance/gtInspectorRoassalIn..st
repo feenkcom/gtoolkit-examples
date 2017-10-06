@@ -4,8 +4,8 @@ gtInspectorRoassalIn: composite
 	^ composite roassal2
 		title: 'Graph';
 		painting: [ :view :example | 
-			"(GTExampleGraphPainter new 
+			(GtExampleGraphPainter new 
 				example: example;
 				view: view;
-				yourself) paint" ];
+				yourself) paint ];
 		when: [ self hasDependencies or: [ self hasDependents ] ]
