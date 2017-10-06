@@ -1,0 +1,20 @@
+{
+	"commentStamp" : "",
+	"super" : "HDReport",
+	"category" : "GToolkit-Examples-Testing",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"stream",
+		"progressFile",
+		"examples",
+		"executionTime",
+		"examplesPosition",
+		"examplesErrors",
+		"examplesFailures",
+		"title"
+	],
+	"name" : "GtExamplesHDReport",
+	"type" : "normal"
+}

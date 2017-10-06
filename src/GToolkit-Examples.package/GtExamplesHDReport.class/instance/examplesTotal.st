@@ -1,0 +1,3 @@
+accessing
+examplesTotal
+	^ examples size
