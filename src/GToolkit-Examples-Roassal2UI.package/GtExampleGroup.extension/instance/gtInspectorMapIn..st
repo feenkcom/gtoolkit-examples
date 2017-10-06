@@ -12,7 +12,12 @@ gtInspectorMapIn: composite
 				view shape circle size: 10; fillColor: Color transparent; borderColor: Color black.
 				view nodes: assoc value.
 				view shape line color: (Color black alpha: 0.5).
-				view edges source: assoc value connectFrom: #yourself toAll: #dependenciesOrArguments.
+				view edges 
+					source: assoc value 
+					connectFrom: #yourself 
+					toAll: [ :each | 
+						self select: [:exampleWithResult | 
+							each dependenciesOrArguments anySatisfy: [ :dependency | exampleWithResult example = dependency ]]].
 				view layout dominanceTree ].
 			view edges 
 				source: self examples 

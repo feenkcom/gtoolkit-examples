@@ -2,16 +2,25 @@ ui
 gtInspectorExamplesIn: composite
 	<gtInspectorPresentationOrder: 1>
 	| examplesWithResults |
-	examplesWithResults := self examples collect: [ :each | GtExampleWithResult new example: each ].
+	examplesWithResults := self examples.
 	composite fastTable
-		title: 'Examples';
+		title: 'Examples (' , examplesWithResults size gtDisplayString , ')';
 		display: [ examplesWithResults ];
 		icon: [ :each | each icon ];
-		column: 'Status' evaluated: [ :each | each statusText ] width: 80;
-		column: 'Result' evaluated: [ :each | each resultOrErrorClassName ] width: 120;
-		"column: 'Name' evaluated: [ :each | each gtDisplayString ];"
+		"sorted: [ :a :b | a statusText < b statusText ];"
+		column: 'Status'
+			evaluated: [ :each | '' ]
+			width: 100
+			tags: [ :each | {each statusText} ]
+			sortedBy: [ :a :b | a statusText < b statusText ];
+		column: 'Result'
+			evaluated: [ :each | '' ]
+			width: 120
+			tags: [ :each | {each resultOrErrorClassName} ];
 		column: 'Selector' evaluated: [ :each | each example selector ];
-		column: 'Class' evaluated: [ :each | each example methodClass instanceSide name ];
+		column: 'Class'
+			evaluated: [ :each | '' ]
+			tags: [ :each | {each example methodClass instanceSide name} ];
 		selectionAct: [ :list | 
 			list rawSelection run.
 			list update.
@@ -23,9 +32,7 @@ gtInspectorExamplesIn: composite
 			list update ]
 			entitled: 'Debug';
 		act: [ :list | 
-			list displayValue 
-				do: [ :each | each ignoreTest ifFalse: [ each run ]] 
-				displayingProgress: 'Running examples ...'.
+			list displayValue do: [ :each | each run ] displayingProgress: 'Running examples ...'.
 			list update ]
 			on: $R
 			entitled: 'Run all';
