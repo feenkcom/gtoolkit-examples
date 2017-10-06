@@ -11,7 +11,7 @@ baseline: spec
 			package: 'GToolkit-Tests-Examples' with: [ spec requires: #('GToolkit-Examples'  'GToolkit-Examples-Extensions' 'GToolkit-Examples-Dummies') ].
 			
 		spec 
-			group: 'Core' with: #('GToolkit-Examples' );
-			group: 'UI' with: #('GToolkit-Examples-UI' 'GToolkit-Examples-Roassal2UI');
-			group: 'default' with: #('GToolkit-Examples' 'GToolkit-Examples-Extensions' 'GToolkit-Examples-UI' 'GToolkit-Tests-Examples' #'GToolkit-Examples-Dummies' 'GToolkit-Examples-Roassal2UI' ).
+			group: 'Core' with: #('GToolkit-Examples');
+			group: 'Tests' with: #('GToolkit-Examples-Dummies' 'GToolkit-Tests-Examples');
+			group: 'default' with: #('GToolkit-Examples' 'GToolkit-Examples-Extensions' 'GToolkit-Examples-UI' 'GToolkit-Tests-Examples' 'GToolkit-Examples-Dummies' 'GToolkit-Examples-Roassal2UI' ).
 	]
