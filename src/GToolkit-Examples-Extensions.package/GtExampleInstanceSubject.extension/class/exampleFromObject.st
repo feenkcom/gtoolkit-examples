@@ -1,4 +1,4 @@
 *GToolkit-Examples-Extensions
 exampleFromObject
 	<gtExample>
-	^ GTExampleInstanceSubject fromObject: Object new
+	^ GtExampleInstanceSubject fromObject: Object new

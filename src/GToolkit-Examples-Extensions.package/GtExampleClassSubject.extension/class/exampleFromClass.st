@@ -1,4 +1,4 @@
 *GToolkit-Examples-Extensions
 exampleFromClass
 	<gtExample>
-	^ GTExampleClassSubject fromClass: Magnitude
+	^ GtExampleClassSubject fromClass: Magnitude
