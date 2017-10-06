@@ -1,4 +1,4 @@
-as yet unclassified
+ui
 gtDisplayValidityOn: aStream
 	self isValid ifTrue: [ ^ self ].
 	

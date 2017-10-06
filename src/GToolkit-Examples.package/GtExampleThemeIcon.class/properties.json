@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "GtExampleIcon",
+	"category" : "GToolkit-Examples-Organization",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"selector"
+	],
+	"name" : "GtExampleThemeIcon",
+	"type" : "normal"
+}

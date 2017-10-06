@@ -1,0 +1,13 @@
+{
+	"classtraitcomposition" : "TGtExampleIcon classTrait",
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "GtExampleIcon",
+	"commentStamp" : "",
+	"super" : "GtExampleAspect",
+	"traitcomposition" : "TGtExampleIcon",
+	"type" : "normal",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"category" : "GToolkit-Examples-Organization"
+}

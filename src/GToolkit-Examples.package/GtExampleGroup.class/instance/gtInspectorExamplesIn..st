@@ -1,8 +1,8 @@
-as yet unclassified
+ui
 gtInspectorExamplesIn: composite
 	<gtInspectorPresentationOrder: 1>
 	| examplesWithResults |
-	examplesWithResults := self examples collect: [ :each | GTExampleWithResult new example: each ].
+	examplesWithResults := self examples collect: [ :each | GtExampleWithResult new example: each ].
 	composite fastTable
 		title: 'Examples';
 		display: [ examplesWithResults ];
@@ -28,6 +28,6 @@ gtInspectorExamplesIn: composite
 			on: $R
 			entitled: 'Run all';
 		send: [ :each | 
-			(each isKindOf: GTExampleWithResult)
+			(each isKindOf: GtExampleWithResult)
 				ifTrue: [ each example ]
 				ifFalse: [ each ] ]

@@ -1,0 +1,15 @@
+{
+	"commentStamp" : "",
+	"super" : "GtExampleIcon",
+	"category" : "GToolkit-Examples-Organization",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"arguments",
+		"converter",
+		"form"
+	],
+	"name" : "GtExampleFormIcon",
+	"type" : "normal"
+}

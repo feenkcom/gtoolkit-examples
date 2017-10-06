@@ -1,4 +1,4 @@
-as yet unclassified
+ui
 gtDisplayOn: aStream
 	self example gtDisplayOn: aStream. 
 	
