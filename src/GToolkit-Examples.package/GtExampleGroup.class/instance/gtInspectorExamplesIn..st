@@ -23,7 +23,9 @@ gtInspectorExamplesIn: composite
 			list update ]
 			entitled: 'Debug';
 		act: [ :list | 
-			list displayValue do: [ :each | each run ] displayingProgress: 'Running examples ...'.
+			list displayValue 
+				do: [ :each | each ignoreTest ifFalse: [ each run ]] 
+				displayingProgress: 'Running examples ...'.
 			list update ]
 			on: $R
 			entitled: 'Run all';
