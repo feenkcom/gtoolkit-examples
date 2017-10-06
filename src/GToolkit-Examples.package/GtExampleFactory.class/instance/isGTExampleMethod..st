@@ -1,3 +1,3 @@
 testing
 isGTExampleMethod: aCompiledMethod
-	^ aCompiledMethod isGtExampleMethod
+	^ aCompiledMethod isGTExampleMethod

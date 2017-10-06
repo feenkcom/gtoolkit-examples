@@ -1,6 +1,6 @@
 *GToolkit-Examples-Extensions
-gtExampleMetacelloProject
+gtExampleMetacelloBaselineProject
 	<gtExample>
 	<label: 'Metacello project'>
 	
-	^ ConfigurationOfGTExamples project
+	^ BaselineOfGToolkitExamples project

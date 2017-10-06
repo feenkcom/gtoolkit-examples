@@ -1,4 +1,4 @@
 *GToolkit-Examples-Core
-isGtExampleMethod
+isGTExampleMethod
 	^ (self pragmas anySatisfy: [ :each | each isGTExamplePragma ])
 		and: [ self numArgs = 0 ]

@@ -1,3 +1,3 @@
 *GToolkit-Examples-Core
-isGtExampleMethod
+isGTExample
 	^ false

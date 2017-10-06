@@ -11,5 +11,5 @@ dependenciesOrArguments
 				possibleExamples add: (exampleMethod methodClass superclass lookupSelector: aNode selector) ] ] ].
 	
 	^ ((possibleExamples 
-		select: [ :aMethod | aMethod isGtExampleMethod ])
+		select: [ :aMethod | aMethod isGTExampleMethod ])
 		collect: [ :aMethod | aMethod gtExample ]) asOrderedCollection
