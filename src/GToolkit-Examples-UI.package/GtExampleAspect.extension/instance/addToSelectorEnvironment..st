@@ -1,0 +1,2 @@
+*GToolkit-Examples-UI
+addToSelectorEnvironment: aSelectorEnvironment

@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "GtAbstractExampleMenu",
+	"category" : "GToolkit-Examples-UI",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "GtExampleNautilusClassMenu",
+	"type" : "normal"
+}

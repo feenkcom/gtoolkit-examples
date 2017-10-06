@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "AbstractMethodIconAction",
+	"category" : "GToolkit-Examples-UI",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [
+		"CurrentAction"
+	],
+	"instvars" : [ ],
+	"name" : "GtAbstractExampleNautilusActionButton",
+	"type" : "normal"
+}
