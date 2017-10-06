@@ -1,0 +1,2 @@
+meta-data
+description ^ 'I provide examples for testing the examples engine. The examples that I contain do not aim to test any domain object only exercise various features of the engine. That is why they are labeled "dummy".'
