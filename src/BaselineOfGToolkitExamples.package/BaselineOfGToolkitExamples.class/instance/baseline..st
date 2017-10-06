@@ -8,7 +8,7 @@ baseline: spec
 			package: 'GToolkit-Examples-UI' with: [ spec requires: #('GToolkit-Examples') ];
 			package: 'GToolkit-Examples-Roassal2UI' with: [ spec requires: #('GToolkit-Examples-UI') ];
 			package: 'GToolkit-Examples-Extensions' with: [ spec requires: #('GToolkit-Examples') ];
-			package: 'GToolkit-Tests-Examples' with: [ spec requires: #('GToolkit-Examples' . 'GToolkit-Examples-Extensions' . 'GToolkit-Examples-UI' . 'GToolkit-Examples-Roassal2UI' . 'GToolkit-Examples-Dummies') ].
+			package: 'GToolkit-Tests-Examples' with: [ spec requires: #('GToolkit-Examples'  'GToolkit-Examples-Extensions' 'GToolkit-Examples-UI' 'GToolkit-Examples-Roassal2UI'  'GToolkit-Examples-Dummies') ].
 			
 		spec 
 			group: 'Core' with: #('GToolkit-Examples' );
