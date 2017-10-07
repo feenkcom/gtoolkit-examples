@@ -4,5 +4,5 @@ handleDependencyErrorFor: anExample
 		example: anExample;
 		defined: anExample arguments;
 		expected: anExample methodArgumentNames;
-		invalid: anExample invalidArguments;
+		invalid: #();
 		yourself) signal

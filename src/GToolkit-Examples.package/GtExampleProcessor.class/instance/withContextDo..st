@@ -1,3 +1,3 @@
 private
 withContextDo: aBlock
-	GtCurrentExampleContext use: context during: aBlock
+	^ GtCurrentExampleContext use: context during: aBlock
