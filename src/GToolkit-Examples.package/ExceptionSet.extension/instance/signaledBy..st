@@ -1,11 +1,11 @@
 *GToolkit-Examples-Core
 signaledBy: anException
 	(anException isNil and: [ exceptions isEmptyOrNil not ]) ifTrue: [ 
-		^ (GTExampleExpectedExceptionNotRaised new 
+		^ (GtExampleExpectedExceptionNotRaised new 
 			expectedError: self;
 			exception: anException;
 			yourself) signal ].
 	(anException notNil and: [ (exceptions includes: anException class) not ]) ifTrue: [ 
-		^ (GTExampleUnexpectedExceptionRaised new
+		^ (GtExampleUnexpectedExceptionRaised new
 			unexpectedError: anException;
 			yourself) signal ]
