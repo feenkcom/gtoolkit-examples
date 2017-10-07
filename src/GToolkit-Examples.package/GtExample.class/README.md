@@ -4,7 +4,7 @@ I am constructed out of a method that returns an object. I hold the meta-informa
 
 I can depend on other examples, and other examples can depend on me. When I depend on another example, the code that produces me uses the result of the other example to construct me.
 
-The class for which I represent the example is called my subject.
+The class for which I represent the example is called my subject. I can have multiple subjects.
 
 The class that offers the method out of which I am constructed is the provider.
 
