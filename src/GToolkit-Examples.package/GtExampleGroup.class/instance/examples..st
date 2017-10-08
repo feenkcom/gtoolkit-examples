@@ -1,3 +1,3 @@
 accessing
 examples: aCollection
-	examples := aCollection collect: [ :each | each asOFExampleWithResult ]
+	examples := aCollection collect: [ :each | each asExampleWithResult ]
