@@ -1,5 +1,5 @@
 private
-process: anExample withArguments: aBlock
+basicProcess: anExample
 	| dependencies |
 	dependencies := self dependenciesFor: anExample.
 	(dependencies anySatisfy: [ :anotherExample | anotherExample isValid not ])
