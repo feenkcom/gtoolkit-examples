@@ -25,4 +25,4 @@ gtInspectorMapIn: composite
 				toAll: [ :each | 
 					each dependenciesOrArguments select: [ :dependent | 
 						dependent methodClass ~= each methodClass ] ] ];
-		send: [ :x | (x isKindOf: Association) ifTrue: [ self class new examples: x value ] ifFalse: [ x ] ]
+		send: [ :exampleWithResult | exampleWithResult example ]
