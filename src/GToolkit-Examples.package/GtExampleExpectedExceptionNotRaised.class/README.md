@@ -1,1 +1,0 @@
-I am an error that occurs when an example declares that a certain exception is expected to be raised, and during the evaluation that exception is not raised.

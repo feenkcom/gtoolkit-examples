@@ -7,11 +7,7 @@ dependenciesFor: anExample
 			(dependencies includes: anotherExample) ifFalse: [ 
 				dependencies add: anotherExample ] ];
 		yourself.
-	[ 
-	  traversal value.
-	  ^ dependencies 
-	] on: Error
-	  do: [ :anError | 
-		(GtExampleUnexpectedExceptionRaised new 
-			unexpectedError: anError;
-			yourself) signal  ].
+	 traversal value.
+	(dependencies anySatisfy: [ :anotherExample | anotherExample isValid not ])
+		ifTrue: [ ^ self handleDependencyErrorFor: anExample ].
+	^ dependencies

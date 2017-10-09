@@ -1,11 +1,13 @@
 {
-	"commentStamp" : "",
-	"super" : "Object",
-	"category" : "GToolkit-Examples-Dummies-Data",
-	"classinstvars" : [ ],
-	"pools" : [ ],
+	"classtraitcomposition" : "TGtExampleAssertable classTrait",
 	"classvars" : [ ],
 	"instvars" : [ ],
 	"name" : "GtAbstractDummyExamples",
-	"type" : "normal"
+	"commentStamp" : "",
+	"super" : "Object",
+	"traitcomposition" : "TGtExampleAssertable",
+	"type" : "normal",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"category" : "GToolkit-Examples-Dummies-Data"
 }

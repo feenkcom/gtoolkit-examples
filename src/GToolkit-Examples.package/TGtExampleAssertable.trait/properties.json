@@ -1,0 +1,7 @@
+{
+	"commentStamp" : "",
+	"traitcomposition" : "TAssertable",
+	"classtraitcomposition" : "TAssertable classTrait",
+	"category" : "GToolkit-Examples-Testing",
+	"name" : "TGtExampleAssertable"
+}

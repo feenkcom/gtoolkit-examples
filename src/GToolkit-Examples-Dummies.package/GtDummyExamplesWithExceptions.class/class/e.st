@@ -2,7 +2,7 @@ examples 3
 e
 	<gtExample>
 	<label: 'Dummy #e'>
-	<description: 'Dummy #e, raises an unexpected exception (AssertionFailure) since we did not a declare it'>
+	<description: 'Dummy #e, raises an exception (AssertionFailure) since we did not catch it'>
 	<noTest>
 	
-	self assert: false
+	self assert: 42 = 'fourty two'

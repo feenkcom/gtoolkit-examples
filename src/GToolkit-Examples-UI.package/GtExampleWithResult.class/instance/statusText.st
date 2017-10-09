@@ -6,5 +6,6 @@ statusText
 				ifFalse: [ self isError
 						ifTrue: [ ^ 'Error' ].
 					self isFailure
-						ifTrue: [ ^ 'Failure' ] ] ]
+						ifTrue: [ ^ 'Failure' ]
+						ifFalse: [ ^ 'Problem' ] ] ]
 		ifFalse: [ ^ 'N/A' ]

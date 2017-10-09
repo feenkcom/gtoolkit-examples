@@ -2,9 +2,6 @@ examples 2
 d
 	<gtExample>
 	<label: 'Dummy #d'>
-	<description: 'Dummy #d, raises ZeroDivide or AssertionFailure'>
-	<raises: #ZeroDivide>
-	<raises: #AssertionFailure>
+	<description: 'Dummy #d, raises AssertionFailure'>
 	
-	self assert: #( true false ) atRandom.
-	^ 1/0
+	self should: [ self assert: false ] raise: AssertionFailure

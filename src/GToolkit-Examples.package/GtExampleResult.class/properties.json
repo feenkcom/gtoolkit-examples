@@ -9,8 +9,7 @@
 		"example",
 		"context",
 		"returnValue",
-		"expectedError",
-		"unexpectedError"
+		"exception"
 	],
 	"name" : "GtExampleResult",
 	"type" : "normal"

@@ -16,7 +16,7 @@ gtInspectorExamplesIn: composite
 		column: 'Result'
 			evaluated: [ :each | '' ]
 			width: 120
-			tags: [ :each | {each resultOrErrorClassName} ];
+			tags: [ :each | {each resultOrErrorName} ];
 		column: 'Selector' evaluated: [ :each | each example selector ];
 		column: 'Class'
 			evaluated: [ :each | '' ]
@@ -32,7 +32,9 @@ gtInspectorExamplesIn: composite
 			list update ]
 			entitled: 'Debug';
 		act: [ :list | 
-			list displayValue do: [ :each | each run ] displayingProgress: 'Running examples ...'.
+			list 
+				displayValue do: [ :each | each ignoreTest ifFalse: [ each run ] ] 
+				displayingProgress: 'Running examples ...'.
 			list update ]
 			on: $R
 			entitled: 'Run all';

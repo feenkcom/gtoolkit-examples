@@ -2,9 +2,7 @@ examples 3
 h
 	<gtExample>
 	<label: 'Dummy #h'>
-	<description: 'Dummy #h, should raise an exception (by declaration) but it does not'>
-	<raises: #AssertionFailure>
-	<raises: #ZeroDivide>
+	<description: 'Dummy #h,  does not raise exception'>
 	<noTest>
 	
 	self assert: true. " no exception raised -> expected exception not raises"

@@ -1,4 +1,4 @@
 testing
 isSuccess
-	^ self unexpectedError isNil
-		and: [ self example isValid ]
+	^ self exampleException isNil
+		and: [ self example hasProblems not ]

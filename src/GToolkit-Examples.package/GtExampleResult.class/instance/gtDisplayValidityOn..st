@@ -3,5 +3,5 @@ gtDisplayValidityOn: aStream
 	self isSuccess ifTrue: [ ^ self ].
 	
 	aStream nextPutAll: ' ['.
-	self unexpectedError gtDisplayOn: aStream.
+	self exampleException gtDisplayOn: aStream.
 	aStream nextPutAll: ']'

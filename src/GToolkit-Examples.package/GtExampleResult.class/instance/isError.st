@@ -1,5 +1,5 @@
 testing
 isError
 	^ self isSuccess not
-		and: [ self isUnexpectedError
-			and: [ self unexpectedError isGTExampleError ] ]
+		and: [ self hasException
+			and: [ (self exampleException isKindOf: AssertionFailure) not ] ]

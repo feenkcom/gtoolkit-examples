@@ -3,6 +3,5 @@ a
 	<gtExample>
 	<label: 'Dummy #a'>
 	<description: 'Dummy #a, raises ZeroDivide'>
-	<raises: #ZeroDivide>
 	
-	^ 1/0
+	self should: [ 1/0 ] raise: ZeroDivide

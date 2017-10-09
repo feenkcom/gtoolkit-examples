@@ -2,7 +2,7 @@ ui
 gtDisplayOn: aStream
 	self example gtDisplayOn: aStream. 
 	
-	self unexpectedError ifNotNil: [ 
+	self exampleException ifNotNil: [ 
 		aStream nextPutAll: ' ['.
-		self unexpectedError gtDisplayOn: aStream.
+		self exampleException gtDisplayOn: aStream.
 		aStream nextPutAll: ']' ]

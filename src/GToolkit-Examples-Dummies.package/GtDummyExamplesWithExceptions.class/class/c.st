@@ -2,7 +2,6 @@ examples 1
 c
 	<gtExample>
 	<label: 'Dummy #c'>
-	<description: 'Dummy #c, raises ZeroDivide'>
-	<raises: 'ZeroDivide'>
+	<description: 'Dummy #c, does not ZeroDivide'>
 	
-	^ 1/0
+	^ self b
