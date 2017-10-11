@@ -1,7 +1,7 @@
 {
-	"commentStamp" : "AndreiChis 10/3/2017 15:50",
+	"commentStamp" : "AndreiChis 10/10/2017 23:24",
 	"super" : "Object",
-	"category" : "GToolkit-Examples-Runtime",
+	"category" : "GToolkit-Examples-Core",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],

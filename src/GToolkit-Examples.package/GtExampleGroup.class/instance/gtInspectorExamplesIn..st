@@ -1,11 +1,10 @@
 ui
 gtInspectorExamplesIn: composite
 	<gtInspectorPresentationOrder: 1>
-	| examplesWithResults |
-	examplesWithResults := self examples.
+
 	composite fastTable
-		title: 'Examples (' , examplesWithResults size gtDisplayString , ')';
-		display: [ examplesWithResults ];
+		title: 'Examples (' , self examples size gtDisplayString , ')';
+		display: [ self examples ];
 		icon: [ :each | each icon ];
 		"sorted: [ :a :b | a statusText < b statusText ];"
 		column: 'Status'

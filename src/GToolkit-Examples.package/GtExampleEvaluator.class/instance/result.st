@@ -1,7 +1,7 @@
 public
 result
 	self do: [ result := self value ] 
-		on: self signalableExceptions
+		on: GtExampleResult signalableExceptions
 		do: [ :anException | 
 			result := (self newResultFor: self example) 
 				returnValue: nil;

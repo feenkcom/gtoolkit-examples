@@ -1,11 +1,11 @@
 {
 	"commentStamp" : "",
 	"super" : "TestCase",
-	"category" : "GToolkit-Examples-Dummies-Tests",
+	"category" : "GToolkit-Tests-Examples",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [ ],
-	"name" : "GtExampleResolverTest",
+	"name" : "GtExamplesWithErrors",
 	"type" : "normal"
 }
