@@ -1,5 +1,5 @@
 *GToolkit-Examples-Core
 gtExamplesFactory
 	^ self class gtExamplesFactoryClass new
-		source: self;
+		sourceClass: self;
 		yourself

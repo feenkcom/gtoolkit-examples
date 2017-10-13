@@ -1,4 +1,4 @@
-as yet unclassified
+ui
 gtInspectorFormIn: composite
 	<gtInspectorPresentationOrder: 0>
 	self exists ifFalse: [ ^ self ].

@@ -1,3 +1,3 @@
 accessing
-source
+sourceClass
 	^ source

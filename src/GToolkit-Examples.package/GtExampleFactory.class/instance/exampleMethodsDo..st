@@ -1,9 +1,9 @@
 private
 exampleMethodsDo: aBlock
-	self source theNonMetaClass methods
+	self sourceClass theNonMetaClass methods
 		select: [ :each | self isExampleMethod: each ]
 		thenDo: aBlock.
-	self source theMetaClass methods
+	self sourceClass theMetaClass methods
 		select: [ :each | self isExampleMethod: each ]
 		thenDo: aBlock.
 		

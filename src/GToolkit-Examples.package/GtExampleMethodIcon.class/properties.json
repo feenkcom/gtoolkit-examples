@@ -1,15 +1,13 @@
 {
-	"classtraitcomposition" : "TGtExampleIcon classTrait",
+	"commentStamp" : "AndreiChis 10/13/2017 15:06",
+	"super" : "GtAbstractExampleMethod",
+	"category" : "GToolkit-Examples-Organization",
+	"classinstvars" : [ ],
+	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
 		"converter"
 	],
 	"name" : "GtExampleMethodIcon",
-	"commentStamp" : "",
-	"super" : "GtAbstractExampleMethod",
-	"traitcomposition" : "TGtExampleIcon",
-	"type" : "normal",
-	"classinstvars" : [ ],
-	"pools" : [ ],
-	"category" : "GToolkit-Examples-Organization"
+	"type" : "normal"
 }

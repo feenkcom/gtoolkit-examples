@@ -1,0 +1,1 @@
+I encapsulate an object that provides functionality for an example. Aspects are configured by using paragmas in the method defining the example.

@@ -1,5 +1,5 @@
 private
 basicForm
-	^ [ GtExampleMethodIcon 
+	^ GtExampleMethodIcon 
 		perform: self converter 
-		withArguments: self arguments ] on: Error do: [ nil ]
+		withArguments: self arguments

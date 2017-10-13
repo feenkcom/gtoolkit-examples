@@ -1,0 +1,1 @@
+I allow icons from the current theme to be as used as icons for an example. I obtain the icon from the theme.

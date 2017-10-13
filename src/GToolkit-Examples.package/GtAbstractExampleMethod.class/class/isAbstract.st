@@ -1,3 +1,3 @@
 testing
 isAbstract
-	^ self == GTAbstractExampleMethod
+	^ self == GtAbstractExampleMethod

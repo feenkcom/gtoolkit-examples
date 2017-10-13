@@ -1,4 +1,6 @@
-I represent the result of executing an example. I can be in the following four states:
+I represent the result of executing an example. 
+
+I can be in the following four states:
 - success: creating and runnign the example executed successfully;
 - failure: running the examples caused an assertion to fail, either in the actul example or in an after method;
 - error: running the example raised an exception that makes the example be considered an error, either in the actul example of in an after method;

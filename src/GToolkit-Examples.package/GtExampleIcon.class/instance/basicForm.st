@@ -1,3 +1,3 @@
 private
-basicForm
+basicForm 
 	^ self subclassResponsibility

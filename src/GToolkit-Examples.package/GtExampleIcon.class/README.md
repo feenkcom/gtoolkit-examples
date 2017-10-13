@@ -1,0 +1,1 @@
+I encapsulate an icon for an example. My subclasses should decide how the icon is constructed. I used the converters defined in ==GtExampleMethodIcon== to create the actual icon.

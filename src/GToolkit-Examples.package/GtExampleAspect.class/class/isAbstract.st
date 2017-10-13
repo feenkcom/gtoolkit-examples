@@ -1,3 +1,3 @@
 testing
 isAbstract
-	^ self == GTExampleAspect
+	^ self == GtExampleAspect

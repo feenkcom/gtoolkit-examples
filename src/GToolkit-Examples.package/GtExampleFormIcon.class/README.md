@@ -1,0 +1,1 @@
+I enable icons constructed from varios kinds of data (like byte arrays or base64 strings) to be used as icons for an example.

@@ -1,6 +1,6 @@
 private
 classResolverClass
-	^ GTExampleClassResolver new 
+	^ GtExampleClassResolver new 
 		theClassName: self theClassName;
 		meta: self meta;
 		yourself

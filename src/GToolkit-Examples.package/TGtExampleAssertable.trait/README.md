@@ -1,1 +1,1 @@
-I am a trait that 
+I am a trait that provides assertions that can used within examples.

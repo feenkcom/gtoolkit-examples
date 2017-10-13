@@ -1,0 +1,1 @@
+I encapsulate a metod that provides an icon for an example. I use the converter methods from my class side to create an icon (a Form object) from varios kinds of data, like byte array or base 64 strings.

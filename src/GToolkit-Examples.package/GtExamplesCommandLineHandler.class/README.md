@@ -1,0 +1,1 @@
+I am a command line handler for executing examples as tests. I take as input a list of packages and execute all examples defined in classes from  those packages.
