@@ -2,7 +2,7 @@
 gtInspectorRoassalIn: composite
 	<gtInspectorPresentationOrder: 1>
 	self flag: 'Temporary solution in case rossal is not present'.
-	(composite canPerform: #roassal2) ifFalse: [ ^ self ].
+	(composite class canPerform: #roassal2) ifFalse: [ ^ self ].
 	^ composite roassal2
 		title: 'Graph';
 		painting: [ :view :example | 
