@@ -1,6 +1,8 @@
 *GToolkit-Examples-Roassal2UI
 gtInspectorMapIn: composite
 	<gtInspectorPresentationOrder: 2>
+	self flag: 'Temporary solution in case rossal is not present'.
+	(composite canPerform: #roassal2) ifFalse: [ ^ self ].
 	composite roassal2
 		title: 'Map';
 		initializeView: [ RTMondrian new ];
