@@ -16,8 +16,7 @@
 		"children",
 		"properties",
 		"after",
-		"problems",
-		"extensions"
+		"problems"
 	],
 	"name" : "GtExample",
 	"type" : "normal"

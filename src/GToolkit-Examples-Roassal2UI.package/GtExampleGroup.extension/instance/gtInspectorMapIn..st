@@ -19,12 +19,12 @@ gtInspectorMapIn: composite
 					connectFrom: #yourself 
 					toAll: [ :each | 
 						self select: [:exampleWithResult | 
-							each dependenciesOrArguments anySatisfy: [ :dependency | exampleWithResult example = dependency ]]].
+							each directDependencies anySatisfy: [ :dependency | exampleWithResult example = dependency ]]].
 				view layout dominanceTree ].
 			view edges 
 				source: self examples 
 				connectFrom: #yourself
 				toAll: [ :each | 
-					each dependenciesOrArguments select: [ :dependent | 
+					each directDependencies select: [ :dependent | 
 						dependent methodClass ~= each methodClass ] ] ];
 		send: [ :exampleWithResult | exampleWithResult example ]

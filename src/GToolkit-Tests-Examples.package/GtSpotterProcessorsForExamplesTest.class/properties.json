@@ -1,7 +1,7 @@
 {
 	"commentStamp" : "",
 	"super" : "TestCase",
-	"category" : "GToolkit-Tests-Examples",
+	"category" : "GToolkit-Tests-Examples-SUnit",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],

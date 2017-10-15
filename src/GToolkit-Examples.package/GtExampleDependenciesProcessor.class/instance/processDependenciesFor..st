@@ -1,3 +1,3 @@
 private
 processDependenciesFor: anExample
-	anExample dependenciesOrArguments do: [ :each | self process: each ]
+	anExample directDependencies do: [ :each | self process: each ]

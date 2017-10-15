@@ -1,0 +1,1 @@
+I define a heuristic for determining if a given AST node represents a dependency to an example. I define only the main API. My subclasses  define concrete heuristic.

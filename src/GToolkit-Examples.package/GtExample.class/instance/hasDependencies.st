@@ -1,3 +1,3 @@
 testing
 hasDependencies
-	^ self dependenciesOrArguments notEmpty
+	^ self directDependencies notEmpty

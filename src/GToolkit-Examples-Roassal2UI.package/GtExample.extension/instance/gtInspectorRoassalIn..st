@@ -10,4 +10,4 @@ gtInspectorRoassalIn: composite
 				example: example;
 				view: view;
 				yourself) paint" ];
-		when: [ self hasDependencies or: [ self hasDependents ] ]
+		when: [ self hasDependencies ]

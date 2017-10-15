@@ -1,3 +1,0 @@
-accessing
-dependenciesOrArguments
-	^ self example dependenciesOrArguments

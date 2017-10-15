@@ -1,0 +1,3 @@
+action
+posibleExampleForNode: aMessageNode fromMethod: aCompiledMethod
+	self subclassResponsibility

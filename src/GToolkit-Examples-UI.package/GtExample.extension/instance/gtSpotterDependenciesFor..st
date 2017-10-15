@@ -4,6 +4,6 @@ gtSpotterDependenciesFor: aStep
 	self hasDependencies ifFalse: [ ^ self ].
 	aStep listProcessor
 		title: 'Example Dependencies';
-		items: [ self dependenciesOrArguments ];
+		items: [ self directDependencies ];
 		itemName: [ :example | example gtDisplayString ];
 		filter: GTFilterSubstring

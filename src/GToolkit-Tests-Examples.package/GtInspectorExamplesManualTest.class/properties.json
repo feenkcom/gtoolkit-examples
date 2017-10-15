@@ -1,7 +1,7 @@
 {
 	"commentStamp" : "StefanReichhart 4/26/2016 21:38",
 	"super" : "Object",
-	"category" : "GToolkit-Tests-Examples",
+	"category" : "GToolkit-Tests-Examples-SUnit",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
