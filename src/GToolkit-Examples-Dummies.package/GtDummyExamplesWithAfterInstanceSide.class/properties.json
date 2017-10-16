@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "GtAbstractDummyExamples",
+	"category" : "GToolkit-Examples-Dummies-Data",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"afterExecution"
+	],
+	"name" : "GtDummyExamplesWithAfterInstanceSide",
+	"type" : "normal"
+}

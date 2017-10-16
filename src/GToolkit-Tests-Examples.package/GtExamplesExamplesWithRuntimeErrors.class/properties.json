@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "AndreiChis 10/15/2017 20:50",
+	"super" : "GtExampleProvider",
+	"category" : "GToolkit-Tests-Examples",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "GtExamplesExamplesWithRuntimeErrors",
+	"type" : "normal"
+}
