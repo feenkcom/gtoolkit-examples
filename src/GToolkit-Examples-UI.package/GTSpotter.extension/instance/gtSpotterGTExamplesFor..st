@@ -1,6 +1,6 @@
 *GToolkit-Examples-UI
 gtSpotterGTExamplesFor: aStep
-	<spotterOrder: 41>
+	"<spotterOrder: 41>"
 	aStep listProcessor
 		title: 'Examples';
 		allCandidates: [ Smalltalk gtExamplesContained ];
