@@ -9,7 +9,7 @@ gtInspectorMapIn: composite
 		painting: [ :view | 
 			view interaction popupText: [ :example | example key name ].
 			view shape rectangle fillColor: Color white darker.
-			view nodes: (self examples groupedBy: #methodClass) associations forEach: [ :assoc | 
+			view nodes: (self groupedBy: #methodClass) associations forEach: [ :assoc | 
 				view interaction popupText: [ :example | example gtDisplayString ].
 				view shape circle size: 10; fillColor: Color transparent; borderColor: Color black.
 				view nodes: assoc value.
@@ -27,4 +27,4 @@ gtInspectorMapIn: composite
 				toAll: [ :each | 
 					each directDependencies select: [ :dependent | 
 						dependent methodClass ~= each methodClass ] ] ];
-		send: [ :exampleWithResult | exampleWithResult example ]
+		send: [ :exampleOrAssociation | (exampleOrAssociation isKindOf: Association) ifTrue: [ exampleOrAssociation value ] ifFalse: [exampleOrAssociation] ]
