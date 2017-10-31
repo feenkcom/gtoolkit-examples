@@ -5,6 +5,12 @@ gtInspectorExamplesIn: composite
 	composite wrapper with: [:w | 
 		w 
 			title: 'Examples (' , self examples size gtDisplayString , ')';
+			act: [ :wrapper | 
+						self examples do: [ :each | each ignoreTest ifFalse: [ each run ] ] 
+							displayingProgress: 'Running examples ...'.
+						wrapper update ]
+						on: $R
+						entitled: 'Run all';
 			show: [ :anotherComposite | 
 				anotherComposite fastTable
 					display: [ self examples ];
@@ -34,13 +40,6 @@ gtInspectorExamplesIn: composite
 						list update ]
 						on: $D
 						entitled: 'Debug';
-					act: [ :list | 
-						list 
-							displayValue do: [ :each | each ignoreTest ifFalse: [ each run ] ] 
-							displayingProgress: 'Running examples ...'.
-						list update ]
-						on: $R
-						entitled: 'Run all';
 					send: [ :each | 
 						(each isKindOf: GtExampleWithResult)
 							ifTrue: [ each example ]
