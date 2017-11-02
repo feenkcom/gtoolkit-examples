@@ -1,3 +1,3 @@
 testing
 isAbstract
-	^ self == GTExampleSubject
+	^ self == GtExampleSubject
