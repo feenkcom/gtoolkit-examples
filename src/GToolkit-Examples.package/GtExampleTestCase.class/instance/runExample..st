@@ -7,4 +7,5 @@ runExample: example
 	exampleResult isError 
 		ifTrue: [ ^ self classForTestResult signalErrorWith: exampleResult gtDisplayString  ].
 	exampleResult isFailure 
-		ifTrue: [ ^ self classForTestResult signalFailureWith: exampleResult gtDisplayString  ] 
+		ifTrue: [ ^ self classForTestResult signalFailureWith: exampleResult gtDisplayString  ].
+	^ exampleResult
