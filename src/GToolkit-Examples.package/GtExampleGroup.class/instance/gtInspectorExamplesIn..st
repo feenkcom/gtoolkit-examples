@@ -19,11 +19,19 @@ gtInspectorExamplesIn: composite
 					column: 'Result'
 						evaluated: [ :each | '' ]
 						width: 120
-						tags: [ :each | {each resultOrErrorName} ];
-					column: 'Selector' evaluated: [ :each | each example selector ];
+						tags: [ :each | {each resultOrErrorName} ]
+						sortedBy: [ :a :b | a resultOrErrorName < b resultOrErrorName ];
+					column: 'Selector' 
+						evaluated: [ :each | each example selector ];
 					column: 'Class'
 						evaluated: [ :each | '' ]
-						tags: [ :each | {each example methodClass instanceSide name} ];
+						tags: [ :each | { 
+							each example methodClass instanceSide name. 
+							each example methodProtocol } ]
+						sortedBy: [ :a :b | 
+							(a example methodClass instanceSide name 
+							<= b example methodClass instanceSide name) and: [ 
+								a example methodProtocol <= b example methodProtocol ] ];
 					selectionAct: [ :list | 
 						list rawSelection run.
 						list update.
