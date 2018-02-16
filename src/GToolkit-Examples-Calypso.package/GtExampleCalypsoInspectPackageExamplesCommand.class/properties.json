@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "GtExampleCalypsoCommand",
+	"category" : "GToolkit-Examples-Calypso",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "GtExampleCalypsoInspectPackageExamplesCommand",
+	"type" : "normal"
+}
