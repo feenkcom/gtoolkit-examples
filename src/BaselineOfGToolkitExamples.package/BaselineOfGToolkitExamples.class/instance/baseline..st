@@ -18,6 +18,6 @@ baseline: spec
 		spec 
 			group: 'Core' with: #('GToolkitExamplesEngine'  'GToolkit-Examples-Extensions');
 			group: 'Tests' with: #('GToolkitExamplesEngine' 'GToolkit-Examples-Dummies' 'GToolkit-Tests-Examples');
-			group: 'Calypso' with: #( 'default' 'GToolkit-Examples-Calypso' );
+			group: 'CalypsoExtensions' with: #( 'default' 'GToolkit-Examples-Calypso' );
 			group: 'default' with: #('GToolkitExamplesEngine' 'GToolkit-Examples-Extensions' 'GToolkit-Examples-Dummies' 'GToolkit-Tests-Examples' 'GToolkit-Examples-Roassal2UI').
 	]
