@@ -32,6 +32,8 @@ gtInspectorExamplesIn: composite
 							(a example methodClass instanceSide name 
 							<= b example methodClass instanceSide name) and: [ 
 								a example methodProtocol <= b example methodProtocol ] ];
+					enableFilter: [ :example :pattern | 
+						self matchesExampleWithResult: example withPattern: pattern ];
 					selectionAct: [ :list | 
 						list rawSelection run.
 						list update.
