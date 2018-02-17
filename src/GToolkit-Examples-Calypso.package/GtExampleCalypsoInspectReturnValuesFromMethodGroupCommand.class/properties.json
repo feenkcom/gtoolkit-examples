@@ -1,11 +1,11 @@
 {
 	"commentStamp" : "",
-	"super" : "GtExampleCalypsoCommand",
+	"super" : "GtExampleCalypsoInspectReturnValuesCommand",
 	"category" : "GToolkit-Examples-Calypso",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [ ],
-	"name" : "GtExampleCalypsoWithActivationCommand",
+	"name" : "GtExampleCalypsoInspectReturnValuesFromMethodGroupCommand",
 	"type" : "normal"
 }

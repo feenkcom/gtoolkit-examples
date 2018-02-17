@@ -1,0 +1,3 @@
+icons
+tableCellIcon
+	^ #glamorousGreenCircle asIcon

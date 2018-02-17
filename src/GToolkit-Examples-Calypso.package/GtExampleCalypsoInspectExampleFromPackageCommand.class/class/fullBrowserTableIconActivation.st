@@ -1,4 +1,4 @@
 activation
 fullBrowserTableIconActivation
 	<classAnnotation>
-	^ ClyTableIconCommandActivation priority: 1000 for: self contextClass
+	^ ClyTableIconCommandActivation priority: self tableIconPriority for: self contextClass

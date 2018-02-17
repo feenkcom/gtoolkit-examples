@@ -1,3 +1,0 @@
-icons
-tableCellIcon
-	^ #testGreen asIcon
