@@ -1,3 +1,3 @@
-activation
+accessing
 contextClass
 	^ ClyClass asCalypsoItemContext 
