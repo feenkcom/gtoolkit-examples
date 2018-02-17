@@ -2,4 +2,4 @@ activation
 fullBrowserToolbarContextActivation
 	<classAnnotation>
 	^ ClyToolbarCommandActivation
-		byItemOf: ClyButtonToolbarGroup for: ClyPackageContextOfFullBrowser
+		byItemOf: ClyButtonToolbarGroup for: RPackage asCalypsoItemContext

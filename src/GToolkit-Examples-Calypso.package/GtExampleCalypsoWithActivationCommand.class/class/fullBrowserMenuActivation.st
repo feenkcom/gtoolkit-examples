@@ -1,7 +1,7 @@
 activation
-fullBrowserMenuClassContextActivation
+fullBrowserMenuActivation
 	<classAnnotation>
 	^ CmdContextMenuCommandActivation
 		byItemOf: GtExampleCalypsoMenuGroup
 		order: self menuItemOrder
-		for: ClyClassContextOfFullBrowser
+		for: self contextClass
