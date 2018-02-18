@@ -11,7 +11,7 @@ gtInspectorExamplesIn: composite
 					display: [ self examples ];
 					icon: [ :each | each icon ];
 					"sorted: [ :a :b | a statusText < b statusText ];"
-					children: [ :each | each directDependencies collect: #asExampleWithResult ];
+					children: [ :each | self directDependenciesFor: each ];
 					column: 'Status'
 						evaluated: [ :each | '' ]
 						width: 100
