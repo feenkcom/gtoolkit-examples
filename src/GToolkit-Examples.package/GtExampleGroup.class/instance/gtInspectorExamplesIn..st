@@ -7,10 +7,11 @@ gtInspectorExamplesIn: composite
 			title: 'Examples (' , self examples size gtDisplayString , ')';
 			addAction: self newRunAllAction;
 			show: [ :anotherComposite | 
-				anotherComposite fastTable
+				anotherComposite fastTreeTable
 					display: [ self examples ];
 					icon: [ :each | each icon ];
 					"sorted: [ :a :b | a statusText < b statusText ];"
+					children: [ :each | each directDependencies collect: #asExampleWithResult ];
 					column: 'Status'
 						evaluated: [ :each | '' ]
 						width: 100
