@@ -1,3 +1,5 @@
 execution
 executeOnExampleGroup: aGtExampleGroup 
-	aGtExampleGroup inspect
+	Sensor shiftPressed 
+		ifFalse: [ self inspectExamplesOnExampleGroup: aGtExampleGroup ] 
+		ifTrue: [ self inspectReturnValuesOnExampleGroup: aGtExampleGroup ]
