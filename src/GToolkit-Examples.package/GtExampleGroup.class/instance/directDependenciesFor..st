@@ -8,4 +8,4 @@ directDependenciesFor: aGtExampleWithResult
 				(eachGtExampleWithResult methodClass = eachGtExample methodClass)
 					and: [ eachGtExampleWithResult selector = eachGtExample selector ] ]
 			ifFound: [ :eachGtExampleWithResult | eachGtExampleWithResult ]
-			ifNone: [ eachGtExample ] ].
+			ifNone: [ eachGtExample asExampleWithResult ] ].
