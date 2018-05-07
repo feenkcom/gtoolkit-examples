@@ -1,0 +1,72 @@
+!ExamplesExamples combine testing with documentation.!!Exemplifying examples
+
+Let us imagine that we want to explain how to create a file with some contents. To store this example, we create a unary method:
+
+[[[epicea=01-createFileOnDisk.ombu]]]
+Applying the above changes leads to the following method.
+[[[example=GtExamplesTutorial>>#createFileInMemory]]]
+You can take a closer look at it in the code browser:[[[
+	GtExamplesTutorial browse.]]]
+The only special thing about the unary method is the Pragma ==<gtExample>== which converts any regular method into a ==GtExample==. The name of the method can be arbitrary.
+
+A ==GtExample== might be annotated with additional and optional meta-information like ==#label:== (a title or very short description), ==#description:== (a long description explaining the intention of the example) or ==#icon:==. These are useful for tooling purposes.
+
+[[[epicea=02-createFileOnDisk.ombu]]]
+Once we have an example, we can execute it both as a plain method to get the result:[[[	GtExamplesTutorial new createFileInMemory inspect]]]or as an example: [[[	(GtExamplesTutorial>>#createFileInMemory) gtExample run returnValue inspect]]]In both cases, we get the returned object.
+!!Example dependencies
+
+As examples return objects, we can use those objects to compose other objects that in their turn can also constitute examples. To support this, examples may be chained to form trees (or even graphs) of depending examples.
+
+Let's look at our example. There are at least three interesting objects in one single method:
+- [A] the file reference
+- [B] the string contents
+- [C] the file name
+
+If we want to decompose them, we can use dependencies:
+
+[[[epicea=03-fileContents-fileReference.ombu]]]
+
+In the example above, the example [A] depends on the examples [B] and [C]. The dependencies can also be navigated visually:
+
+[[[example=GtExamplesTutorial>>#createFileInMemory]]]
+
+!!Cleaning up after using an example
+
+In the current scenario, the file is created in memory. But, what would happen if the examples would create it on disk? Let's create one to explore the situation:
+
+[[[epicea=04-fileOnDisk.ombu]]]
+
+[[[
+	(GtExamplesTutorial>>#createFileOnDisk) gtExample run returnValue inspect
+]]]
+
+At first sight, we got the same result. However, one issue with our current scenario is the side effect of leaving that file reside on disk. In this situation we would like to cleanup such artifacts after running an example. We can do that with the declaration of a so called after-method.
+
+[[[epicea=05-afterFileOnDisk.ombu]]]
+
+[[[example=GtExamplesTutorial>>#createFileOnDisk]]]
+
+The after-method is a unary method that gets executed after the examples got executed. In our case, we wanted the after method to delete the newly created file. To this end, we stored lazily the file in an instance variable, and then simply delete it in the after method. When we perform the example from above, no file is left on the disk after the example finished running.
+
+After-methods are similar to tearDown-methods in xUnit, however there are subtle and important differences:
+- The after-method is dedicated (but not exclusive) to a single example while tearDown (in most xUnits) is a global implementation covering multiple test-cases at once.
+- When multiple examples are chained, each declaring an after-method, multiple after-methods will be performed, in the same order as their corresponding examples.
+- Since each example intends to focus on a (fine-grained) object and/or behaviour, so does its after-method, only “tearing-down” the subject of the example.
+
+!!Assertions
+
+Examples, like tests, provide a way to encode and check assumptions, too. Welcome assertions:
+
+[[[epicea=06-fileOnDiskAssertions.ombu]]]
+
+[[[example=GtExamplesTutorial>>#createFileOnDisk]]]
+
+Failing assertions are being treated as unexpected exceptions and will result in a failing example (invalid).
+
+Stepping back, we can express everything that we can express with regular xUnit tests:
+- setUp: We can define shared example objects by using dependencies.
+- assertions: We can write assertions in each example.
+- tearDown: We can define behavior to cleanup after the example execution (like tearDown).
+
+But, with examples, we can go beyond what is typically possible with xUnit. As we have only example as a concept, we can write assertions even in "setup" examples or in after methods. Furthermore, we have a way to reuse code at multiple levels, not just two (i.e., setup/test). All in all, besides fulfilling the role of documentation, examples also offer an alternative for testing.
+
