@@ -12,7 +12,7 @@ The only special thing about the unary method is the Pragma ==<gtExample>== whic
 A ==GtExample== might be annotated with additional and optional meta-information like ==#label:== (a title or very short description), ==#description:== (a long description explaining the intention of the example) or ==#icon:==. These are useful for tooling purposes.
 
 [[[epicea=02-createFileOnDisk.ombu]]]
-Once we have an example, we can execute it both as a plain method to get the result:[[[	GtExamplesTutorial new createFileInMemory inspect]]]or as an example: [[[	(GtExamplesTutorial>>#createFileInMemory) gtExample run returnValue inspect]]]In both cases, we get the returned object.
+Once we have an example, we can execute it both as a plain method to get the result:[[[	GtExamplesTutorial new createFileInMemory]]]or as an example: [[[	(GtExamplesTutorial>>#createFileInMemory) gtExample run returnValue]]]In both cases, we get the returned object.
 !!Example dependencies
 
 As examples return objects, we can use those objects to compose other objects that in their turn can also constitute examples. To support this, examples may be chained to form trees (or even graphs) of depending examples.
@@ -37,7 +37,7 @@ In the current scenario, the file is created in memory. But, what would happen i
 [[[epicea=04-fileOnDisk.ombu]]]
 
 [[[
-	(GtExamplesTutorial>>#createFileOnDisk) gtExample run returnValue inspect
+	(GtExamplesTutorial>>#createFileOnDisk) gtExample run returnValue
 ]]]
 
 At first sight, we got the same result. However, one issue with our current scenario is the side effect of leaving that file reside on disk. In this situation we would like to cleanup such artifacts after running an example. We can do that with the declaration of a so called after-method.
