@@ -28,11 +28,10 @@ If we want to decompose them, we can use dependencies:
 
 In the example above, the example [A] depends on the examples [B] and [C]. The dependencies can also be navigated visually:
 
-[[[example=GtExamplesTutorial>>#createFileInMemory]]]
-
+[[[example=GtExamplesTutorial>>#createFileInMemory]]][[[	GtExampleGroup new examples: GtExamplesTutorial gtExamples]]]
 !!Cleaning up after using an example
 
-In the current scenario, the file is created in memory. But, what would happen if the examples would create it on disk? Let's create one to explore the situation:
+In the current scenario, the file is created in memory. But, what would happen if the example would create the file on disk? Let's create such an example to explore the situation:
 
 [[[epicea=04-fileOnDisk.ombu]]]
 
@@ -60,7 +59,7 @@ Examples, like tests, provide a way to encode and check assumptions, too. Welcom
 [[[epicea=06-fileOnDiskAssertions.ombu]]]
 
 [[[example=GtExamplesTutorial>>#createFileOnDisk]]]
-
+[[[	GtExampleGroup new examples: GtExamplesTutorial gtExamples]]]
 Failing assertions are being treated as unexpected exceptions and will result in a failing example (invalid).
 
 Stepping back, we can express everything that we can express with regular xUnit tests:
@@ -70,3 +69,4 @@ Stepping back, we can express everything that we can express with regular xUnit 
 
 But, with examples, we can go beyond what is typically possible with xUnit. As we have only example as a concept, we can write assertions even in "setup" examples or in after methods. Furthermore, we have a way to reuse code at multiple levels, not just two (i.e., setup/test). All in all, besides fulfilling the role of documentation, examples also offer an alternative for testing.
 
+!!Examples as documentationLet us consider a more complicated set of examples from Bloc:[[[	GtExampleGroup new examples: BrToggleExamples gtExamples]]][[[height=500	GtDocumenter editorForText: BrToggleExamples comment ]]]
