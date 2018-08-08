@@ -1,7 +1,7 @@
 {
 	"commentStamp" : "AndreiChis 10/13/2017 18:05",
 	"super" : "AbstractMethodIconAction",
-	"category" : "GToolkit-Examples-UI",
+	"category" : "GToolkit-Examples-UI-Nautilus",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [
