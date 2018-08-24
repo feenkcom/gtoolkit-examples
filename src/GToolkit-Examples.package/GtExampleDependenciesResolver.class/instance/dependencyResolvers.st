@@ -1,3 +1,0 @@
-accessing
-dependencyResolvers
-	^ resolvers

@@ -1,6 +1,0 @@
-*GToolkit-Examples-Extensions
-gtExampleMethod
-	<gtExample>
-	<label: 'RMethodDefinition'>
-	
-	^ (GTInspector class >> #gtInspectorExtensionsIn:) asRingDefinition

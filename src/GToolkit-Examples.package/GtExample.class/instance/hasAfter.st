@@ -1,3 +1,0 @@
-testing
-hasAfter
-	^ after notNil

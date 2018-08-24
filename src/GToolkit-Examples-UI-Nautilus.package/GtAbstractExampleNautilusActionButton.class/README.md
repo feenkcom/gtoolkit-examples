@@ -1,1 +1,0 @@
-I add a method icon in Nautilus for exampe methods, that can be used to run the example. The actual action to be executed is defined by my subclass.

@@ -1,1 +1,0 @@
-I add a single button for running the example. If the example is not a success I run a second time the example in debug mode so that a debugger will be available. If the example is a success I open an inspector on the result value.

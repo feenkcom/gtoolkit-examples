@@ -1,1 +1,0 @@
-I create a class aspect based on the name of a class. I am used by an example when the name of the class is indicated through a pragma.

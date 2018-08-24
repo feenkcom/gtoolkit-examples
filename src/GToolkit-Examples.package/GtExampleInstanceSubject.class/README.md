@@ -1,1 +1,0 @@
-I indicate that the subject of an example is an object. I am the default subject of an example. Other kinds of subjects should be used to inducate a particular type of object like a class or method.

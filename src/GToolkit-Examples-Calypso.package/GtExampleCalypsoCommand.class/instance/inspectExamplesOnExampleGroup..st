@@ -1,3 +1,0 @@
-private
-inspectExamplesOnExampleGroup: aGtExampleGroup 
-	aGtExampleGroup inspect

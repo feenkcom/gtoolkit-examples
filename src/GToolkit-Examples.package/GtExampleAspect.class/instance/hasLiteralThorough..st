@@ -1,3 +1,0 @@
-testing
-hasLiteralThorough: aLiteral
-	^ false

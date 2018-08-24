@@ -1,1 +1,0 @@
-I detect if a self send is a dependency to an example.

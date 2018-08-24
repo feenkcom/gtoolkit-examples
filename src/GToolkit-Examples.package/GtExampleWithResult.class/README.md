@@ -1,1 +1,0 @@
-I am example that further stores the result of evaluating the example.

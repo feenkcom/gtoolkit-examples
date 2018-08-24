@@ -1,3 +1,0 @@
-config
-gtExamplesSubjects
-	^ { Object. Array }

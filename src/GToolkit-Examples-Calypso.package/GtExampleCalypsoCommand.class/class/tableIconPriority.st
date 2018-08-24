@@ -1,3 +1,0 @@
-accessing
-tableIconPriority
-	^ 500

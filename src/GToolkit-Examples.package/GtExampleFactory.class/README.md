@@ -1,6 +1,0 @@
-I am a factory that can create ==GtExample== instances. 
-
-Users should configure me with a #sourceClass:. This is the class used to look for methods defining examples. To create an example, a method defining an example is executed having a provider as a receiver. If the example method is defined on the class side, the provider is the class object. If the method is defined on the instance side,  the provider consists in a new instance of that class. In the second case, a new instance is created for running each example method. Optionally users can configure the factory with an explicit provider. If this is done, this provider will be used for all examples created by the factory.
-
-To initialize the subjects of an example I call #gtExampleSubjects on the provider object.
-To initialize various properties of an example I detect all pragmas from the example method for which a method exists in class of the example (the method should have the same name as the pragma keyword). Then I execute those methods with the example as a receiver and the pragma arguments.

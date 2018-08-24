@@ -1,3 +1,0 @@
-accessing
-gtExampleContext
-	^ GtCurrentExampleContext value 

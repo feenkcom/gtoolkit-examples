@@ -1,3 +1,0 @@
-accessing
-examplesTotal
-	^ examples size

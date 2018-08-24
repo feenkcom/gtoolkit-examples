@@ -1,1 +1,0 @@
-I define a series of methods for navigating and browsing examples and their dependencies. 

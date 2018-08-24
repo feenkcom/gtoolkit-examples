@@ -1,1 +1,0 @@
-I create a method aspect based on the name of the selector and the name of its class. I am used by an example when the name of the class and the selector are indicated through a pragma.

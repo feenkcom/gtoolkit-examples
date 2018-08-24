@@ -1,1 +1,0 @@
-I model a dynamic variable to keep track of the example that is being processed right now. I am particurly useful to allow after methods to utilize information from this context.

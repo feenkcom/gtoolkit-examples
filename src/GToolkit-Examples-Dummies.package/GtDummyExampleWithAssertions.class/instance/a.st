@@ -1,4 +1,0 @@
-examples
-a
-	<gtExample>
-	^ true

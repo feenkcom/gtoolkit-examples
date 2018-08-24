@@ -1,1 +1,0 @@
-I am an error that occurs when an example declares a dependency to a method belonging to a class that does not exist in the image.

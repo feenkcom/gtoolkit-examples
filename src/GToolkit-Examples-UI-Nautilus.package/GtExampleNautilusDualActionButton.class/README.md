@@ -1,1 +1,0 @@
-I am work in progress for showing next to the method an widget with multiple actions.

@@ -1,9 +1,0 @@
-*GToolkit-Examples-Extensions
-gtExampleKeymapFOO
-	<gtExample>
-	<label: 'Keymap: FOO'>
-	
-	^ self 
-		named: #Foo
-		shortcut: $F asKeyCombination, $O asKeyCombination, $O asKeyCombination
-		action: [ ]

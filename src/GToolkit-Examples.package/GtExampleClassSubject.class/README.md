@@ -1,1 +1,0 @@
-I describe a class subject of an example.
