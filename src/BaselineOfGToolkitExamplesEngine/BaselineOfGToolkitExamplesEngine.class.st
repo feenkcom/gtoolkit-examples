@@ -1,21 +1,20 @@
 "
 This baseline is used to load the core of the GToolkit Examples project, together with a basic minimal interface. The 'Core' group can be used to avoid loading the user interface at all.
 
-Depends on:
-- has no dependencies
-
-Load type: 
-- linear
-
-Installs:
-- GToolkit-Examples
-- GToolkit-Examples-UI
+Packages:
+${example:name=BaselineOfGToolkitExamplesEngine class>>#itself|show=gtPackagesFor:|expandedPreview=|noCode=}$
 "
 Class {
 	#name : #BaselineOfGToolkitExamplesEngine,
 	#superclass : #BaselineOf,
-	#category : 'BaselineOfGToolkitExamplesEngine'
+	#category : #BaselineOfGToolkitExamplesEngine
 }
+
+{ #category : #accessing }
+BaselineOfGToolkitExamplesEngine class >> itself [
+	<gtExample>
+	^ self
+]
 
 { #category : #baseline }
 BaselineOfGToolkitExamplesEngine >> baseline: spec [
