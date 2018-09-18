@@ -4,6 +4,7 @@ This baseline loads the complete GToolkit Examples project. This includes the ba
 Learn about example-driven development by following the introductory tutorial:
 ${inputFile:path=pharo-local/iceberg/feenkcom/gtoolkit-examples/doc/tutorial/examples-tutorial.pillar}$
 
+Included projects:
 ${example:name=BaselineOfGToolkitExamples class>>#itself|show=#gtProjectsFor:|noCode=}$
 
 "
