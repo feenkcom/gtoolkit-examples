@@ -77,7 +77,9 @@ GtExampleCalypsoCommand >> inspectReturnValuesOnExampleGroup: aGtExampleGroup [
 			results at: eachExampleWithResult put: eachExampleWithResult example returnValue ]
 		displayingProgress: [ :examples | 
 			'Processing ' , aGtExampleGroup examples size asString , ' examples ...' ].
-	results inspect.
+	results size = 1
+		ifTrue: [ results anyOne inspect ]
+		ifFalse: [ results inspect ]
 ]
 
 { #category : #private }
@@ -95,5 +97,5 @@ GtExampleCalypsoCommand >> prepareFullExecutionInContext: aToolContext [
 
 { #category : #icons }
 GtExampleCalypsoCommand >> tableCellIcon [
-	^ #glamorousGreenCircle asIcon
+	^ self iconNamed: #glamorousGreenCircle
 ]
