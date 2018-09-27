@@ -162,7 +162,8 @@ GtExampleGroup >> newRunAllAction [
 							displayingProgress: 'Running examples ...'.
 						wrapper update ]; 
 				shortcut: $R; 
-				showTitle: 'Run all';
+				title: 'Run all';
+				showTitle;
 				iconName: #testGreen;
 				yourself
 ]
