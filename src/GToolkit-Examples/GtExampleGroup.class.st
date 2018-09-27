@@ -163,6 +163,7 @@ GtExampleGroup >> newRunAllAction [
 						wrapper update ]; 
 				shortcut: $R; 
 				title: 'Run all';
+				showTitle;
 				iconName: #testGreen;
 				yourself
 ]
