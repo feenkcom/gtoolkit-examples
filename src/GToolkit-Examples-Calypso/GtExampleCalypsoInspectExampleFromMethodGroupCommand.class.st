@@ -9,12 +9,6 @@ GtExampleCalypsoInspectExampleFromMethodGroupCommand class >> contextClass [
 	^ ClyMethodGroup asCalypsoItemContext
 ]
 
-{ #category : #activation }
-GtExampleCalypsoInspectExampleFromMethodGroupCommand class >> fullBrowserTableIconActivation [
-	<classAnnotation>
-	^ ClyTableIconCommandActivation priority: self tableIconPriority for: self contextClass
-]
-
 { #category : #private }
 GtExampleCalypsoInspectExampleFromMethodGroupCommand >> gtExamplesFrom: each [
 	^ each actualObject methods flatCollect: #gtExamplesContained

@@ -7,13 +7,6 @@ Class {
 	#category : 'GToolkit-Examples-Calypso'
 }
 
-{ #category : #testing }
-GtExampleCalypsoCommand class >> canBeExecutedInContext: aToolContext [
-	^ (super canBeExecutedInContext: aToolContext) and: [ 
-		aToolContext selectedItems anySatisfy: [ :each | 
-			each hasProperty: GtExampleProperty ] ]
-]
-
 { #category : #accessing }
 GtExampleCalypsoCommand class >> contextClass [
 	^ self subclassResponsibility

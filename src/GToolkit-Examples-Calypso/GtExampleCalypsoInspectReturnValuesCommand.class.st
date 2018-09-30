@@ -20,6 +20,11 @@ GtExampleCalypsoInspectReturnValuesCommand class >> fullBrowserShortcutActivatio
 	^ CmdShortcutCommandActivation by: $e meta , $v meta for: self contextClass
 ]
 
+{ #category : #testing }
+GtExampleCalypsoInspectReturnValuesCommand class >> isAbstract [
+	^ self name = #GtExampleCalypsoInspectReturnValuesCommand 
+]
+
 { #category : #accessing }
 GtExampleCalypsoInspectReturnValuesCommand class >> menuItemOrder [
 	^ 2

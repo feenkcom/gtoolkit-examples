@@ -4,9 +4,15 @@ Class {
 	#category : 'GToolkit-Examples-Calypso'
 }
 
+{ #category : #activation }
+GtExampleCalypsoInspectExamplesCommand class >> browserTabActivation [
+	<classAnnotation>
+	^ ClyBrowserTabCommandActivation for: self contextClass 
+]
+
 { #category : #accessing }
 GtExampleCalypsoInspectExamplesCommand class >> defaultMenuIconName [
-	^ #glamorousInspect
+	^ #glamorousGreenCircle
 ]
 
 { #category : #accessing }
@@ -18,6 +24,11 @@ GtExampleCalypsoInspectExamplesCommand class >> defaultMenuItemName [
 GtExampleCalypsoInspectExamplesCommand class >> fullBrowserShortcutActivation [
 	<classAnnotation>
 	^ CmdShortcutCommandActivation by: $e meta , $i meta for: self contextClass
+]
+
+{ #category : #testing }
+GtExampleCalypsoInspectExamplesCommand class >> isAbstract [
+	^ self name = #GtExampleCalypsoInspectExamplesCommand 
 ]
 
 { #category : #accessing }
