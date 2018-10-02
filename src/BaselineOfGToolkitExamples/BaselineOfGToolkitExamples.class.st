@@ -1,10 +1,9 @@
 "
-This baseline loads the complete GToolkit Examples project. This includes the basic engine (see ${class:BaselineOfGToolkitExamples}$ for specifying examples, the tests,  the available user interface components, as well as the defined examples.
-
+This baseline loads the complete GToolkit Examples project. This includes the basic engine (see ${class:BaselineOfGToolkitExamplesEngine}$ for specifying examples, the tests,  the available user interface components, as well as the defined examples.
 
 !!Learn
 Learn about example-driven development by following the introductory tutorial:
-${inputFile:path=pharo-local/iceberg/feenkcom/gtoolkit-examples/doc/tutorial/examples-tutorial.pillar}$
+${icebergFile:path=feenkcom/gtoolkit-examples/doc/tutorial/examples-tutorial.pillar}$
 
 !!Included projects
 ${example:name=BaselineOfGToolkitExamples class>>#itself|show=#gtProjectsFor:|noCode=}$
