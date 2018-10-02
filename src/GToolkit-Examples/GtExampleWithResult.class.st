@@ -130,7 +130,8 @@ GtExampleWithResult >> resultOrErrorName [
 
 { #category : #public }
 GtExampleWithResult >> run [
-	^ self result: self example run
+	self result: self example run.
+	^ self result.
 ]
 
 { #category : #accessing }

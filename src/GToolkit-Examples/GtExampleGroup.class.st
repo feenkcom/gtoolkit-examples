@@ -168,6 +168,16 @@ GtExampleGroup >> newRunAllAction [
 				yourself
 ]
 
+{ #category : #'accessing - dynamic' }
+GtExampleGroup >> results [
+	^ self collect: #run
+]
+
+{ #category : #'accessing - dynamic' }
+GtExampleGroup >> returnValues [
+	^ self results collect: #returnValue
+]
+
 { #category : #enumerating }
 GtExampleGroup >> select: aBlock [
 	^ self class new examples: (self examples select: aBlock)
