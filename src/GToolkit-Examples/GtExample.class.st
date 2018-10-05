@@ -417,7 +417,7 @@ GtExample >> propertyAt: aKey put: aValue [
 { #category : #'accessing-dynamic' }
 GtExample >> provider [
 	^ self methodClass isMeta
-		ifTrue: [ self methodClass theNonMetaClass ]
+		ifTrue: [ self methodClass instanceSide ]
 		ifFalse: [ self methodClass instanceSide new ]
 ]
 

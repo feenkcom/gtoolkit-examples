@@ -80,7 +80,7 @@ GtExampleCalypsoCommand >> inspectReturnValuesOnExampleGroup: aGtExampleGroup [
 	results := Dictionary new.
 	aGtExampleGroup examples 
 		do: [ :eachExampleWithResult | 
-			eachExampleWithResult run.
+			eachExampleWithResult debug.
 			results at: eachExampleWithResult put: eachExampleWithResult example returnValue ]
 		displayingProgress: [ :examples | 
 			'Processing ' , aGtExampleGroup examples size asString , ' examples ...' ].
