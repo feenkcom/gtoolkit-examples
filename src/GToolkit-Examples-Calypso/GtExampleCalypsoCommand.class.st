@@ -7,6 +7,12 @@ Class {
 	#category : 'GToolkit-Examples-Calypso'
 }
 
+{ #category : #testing }
+GtExampleCalypsoCommand class >> canBeExecutedInContext: aToolContext [
+
+	^aToolContext selectedItems	anySatisfy: [ :each | each hasProperty: GtExampleCalypsoExampleProperty ]
+]
+
 { #category : #accessing }
 GtExampleCalypsoCommand class >> contextClass [
 	^ self subclassResponsibility
@@ -15,10 +21,18 @@ GtExampleCalypsoCommand class >> contextClass [
 { #category : #activation }
 GtExampleCalypsoCommand class >> fullBrowserMenuActivation [
 	<classAnnotation>
-	^ CmdContextMenuCommandActivation
+	
+	^ CmdContextMenuActivation
 		byItemOf: GtExampleCalypsoMenuGroup
 		order: self menuItemOrder
 		for: self contextClass
+]
+
+{ #category : #activation }
+GtExampleCalypsoCommand class >> fullBrowserTableIconActivation [
+	<classAnnotation>
+	
+	^ ClyTableIconCommandActivation priority: 1000 for: self contextClass
 ]
 
 { #category : #accessing }
