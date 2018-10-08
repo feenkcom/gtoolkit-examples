@@ -15,21 +15,6 @@ GtToolkitExamplesTests >> tearDown [
 ]
 
 { #category : #tests }
-GtToolkitExamplesTests >> testExamplesDebugger [
-	self runExampleContainers: (self packages: { 'GT-Debugger*' })
-]
-
-{ #category : #tests }
-GtToolkitExamplesTests >> testExamplesInspector [
-	self runExampleContainers: (self packages: { 'GT-Inspector*' })
-]
-
-{ #category : #tests }
-GtToolkitExamplesTests >> testExamplesPlayground [
-	self runExampleContainers: (self packages: { 'GT-Playground*' })
-]
-
-{ #category : #tests }
-GtToolkitExamplesTests >> testExamplesSpotter [
-	self runExampleContainers: (self packages: { 'GT-Spotter*' })
+GtToolkitExamplesTests >> testAllExamples [
+	self runExampleContainers: (self packages: { 'GToolkit-*' })
 ]
