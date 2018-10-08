@@ -12,7 +12,7 @@ GtExampleCalypsoInspectExamplesCommand class >> browserTabActivation [
 
 { #category : #accessing }
 GtExampleCalypsoInspectExamplesCommand class >> defaultMenuIconName [
-	^ #glamorousGreenCircle
+	^ #glamorousPlay
 ]
 
 { #category : #accessing }

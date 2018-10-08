@@ -91,5 +91,5 @@ GtExampleCalypsoCommand >> prepareFullExecutionInContext: aToolContext [
 
 { #category : #icons }
 GtExampleCalypsoCommand >> tableCellIcon [
-	^ self iconNamed: #glamorousGreenCircle
+	^ self iconNamed: #glamorousPlay
 ]
