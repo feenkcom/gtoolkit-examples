@@ -8,7 +8,7 @@ FileSystem class >> gtExampleZip [
 	| zipFile zip |
 	zipFile := FileSystem memory workingDirectory / 'test.zip'.
 	zip := (FileSystem zip: zipFile) open.
-	zip / 'sample.txt'
-		binaryWriteStreamDo: [ :stream | stream nextPutAll: self comment ].
-	^ zip
+"	zip / 'sample.txt'
+		writeStreamDo: [ :stream | stream nextPutAll: self comment ].
+"	^ zip
 ]
