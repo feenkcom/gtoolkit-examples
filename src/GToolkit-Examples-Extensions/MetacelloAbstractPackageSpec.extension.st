@@ -1,9 +1,8 @@
 Extension { #name : #MetacelloAbstractPackageSpec }
 
 { #category : #'*GToolkit-Examples-Extensions' }
-MetacelloAbstractPackageSpec class >> gtExampleGroupSpec [
+MetacelloAbstractPackageSpec class >> gtExamplePackageReference [
 	<gtExample>
-	<label: 'Metacello package reference'>
 	
-	^ BaselineOfGToolkitExamples project versions first groups first
+	^ BaselineOfGToolkitExamples project versions first packages first
 ]

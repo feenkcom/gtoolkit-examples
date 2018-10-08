@@ -5,5 +5,5 @@ MetacelloProjectReferenceSpec class >> gtExampleProjectReferenceSpec [
 	<gtExample>
 	<label: 'Metacello project reference'>
 	
-	^ (ConfigurationOfGTInspectorCore project version: #development) projects anyOne
+	^ BaselineOfGToolkitExamples project version projects anyOne
 ]
