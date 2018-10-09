@@ -16,5 +16,6 @@ GtToolkitExamplesTests >> tearDown [
 
 { #category : #tests }
 GtToolkitExamplesTests >> testAllExamples [
+	self timeLimit: 15 minutes.
 	self runExampleContainers: (self packages: { 'GToolkit-*' })
 ]
