@@ -43,3 +43,9 @@ FileReference class >> gtExampleText [
 			stream nextPutAll: self comment ];
 		yourself
 ]
+
+{ #category : #'*GToolkit-Examples-Extensions' }
+FileReference class >> gtExampleWorkingDirectory [
+	<gtExample>
+	^ FileSystem workingDirectory
+]
