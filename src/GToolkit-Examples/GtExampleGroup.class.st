@@ -29,6 +29,11 @@ GtExampleGroup >> collect: aBlockClosure [
 ]
 
 { #category : #enumerating }
+GtExampleGroup >> detect: aBlockClosure [ 
+	^ self examples detect: aBlockClosure 
+]
+
+{ #category : #enumerating }
 GtExampleGroup >> directDependenciesFor: aGtExampleWithResult [
 	| dependencies |
 	dependencies := aGtExampleWithResult directDependencies.
