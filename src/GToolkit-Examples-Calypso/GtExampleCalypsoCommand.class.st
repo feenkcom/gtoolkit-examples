@@ -42,7 +42,7 @@ GtExampleCalypsoCommand >> execute [
 			[ :each | "The property does not work as the collection is not updated on system changes." "(each getProperty: GtExampleProperty) examples" self gtExamplesFrom: each ].
 	examples
 		ifNotEmpty:
-			[ self executeOnExampleGroup: (GtExampleGroup new examples: examples) ]
+			[ self executeOnExampleGroup: (GtExampleGroup withAll: examples) ]
 		ifEmpty: [ self notifyNoExamples ]
 ]
 

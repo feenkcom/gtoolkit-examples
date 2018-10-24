@@ -6,10 +6,7 @@ I am particularly useful for manipulating multiple examples at the same time, ty
 Class {
 	#name : #GtExampleGroup,
 	#superclass : #Object,
-	#instVars : [
-		'examples'
-	],
-	#category : 'GToolkit-Examples-Core'
+	#category : #'GToolkit-Examples-Core'
 }
 
 { #category : #examples }
@@ -20,7 +17,7 @@ GtExampleGroup class >> gtExampleEmptyGroup [
 
 { #category : #'instance creation' }
 GtExampleGroup class >> withAll: aCollection [
-	^ self new examples: aCollection
+	^ GtExplicitExampleGroup new examples: aCollection
 ]
 
 { #category : #enumerating }
@@ -53,12 +50,7 @@ GtExampleGroup >> do: aBlock [
 
 { #category : #accessing }
 GtExampleGroup >> examples [
-	^ examples
-]
-
-{ #category : #accessing }
-GtExampleGroup >> examples: aCollection [
-	examples := aCollection collect: [ :each | each asExampleWithResult ]
+	^ self subclassResponsibility
 ]
 
 { #category : #enumerating }
@@ -142,12 +134,6 @@ GtExampleGroup >> ifEmpty: aBlockClosure [
 	^ self examples ifEmpty: aBlockClosure 
 ]
 
-{ #category : #initialization }
-GtExampleGroup >> initialize [
-	super initialize.
-	examples := #().
-]
-
 { #category : #testing }
 GtExampleGroup >> isCollection [
 	^ true
@@ -175,20 +161,15 @@ GtExampleGroup >> newRunAllAction [
 
 { #category : #'accessing - dynamic' }
 GtExampleGroup >> results [
-	^ self collect: #run
+	^ self collect:  [:example | example run]
 ]
 
 { #category : #'accessing - dynamic' }
 GtExampleGroup >> returnValues [
-	^ self results collect: #returnValue
+	^ self results collect: [:result | result returnValue]
 ]
 
 { #category : #enumerating }
 GtExampleGroup >> select: aBlock [
 	^ self class new examples: (self examples select: aBlock)
-]
-
-{ #category : #accessing }
-GtExampleGroup >> size [
-	^ examples size
 ]
