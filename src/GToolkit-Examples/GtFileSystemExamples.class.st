@@ -35,6 +35,14 @@ GtFileSystemExamples >> addFileNamed: fileNameString withContent: aString [
 		withContent: aString
 ]
 
+{ #category : #'as yet unclassified' }
+GtFileSystemExamples >> addPillarFileWithContent: aString [
+	^ self 
+		addFileNamed: self pillarFileName 
+		toDirectory: self rootDirectory 
+		withContent: aString
+]
+
 { #category : #'file system' }
 GtFileSystemExamples >> basicMemorySystem [
 	<gtExample>
@@ -44,6 +52,20 @@ GtFileSystemExamples >> basicMemorySystem [
 		"Only root '/' should be present"
 		self assert: memory root allChildren size equals: 1 ].
 	^ memory
+]
+
+{ #category : #'as yet unclassified' }
+GtFileSystemExamples >> pillarFileName [
+	<gtExample>
+	<label: 'Pillar filename'>
+	^ 'index.pillar'
+]
+
+{ #category : #'as yet unclassified' }
+GtFileSystemExamples >> pillarFileReference [
+	<gtExample>
+	<label: 'FileReference with a Pillar content'>
+	^ (self rootDirectory / self pillarFileName)
 ]
 
 { #category : #'file system' }
