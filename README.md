@@ -15,7 +15,7 @@ Metacello new
    load.
 ```
 
-## To load Calypso extensions
+### How to load Calypso extensions
 
 [Calypso](https://github.com/dionisiydk/Calypso) is a system browser for [Pharo](http://pharo.org).
 
