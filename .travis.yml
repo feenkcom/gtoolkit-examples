@@ -12,3 +12,7 @@ smalltalk:
 branches:
   only:
     - master
+
+smalltalk_edge:
+  source: chisandrei/smalltalkCI
+  branch: master
