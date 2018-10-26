@@ -7,6 +7,12 @@ Class {
 	#category : #'GToolkit-Examples-Core'
 }
 
+{ #category : #examples }
+GtExplicitExampleGroup class >> gtExampleExplicitEmptyGroup [
+	<gtExample>
+	^ self new examples: #()
+]
+
 { #category : #accessing }
 GtExplicitExampleGroup >> examples [
 	^ examples

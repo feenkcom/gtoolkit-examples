@@ -9,12 +9,6 @@ Class {
 	#category : #'GToolkit-Examples-Core'
 }
 
-{ #category : #examples }
-GtExampleGroup class >> gtExampleEmptyGroup [
-	<gtExample>
-	^ self new examples: #()
-]
-
 { #category : #'instance creation' }
 GtExampleGroup class >> withAll: aCollection [
 	^ GtExplicitExampleGroup new examples: aCollection
