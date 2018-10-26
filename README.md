@@ -1,4 +1,4 @@
-# GT Examples
+# GT Examples [![Build Status](https://travis-ci.com/feenkcom/gtoolkit-examples.svg?branch=master)](https://travis-ci.com/feenkcom/gtoolkit-examples)
 
 Examples is a slim engine that lets you define examples throughout the code and use them for documentation or testing. Through Examples, a developer can switch rapidly from the static code to a live environment and program in the presence of objects. In essence, it enables example-driven development. It is part of the [Glamorous Toolkit project](https://github.com/feenkcom/gtoolkit).
 
