@@ -1,0 +1,17 @@
+SmalltalkCISpec {
+  #loading : [
+    SCIMetacelloLoadSpec {
+      #baseline : 'GToolkit',
+      #directory : 'src',
+      #platforms : [ #pharo ]
+    }
+  ],
+
+  #testing : {
+    #include : {
+      #packages : [ 'GToolkit-Examples.*' ]
+    },
+    #failOnZeroTests : true,
+    #hidePassingTests : false
+  }
+}
