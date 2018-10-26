@@ -14,5 +14,5 @@ branches:
     - master
 
 smalltalk_edge:
-  source: chisandrei/smalltalkCI
+  source: feenk/smalltalkCI
   branch: master
