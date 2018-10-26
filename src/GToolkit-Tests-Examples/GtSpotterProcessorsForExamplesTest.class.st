@@ -1,7 +1,7 @@
 Class {
 	#name : #GtSpotterProcessorsForExamplesTest,
 	#superclass : #TestCase,
-	#category : 'GToolkit-Tests-Examples-SUnit'
+	#category : #'GToolkit-Tests-Examples-SUnit'
 }
 
 { #category : #running }

@@ -4,7 +4,7 @@ I provide examples for ==GtExample== instances that have an after method.
 Class {
 	#name : #GtExamplesExamplesWithAfter,
 	#superclass : #GtExampleProvider,
-	#category : 'GToolkit-Tests-Examples'
+	#category : #'GToolkit-Tests-Examples'
 }
 
 { #category : #asserting }

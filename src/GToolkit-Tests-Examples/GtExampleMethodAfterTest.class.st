@@ -1,7 +1,7 @@
 Class {
 	#name : #GtExampleMethodAfterTest,
 	#superclass : #TestCase,
-	#category : 'GToolkit-Tests-Examples'
+	#category : #'GToolkit-Tests-Examples'
 }
 
 { #category : #utils }
@@ -30,20 +30,14 @@ GtExampleMethodAfterTest >> assert: aGTExampleMethod class: aClass className: aN
 { #category : #tests }
 GtExampleMethodAfterTest >> testFromClassNamedSelector [
 	| exampleMethod |
-	exampleMethod := GtExampleMethodAfter fromClassNamed: #GtExampleMethodAfter selector: #gtSpotterGTExamplesFor:.
-	self assert: exampleMethod class: GtExampleMethodAfter className: #GtExampleMethodAfter meta: false selector: #gtSpotterGTExamplesFor:.
-	
-	exampleMethod := GtExampleMethodAfter fromClassNamed: 'GtExampleMethodAfter' selector: #gtSpotterGTExamplesFor:.
-	self assert: exampleMethod class: GtExampleMethodAfter className: #GtExampleMethodAfter meta: false selector: #gtSpotterGTExamplesFor:.
-	
-	exampleMethod := GtExampleMethodAfter fromClassNamed: #GtExampleMethodAfter selector: #gtSpotterGTExamplesFor:.
-	self assert: exampleMethod class: GtExampleMethodAfter className: 'GtExampleMethodAfter' meta: false selector: #gtSpotterGTExamplesFor:.
+	exampleMethod := GtExampleMethodAfter fromClassNamed: #GtExampleMethodAfterTest selector: #testFromClassSelector.
+	self assert: exampleMethod class: GtExampleMethodAfterTest className: #GtExampleMethodAfterTest meta: false selector: #testFromClassSelector.
 ]
 
 { #category : #tests }
 GtExampleMethodAfterTest >> testFromClassSelector [
 	| exampleMethod |
-	exampleMethod := GtExampleMethodAfter fromClass: GtExampleMethodAfter selector: #gtSpotterGTExamplesFor:.
-	self assert: exampleMethod class: GtExampleMethodAfter className: #GtExampleMethodAfter meta: false selector: #gtSpotterGTExamplesFor:.
-	self assert: exampleMethod class: GtExampleMethodAfter className: 'GtExampleMethodAfter' meta: false selector: #gtSpotterGTExamplesFor:.
+	exampleMethod := GtExampleMethodAfter fromClass: GtExampleMethodAfterTest selector: #testFromClassSelector.
+	self assert: exampleMethod class: GtExampleMethodAfterTest className: #GtExampleMethodAfterTest meta: false selector: #testFromClassSelector.
+	self assert: exampleMethod class: GtExampleMethodAfterTest className: 'GtExampleMethodAfterTest' meta: false selector: #testFromClassSelector.
 ]

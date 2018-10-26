@@ -1,7 +1,7 @@
 Class {
 	#name : #GtToolkitExamplesTests,
 	#superclass : #GtExampleTestCase,
-	#category : 'GToolkit-Tests-Examples-SUnit'
+	#category : #'GToolkit-Tests-Examples-SUnit'
 }
 
 { #category : #running }

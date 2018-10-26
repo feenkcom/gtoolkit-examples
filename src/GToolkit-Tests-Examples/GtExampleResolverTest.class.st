@@ -1,7 +1,7 @@
 Class {
 	#name : #GtExampleResolverTest,
 	#superclass : #TestCase,
-	#category : 'GToolkit-Tests-Examples'
+	#category : #'GToolkit-Tests-Examples'
 }
 
 { #category : #asserting }

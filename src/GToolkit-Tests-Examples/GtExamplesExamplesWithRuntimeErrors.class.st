@@ -4,7 +4,7 @@ I provide examples for ==GtExample== instances that raise errors when the exampl
 Class {
 	#name : #GtExamplesExamplesWithRuntimeErrors,
 	#superclass : #GtExampleProvider,
-	#category : 'GToolkit-Tests-Examples'
+	#category : #'GToolkit-Tests-Examples'
 }
 
 { #category : #asserting }

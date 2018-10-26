@@ -4,7 +4,7 @@ I provide examples for ==GtExample== instances that define various kinds of depe
 Class {
 	#name : #GtExamplesExamplesWithDependencies,
 	#superclass : #GtExampleProvider,
-	#category : 'GToolkit-Tests-Examples'
+	#category : #'GToolkit-Tests-Examples'
 }
 
 { #category : #asserting }

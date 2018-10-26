@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'pragmas'
 	],
-	#category : 'GToolkit-Tests-Examples-SUnit'
+	#category : #'GToolkit-Tests-Examples-SUnit'
 }
 
 { #category : #running }

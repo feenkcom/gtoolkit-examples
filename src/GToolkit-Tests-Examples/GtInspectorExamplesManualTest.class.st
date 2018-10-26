@@ -15,7 +15,7 @@ Class {
 		'allTestedClasses',
 		'allUntestedClasses'
 	],
-	#category : 'GToolkit-Tests-Examples-SUnit'
+	#category : #'GToolkit-Tests-Examples-SUnit'
 }
 
 { #category : #public }
