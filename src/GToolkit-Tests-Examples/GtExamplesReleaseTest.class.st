@@ -1,8 +1,13 @@
 Class {
 	#name : #GtExamplesReleaseTest,
-	#superclass : #TestCase,
+	#superclass : #Object,
 	#category : #'GToolkit-Tests-Examples-SUnit'
 }
+
+{ #category : #deprecation }
+GtExamplesReleaseTest class >> isDeprecated [
+	^true
+]
 
 { #category : #private }
 GtExamplesReleaseTest >> assertIncludesPackages: includedPackageNames excludedPackages: excludedPackageNames ignoredClasses: ignoredClasses pragmas: pragmas examples: examples description: aString [

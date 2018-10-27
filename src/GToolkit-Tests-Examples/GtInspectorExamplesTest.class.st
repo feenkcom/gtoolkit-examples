@@ -1,11 +1,16 @@
 Class {
 	#name : #GtInspectorExamplesTest,
-	#superclass : #TestCase,
+	#superclass : #Object,
 	#instVars : [
 		'pragmas'
 	],
 	#category : #'GToolkit-Tests-Examples-SUnit'
 }
+
+{ #category : #deprecation }
+GtInspectorExamplesTest class >> isDeprecated [
+	^true
+]
 
 { #category : #running }
 GtInspectorExamplesTest >> allExamples [

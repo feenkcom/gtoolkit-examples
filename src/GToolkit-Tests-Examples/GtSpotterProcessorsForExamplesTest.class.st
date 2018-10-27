@@ -1,8 +1,13 @@
 Class {
 	#name : #GtSpotterProcessorsForExamplesTest,
-	#superclass : #TestCase,
+	#superclass : #Object,
 	#category : #'GToolkit-Tests-Examples-SUnit'
 }
+
+{ #category : #deprecation }
+GtSpotterProcessorsForExamplesTest class >> isDeprecated [
+	^true
+]
 
 { #category : #running }
 GtSpotterProcessorsForExamplesTest >> setUp [
