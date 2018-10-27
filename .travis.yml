@@ -10,7 +10,7 @@ smalltalk:
   - Pharo64-7.0
   
 smalltalk_config:
-  - .engine.ston
+  - .engine.smalltalk.ston
   - .smalltalk.ston
 
 branches:
