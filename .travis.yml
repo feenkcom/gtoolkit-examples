@@ -8,6 +8,10 @@ os:
 smalltalk:
   - Pharo-7.0
   - Pharo64-7.0
+  
+smalltalk_config:
+  - .engine.ston
+  - .smalltalk.ston
 
 branches:
   only:
