@@ -65,6 +65,12 @@ GtExampleWithResult >> gtInspectorSourceIn: composite [
 	self example gtInspectorSourceIn: composite
 ]
 
+{ #category : #ui }
+GtExampleWithResult >> gtSourceFor: aView [
+	<gtView>
+	^ self example gtSourceFor: aView
+]
+
 { #category : #testing }
 GtExampleWithResult >> hasResult [
 	^ result notNil
