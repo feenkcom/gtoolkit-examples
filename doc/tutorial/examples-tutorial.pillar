@@ -5,7 +5,7 @@ Let us imagine that we want to explain how to create a file with some contents. 
 ${changes:01-createFileOnDisk.ombu}$
 Applying the above changes leads to the following method.
 ${example:GtExamplesTutorial>>#createFileInMemory}$
-You can take a closer look at it in the code browser:[[[
+You can take a closer look at it in the code browser:${class:name=GtExamplesTutorial}$[[[
 	GtExamplesTutorial browse.]]]
 The only special thing about the unary method is the Pragma ==<gtExample>== which converts any regular method into a ==GtExample==. The name of the method can be arbitrary.
 
