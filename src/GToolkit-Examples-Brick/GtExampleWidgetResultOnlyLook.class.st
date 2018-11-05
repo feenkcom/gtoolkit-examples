@@ -1,0 +1,53 @@
+Class {
+	#name : #GtExampleWidgetResultOnlyLook,
+	#superclass : #GtExampleWidgetLook,
+	#instVars : [
+		'resultStencilBuilder'
+	],
+	#category : #'GToolkit-Examples-Brick-Look'
+}
+
+{ #category : #initialization }
+GtExampleWidgetResultOnlyLook >> initialize [
+	super initialize.
+	
+	resultStencilBuilder := GtExampleWidgetResultStencilBuilder new
+]
+
+{ #category : #initialization }
+GtExampleWidgetResultOnlyLook >> initializeListeners [
+	super initializeListeners.
+
+	self when: GtExampleWidgetResultStencilChanged do: [ :anEvent | self resultStencil: anEvent stencil ]
+]
+
+{ #category : #initialization }
+GtExampleWidgetResultOnlyLook >> initializeRequests [
+	super initializeRequests.
+
+	self request: GtExampleWidgetResultStencilRequest new
+]
+
+{ #category : #accessing }
+GtExampleWidgetResultOnlyLook >> resultStencil: aResultStencil [
+	self
+		assert: [ aResultStencil isNotNil ]
+		description: [ 'Result stencil must not be nil' ].
+	
+	resultStencilBuilder := aResultStencil asStencilBuilder: GtExampleWidgetResultStencilBuilder.
+	self widgetDo: [ self updateWidget ]
+]
+
+{ #category : #updating }
+GtExampleWidgetResultOnlyLook >> updateWidget [
+	| aWidgetContent aResultElement |
+	
+	aWidgetContent := self widgetContent.
+	aWidgetContent removeChildren.
+	
+	self hasExample
+		ifFalse: [ ^ self ].
+
+	aResultElement := (resultStencilBuilder example: self example) asElement.
+	aWidgetContent addChild: aResultElement
+]
