@@ -38,7 +38,7 @@ BaselineOfGToolkitExamplesEngine >> baseline: spec [
 { #category : #accessing }
 BaselineOfGToolkitExamplesEngine >> customProjectAttributes [
 	^ Smalltalk globals 
-		at: #ClyBrowser 
+		at: #ClyBrowserMorph 
 		ifPresent: [ #( #Calypso ) ]
 		ifAbsent: [ #() ]
 ]
