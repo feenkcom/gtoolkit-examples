@@ -1,6 +1,6 @@
 Class {
 	#name : #GtExampleWidgetResultOnlyLook,
-	#superclass : #GtExampleWidgetLook,
+	#superclass : #BrEntailmentLook,
 	#instVars : [
 		'resultStencilBuilder'
 	],
@@ -11,21 +11,21 @@ Class {
 GtExampleWidgetResultOnlyLook >> initialize [
 	super initialize.
 	
-	resultStencilBuilder := GtExampleWidgetResultStencilBuilder new
+	resultStencilBuilder := [ BlElement new ]
 ]
 
 { #category : #initialization }
 GtExampleWidgetResultOnlyLook >> initializeListeners [
 	super initializeListeners.
 
-	self when: GtExampleWidgetResultStencilChanged do: [ :anEvent | self resultStencil: anEvent stencil ]
+	self when: BrEntailmentConclusionChanged do: [ :anEvent | self resultStencil: anEvent stencil ]
 ]
 
 { #category : #initialization }
 GtExampleWidgetResultOnlyLook >> initializeRequests [
 	super initializeRequests.
 
-	self request: GtExampleWidgetResultStencilRequest new
+	self request: BrEntailmentConclusionRequest new
 ]
 
 { #category : #accessing }
@@ -34,7 +34,7 @@ GtExampleWidgetResultOnlyLook >> resultStencil: aResultStencil [
 		assert: [ aResultStencil isNotNil ]
 		description: [ 'Result stencil must not be nil' ].
 	
-	resultStencilBuilder := aResultStencil asStencilBuilder: GtExampleWidgetResultStencilBuilder.
+	resultStencilBuilder := aResultStencil asStencil.
 	self widgetDo: [ self updateWidget ]
 ]
 

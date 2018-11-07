@@ -1,6 +1,6 @@
 Class {
 	#name : #GtExampleWidgetExampleOnlyLook,
-	#superclass : #GtExampleWidgetLook,
+	#superclass : #BrEntailmentLook,
 	#instVars : [
 		'exampleStencilBuilder'
 	],
@@ -13,7 +13,7 @@ GtExampleWidgetExampleOnlyLook >> exampleStencil: anExampleStencil [
 		assert: [ anExampleStencil isNotNil ]
 		description: [ 'Example stencil must not be nil' ].
 
-	exampleStencilBuilder := anExampleStencil asStencilBuilder: GtExampleWidgetStencilBuilder.
+	exampleStencilBuilder := anExampleStencil asStencil.
 	self widgetDo: [ self updateWidget ]
 ]
 
@@ -21,21 +21,21 @@ GtExampleWidgetExampleOnlyLook >> exampleStencil: anExampleStencil [
 GtExampleWidgetExampleOnlyLook >> initialize [
 	super initialize.
 	
-	exampleStencilBuilder := GtExampleWidgetStencilBuilder new
+	exampleStencilBuilder := [ BlElement new ] asStencil
 ]
 
 { #category : #initialization }
 GtExampleWidgetExampleOnlyLook >> initializeListeners [
 	super initializeListeners.
 	
-	self when: GtExampleWidgetExampleStencilChanged do: [ :anEvent | self exampleStencil: anEvent stencil ].
+	self when: BrEntailmentPremiseChanged do: [ :anEvent | self exampleStencil: anEvent stencil ].
 ]
 
 { #category : #initialization }
 GtExampleWidgetExampleOnlyLook >> initializeRequests [
 	super initializeRequests.
 	
-	self request: GtExampleWidgetExampleStencilRequest new
+	self request: BrEntailmentPremiseRequest new
 ]
 
 { #category : #updating }

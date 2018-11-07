@@ -1,5 +1,5 @@
 Class {
 	#name : #GtExampleWidgetExampleWithResultLook,
-	#superclass : #GtExampleWidgetLook,
+	#superclass : #BrEntailmentLook,
 	#category : #'GToolkit-Examples-Brick-Look'
 }
