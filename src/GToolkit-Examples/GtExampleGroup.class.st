@@ -6,12 +6,25 @@ I am particularly useful for manipulating multiple examples at the same time, ty
 Class {
 	#name : #GtExampleGroup,
 	#superclass : #Object,
+	#instVars : [
+		'announcer'
+	],
 	#category : #'GToolkit-Examples-Core'
 }
 
 { #category : #'instance creation' }
 GtExampleGroup class >> withAll: aCollection [
 	^ GtExplicitExampleGroup new examples: aCollection
+]
+
+{ #category : #accessing }
+GtExampleGroup >> announcer [
+	^ announcer
+]
+
+{ #category : #accessing }
+GtExampleGroup >> announcer: anObject [
+	announcer := anObject
 ]
 
 { #category : #enumerating }
@@ -126,6 +139,12 @@ GtExampleGroup >> gtInspectorExamplesIn: composite [
 { #category : #testing }
 GtExampleGroup >> ifEmpty: aBlockClosure [ 
 	^ self examples ifEmpty: aBlockClosure 
+]
+
+{ #category : #initialization }
+GtExampleGroup >> initialize [
+	super initialize.
+	announcer := Announcer new
 ]
 
 { #category : #testing }

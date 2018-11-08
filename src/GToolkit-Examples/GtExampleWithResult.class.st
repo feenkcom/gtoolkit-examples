@@ -104,6 +104,11 @@ GtExampleWithResult >> isSuccess [
 ]
 
 { #category : #accessing }
+GtExampleWithResult >> method [
+	^ self example method
+]
+
+{ #category : #accessing }
 GtExampleWithResult >> methodClass [
 	^ self example methodClass
 ]
