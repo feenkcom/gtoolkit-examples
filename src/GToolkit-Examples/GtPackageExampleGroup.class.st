@@ -2,7 +2,8 @@ Class {
 	#name : #GtPackageExampleGroup,
 	#superclass : #GtDynamicExampleGroup,
 	#instVars : [
-		'examplePackage'
+		'examplePackage',
+		'examples'
 	],
 	#category : #'GToolkit-Examples-Core'
 }
@@ -14,10 +15,11 @@ GtPackageExampleGroup >> examplePackage [
 
 { #category : #accessing }
 GtPackageExampleGroup >> examplePackage: anObject [
-	examplePackage := anObject
+	examplePackage := anObject.
+	examples := examplePackage gtExamplesContained collect: [ :each | each asExampleWithResult ]
 ]
 
 { #category : #accessing }
 GtPackageExampleGroup >> examples [
-	^ examplePackage gtExamplesContained 
+	^ examples
 ]
