@@ -8,7 +8,7 @@ Class {
 	#category : #'GToolkit-Examples-Utilities'
 }
 
-{ #category : #utility }
+{ #category : #'utility - basic' }
 GtFileSystemExamples >> addFileNamed: fileNameString toDirectory: rootDirectory withContent: aContent [
 	| rootDocument |
 	aContent isString 
@@ -27,7 +27,7 @@ GtFileSystemExamples >> addFileNamed: fileNameString toDirectory: rootDirectory 
 	^ rootDocument
 ]
 
-{ #category : #utility }
+{ #category : #'utility - basic' }
 GtFileSystemExamples >> addFileNamed: fileNameString withContent: aString [
 	^ self 
 		addFileNamed: fileNameString 
@@ -35,7 +35,7 @@ GtFileSystemExamples >> addFileNamed: fileNameString withContent: aString [
 		withContent: aString
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'utility - pillar file' }
 GtFileSystemExamples >> addPillarFileWithContent: aString [
 	^ self 
 		addFileNamed: self pillarFileName 
@@ -54,14 +54,14 @@ GtFileSystemExamples >> basicMemorySystem [
 	^ memory
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'utility - pillar file' }
 GtFileSystemExamples >> pillarFileName [
 	<gtExample>
 	<label: 'Pillar filename'>
 	^ 'index.pillar'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'utility - pillar file' }
 GtFileSystemExamples >> pillarFileReference [
 	<gtExample>
 	<label: 'FileReference with a Pillar content'>
