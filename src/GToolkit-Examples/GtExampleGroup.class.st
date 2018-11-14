@@ -33,6 +33,11 @@ GtExampleGroup >> collect: aBlockClosure [
 ]
 
 { #category : #enumerating }
+GtExampleGroup >> count: aBlockClosure [ 
+	^ self examples count: aBlockClosure
+]
+
+{ #category : #enumerating }
 GtExampleGroup >> detect: aBlockClosure [ 
 	^ self examples detect: aBlockClosure 
 ]
@@ -87,7 +92,7 @@ GtExampleGroup >> gtInspectorExamplesIn: composite [
 
 	composite wrapper with: [:w | 
 		w 
-			title: 'Examples (' , self examples size gtDisplayString , ')';
+			title: 'Examples (' , self numberOfExamples gtDisplayString , ')';
 			addAction: self newRunAllAction;
 			show: [ :anotherComposite | 
 				anotherComposite fastTreeTable
@@ -169,6 +174,16 @@ GtExampleGroup >> newRunAllAction [
 				showTitle;
 				iconName: #testGreen;
 				yourself
+]
+
+{ #category : #accessing }
+GtExampleGroup >> numberOfExamples [
+	^ self examples size
+]
+
+{ #category : #accessing }
+GtExampleGroup >> numberOfFailingExamples [
+	^ self count: #isFailure
 ]
 
 { #category : #'accessing - dynamic' }
