@@ -162,8 +162,7 @@ GtExampleGroup >> matchesExampleWithResult: aGtExampleWithResult withPattern: pa
 GtExampleGroup >> newRunAllAction [
 	^ GLMGenericAction new
 				action: [ :wrapper | 
-						self examples do: [ :each | each ignoreTest ifFalse: [ each run ] ] 
-							displayingProgress: 'Running examples ...'.
+						self runAll.
 						wrapper update ]; 
 				shortcut: $R; 
 				title: 'Run all';
@@ -180,6 +179,13 @@ GtExampleGroup >> results [
 { #category : #'accessing - dynamic' }
 GtExampleGroup >> returnValues [
 	^ self results collect: [:result | result returnValue]
+]
+
+{ #category : #'accessing - dynamic' }
+GtExampleGroup >> runAll [
+	self examples 
+		do: [ :each | each ignoreTest ifFalse: [ each run ] ] 
+		displayingProgress: 'Running examples ...'.
 ]
 
 { #category : #enumerating }
