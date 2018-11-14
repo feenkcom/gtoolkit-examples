@@ -177,13 +177,23 @@ GtExampleGroup >> newRunAllAction [
 ]
 
 { #category : #accessing }
+GtExampleGroup >> numberOfErrors [
+	^ self count: #isError
+]
+
+{ #category : #accessing }
 GtExampleGroup >> numberOfExamples [
 	^ self examples size
 ]
 
 { #category : #accessing }
-GtExampleGroup >> numberOfFailingExamples [
+GtExampleGroup >> numberOfFailures [
 	^ self count: #isFailure
+]
+
+{ #category : #accessing }
+GtExampleGroup >> numberOfFailuresAndErrors [
+	^ self count: [ :eachExample | eachExample isFailure or: [ eachExample isError ] ]
 ]
 
 { #category : #'accessing - dynamic' }
