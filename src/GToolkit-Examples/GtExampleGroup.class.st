@@ -196,6 +196,11 @@ GtExampleGroup >> numberOfFailuresAndErrors [
 	^ self count: [ :eachExample | eachExample isFailure or: [ eachExample isError ] ]
 ]
 
+{ #category : #accessing }
+GtExampleGroup >> numberOfSuccesses [
+	^ self count: [ :eachExample | eachExample isSuccess ]
+]
+
 { #category : #'accessing - dynamic' }
 GtExampleGroup >> results [
 	^ self collect:  [:example | example run]
