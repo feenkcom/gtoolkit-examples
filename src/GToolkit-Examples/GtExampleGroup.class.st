@@ -197,6 +197,11 @@ GtExampleGroup >> numberOfFailuresAndErrors [
 ]
 
 { #category : #accessing }
+GtExampleGroup >> numberOfResults [
+	^ self count: [ :eachExample | eachExample hasResult ]
+]
+
+{ #category : #accessing }
 GtExampleGroup >> numberOfSuccesses [
 	^ self count: [ :eachExample | eachExample isSuccess ]
 ]
