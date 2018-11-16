@@ -6,7 +6,7 @@ Learn about example-driven development by following the introductory tutorial:
 ${icebergFile:path=feenkcom/gtoolkit-examples/doc/tutorial/examples-tutorial.pillar}$
 
 !!Included projects
-${example:name=BaselineOfGToolkitExamples class>>#itself|show=#gtProjectsFor:|noCode=}$
+${example:name=BaselineOfGToolkitExamples class>>#itself|previewShow=#gtProjectsFor:|noCode=}$
 
 "
 Class {
