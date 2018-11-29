@@ -22,23 +22,6 @@ BaselineOfGToolkitExamplesEngine >> baseline: spec [
 	spec for: #common do: [ 
 		spec
 			package: 'GToolkit-Examples';
-			package: 'GToolkit-Examples-UI' with: [ spec requires: #('GToolkit-Examples') ].			
-	].
-	spec for: #'pharo6.x' do: [ 
-		spec
-			package: 'GToolkit-Examples-UI-Nautilus'.			
-	].
-
-	spec for: #Calypso do: [ 
-			spec package: 'GToolkit-Examples-Calypso' with: [ spec 
-				requires: #( 'GToolkit-Examples' ) ].
-		]
-]
-
-{ #category : #accessing }
-BaselineOfGToolkitExamplesEngine >> customProjectAttributes [
-	^ Smalltalk globals 
-		at: #ClyBrowserMorph 
-		ifPresent: [ #( #Calypso ) ]
-		ifAbsent: [ #() ]
+			package: 'GToolkit-Examples-UI' with: [ spec requires: #('GToolkit-Examples') ];
+			package: 'GToolkit-Examples-Calypso' with: [ spec requires: #( 'GToolkit-Examples' ) ]. ].
 ]
