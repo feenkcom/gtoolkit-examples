@@ -21,15 +21,17 @@ BaselineOfGToolkitExamples class >> itself [
 { #category : #baseline }
 BaselineOfGToolkitExamples >> baseline: spec [
 	<baseline>
-	spec for: #common do: [ 
-		spec baseline: 'GToolkitExamplesEngine' with: [ spec 
-				repository: 'github://feenkcom/gtoolkit-examples/src' ].
-		spec
-			package: 'GToolkit-Examples-Dummies' with: [ spec requires: #( 'GToolkitExamplesEngine' ) ];
-			package: 'GToolkit-Examples-Roassal2UI' with: [ spec requires: #( 'GToolkitExamplesEngine' ) ];
-			package: 'GToolkit-Examples-Extensions' with: [ spec requires: #( 'GToolkitExamplesEngine' ) ];
-			package: 'GToolkit-Tests-Examples' with: [ 
-				spec requires: #( 'GToolkitExamplesEngine' 'GToolkit-Examples-Extensions' 'GToolkit-Examples-Dummies' ) ].
-	]
+	spec for: #'common' do: [
+		spec baseline: 'GToolkitExamplesEngine' with: [
+				spec repository: 'github://feenkcom/gtoolkit-examples/src' ].
+		spec 
+			package: 'GToolkit-Examples-Dummies' with: [
+				spec requires: #('GToolkitExamplesEngine' ). ];
+			package: 'GToolkit-Examples-Roassal2UI' with: [
+				spec requires: #('GToolkitExamplesEngine' ). ];
+			package: 'GToolkit-Examples-Extensions' with: [
+				spec requires: #('GToolkitExamplesEngine' ). ];
+			package: 'GToolkit-Tests-Examples' with: [
+				spec requires: #('GToolkitExamplesEngine' 'GToolkit-Examples-Extensions' 'GToolkit-Examples-Dummies' ). ]. ].
 
 ]
