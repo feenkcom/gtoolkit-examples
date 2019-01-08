@@ -2,8 +2,9 @@ Class {
 	#name : #GtFileSystemExamples,
 	#superclass : #Object,
 	#instVars : [
-		'memory',
-		'rootDirectoryName'
+		'rootDirectoryName',
+		'fileSystem',
+		'fileSystemRootDirectory'
 	],
 	#category : #'GToolkit-Examples-Utilities'
 }
@@ -47,11 +48,26 @@ GtFileSystemExamples >> addPillarFileWithContent: aString [
 GtFileSystemExamples >> basicMemorySystem [
 	<gtExample>
 	<label: 'Basic Memory File System'>
-	memory ifNil: [
-		 memory := FileSystem memory.
+	fileSystem ifNil: [
+		 fileSystem := FileSystem memory.
 		"Only root '/' should be present"
-		self assert: memory root allChildren size equals: 1 ].
-	^ memory
+		self assert: fileSystem root allChildren size equals: 1 ].
+	^ fileSystem
+]
+
+{ #category : #'file system' }
+GtFileSystemExamples >> fileSystemRootDirectory [
+	<gtExample>
+	fileSystemRootDirectory ifNil: [ 
+		fileSystemRootDirectory := self basicMemorySystem workingDirectory.
+		self assert: fileSystemRootDirectory exists ].
+	^ fileSystemRootDirectory
+]
+
+{ #category : #initialization }
+GtFileSystemExamples >> initializeUsingPhysicalDisk [
+	fileSystem := FileSystem disk.
+	fileSystemRootDirectory := FileReference newTempFilePrefix: self className suffix: 'Directory'.
 ]
 
 { #category : #'utility - pillar file' }
@@ -73,8 +89,8 @@ GtFileSystemExamples >> rootDirectory [
 	<gtExample>
 	<label: 'Working directory of a memory file system'>
 	^ rootDirectoryName 
-		ifNil: [ self basicMemorySystem workingDirectory ]
-		ifNotNil: [ (self basicMemorySystem workingDirectory / rootDirectoryName)
+		ifNil: [ self fileSystemRootDirectory ]
+		ifNotNil: [ (self fileSystemRootDirectory / rootDirectoryName)
 			ensureCreateDirectory ]
 ]
 
