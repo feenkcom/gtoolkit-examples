@@ -17,7 +17,7 @@ FileReference class >> gtExampleDirectory [
 FileReference class >> gtExampleGif [
 	<gtExample>
 	^ (FileSystem memory workingDirectory / 'pharoicon.gif')
-		binaryWriteStreamDo: [ :stream | 
+		writeStreamDo: [ :stream | 
 			GIFReadWriter
 				putForm: (Smalltalk ui icons iconNamed: #pharoIcon)
 				onStream: stream ];
@@ -28,7 +28,7 @@ FileReference class >> gtExampleGif [
 FileReference class >> gtExamplePng [
 	<gtExample>
 	^ (FileSystem memory workingDirectory / 'pharoicon.png')
-		binaryWriteStreamDo: [ :stream | 
+		writeStreamDo: [ :stream | 
 			PNGReadWriter
 				putForm: (Smalltalk ui icons iconNamed: #pharoIcon)
 				onStream: stream ];
