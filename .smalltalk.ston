@@ -9,7 +9,7 @@ SmalltalkCISpec {
 
   #testing : {
     #include : {
-      #packages : [ 'GToolkit-Examples.*' ]
+      #packages : [ 'GToolkit-Examples.*', 'GToolkit-Tests-Examples' ]
     },
     #failOnZeroTests : true,
     #hidePassingTests : false
