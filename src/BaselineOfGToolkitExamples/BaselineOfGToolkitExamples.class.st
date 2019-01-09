@@ -23,7 +23,7 @@ BaselineOfGToolkitExamples >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
 		spec baseline: 'GToolkitExamplesEngine' with: [
-				spec repository: 'github://feenkcom/gtoolkit-examples/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-examples:pharo6/src' ].
 		spec 
 			package: 'GToolkit-Examples-Dummies' with: [
 				spec requires: #('GToolkitExamplesEngine' ). ];
