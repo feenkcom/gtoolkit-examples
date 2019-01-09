@@ -15,7 +15,7 @@ smalltalk_config:
 
 branches:
   only:
-    - master
+    - pharo6
 
 smalltalk_edge:
   source: feenkcom/smalltalkCI
