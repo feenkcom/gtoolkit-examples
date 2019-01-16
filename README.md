@@ -6,11 +6,20 @@ Examples is a slim engine that lets you define examples throughout the code and 
 
 To get the full experience of example-driven development, load the entire [Glamorous Toolkit project](https://github.com/feenkcom/gtoolkit).
 
-To load the examples separately, use the following snippet.
+To load the latest version separately, use the following snippet.
 
 ```Smalltalk
 Metacello new
    baseline: 'GToolkitExamples';
    repository: 'github://feenkcom/gtoolkit-examples/src';
+   load.
+```
+
+If you are using Pharo 6 or Pharo 6.1, use the following snipet. GT Examples does not support older Pharo versions.
+
+```Smalltalk
+Metacello new
+   baseline: 'GToolkitExamples';
+   repository: 'github://feenkcom/gtoolkit-examples:pharo6/src';
    load.
 ```
