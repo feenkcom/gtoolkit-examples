@@ -104,7 +104,7 @@ GtExamplesHDReport >> initialize [
 	executionTime := 0 asDuration.
 	examplesPosition := examplesFailures := examplesErrors := 0.
 	
-	aFile := File named: 'progress.log'.
+	aFile := File named: 'progress-examples.log'.
 	aFile delete.
 	progressFile := ZnCharacterWriteStream
 			on: (aFile writeStream setToEnd; yourself)
