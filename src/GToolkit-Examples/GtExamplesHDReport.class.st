@@ -182,7 +182,7 @@ GtExamplesHDReport >> setUp [
 	progressFile nextPutAll: 'running examples: ';
 		nextPutAll: title ; crlf; flush.
 	
-	fileName := title , '-Test.xml'.
+	fileName := title , '-Examples.xml'.
 	aFile := File named: fileName .
 	aFile delete.
 	stream := ZnCharacterWriteStream
