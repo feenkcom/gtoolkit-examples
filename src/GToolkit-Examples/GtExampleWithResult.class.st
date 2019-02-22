@@ -8,7 +8,7 @@ Class {
 		'example',
 		'result'
 	],
-	#category : 'GToolkit-Examples-Runtime'
+	#category : #'GToolkit-Examples-Runtime'
 }
 
 { #category : #accessing }
@@ -116,6 +116,11 @@ GtExampleWithResult >> methodClass [
 { #category : #accessing }
 GtExampleWithResult >> noTest [
 	^ self example noTest
+]
+
+{ #category : #public }
+GtExampleWithResult >> openDebugger [
+	self result: self example openDebugger
 ]
 
 { #category : #accessing }

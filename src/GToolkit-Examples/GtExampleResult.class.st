@@ -24,7 +24,7 @@ Class {
 		'returnValue',
 		'exception'
 	],
-	#category : 'GToolkit-Examples-Core'
+	#category : #'GToolkit-Examples-Core'
 }
 
 { #category : #exceptions }
@@ -128,6 +128,11 @@ GtExampleResult >> isFailure [
 GtExampleResult >> isSuccess [
 	^ self exampleException isNil
 		and: [ self example hasProblems not ]
+]
+
+{ #category : #actions }
+GtExampleResult >> openDebugger [
+	^ self example openDebugger
 ]
 
 { #category : #accessing }

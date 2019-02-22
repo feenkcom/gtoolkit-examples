@@ -27,7 +27,7 @@ Class {
 		'after',
 		'problems'
 	],
-	#category : 'GToolkit-Examples-Core'
+	#category : #'GToolkit-Examples-Core'
 }
 
 { #category : #testing }
@@ -397,6 +397,18 @@ GtExample >> noTestReport [
 	<description: 'Do not run this example while running HDTestReport (not yet implemented)'>
 	
 	self propertyAt: #noTestReport put: true
+]
+
+{ #category : #actions }
+GtExample >> openDebugger [
+	^ self openingDebugger result
+]
+
+{ #category : #'accessing-dynamic' }
+GtExample >> openingDebugger [
+	^ GtExampleOpenDebugger new 
+		example: self;
+		yourself
 ]
 
 { #category : #accessing }
