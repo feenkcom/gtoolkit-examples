@@ -86,6 +86,19 @@ GtExampleGroup >> groupedBy: aBlock [
 	^ result
 ]
 
+{ #category : #accessing }
+GtExampleGroup >> gtClassesFor: aView [ 
+	<gtView>
+	self examples ifEmpty: [ ^ aView empty ].
+	^ aView columnedList
+		title: 'Classes';
+		items: [ (self examples groupedBy: [ :eachExample | 
+			eachExample methodClass instanceSide ]) associations ];
+		column: 'Class' item: [ :anAssoc | anAssoc key ];
+		column: 'Number of examples' item: [ :anAssoc | anAssoc value size ];
+		send: [ :anAssoc | anAssoc ifNotNil: [ anAssoc key ] ]
+]
+
 { #category : #ui }
 GtExampleGroup >> gtInspectorExamplesIn: composite [
 	<gtInspectorPresentationOrder: 1>
