@@ -1,7 +1,7 @@
 Class {
 	#name : #GtExampleCalypsoInspectReturnValuesFromMethodCommand,
 	#superclass : #GtExampleCalypsoInspectReturnValuesCommand,
-	#category : 'GToolkit-Examples-Calypso'
+	#category : #'GToolkit-Examples-Calypso'
 }
 
 { #category : #testing }

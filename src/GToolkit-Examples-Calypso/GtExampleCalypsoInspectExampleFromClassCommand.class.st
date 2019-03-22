@@ -1,7 +1,7 @@
 Class {
 	#name : #GtExampleCalypsoInspectExampleFromClassCommand,
 	#superclass : #GtExampleCalypsoInspectExamplesCommand,
-	#category : 'GToolkit-Examples-Calypso'
+	#category : #'GToolkit-Examples-Calypso'
 }
 
 { #category : #accessing }
