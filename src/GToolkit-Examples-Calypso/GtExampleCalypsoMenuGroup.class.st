@@ -1,7 +1,7 @@
 Class {
 	#name : #GtExampleCalypsoMenuGroup,
 	#superclass : #CmdMenuGroup,
-	#category : 'GToolkit-Examples-Calypso'
+	#category : #'GToolkit-Examples-Calypso'
 }
 
 { #category : #accessing }

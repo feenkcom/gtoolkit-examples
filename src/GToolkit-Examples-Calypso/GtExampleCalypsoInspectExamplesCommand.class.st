@@ -1,7 +1,7 @@
 Class {
 	#name : #GtExampleCalypsoInspectExamplesCommand,
 	#superclass : #GtExampleCalypsoCommand,
-	#category : 'GToolkit-Examples-Calypso'
+	#category : #'GToolkit-Examples-Calypso'
 }
 
 { #category : #activation }
@@ -23,7 +23,7 @@ GtExampleCalypsoInspectExamplesCommand class >> defaultMenuItemName [
 { #category : #activation }
 GtExampleCalypsoInspectExamplesCommand class >> fullBrowserShortcutActivation [
 	<classAnnotation>
-	^ CmdShortcutCommandActivation by: $e meta , $i meta for: self contextClass
+	^ CmdShortcutActivation by: $e meta , $i meta for: self contextClass
 ]
 
 { #category : #testing }

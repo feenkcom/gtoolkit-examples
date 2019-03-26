@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'selectedItems'
 	],
-	#category : 'GToolkit-Examples-Calypso'
+	#category : #'GToolkit-Examples-Calypso'
 }
 
 { #category : #accessing }
@@ -27,11 +27,6 @@ GtExampleCalypsoCommand class >> menuItemOrder [
 	"Return a number representing order in GToolkit menu group"
 	<return: #Number>
 	^ self subclassResponsibility
-]
-
-{ #category : #accessing }
-GtExampleCalypsoCommand class >> tableIconPriority [
-	^ 500
 ]
 
 { #category : #execution }
