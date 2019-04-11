@@ -15,7 +15,7 @@ Class {
 		'provider',
 		'exampleClass'
 	],
-	#category : 'GToolkit-Examples-Organization'
+	#category : #'GToolkit-Examples-Organization'
 }
 
 { #category : #subjects }

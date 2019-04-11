@@ -3,7 +3,7 @@ I am atrait does it's not used now, but I am still here because of comparibility
 "
 Trait {
 	#name : #TGtExampleIcon,
-	#category : 'GToolkit-Examples-Organization'
+	#category : #'GToolkit-Examples-Organization'
 }
 
 { #category : #private }

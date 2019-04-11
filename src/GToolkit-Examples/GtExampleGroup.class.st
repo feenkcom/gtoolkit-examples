@@ -238,5 +238,5 @@ GtExampleGroup >> runAll [
 
 { #category : #enumerating }
 GtExampleGroup >> select: aBlock [
-	^ self class new examples: (self examples select: aBlock)
+	^ self class withAll: (self examples select: aBlock)
 ]

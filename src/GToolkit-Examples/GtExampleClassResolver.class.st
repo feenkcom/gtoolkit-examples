@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'theClassName'
 	],
-	#category : 'GToolkit-Examples-Organization'
+	#category : #'GToolkit-Examples-Organization'
 }
 
 { #category : #actions }
