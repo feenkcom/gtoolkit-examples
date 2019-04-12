@@ -229,14 +229,23 @@ GtExampleGroup >> returnValues [
 	^ self results collect: [:result | result returnValue]
 ]
 
-{ #category : #'accessing - dynamic' }
+{ #category : #actions }
 GtExampleGroup >> runAll [
 	self examples 
 		do: [ :each | each ignoreTest ifFalse: [ each run ] ] 
 		displayingProgress: 'Running examples ...'.
 ]
 
+{ #category : #actions }
+GtExampleGroup >> runNotYetExecuted [
+	self examples 
+		do: [ :each | 
+			each ignoreTest ifFalse: [ 
+				each hasResult ifFalse: [ each run ] ] ] 
+		displayingProgress: 'Running examples ...'.
+]
+
 { #category : #enumerating }
 GtExampleGroup >> select: aBlock [
-	^ self class new examples: (self examples select: aBlock)
+	^ self class withAll: (self examples select: aBlock)
 ]

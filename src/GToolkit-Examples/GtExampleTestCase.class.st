@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'result'
 	],
-	#category : 'GToolkit-Examples-Testing'
+	#category : #'GToolkit-Examples-Testing'
 }
 
 { #category : #testing }
