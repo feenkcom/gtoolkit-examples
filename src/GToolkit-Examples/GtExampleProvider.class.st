@@ -8,8 +8,5 @@ Class {
 	#superclass : #Object,
 	#traits : 'TGtExampleAssertable',
 	#classTraits : 'TGtExampleAssertable classTrait',
-	#instVars : [
-		'examples'
-	],
-	#category : 'GToolkit-Examples-Core'
+	#category : #'GToolkit-Examples-Core'
 }

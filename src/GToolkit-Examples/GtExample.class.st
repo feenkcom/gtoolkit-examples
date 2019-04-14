@@ -15,6 +15,7 @@ Class {
 	#name : #GtExample,
 	#superclass : #Object,
 	#instVars : [
+		'providerClass',
 		'methodClass',
 		'selector',
 		'label',
@@ -30,11 +31,12 @@ Class {
 	#category : #'GToolkit-Examples-Core'
 }
 
-{ #category : #testing }
+{ #category : #comparing }
 GtExample >> = anExample [
-	^ self class = anExample class 
-		and: [ self methodClass = anExample methodClass 
-			and: [ self selector = anExample selector ] ]
+	^ self class = anExample class and: [ 
+		self providerClass = anExample providerClass and: [ 
+			self methodClass = anExample methodClass and: [ 
+				self selector = anExample selector ] ] ]
 ]
 
 { #category : #adding }
@@ -223,10 +225,16 @@ GtExample >> hasValidDependencies [
 ]
 
 { #category : #testing }
+GtExample >> hasValidProviderClass [
+	^ self providerClass includesBehavior: self methodClass
+]
+
+{ #category : #comparing }
 GtExample >> hash [
-	^ (self class hash 
-		bitXor: self methodClass hash) 
-			bitXor: self selector hash
+	^ ((self class hash 
+		bitXor: self providerClass hash)
+			bitXor: self methodClass hash)
+				bitXor: self selector hash
 ]
 
 { #category : #accessing }
@@ -324,9 +332,10 @@ GtExample >> initialize [
 ]
 
 { #category : #initialization }
-GtExample >> initializeFromMethod: aCompiledMethod usingFactory: aGTExampleFactory [
+GtExample >> initializeFromMethod: aCompiledMethod withProviderClass: aProviderClass usingFactory: aGTExampleFactory [
 	methodClass := aCompiledMethod methodClass.
 	selector := aCompiledMethod selector.
+	providerClass := aProviderClass.
 	aGTExampleFactory initializeExample: self fromMethod: aCompiledMethod
 ]
 
@@ -336,9 +345,15 @@ GtExample >> isGTExample [
 ]
 
 { #category : #testing }
+GtExample >> isInherited [
+	^ self methodClass ~~ self providerClass
+]
+
+{ #category : #testing }
 GtExample >> isValid [
 	^ self hasProblems not
-		and: [ self traverser canProcess ]
+		and: [ self hasValidProviderClass 
+			and: [ self traverser canProcess ] ]
 ]
 
 { #category : #accessing }
@@ -428,9 +443,14 @@ GtExample >> propertyAt: aKey put: aValue [
 
 { #category : #'accessing-dynamic' }
 GtExample >> provider [
-	^ self methodClass isMeta
-		ifTrue: [ self methodClass instanceSide ]
-		ifFalse: [ self methodClass instanceSide new ]
+	^ self providerClass isMeta
+		ifTrue: [ self providerClass instanceSide ]
+		ifFalse: [ self providerClass instanceSide new ]
+]
+
+{ #category : #accessing }
+GtExample >> providerClass [
+	^ providerClass
 ]
 
 { #category : #'accessing-dynamic' }

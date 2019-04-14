@@ -6,6 +6,11 @@ ClassDescription >> asGTExampleSubject [
 ]
 
 { #category : #'*GToolkit-Examples-Core' }
+ClassDescription >> gtAllExamples [
+	^ self gtExamplesFactory gtAllExamplesContained
+]
+
+{ #category : #'*GToolkit-Examples-Core' }
 ClassDescription >> gtExamples [
 	^ self gtExamplesFactory gtExamplesContained
 ]
