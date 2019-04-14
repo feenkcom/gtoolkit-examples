@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'subject'
 	],
-	#category : #'GToolkit-Examples-Exceptions'
+	#category : 'GToolkit-Examples-Exceptions'
 }
 
 { #category : #accessing }

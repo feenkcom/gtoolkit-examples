@@ -14,7 +14,7 @@ Class {
 		'examplesFailures',
 		'title'
 	],
-	#category : #'GToolkit-Examples-Testing'
+	#category : 'GToolkit-Examples-Testing'
 }
 
 { #category : #running }

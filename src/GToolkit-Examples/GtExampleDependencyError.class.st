@@ -9,7 +9,7 @@ Class {
 		'defined',
 		'invalid'
 	],
-	#category : #'GToolkit-Examples-Exceptions'
+	#category : 'GToolkit-Examples-Exceptions'
 }
 
 { #category : #accessing }

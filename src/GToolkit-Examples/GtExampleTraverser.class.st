@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'action'
 	],
-	#category : #'GToolkit-Examples-Runtime'
+	#category : 'GToolkit-Examples-Runtime'
 }
 
 { #category : #accessing }

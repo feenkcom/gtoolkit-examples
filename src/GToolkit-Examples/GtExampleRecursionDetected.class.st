@@ -10,7 +10,7 @@ Class {
 		'resolved',
 		'next'
 	],
-	#category : #'GToolkit-Examples-Exceptions'
+	#category : 'GToolkit-Examples-Exceptions'
 }
 
 { #category : #accessing }

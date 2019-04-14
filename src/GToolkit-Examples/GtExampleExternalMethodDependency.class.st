@@ -1,5 +1,5 @@
 Class {
 	#name : #GtExampleExternalMethodDependency,
 	#superclass : #GtExampleMethodDependency,
-	#category : #'GToolkit-Examples-Organization'
+	#category : 'GToolkit-Examples-Organization'
 }

@@ -4,7 +4,7 @@ I encapsulate an object that provides functionality for an example. Aspects are 
 Class {
 	#name : #GtExampleAspect,
 	#superclass : #Object,
-	#category : #'GToolkit-Examples-Organization'
+	#category : 'GToolkit-Examples-Organization'
 }
 
 { #category : #testing }

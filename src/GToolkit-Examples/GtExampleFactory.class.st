@@ -15,7 +15,7 @@ Class {
 		'provider',
 		'exampleClass'
 	],
-	#category : #'GToolkit-Examples-Organization'
+	#category : 'GToolkit-Examples-Organization'
 }
 
 { #category : #subjects }
@@ -40,11 +40,50 @@ GtExampleFactory class >> subjectFrom: anObject [
 		ifFalse: [ self instanceSubjectFromObject: anObject ]
 ]
 
+{ #category : #private }
+GtExampleFactory >> allExampleMethodsInClass: currentSourceClass do: aBlock [
+	"Return all example methods explicitly defined in the given source class and in its superclasses up to, 
+	but not including, Object and ProtoObject.
+	When the source class is a subclass of Object, Object and ProtoObject are not take into account.
+	If the source class is Object or ProtoObject, only example methods in those classes are returned."
+	| currentClass |
+	currentClass := currentSourceClass.
+	self exampleMethodsInClass: currentClass do: aBlock.
+	currentClass := currentClass superclass.
+	[ currentClass isNil or: [currentClass = Object] ] whileFalse: [
+		self exampleMethodsInClass: currentClass do: aBlock.
+		currentClass := currentClass superclass ]
+]
+
 { #category : #'private-utils' }
 GtExampleFactory >> createExample: aCompiledMethod [
+	"Create a new example assuming that the provider is the class containing the example method."
+	^ self 
+		createExampleForMethod: aCompiledMethod 
+		withProviderClass: aCompiledMethod methodClass
+]
+
+{ #category : #'private-utils' }
+GtExampleFactory >> createExampleForMethod: aCompiledMethod withProviderClass: aProviderClass [
+	"Create a new example where the provider class is different than the class 
+	containing the example method. The method class should however be a direct
+	or indirect superclass of the provider class."
 	| newExample |
 	newExample := self exampleClass new.
-	[ newExample initializeFromMethod: aCompiledMethod usingFactory: self ]
+	
+	"Allow the example to be created even if there is a issues with the relation between the
+	method class and the provider class, to facilitate debugging. The resulting example can be inspected,
+	but it will not be possible to run it."
+	(aProviderClass includesBehavior: aCompiledMethod methodClass) ifFalse: [
+		newExample addProblem: (GtExampleInvalidProviderClass new 	
+			example: newExample;
+			yourself) ]. 
+	
+	[ newExample 
+		initializeFromMethod: aCompiledMethod 
+		withProviderClass: aProviderClass
+		usingFactory: self 
+	]
 		on: Deprecation
 		do: [ :exception | 
 			newExample addProblem: (GtExampleDeprecationDetected new
@@ -84,30 +123,63 @@ GtExampleFactory >> exampleClass: anObject [
 ]
 
 { #category : #private }
-GtExampleFactory >> exampleFromMethod: aCompiledMethod do: aBlock [
-	aBlock value: (self createExample: aCompiledMethod)
+GtExampleFactory >> exampleFromMethod: aCompiledMethod withProviderClass: aProviderClass do: aBlock [
+	aBlock value: (self 
+		createExampleForMethod: aCompiledMethod 
+		withProviderClass: aProviderClass)
 ]
 
 { #category : #private }
 GtExampleFactory >> exampleMethod: aCompiledMethod do: aBlock [
+	"I am an utility method used to create an example from a compiled method"
 	(self isExampleMethod: aCompiledMethod) ifFalse: [ ^ self ].
-	self exampleFromMethod: aCompiledMethod do: aBlock
+	self 
+		exampleFromMethod: aCompiledMethod 
+		withProviderClass: aCompiledMethod methodClass
+		do: aBlock
 ]
 
 { #category : #private }
-GtExampleFactory >> exampleMethodsDo: aBlock [
-	self sourceClass instanceSide methods
+GtExampleFactory >> exampleMethodsInClass: aSourceClass do: aBlock [
+	aSourceClass instanceSide methods
 		select: [ :each | self isExampleMethod: each ]
 		thenDo: aBlock.
-	self sourceClass classSide methods
+	aSourceClass classSide methods
 		select: [ :each | self isExampleMethod: each ]
 		thenDo: aBlock
 ]
 
 { #category : #private }
 GtExampleFactory >> examplesDo: aBlock [
-	self exampleMethodsDo: [ :method |
-		self exampleFromMethod: method do: aBlock ]
+	"Return examples explicitly defined only in the source class."
+	self 
+		exampleMethodsInClass: self sourceClass 
+		do: [ :aCompiledMethod |
+			self 
+				exampleFromMethod: aCompiledMethod 
+				withProviderClass: self sourceClass
+				do: aBlock ]
+]
+
+{ #category : #public }
+GtExampleFactory >> gtAllExamplesContained [
+	"Return all examples explicitly defined in the source class and in its superclasses up to, 
+	but not including, Object and ProtoObject. If an example method is overriden in one or more classes 
+	from the inheritance chain, only one example is created for the example method in the deepest subclass."
+	| allExamples |
+	allExamples := OrderedDictionary new.
+	
+	self allExampleMethodsInClass: self sourceClass do: [ :aCompiledMethod |
+		"If there is already an example method matching the selector we ignore it, 
+		as it means that example is overriden in a subclass, and we do not add it twice."
+		(allExamples includesKey: aCompiledMethod selector) ifFalse: [ 
+			self
+				exampleFromMethod: aCompiledMethod 
+				withProviderClass: self sourceClass 
+				do: [ :example | 
+					allExamples at: example selector put: example ] ] ].
+
+	^ allExamples values asOrderedCollection
 ]
 
 { #category : #public }

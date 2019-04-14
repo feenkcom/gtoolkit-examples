@@ -4,7 +4,7 @@ I encapsulate an icon for an example. My subclasses should decide how the icon i
 Class {
 	#name : #GtExampleIcon,
 	#superclass : #GtExampleAspect,
-	#category : #'GToolkit-Examples-Organization'
+	#category : 'GToolkit-Examples-Organization'
 }
 
 { #category : #testing }

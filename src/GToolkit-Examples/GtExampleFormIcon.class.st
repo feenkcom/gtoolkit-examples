@@ -9,7 +9,7 @@ Class {
 		'converter',
 		'form'
 	],
-	#category : #'GToolkit-Examples-Organization'
+	#category : 'GToolkit-Examples-Organization'
 }
 
 { #category : #'instance creation' }

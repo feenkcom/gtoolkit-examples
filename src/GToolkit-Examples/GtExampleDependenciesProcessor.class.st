@@ -11,7 +11,7 @@ Class {
 		'processing',
 		'onProcess'
 	],
-	#category : #'GToolkit-Examples-Runtime'
+	#category : 'GToolkit-Examples-Runtime'
 }
 
 { #category : #private }
