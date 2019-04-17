@@ -41,17 +41,17 @@ GtExampleFactory class >> subjectFrom: anObject [
 ]
 
 { #category : #private }
-GtExampleFactory >> allExampleMethodsInClass: currentSourceClass do: aBlock [
+GtExampleFactory >> allExampleMethodsInClass: currentSourceClass doInstanceSide: aInstanceSideBlock doClassSide: aClassSideBlock [
 	"Return all example methods explicitly defined in the given source class and in its superclasses up to, 
 	but not including, Object and ProtoObject.
 	When the source class is a subclass of Object, Object and ProtoObject are not take into account.
 	If the source class is Object or ProtoObject, only example methods in those classes are returned."
 	| currentClass |
 	currentClass := currentSourceClass.
-	self exampleMethodsInClass: currentClass do: aBlock.
+	self exampleMethodsInClass: currentClass doInstanceSide: aInstanceSideBlock doClassSide: aClassSideBlock.
 	currentClass := currentClass superclass.
 	[ currentClass isNil or: [currentClass = Object] ] whileFalse: [
-		self exampleMethodsInClass: currentClass do: aBlock.
+		self exampleMethodsInClass: currentClass doInstanceSide: aInstanceSideBlock doClassSide: aClassSideBlock.
 		currentClass := currentClass superclass ]
 ]
 
@@ -141,12 +141,17 @@ GtExampleFactory >> exampleMethod: aCompiledMethod do: aBlock [
 
 { #category : #private }
 GtExampleFactory >> exampleMethodsInClass: aSourceClass do: aBlock [
+	self exampleMethodsInClass: aSourceClass doInstanceSide: aBlock doClassSide: aBlock
+]
+
+{ #category : #private }
+GtExampleFactory >> exampleMethodsInClass: aSourceClass doInstanceSide: aInstanceSideBlock doClassSide: aClassSideBlock [
 	aSourceClass instanceSide methods
-		select: [ :each | self isExampleMethod: each ]
-		thenDo: aBlock.
+		select: [ :aCompiledMethod | self isExampleMethod: aCompiledMethod ]
+		thenDo: aInstanceSideBlock.
 	aSourceClass classSide methods
-		select: [ :each | self isExampleMethod: each ]
-		thenDo: aBlock
+		select: [ :aCompiledMethod | self isExampleMethod: aCompiledMethod ]
+		thenDo: aClassSideBlock.
 ]
 
 { #category : #private }
@@ -154,10 +159,15 @@ GtExampleFactory >> examplesDo: aBlock [
 	"Return examples explicitly defined only in the source class."
 	self 
 		exampleMethodsInClass: self sourceClass 
-		do: [ :aCompiledMethod |
-			self 
+		doInstanceSide: [ :aCompiledMethod |
+			self
 				exampleFromMethod: aCompiledMethod 
-				withProviderClass: self sourceClass
+				withProviderClass: self sourceClass instanceSide
+				do: aBlock ]
+		doClassSide: [ :aCompiledMethod |
+			self
+				exampleFromMethod: aCompiledMethod 
+				withProviderClass: self sourceClass classSide
 				do: aBlock ]
 ]
 
@@ -166,20 +176,33 @@ GtExampleFactory >> gtAllExamplesContained [
 	"Return all examples explicitly defined in the source class and in its superclasses up to, 
 	but not including, Object and ProtoObject. If an example method is overriden in one or more classes 
 	from the inheritance chain, only one example is created for the example method in the deepest subclass."
-	| allExamples |
-	allExamples := OrderedDictionary new.
+	| examplesInstanceSide examplesClassSide |
 	
-	self allExampleMethodsInClass: self sourceClass do: [ :aCompiledMethod |
-		"If there is already an example method matching the selector we ignore it, 
-		as it means that example is overriden in a subclass, and we do not add it twice."
-		(allExamples includesKey: aCompiledMethod selector) ifFalse: [ 
-			self
-				exampleFromMethod: aCompiledMethod 
-				withProviderClass: self sourceClass 
-				do: [ :example | 
-					allExamples at: example selector put: example ] ] ].
+	"Use two separate dictionaries for storing examples on the class/instance side to 
+	make it faster to check if an example is defined in a superclass."
+	examplesInstanceSide := OrderedDictionary new.
+	examplesClassSide := OrderedDictionary new.
+	
+	"If there is already an example method matching the selector we ignore it, 
+	as it means that example is overriden in a subclass, and we do not add it twice."
+	self 
+		allExampleMethodsInClass: self sourceClass 
+		doInstanceSide: [ :aCompiledMethod |
+			(examplesInstanceSide includesKey: aCompiledMethod selector) ifFalse: [ 
+				self
+					exampleFromMethod: aCompiledMethod 
+					withProviderClass: self sourceClass instanceSide
+					do: [ :example | 
+						examplesInstanceSide at: example selector put: example ] ] ] 
+		doClassSide: [ :aCompiledMethod |
+			(examplesClassSide includesKey: aCompiledMethod selector) ifFalse: [ 
+				self
+					exampleFromMethod: aCompiledMethod 
+					withProviderClass: self sourceClass classSide
+					do: [ :example | 
+						examplesClassSide at: example selector put: example ] ] ].
 
-	^ allExamples values asOrderedCollection
+	^ examplesInstanceSide values asOrderedCollection, examplesClassSide values asOrderedCollection
 ]
 
 { #category : #public }
