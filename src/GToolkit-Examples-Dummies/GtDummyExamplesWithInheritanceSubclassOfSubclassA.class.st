@@ -1,3 +1,6 @@
+"
+As my superclass, I add new example methods and override existing ones.
+"
 Class {
 	#name : #GtDummyExamplesWithInheritanceSubclassOfSubclassA,
 	#superclass : #GtDummyExamplesWithInheritanceSubclassA,

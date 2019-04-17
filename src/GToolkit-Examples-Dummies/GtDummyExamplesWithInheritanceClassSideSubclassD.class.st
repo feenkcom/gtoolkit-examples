@@ -1,3 +1,6 @@
+"
+I override an example method on the class side.
+"
 Class {
 	#name : #GtDummyExamplesWithInheritanceClassSideSubclassD,
 	#superclass : #GtDummyExamplesWithInheritanceClassSideSubclassC,

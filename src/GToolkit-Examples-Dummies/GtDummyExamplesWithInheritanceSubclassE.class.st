@@ -1,3 +1,6 @@
+"
+I override an existing instance-side example method from my superclass with a method not representing an example.
+"
 Class {
 	#name : #GtDummyExamplesWithInheritanceSubclassE,
 	#superclass : #GtDummyExamplesWithInheritanceRoot,

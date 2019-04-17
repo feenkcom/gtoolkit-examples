@@ -1,3 +1,6 @@
+"
+I provide examples for ${class:GtExample}$ instances that use inherited or overriden examples.
+"
 Class {
 	#name : #GtExamplesExamplesWithInheritance,
 	#superclass : #GtExampleProvider,
