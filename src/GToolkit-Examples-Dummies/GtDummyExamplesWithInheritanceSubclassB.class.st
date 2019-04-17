@@ -1,3 +1,6 @@
+"
+I only add new examples methods on the instance side without overriding any existing ones.
+"
 Class {
 	#name : #GtDummyExamplesWithInheritanceSubclassB,
 	#superclass : #GtDummyExamplesWithInheritanceRoot,
