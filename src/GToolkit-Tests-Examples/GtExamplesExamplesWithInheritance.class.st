@@ -124,6 +124,16 @@ GtExamplesExamplesWithInheritance >> assertExamples: currentExamples withSelecto
 ]
 
 { #category : #assertions }
+GtExamplesExamplesWithInheritance >> assertInvalidProviderClassExample: example [
+	self assert: example isValid not.
+	self assert: example hasValidProviderClass not.
+	self assert: example isInherited.
+	self assert: example problems size equals: 1.
+	self assert: example problems asArray first class equals: GtExampleInvalidProviderClass.
+	
+]
+
+{ #category : #assertions }
 GtExamplesExamplesWithInheritance >> assertOverridenExample: example inClass: aMethodClass withProvider: aProviderClass. [
 	self assert: example isInherited.
 	self assert: example providerClass equals: aProviderClass.
@@ -397,6 +407,36 @@ GtExamplesExamplesWithInheritance >> inheritedExampleHInSubclassFOnClassSideOver
 	^ example
 ]
 
+{ #category : #'examples - invalid' }
+GtExamplesExamplesWithInheritance >> invalidExampleWithInvalidSuperclassProvider [
+	<gtExample>
+	| factory example |
+	factory := self exampleFactoryForSubclassB.
+	factory 
+		exampleFromMethod: GtDummyExamplesWithInheritanceSubclassOfSubclassB>>#exampleH
+		withProviderClass: GtDummyExamplesWithInheritanceSubclassB
+		do: [ :anExample | example := anExample ].
+	self assert: example notNil.
+	self assertInvalidProviderClassExample: example.
+	^ example
+	
+]
+
+{ #category : #'examples - invalid' }
+GtExamplesExamplesWithInheritance >> invalidExampleWithInvalidUnrelatedClassProvider [
+	<gtExample>
+	| factory example |
+	factory := self exampleFactoryForSubclassB.
+	factory 
+		exampleFromMethod: GtDummyExamplesWithInheritanceSubclassOfSubclassB>>#exampleH
+		withProviderClass: GtDummyExamplesWithInheritanceSubclassF
+		do: [ :anExample | example := anExample ].
+	self assert: example notNil.
+	self assertInvalidProviderClassExample: example.
+	^ example
+	
+]
+
 { #category : #'examples - standalone' }
 GtExamplesExamplesWithInheritance >> overridenExampleAInSubclassA [
 	<gtExample>
@@ -470,6 +510,7 @@ GtExamplesExamplesWithInheritance >> resultOfInheritedExampleBClassSideInSubclas
 	result := self inheritedExampleBClassSideInSubclassD result.
 	self assert: result returnValue equals: 'bb_class'.
 	self assert: result hasException not.
+	self assert: result hasProblems not.
 	^ result
 ]
 
@@ -521,6 +562,22 @@ GtExamplesExamplesWithInheritance >> resultOfInheritedExampleHInSubclassFOnClass
 	self assert: result returnValue equals: 'hhh_no_example'.
 	self assert: result hasException not.
 	^ result
+]
+
+{ #category : #'examples - invalid' }
+GtExamplesExamplesWithInheritance >> resultOfInvalidExampleWithInvalidSuperclassProvider [
+	<gtExample>
+	| result |
+	result := self invalidExampleWithInvalidSuperclassProvider result.
+	self assert: result returnValue equals: nil.
+	self assert: result hasException.
+	self assert: result hasProblems.
+	self assert: result isError.
+	self assert: result isFailure not.
+	self assert: result isSuccess not.
+	self assert: result exampleException class equals: MessageNotUnderstood.
+	^ result
+	
 ]
 
 { #category : #'examples - results' }
