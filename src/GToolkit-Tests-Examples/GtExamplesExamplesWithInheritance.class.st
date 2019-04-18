@@ -11,7 +11,7 @@ Class {
 GtExamplesExamplesWithInheritance >> allExamplesFromRootClass [
 	<gtExample>
 	| allExamples |
-	allExamples := self exampleFactoryForRootClass gtAllExamplesContained.
+	allExamples := self exampleFactoryForRootClass gtExamplesAllContained.
 	self assertExamples: allExamples withSelectors: #(exampleA exampleB exampleC).
 	^ allExamples
 	
@@ -21,7 +21,7 @@ GtExamplesExamplesWithInheritance >> allExamplesFromRootClass [
 GtExamplesExamplesWithInheritance >> allExamplesFromSubclassA [
 	<gtExample>
 	| allExamples |
-	allExamples := self exampleFactoryForSubclassA gtAllExamplesContained.
+	allExamples := self exampleFactoryForSubclassA gtExamplesAllContained.
 	self assertExamples: allExamples withSelectors: #(exampleA exampleB exampleC exampleD).
 	^ allExamples
 	
@@ -31,7 +31,7 @@ GtExamplesExamplesWithInheritance >> allExamplesFromSubclassA [
 GtExamplesExamplesWithInheritance >> allExamplesFromSubclassB [
 	<gtExample>
 	| allExamples |
-	allExamples := self exampleFactoryForSubclassB gtAllExamplesContained.
+	allExamples := self exampleFactoryForSubclassB gtExamplesAllContained.
 	self assertExamples: allExamples withSelectors: #(exampleA exampleB exampleC exampleF exampleG).
 	^ allExamples
 	
@@ -41,7 +41,7 @@ GtExamplesExamplesWithInheritance >> allExamplesFromSubclassB [
 GtExamplesExamplesWithInheritance >> allExamplesFromSubclassC [
 	<gtExample>
 	| allExamples |
-	allExamples := self exampleFactoryForSubclassC gtAllExamplesContained.
+	allExamples := self exampleFactoryForSubclassC gtExamplesAllContained.
 	self assertExamples: allExamples withSelectors: #(exampleA exampleA exampleB exampleB exampleC exampleD).
 	^ allExamples
 	
@@ -51,7 +51,7 @@ GtExamplesExamplesWithInheritance >> allExamplesFromSubclassC [
 GtExamplesExamplesWithInheritance >> allExamplesFromSubclassD [
 	<gtExample>
 	| allExamples |
-	allExamples := self exampleFactoryForSubclassD gtAllExamplesContained.
+	allExamples := self exampleFactoryForSubclassD gtExamplesAllContained.
 	self assertExamples: allExamples withSelectors: #(exampleA exampleA exampleB exampleB exampleC exampleD).
 	^ allExamples
 	
@@ -61,7 +61,7 @@ GtExamplesExamplesWithInheritance >> allExamplesFromSubclassD [
 GtExamplesExamplesWithInheritance >> allExamplesFromSubclassE [
 	<gtExample>
 	| allExamples |
-	allExamples := self exampleFactoryForSubclassE gtAllExamplesContained.
+	allExamples := self exampleFactoryForSubclassE gtExamplesAllContained.
 	self assertExamples: allExamples withSelectors: #(exampleA exampleB exampleC exampleH).
 	^ allExamples
 	
@@ -71,7 +71,7 @@ GtExamplesExamplesWithInheritance >> allExamplesFromSubclassE [
 GtExamplesExamplesWithInheritance >> allExamplesFromSubclassF [
 	<gtExample>
 	| allExamples |
-	allExamples := self exampleFactoryForSubclassF gtAllExamplesContained.
+	allExamples := self exampleFactoryForSubclassF gtExamplesAllContained.
 	self assertExamples: allExamples withSelectors: #(exampleA exampleB exampleC exampleH).
 	^ allExamples
 	
@@ -81,7 +81,7 @@ GtExamplesExamplesWithInheritance >> allExamplesFromSubclassF [
 GtExamplesExamplesWithInheritance >> allExamplesFromSubclassOfSubclassA [
 	<gtExample>
 	| allExamples |
-	allExamples := self exampleFactoryForSubclassOfSubclassA gtAllExamplesContained.
+	allExamples := self exampleFactoryForSubclassOfSubclassA gtExamplesAllContained.
 	self assertExamples: allExamples withSelectors: #(exampleA exampleB exampleC exampleD exampleE).
 	^ allExamples
 	
@@ -91,7 +91,7 @@ GtExamplesExamplesWithInheritance >> allExamplesFromSubclassOfSubclassA [
 GtExamplesExamplesWithInheritance >> allExamplesFromSubclassOfSubclassB [
 	<gtExample>
 	| allExamples |
-	allExamples := self exampleFactoryForSubclassOfSubclassB gtAllExamplesContained.
+	allExamples := self exampleFactoryForSubclassOfSubclassB gtExamplesAllContained.
 	self assertExamples: allExamples withSelectors: #(exampleA exampleB exampleC exampleF exampleG exampleH).
 	^ allExamples
 	
@@ -124,7 +124,7 @@ GtExamplesExamplesWithInheritance >> assertExamples: currentExamples withSelecto
 ]
 
 { #category : #assertions }
-GtExamplesExamplesWithInheritance >> assertOverridenExample: example inClass: aMethodClass withProvider: aProviderClass. [
+GtExamplesExamplesWithInheritance >> assertInheritedExample: example inClass: aMethodClass withProvider: aProviderClass. [
 	self assert: example isInherited.
 	self assert: example providerClass equals: aProviderClass.
 	self assert: example methodClass equals: aMethodClass.
@@ -132,6 +132,16 @@ GtExamplesExamplesWithInheritance >> assertOverridenExample: example inClass: aM
 	self assert: example hasValidProviderClass.
 	self assert: example isValid.
 	self assert: example exists.
+]
+
+{ #category : #assertions }
+GtExamplesExamplesWithInheritance >> assertInvalidProviderClassExample: example [
+	self assert: example isValid not.
+	self assert: example hasValidProviderClass not.
+	self assert: example isInherited.
+	self assert: example problems size equals: 1.
+	self assert: example problems asArray first class equals: GtExampleInvalidProviderClass.
+	
 ]
 
 { #category : #'examples - standalone' }
@@ -310,10 +320,20 @@ GtExamplesExamplesWithInheritance >> inheritedExampleAInSubclassB [
 	<gtExample>
 	| example |
 	example := self allExamplesFromSubclassB detect: [ :each | each selector = #exampleA ].
-	self assertOverridenExample: example 
+	self assertInheritedExample: example 
 		inClass: GtDummyExamplesWithInheritanceRoot 
 		withProvider: GtDummyExamplesWithInheritanceSubclassB.
-	self assert: example gtDisplayString equals: 'GtDummyExamplesWithInheritanceSubclassB(GtDummyExamplesWithInheritanceRoot) >> #exampleA'.
+	^ example
+]
+
+{ #category : #'examples - standalone' }
+GtExamplesExamplesWithInheritance >> inheritedExampleAInSubclassOfSubclassB [
+	<gtExample>
+	| example |
+	example := self allExamplesFromSubclassOfSubclassB detect: [ :each | each selector = #exampleA ].
+	self assertInheritedExample: example 
+		inClass: GtDummyExamplesWithInheritanceRoot 
+		withProvider: GtDummyExamplesWithInheritanceSubclassOfSubclassB.
 	^ example
 ]
 
@@ -324,12 +344,9 @@ GtExamplesExamplesWithInheritance >> inheritedExampleBClassSideInSubclassD [
 	example := self allExamplesFromSubclassD detect: [ :each | 
 		(each selector = #exampleB) and: [ each methodClass isMeta ] ].
 	self 
-		assertOverridenExample: example 
+		assertInheritedExample: example 
 		inClass: GtDummyExamplesWithInheritanceClassSideSubclassC class
 		withProvider: GtDummyExamplesWithInheritanceClassSideSubclassD class.
-	self 
-		assert: example gtDisplayString 
-		equals: 'GtDummyExamplesWithInheritanceClassSideSubclassD class(GtDummyExamplesWithInheritanceClassSideSubclassC class) >> #exampleB'.
 	^ example
 ]
 
@@ -338,10 +355,9 @@ GtExamplesExamplesWithInheritance >> inheritedExampleBInSubclassEOverridenByNonE
 	<gtExample>
 	| example |
 	example := self allExamplesFromSubclassE detect: [ :each | each selector = #exampleB ].
-	self assertOverridenExample: example 
+	self assertInheritedExample: example 
 		inClass: GtDummyExamplesWithInheritanceRoot 
 		withProvider: GtDummyExamplesWithInheritanceSubclassE.
-	self assert: example gtDisplayString equals: 'GtDummyExamplesWithInheritanceSubclassE(GtDummyExamplesWithInheritanceRoot) >> #exampleB'.
 	^ example
 ]
 
@@ -352,12 +368,9 @@ GtExamplesExamplesWithInheritance >> inheritedExampleBInstanceSideInSubclassD [
 	example := self allExamplesFromSubclassD detect: [ :each | 
 		(each selector = #exampleB) and: [ each methodClass isMeta not ] ].
 	self 
-		assertOverridenExample: example 
+		assertInheritedExample: example 
 		inClass: GtDummyExamplesWithInheritanceClassSideSubclassC
 		withProvider: GtDummyExamplesWithInheritanceClassSideSubclassD.
-	self 
-		assert: example gtDisplayString 
-		equals: 'GtDummyExamplesWithInheritanceClassSideSubclassD(GtDummyExamplesWithInheritanceClassSideSubclassC) >> #exampleB'.
 	^ example
 ]
 
@@ -366,10 +379,9 @@ GtExamplesExamplesWithInheritance >> inheritedExampleCInSubclassB [
 	<gtExample>
 	| example |
 	example := self allExamplesFromSubclassB detect: [ :each | each selector = #exampleC ].
-	self assertOverridenExample: example 
+	self assertInheritedExample: example 
 		inClass: GtDummyExamplesWithInheritanceRoot 
 		withProvider: GtDummyExamplesWithInheritanceSubclassB.
-	self assert: example gtDisplayString equals: 'GtDummyExamplesWithInheritanceSubclassB(GtDummyExamplesWithInheritanceRoot) >> #exampleC'.
 	^ example
 ]
 
@@ -378,10 +390,45 @@ GtExamplesExamplesWithInheritance >> inheritedExampleCInSubclassOfSubclassA [
 	<gtExample>
 	| example |
 	example := self allExamplesFromSubclassOfSubclassA detect: [ :each | each selector = #exampleC ].
-	self assertOverridenExample: example 
+	self assertInheritedExample: example 
 		inClass: GtDummyExamplesWithInheritanceRoot 
 		withProvider: GtDummyExamplesWithInheritanceSubclassOfSubclassA.
-	self assert: example gtDisplayString equals: 'GtDummyExamplesWithInheritanceSubclassOfSubclassA(GtDummyExamplesWithInheritanceRoot) >> #exampleC'.
+	^ example
+]
+
+{ #category : #'examples - equality' }
+GtExamplesExamplesWithInheritance >> inheritedExampleClassSideEqualityWithSelf [
+	<gtExample>
+	| example anotherExample |
+	example := self inheritedExampleBClassSideInSubclassD.
+	anotherExample := self inheritedExampleBClassSideInSubclassD.
+	self assert: example = example.
+	self assert: example = anotherExample.
+	self assert: example hash = anotherExample hash.
+	^ example
+	
+]
+
+{ #category : #'examples - equality' }
+GtExamplesExamplesWithInheritance >> inheritedExampleClassSideNoEqualityWithInstanceSide [
+	<gtExample>
+	| example anotherExample |
+	example := self inheritedExampleBClassSideInSubclassD.
+	anotherExample := self inheritedExampleBInstanceSideInSubclassD.
+	self assert: (example = anotherExample) not.
+	self assert: (example hash = anotherExample hash) not.
+	^ example
+	
+]
+
+{ #category : #'examples - printing' }
+GtExamplesExamplesWithInheritance >> inheritedExampleClassSidePrinting [
+	<gtExample>
+	| example |
+	example := self inheritedExampleHInSubclassFOnClassSideOverridenByNonExampleMethod.
+	self 
+		assert: example gtDisplayString 
+		equals: 'GtDummyExamplesWithInheritanceSubclassF class(GtDummyExamplesWithInheritanceSubclassE class) >> #exampleH'.
 	^ example
 ]
 
@@ -390,11 +437,77 @@ GtExamplesExamplesWithInheritance >> inheritedExampleHInSubclassFOnClassSideOver
 	<gtExample>
 	| example |
 	example := self allExamplesFromSubclassF detect: [ :each | each selector = #exampleH ].
-	self assertOverridenExample: example 
+	self assertInheritedExample: example 
 		inClass: GtDummyExamplesWithInheritanceSubclassE class 
 		withProvider: GtDummyExamplesWithInheritanceSubclassF class.
-	self assert: example gtDisplayString equals: 'GtDummyExamplesWithInheritanceSubclassF class(GtDummyExamplesWithInheritanceSubclassE class) >> #exampleH'.
 	^ example
+]
+
+{ #category : #'examples - equality' }
+GtExamplesExamplesWithInheritance >> inheritedExampleInstanceSideEqualityWithSelf [
+	<gtExample>
+	| example anotherExample |
+	example := self inheritedExampleAInSubclassB.
+	anotherExample := self inheritedExampleAInSubclassB.
+	self assert: example = example.
+	self assert: example = anotherExample.
+	self assert: example hash = anotherExample hash.
+	^ example
+	
+]
+
+{ #category : #'examples - printing' }
+GtExamplesExamplesWithInheritance >> inheritedExampleInstanceSidePrinting [
+	<gtExample>
+	| example |
+	example := self inheritedExampleAInSubclassB.
+	self 
+		assert: example gtDisplayString 
+		equals: 'GtDummyExamplesWithInheritanceSubclassB(GtDummyExamplesWithInheritanceRoot) >> #exampleA'.
+	^ example
+]
+
+{ #category : #'examples - equality' }
+GtExamplesExamplesWithInheritance >> inheritedExampleNoEqualityWithSameInheritedExampleOfSubclass [
+	<gtExample>
+	<description: 'The same example method inherited in two subclasses should not produce equal examples.'>
+	| example anotherExample |
+	example := self inheritedExampleAInSubclassB.
+	anotherExample := self inheritedExampleAInSubclassOfSubclassB.
+	self assert: (example = anotherExample) not.
+	self assert: (example hash = anotherExample hash) not.
+	^ example
+	
+]
+
+{ #category : #'examples - invalid' }
+GtExamplesExamplesWithInheritance >> invalidExampleWithInvalidSuperclassProvider [
+	<gtExample>
+	| factory example |
+	factory := self exampleFactoryForSubclassB.
+	factory 
+		exampleFromMethod: GtDummyExamplesWithInheritanceSubclassOfSubclassB>>#exampleH
+		withProviderClass: GtDummyExamplesWithInheritanceSubclassB
+		do: [ :anExample | example := anExample ].
+	self assert: example notNil.
+	self assertInvalidProviderClassExample: example.
+	^ example
+	
+]
+
+{ #category : #'examples - invalid' }
+GtExamplesExamplesWithInheritance >> invalidExampleWithInvalidUnrelatedClassProvider [
+	<gtExample>
+	| factory example |
+	factory := self exampleFactoryForSubclassB.
+	factory 
+		exampleFromMethod: GtDummyExamplesWithInheritanceSubclassOfSubclassB>>#exampleH
+		withProviderClass: GtDummyExamplesWithInheritanceSubclassF
+		do: [ :anExample | example := anExample ].
+	self assert: example notNil.
+	self assertInvalidProviderClassExample: example.
+	^ example
+	
 ]
 
 { #category : #'examples - standalone' }
@@ -403,7 +516,6 @@ GtExamplesExamplesWithInheritance >> overridenExampleAInSubclassA [
 	| example |
 	example := self allExamplesFromSubclassA detect: [ :each | each selector = #exampleA ].
 	self assertConcreteExample: example inClass: GtDummyExamplesWithInheritanceSubclassA.
-	self assert: example gtDisplayString equals: 'GtDummyExamplesWithInheritanceSubclassA >> #exampleA'.
 	^ example
 ]
 
@@ -416,7 +528,6 @@ GtExamplesExamplesWithInheritance >> overridenExampleBClassSideInSubclassC [
 	self 
 		assertConcreteExample: example 
 		inClass: GtDummyExamplesWithInheritanceClassSideSubclassC class.
-	self assert: example gtDisplayString equals: 'GtDummyExamplesWithInheritanceClassSideSubclassC class >> #exampleB'.
 	^ example
 ]
 
@@ -426,7 +537,6 @@ GtExamplesExamplesWithInheritance >> overridenExampleBInSubclassOfSubclassA [
 	| example |
 	example := self allExamplesFromSubclassOfSubclassA detect: [ :each | each selector = #exampleB ].
 	self assertConcreteExample: example inClass: GtDummyExamplesWithInheritanceSubclassOfSubclassA.
-	self assert: example gtDisplayString equals: 'GtDummyExamplesWithInheritanceSubclassOfSubclassA >> #exampleB'.
 	^ example
 ]
 
@@ -439,7 +549,6 @@ GtExamplesExamplesWithInheritance >> overridenExampleBInstanceSideInSubclassC [
 	self 
 		assertConcreteExample: example 
 		inClass: GtDummyExamplesWithInheritanceClassSideSubclassC.
-	self assert: example gtDisplayString equals: 'GtDummyExamplesWithInheritanceClassSideSubclassC >> #exampleB'.
 	^ example
 ]
 
@@ -470,6 +579,7 @@ GtExamplesExamplesWithInheritance >> resultOfInheritedExampleBClassSideInSubclas
 	result := self inheritedExampleBClassSideInSubclassD result.
 	self assert: result returnValue equals: 'bb_class'.
 	self assert: result hasException not.
+	self assert: result hasProblems not.
 	^ result
 ]
 
@@ -521,6 +631,22 @@ GtExamplesExamplesWithInheritance >> resultOfInheritedExampleHInSubclassFOnClass
 	self assert: result returnValue equals: 'hhh_no_example'.
 	self assert: result hasException not.
 	^ result
+]
+
+{ #category : #'examples - invalid' }
+GtExamplesExamplesWithInheritance >> resultOfInvalidExampleWithInvalidSuperclassProvider [
+	<gtExample>
+	| result |
+	result := self invalidExampleWithInvalidSuperclassProvider result.
+	self assert: result returnValue equals: nil.
+	self assert: result hasException.
+	self assert: result hasProblems.
+	self assert: result isError.
+	self assert: result isFailure not.
+	self assert: result isSuccess not.
+	self assert: result exampleException class equals: MessageNotUnderstood.
+	^ result
+	
 ]
 
 { #category : #'examples - results' }
