@@ -172,7 +172,7 @@ GtExampleFactory >> examplesDo: aBlock [
 ]
 
 { #category : #public }
-GtExampleFactory >> gtAllExamplesContained [
+GtExampleFactory >> gtExamplesAllContained [
 	"Return all examples explicitly defined in the source class and in its superclasses up to, 
 	but not including, Object and ProtoObject. If an example method is overriden in one or more classes 
 	from the inheritance chain, only one example is created for the example method in the deepest subclass."

@@ -11,7 +11,7 @@ Class {
 GtExamplesExamplesWithInheritance >> allExamplesFromRootClass [
 	<gtExample>
 	| allExamples |
-	allExamples := self exampleFactoryForRootClass gtAllExamplesContained.
+	allExamples := self exampleFactoryForRootClass gtExamplesAllContained.
 	self assertExamples: allExamples withSelectors: #(exampleA exampleB exampleC).
 	^ allExamples
 	
@@ -21,7 +21,7 @@ GtExamplesExamplesWithInheritance >> allExamplesFromRootClass [
 GtExamplesExamplesWithInheritance >> allExamplesFromSubclassA [
 	<gtExample>
 	| allExamples |
-	allExamples := self exampleFactoryForSubclassA gtAllExamplesContained.
+	allExamples := self exampleFactoryForSubclassA gtExamplesAllContained.
 	self assertExamples: allExamples withSelectors: #(exampleA exampleB exampleC exampleD).
 	^ allExamples
 	
@@ -31,7 +31,7 @@ GtExamplesExamplesWithInheritance >> allExamplesFromSubclassA [
 GtExamplesExamplesWithInheritance >> allExamplesFromSubclassB [
 	<gtExample>
 	| allExamples |
-	allExamples := self exampleFactoryForSubclassB gtAllExamplesContained.
+	allExamples := self exampleFactoryForSubclassB gtExamplesAllContained.
 	self assertExamples: allExamples withSelectors: #(exampleA exampleB exampleC exampleF exampleG).
 	^ allExamples
 	
@@ -41,7 +41,7 @@ GtExamplesExamplesWithInheritance >> allExamplesFromSubclassB [
 GtExamplesExamplesWithInheritance >> allExamplesFromSubclassC [
 	<gtExample>
 	| allExamples |
-	allExamples := self exampleFactoryForSubclassC gtAllExamplesContained.
+	allExamples := self exampleFactoryForSubclassC gtExamplesAllContained.
 	self assertExamples: allExamples withSelectors: #(exampleA exampleA exampleB exampleB exampleC exampleD).
 	^ allExamples
 	
@@ -51,7 +51,7 @@ GtExamplesExamplesWithInheritance >> allExamplesFromSubclassC [
 GtExamplesExamplesWithInheritance >> allExamplesFromSubclassD [
 	<gtExample>
 	| allExamples |
-	allExamples := self exampleFactoryForSubclassD gtAllExamplesContained.
+	allExamples := self exampleFactoryForSubclassD gtExamplesAllContained.
 	self assertExamples: allExamples withSelectors: #(exampleA exampleA exampleB exampleB exampleC exampleD).
 	^ allExamples
 	
@@ -61,7 +61,7 @@ GtExamplesExamplesWithInheritance >> allExamplesFromSubclassD [
 GtExamplesExamplesWithInheritance >> allExamplesFromSubclassE [
 	<gtExample>
 	| allExamples |
-	allExamples := self exampleFactoryForSubclassE gtAllExamplesContained.
+	allExamples := self exampleFactoryForSubclassE gtExamplesAllContained.
 	self assertExamples: allExamples withSelectors: #(exampleA exampleB exampleC exampleH).
 	^ allExamples
 	
@@ -71,7 +71,7 @@ GtExamplesExamplesWithInheritance >> allExamplesFromSubclassE [
 GtExamplesExamplesWithInheritance >> allExamplesFromSubclassF [
 	<gtExample>
 	| allExamples |
-	allExamples := self exampleFactoryForSubclassF gtAllExamplesContained.
+	allExamples := self exampleFactoryForSubclassF gtExamplesAllContained.
 	self assertExamples: allExamples withSelectors: #(exampleA exampleB exampleC exampleH).
 	^ allExamples
 	
@@ -81,7 +81,7 @@ GtExamplesExamplesWithInheritance >> allExamplesFromSubclassF [
 GtExamplesExamplesWithInheritance >> allExamplesFromSubclassOfSubclassA [
 	<gtExample>
 	| allExamples |
-	allExamples := self exampleFactoryForSubclassOfSubclassA gtAllExamplesContained.
+	allExamples := self exampleFactoryForSubclassOfSubclassA gtExamplesAllContained.
 	self assertExamples: allExamples withSelectors: #(exampleA exampleB exampleC exampleD exampleE).
 	^ allExamples
 	
@@ -91,7 +91,7 @@ GtExamplesExamplesWithInheritance >> allExamplesFromSubclassOfSubclassA [
 GtExamplesExamplesWithInheritance >> allExamplesFromSubclassOfSubclassB [
 	<gtExample>
 	| allExamples |
-	allExamples := self exampleFactoryForSubclassOfSubclassB gtAllExamplesContained.
+	allExamples := self exampleFactoryForSubclassOfSubclassB gtExamplesAllContained.
 	self assertExamples: allExamples withSelectors: #(exampleA exampleB exampleC exampleF exampleG exampleH).
 	^ allExamples
 	

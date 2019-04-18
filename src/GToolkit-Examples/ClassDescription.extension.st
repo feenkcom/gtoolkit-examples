@@ -6,13 +6,13 @@ ClassDescription >> asGTExampleSubject [
 ]
 
 { #category : #'*GToolkit-Examples-Core' }
-ClassDescription >> gtAllExamples [
-	^ self gtExamplesFactory gtAllExamplesContained
+ClassDescription >> gtExamples [
+	^ self gtExamplesFactory gtExamplesContained
 ]
 
 { #category : #'*GToolkit-Examples-Core' }
-ClassDescription >> gtExamples [
-	^ self gtExamplesFactory gtExamplesContained
+ClassDescription >> gtExamplesAll [
+	^ self gtExamplesFactory gtExamplesAllContained
 ]
 
 { #category : #'*GToolkit-Examples-Core' }
