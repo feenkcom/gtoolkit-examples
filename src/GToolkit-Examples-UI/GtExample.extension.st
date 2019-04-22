@@ -12,12 +12,7 @@ GtExample >> gtDebuggerSourceIn: composite [
 GtExample >> gtDisplayOn: aStream [
 	self label isEmptyOrNil 
 		ifTrue: [ 
-			aStream print: self providerClass.
-			(self providerClass ~= self methodClass) ifTrue: [
-				aStream 
-					nextPutAll: '('; 
-					print: self methodClass;
-					nextPutAll: ')' ].
+			self printClassLabelOn: aStream.
 			aStream 
 				nextPutAll: ' >> '; 
 				print: self selector ]

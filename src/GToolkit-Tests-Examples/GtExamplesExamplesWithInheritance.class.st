@@ -469,6 +469,9 @@ GtExamplesExamplesWithInheritance >> inheritedExampleClassSidePrinting [
 	self 
 		assert: example gtDisplayString 
 		equals: 'GtDummyExamplesWithInheritanceSubclassF class(GtDummyExamplesWithInheritanceSubclassE class) >> #exampleH'.
+	self 
+		assert: example classLabel 
+		equals: 'GtDummyExamplesWithInheritanceSubclassF class(GtDummyExamplesWithInheritanceSubclassE class)'.
 	^ example
 ]
 
@@ -524,6 +527,9 @@ GtExamplesExamplesWithInheritance >> inheritedExampleInstanceSidePrinting [
 	self 
 		assert: example gtDisplayString 
 		equals: 'GtDummyExamplesWithInheritanceSubclassB(GtDummyExamplesWithInheritanceRoot) >> #exampleA'.
+	self 
+		assert: example classLabel 
+		equals: 'GtDummyExamplesWithInheritanceSubclassB(GtDummyExamplesWithInheritanceRoot)'.
 	^ example
 ]
 

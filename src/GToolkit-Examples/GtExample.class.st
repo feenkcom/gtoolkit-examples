@@ -83,6 +83,12 @@ GtExample >> asExampleWithResult [
 	^ GtExampleWithResult new example: self
 ]
 
+{ #category : #printing }
+GtExample >> classLabel [
+	^ String streamContents: [ :aStream |
+		self printClassLabelOn: aStream ]
+]
+
 { #category : #private }
 GtExample >> classResolverClass [
 	^ GtExampleClassResolver
@@ -424,6 +430,16 @@ GtExample >> openingDebugger [
 	^ GtExampleOpenDebugger new 
 		example: self;
 		yourself
+]
+
+{ #category : #printing }
+GtExample >> printClassLabelOn: aStream [
+	aStream print: self providerClass.
+	(self providerClass ~= self methodClass) ifTrue: [
+		aStream 
+			nextPutAll: '('; 
+			print: self methodClass;
+			nextPutAll: ')' ]
 ]
 
 { #category : #accessing }
