@@ -51,11 +51,6 @@ Object >> gtExamplesFactory [
 ]
 
 { #category : #'*GToolkit-Examples-Core' }
-Object >> gtExamplesSubjects [
-	^ {  }
-]
-
-{ #category : #'*GToolkit-Examples-Core' }
 Object >> isGTExample [
 	^ false
 ]

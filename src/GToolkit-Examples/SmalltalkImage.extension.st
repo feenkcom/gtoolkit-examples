@@ -9,10 +9,3 @@ SmalltalkImage >> gtExamplesContained [
 			examples add: example ] ].
 	^ examples
 ]
-
-{ #category : #'*GToolkit-Examples-Core' }
-SmalltalkImage class >> gtExamplesFactory [
-	^ super gtExamplesFactory
-		provider: SmalltalkImage current;
-		yourself
-]

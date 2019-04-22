@@ -9,8 +9,8 @@ GtDummyExamplesWithGlobalSubjects class >> classSideSubjects1 [
 	<gtExample>
 	
 	self assert: self gtExampleContext example subjects first class equals: GtExampleClassSubject.
-	self assert: self gtExampleContext example subjects first theClassName equals: 'GtExample'.
-	self assert: self gtExampleContext example subjects first theClass equals: GtExample.
+	self assert: self gtExampleContext example subjects first theClassName equals: 'GtDummyExamplesWithGlobalSubjects'.
+	self assert: self gtExampleContext example subjects first theClass equals: GtDummyExamplesWithGlobalSubjects.
 	self assert: self gtExampleContext example subjects first exists.
 	
 	^ 0
@@ -21,8 +21,8 @@ GtDummyExamplesWithGlobalSubjects class >> classSideSubjects2 [
 	<gtExample>
 	
 	self assert: self gtExampleContext example subjects first class equals: GtExampleClassSubject.
-	self assert: self gtExampleContext example subjects first theClassName equals: 'GtExample'.
-	self assert: self gtExampleContext example subjects first theClass equals: GtExample.
+	self assert: self gtExampleContext example subjects first theClassName equals: 'GtDummyExamplesWithGlobalSubjects'.
+	self assert: self gtExampleContext example subjects first theClass equals: GtDummyExamplesWithGlobalSubjects.
 	self assert: self gtExampleContext example subjects first exists.
 	
 	^ 0
@@ -30,22 +30,18 @@ GtDummyExamplesWithGlobalSubjects class >> classSideSubjects2 [
 
 { #category : #config }
 GtDummyExamplesWithGlobalSubjects class >> gtExamplesSubjects [
-	^ { GtExample }
-]
-
-{ #category : #config }
-GtDummyExamplesWithGlobalSubjects >> gtExamplesSubjects [
 	^ { Object. Array. GtExample }
 ]
 
 { #category : #examples }
 GtDummyExamplesWithGlobalSubjects >> multipleSubjects1 [
 	<gtExample>
-	
-	self assert: self gtExampleContext example subjects size = 3.
-	self assert: (self gtExampleContext example subjects allSatisfy: [ :each | each exists ]).
-	self gtExamplesSubjects do: [ :each |
-		self assert: (self gtExampleContext example hasSubject: (self class gtExamplesFactoryClass subjectFrom: each)) ].
+	| example |
+	example := self gtExampleContext example.
+	self assert: example subjects size = 3.
+	self assert: (example subjects allSatisfy: [ :each | each exists ]).
+	self class gtExamplesSubjects do: [ :each |
+		self assert: (example hasSubject: (self class gtExamplesFactoryClass subjectFrom: each)) ].
 	
 	^ 0
 ]
@@ -56,7 +52,7 @@ GtDummyExamplesWithGlobalSubjects >> multipleSubjects2 [
 	
 	self assert: self gtExampleContext example subjects size = 3.
 	self assert: (self gtExampleContext example subjects allSatisfy: [ :each | each exists ]).
-	self gtExamplesSubjects do: [ :each |
+	self class gtExamplesSubjects do: [ :each |
 		self assert: (self gtExampleContext example hasSubject: (self class gtExamplesFactoryClass subjectFrom: each)) ].
 	
 	^ 0
@@ -68,7 +64,7 @@ GtDummyExamplesWithGlobalSubjects >> multipleSubjects3 [
 	
 	self assert: self gtExampleContext example subjects size = 3.
 	self assert: (self gtExampleContext example subjects allSatisfy: [ :each | each exists ]).
-	self gtExamplesSubjects do: [ :each |
+	self class gtExamplesSubjects do: [ :each |
 		self assert: (self gtExampleContext example hasSubject: (self class gtExamplesFactoryClass subjectFrom: each)) ].
 	
 	^ 0

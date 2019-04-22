@@ -19,5 +19,6 @@ TraitDescription >> gtExamplesFactory [
 
 { #category : #'*GToolkit-Examples-Core' }
 TraitDescription >> gtExamplesSubjects [
-	^ { self }
+	"I return the list of subjects for examples that I define on the instance side."
+	^ { }
 ]

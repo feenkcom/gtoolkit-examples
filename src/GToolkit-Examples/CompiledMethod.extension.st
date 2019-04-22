@@ -45,6 +45,6 @@ CompiledMethod >> isGTExampleMethod [
 
 { #category : #'*GToolkit-Examples-Core' }
 CompiledMethod >> isGTReservedMethod [
-	^ #( gtExamplesSubjects gtExamplesFactory gtExample gtExamples ) 
+	^ #( gtExamplesFactory gtExample gtExamples ) 
 			anySatisfy: [ :selector | selector = self selector ]
 ]
