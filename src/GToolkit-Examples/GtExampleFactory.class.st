@@ -11,8 +11,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'cache',
-		'source',
-		'provider',
+		'sourceClass',
 		'exampleClass'
 	],
 	#category : #'GToolkit-Examples-Organization'
@@ -53,6 +52,40 @@ GtExampleFactory >> allExampleMethodsInClass: currentSourceClass doInstanceSide:
 	[ currentClass isNil or: [currentClass = Object] ] whileFalse: [
 		self exampleMethodsInClass: currentClass doInstanceSide: aInstanceSideBlock doClassSide: aClassSideBlock.
 		currentClass := currentClass superclass ]
+]
+
+{ #category : #public }
+GtExampleFactory >> allExamplesDo: aBloc [
+	"Traverse all examples defined in the source class and in its superclasses up to, 
+	but not including, Object and ProtoObject. If an example method is overriden in one or more classes 
+	from the inheritance chain, only one example is created for the example method in the deepest subclass."
+	| examplesInstanceSide examplesClassSide |
+	
+	"Use two separate dictionaries for storing examples on the class/instance side to 
+	make it faster to check if an example is defined in a superclass."
+	examplesInstanceSide := OrderedDictionary new.
+	examplesClassSide := OrderedDictionary new.
+	
+	"If there is already an example method matching the selector we ignore it, 
+	as it means that example is overriden in a subclass, and we do not add it twice."
+	self 
+		allExampleMethodsInClass: self sourceClass 
+		doInstanceSide: [ :aCompiledMethod |
+			(examplesInstanceSide includesKey: aCompiledMethod selector) ifFalse: [ 
+				self
+					exampleFromMethod: aCompiledMethod 
+					withProviderClass: self sourceClass instanceSide
+					do: [ :example | 
+						examplesInstanceSide at: example selector put: example.
+						aBloc value: example ] ] ] 
+		doClassSide: [ :aCompiledMethod |
+			(examplesClassSide includesKey: aCompiledMethod selector) ifFalse: [ 
+				self
+					exampleFromMethod: aCompiledMethod 
+					withProviderClass: self sourceClass classSide
+					do: [ :example | 
+						examplesClassSide at: example selector put: example.
+						aBloc value: example ] ] ]
 ]
 
 { #category : #'private-utils' }
@@ -97,14 +130,6 @@ GtExampleFactory >> createExampleForMethod: aCompiledMethod withProviderClass: a
 { #category : #'accessing-defaults' }
 GtExampleFactory >> defaultExampleClass [
 	^ GtExample
-]
-
-{ #category : #'accessing-defaults' }
-GtExampleFactory >> defaultProviderFor: aCompiledMethod [
-	^ aCompiledMethod methodClass isMeta
-		ifTrue: [ aCompiledMethod methodClass instanceSide ]
-		ifFalse:
-			[ aCompiledMethod methodClass instanceSide new	" WARNING: not all classes support this -> override this using: #provider: " ]
 ]
 
 { #category : #private }
@@ -173,40 +198,16 @@ GtExampleFactory >> examplesDo: aBlock [
 
 { #category : #public }
 GtExampleFactory >> gtExamplesAllContained [
-	"Return all examples explicitly defined in the source class and in its superclasses up to, 
-	but not including, Object and ProtoObject. If an example method is overriden in one or more classes 
-	from the inheritance chain, only one example is created for the example method in the deepest subclass."
-	| examplesInstanceSide examplesClassSide |
-	
-	"Use two separate dictionaries for storing examples on the class/instance side to 
-	make it faster to check if an example is defined in a superclass."
-	examplesInstanceSide := OrderedDictionary new.
-	examplesClassSide := OrderedDictionary new.
-	
-	"If there is already an example method matching the selector we ignore it, 
-	as it means that example is overriden in a subclass, and we do not add it twice."
-	self 
-		allExampleMethodsInClass: self sourceClass 
-		doInstanceSide: [ :aCompiledMethod |
-			(examplesInstanceSide includesKey: aCompiledMethod selector) ifFalse: [ 
-				self
-					exampleFromMethod: aCompiledMethod 
-					withProviderClass: self sourceClass instanceSide
-					do: [ :example | 
-						examplesInstanceSide at: example selector put: example ] ] ] 
-		doClassSide: [ :aCompiledMethod |
-			(examplesClassSide includesKey: aCompiledMethod selector) ifFalse: [ 
-				self
-					exampleFromMethod: aCompiledMethod 
-					withProviderClass: self sourceClass classSide
-					do: [ :example | 
-						examplesClassSide at: example selector put: example ] ] ].
-
-	^ examplesInstanceSide values asOrderedCollection, examplesClassSide values asOrderedCollection
+	"Return examples defined in the source class and its superclasses."
+	| examples |
+	examples := OrderedCollection new.
+	self allExamplesDo: [ :example | examples add: example ].
+	^ examples
 ]
 
 { #category : #public }
 GtExampleFactory >> gtExamplesContained [
+	"Return examples explicitly defined only in the source class."
 	| examples |
 	examples := OrderedCollection new.
 	self examplesDo: [ :example | examples add: example ].
@@ -215,7 +216,7 @@ GtExampleFactory >> gtExamplesContained [
 
 { #category : #'private - creating examples' }
 GtExampleFactory >> initializeExample: aGTExample fromMethod: aCompiledMethod [
-	self initializeSubjectsForMethod: aCompiledMethod forExample: aGTExample.
+	self initializeSubjectsForExample: aGTExample.
 	self initializePragmasFromMethod: aCompiledMethod forExample: aGTExample.
 
 ]
@@ -240,25 +241,21 @@ GtExampleFactory >> initializePragmasFromMethod: aCompiledMethod forExample: aGT
 ]
 
 { #category : #'private-init' }
-GtExampleFactory >> initializeSubjects: aCollection forExample: aGTExample [
-	aCollection isEmptyOrNil ifTrue: [ ^ self ].
-	
-	aCollection do: [ :subject | 
-		[ aGTExample addSubject: (self class subjectFrom: subject) ]
-			on:Error
-			do: [ :exception | 
-				aGTExample addProblem: (GtExampleSubjectError new 
-					example: aGTExample;
-					subject: subject;
-					signaledException: exception;
-					yourself) ] ] 
+GtExampleFactory >> initializeSubject: anExampleSubject forExample: aGTExample [
+	[ aGTExample addSubject: (self class subjectFrom: anExampleSubject) ]
+		on:Error
+		do: [ :exception | 
+			aGTExample addProblem: (GtExampleSubjectError new 
+				example: aGTExample;
+				subject: anExampleSubject;
+				signaledException: exception;
+				yourself) ] 
 ]
 
 { #category : #'private-init' }
-GtExampleFactory >> initializeSubjectsForMethod: aCompiledMethod forExample: aGTExample [
-	[ self providerFor: aCompiledMethod do: [ :aProvider | 
-			(aProvider class canPerform: #gtExamplesSubjects) ifTrue: [
-				self initializeSubjects: aProvider gtExamplesSubjects forExample: aGTExample ] ] ]
+GtExampleFactory >> initializeSubjectsForExample: aGTExample [
+	[ self subjectsFor: aGTExample do: [ :anExampleSubject | 
+			self initializeSubject: anExampleSubject forExample: aGTExample ] ]
 		on: Error
 		do: [ :exception | 
 			aGTExample addProblem: (GtExampleSubjectError new 
@@ -278,39 +275,28 @@ GtExampleFactory >> isGTExampleMethod: aCompiledMethod [
 ]
 
 { #category : #accessing }
-GtExampleFactory >> provider [
-	^ provider
-]
-
-{ #category : #accessing }
-GtExampleFactory >> provider: anObject [
-	provider := anObject
-]
-
-{ #category : #'private-utils' }
-GtExampleFactory >> providerFor: aCompiledMethod [
-	^ provider ifNil: [ self defaultProviderFor: aCompiledMethod ]
-]
-
-{ #category : #'private-utils' }
-GtExampleFactory >> providerFor: aCompiledMethod do: aBlock1 [
-	^ self providerFor: aCompiledMethod do: aBlock1 ifNone: nil
-]
-
-{ #category : #'private-utils' }
-GtExampleFactory >> providerFor: aCompiledMethod do: aBlock1 ifNone: aBlock2 [
-	^ (self providerFor: aCompiledMethod)
-		ifNotNil: aBlock1
-		ifNil: aBlock2
-]
-
-{ #category : #accessing }
 GtExampleFactory >> sourceClass [
-	^ source
+	^ sourceClass
 ]
 
 { #category : #accessing }
 GtExampleFactory >> sourceClass: anObject [
 	"The class used to locate example methods."
-	source := anObject
+	sourceClass := anObject
+]
+
+{ #category : #'private-utils' }
+GtExampleFactory >> subjectsFor: anExample do: aBlock [
+	"I execute the given action with each subject for this example.
+	I use the provider class instead of the method class to take into account inherited examples."
+	
+	anExample providerClass isInstanceSide 
+		ifTrue: [ 
+			"If the example is on the instance side its subjects are obtained from the class. 
+			Examples on the instance side can choose what classes or objects they want to exemplify."
+			anExample providerClass instanceSide gtExamplesSubjects do: aBlock ]
+		ifFalse: [ 
+			"In case the example is on the class side the subject for that example is the provider class, 
+			that is the class used to create the object on which the example is going to be executed." 
+			aBlock value: anExample providerClass instanceSide ]
 ]

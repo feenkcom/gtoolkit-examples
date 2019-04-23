@@ -37,11 +37,6 @@ GtExampleSubject >> gtExamplesContained [
 	^ Smalltalk gtExamplesContained select: [ :each | each hasSubject: self ]
 ]
 
-{ #category : #converting }
-GtExampleSubject >> gtExamplesSubjects [
-	^ { self }
-]
-
 { #category : #testing }
 GtExampleSubject >> hash [
 	^ self subclassResponsibility

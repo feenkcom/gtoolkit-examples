@@ -83,6 +83,12 @@ GtExample >> asExampleWithResult [
 	^ GtExampleWithResult new example: self
 ]
 
+{ #category : #printing }
+GtExample >> classLabel [
+	^ String streamContents: [ :aStream |
+		self printClassLabelOn: aStream ]
+]
+
 { #category : #private }
 GtExample >> classResolverClass [
 	^ GtExampleClassResolver
@@ -231,10 +237,10 @@ GtExample >> hasValidProviderClass [
 
 { #category : #comparing }
 GtExample >> hash [
-	^ ((self class hash 
-		bitXor: self providerClass hash)
-			bitXor: self methodClass hash)
-				bitXor: self selector hash
+	^ ((self class hash * 3
+		bitXor: self providerClass hash * 5)
+			bitXor: self methodClass hash * 7)
+				bitXor: self selector hash * 13
 ]
 
 { #category : #accessing }
@@ -424,6 +430,16 @@ GtExample >> openingDebugger [
 	^ GtExampleOpenDebugger new 
 		example: self;
 		yourself
+]
+
+{ #category : #printing }
+GtExample >> printClassLabelOn: aStream [
+	aStream print: self providerClass.
+	(self providerClass ~= self methodClass) ifTrue: [
+		aStream 
+			nextPutAll: '('; 
+			print: self methodClass;
+			nextPutAll: ')' ]
 ]
 
 { #category : #accessing }

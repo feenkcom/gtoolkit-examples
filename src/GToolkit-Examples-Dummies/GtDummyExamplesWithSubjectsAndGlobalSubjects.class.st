@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #config }
-GtDummyExamplesWithSubjectsAndGlobalSubjects >> gtExamplesSubjects [
+GtDummyExamplesWithSubjectsAndGlobalSubjects class >> gtExamplesSubjects [
 	^ { Object. Array }
 ]
 
