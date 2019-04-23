@@ -1,10 +1,23 @@
 Extension { #name : #RPackage }
 
 { #category : #'*GToolkit-Examples-Core' }
-RPackage >> gtExamplesContained [
+RPackage >> gtExamplesAllContained [
+	"I obtain all examples contained in this package by collecting all examples 
+	contained by the classes in this package."
 	| examples |
-	examples := OrderedCollection new.
-	(self methods reject: [:m | m methodClass isTrait]) do: [ :method |
-		examples addAll: method gtExamples ].
-	^ examples
+	examples := ((self definedClasses reject: #isAbstract)
+		asSortedCollection: [ :a :b | a name <= b name ])
+		flatCollect: #gtExamplesAll.
+	^ examples asOrderedCollection
+]
+
+{ #category : #'*GToolkit-Examples-Core' }
+RPackage >> gtExamplesContained [
+	"I obtained the examples contained only in this package by collecting the examples 
+	contained by the classes in this package."
+	| examples |
+	examples := ((self definedClasses reject: #isAbstract)
+		asSortedCollection: [ :a :b | a name <= b name ])
+		flatCollect: #gtExamples.
+	^ examples asOrderedCollection
 ]

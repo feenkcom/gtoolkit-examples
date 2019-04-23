@@ -20,7 +20,7 @@ Class {
 { #category : #running }
 GtExamplesHDReport class >> runPackage: aString [
 	^ self new 
-		initializeExamples: (RPackage organizer packageNamed: aString) gtExamplesContained 
+		initializeExamples: (RPackage organizer packageNamed: aString) gtExamplesAllContained 
 		entitled: aString;
 		run;
 		done

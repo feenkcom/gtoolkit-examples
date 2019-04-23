@@ -54,6 +54,40 @@ GtExampleFactory >> allExampleMethodsInClass: currentSourceClass doInstanceSide:
 		currentClass := currentClass superclass ]
 ]
 
+{ #category : #public }
+GtExampleFactory >> allExamplesDo: aBloc [
+	"Traverse all examples defined in the source class and in its superclasses up to, 
+	but not including, Object and ProtoObject. If an example method is overriden in one or more classes 
+	from the inheritance chain, only one example is created for the example method in the deepest subclass."
+	| examplesInstanceSide examplesClassSide |
+	
+	"Use two separate dictionaries for storing examples on the class/instance side to 
+	make it faster to check if an example is defined in a superclass."
+	examplesInstanceSide := OrderedDictionary new.
+	examplesClassSide := OrderedDictionary new.
+	
+	"If there is already an example method matching the selector we ignore it, 
+	as it means that example is overriden in a subclass, and we do not add it twice."
+	self 
+		allExampleMethodsInClass: self sourceClass 
+		doInstanceSide: [ :aCompiledMethod |
+			(examplesInstanceSide includesKey: aCompiledMethod selector) ifFalse: [ 
+				self
+					exampleFromMethod: aCompiledMethod 
+					withProviderClass: self sourceClass instanceSide
+					do: [ :example | 
+						examplesInstanceSide at: example selector put: example.
+						aBloc value: example ] ] ] 
+		doClassSide: [ :aCompiledMethod |
+			(examplesClassSide includesKey: aCompiledMethod selector) ifFalse: [ 
+				self
+					exampleFromMethod: aCompiledMethod 
+					withProviderClass: self sourceClass classSide
+					do: [ :example | 
+						examplesClassSide at: example selector put: example.
+						aBloc value: example ] ] ]
+]
+
 { #category : #'private-utils' }
 GtExampleFactory >> createExample: aCompiledMethod [
 	"Create a new example assuming that the provider is the class containing the example method."
@@ -164,40 +198,16 @@ GtExampleFactory >> examplesDo: aBlock [
 
 { #category : #public }
 GtExampleFactory >> gtExamplesAllContained [
-	"Return all examples explicitly defined in the source class and in its superclasses up to, 
-	but not including, Object and ProtoObject. If an example method is overriden in one or more classes 
-	from the inheritance chain, only one example is created for the example method in the deepest subclass."
-	| examplesInstanceSide examplesClassSide |
-	
-	"Use two separate dictionaries for storing examples on the class/instance side to 
-	make it faster to check if an example is defined in a superclass."
-	examplesInstanceSide := OrderedDictionary new.
-	examplesClassSide := OrderedDictionary new.
-	
-	"If there is already an example method matching the selector we ignore it, 
-	as it means that example is overriden in a subclass, and we do not add it twice."
-	self 
-		allExampleMethodsInClass: self sourceClass 
-		doInstanceSide: [ :aCompiledMethod |
-			(examplesInstanceSide includesKey: aCompiledMethod selector) ifFalse: [ 
-				self
-					exampleFromMethod: aCompiledMethod 
-					withProviderClass: self sourceClass instanceSide
-					do: [ :example | 
-						examplesInstanceSide at: example selector put: example ] ] ] 
-		doClassSide: [ :aCompiledMethod |
-			(examplesClassSide includesKey: aCompiledMethod selector) ifFalse: [ 
-				self
-					exampleFromMethod: aCompiledMethod 
-					withProviderClass: self sourceClass classSide
-					do: [ :example | 
-						examplesClassSide at: example selector put: example ] ] ].
-
-	^ examplesInstanceSide values asOrderedCollection, examplesClassSide values asOrderedCollection
+	"Return examples defined in the source class and its superclasses."
+	| examples |
+	examples := OrderedCollection new.
+	self allExamplesDo: [ :example | examples add: example ].
+	^ examples
 ]
 
 { #category : #public }
 GtExampleFactory >> gtExamplesContained [
+	"Return examples explicitly defined only in the source class."
 	| examples |
 	examples := OrderedCollection new.
 	self examplesDo: [ :example | examples add: example ].

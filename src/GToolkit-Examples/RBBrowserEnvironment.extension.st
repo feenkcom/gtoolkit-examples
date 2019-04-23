@@ -5,7 +5,7 @@ RBBrowserEnvironment >> gtExamplesContained [
 	| examples |
 	examples := OrderedCollection new.
 	self methodsDo: [ :each | 
-		(each methodClass isTrait not and: [ each isGTExampleMethod]) 
+		(each methodClass  isTrait not and: [ each isGTExampleMethod]) 
 			ifTrue: [ 
 				each gtExample ifNotNil: [ :example | 
 					examples add: example ] ] ].

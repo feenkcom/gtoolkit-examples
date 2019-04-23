@@ -27,6 +27,14 @@ BaselineOfGToolkitExamples >> baseline: spec [
 		spec 
 			package: 'GToolkit-Examples-Dummies' with: [
 				spec requires: #('GToolkitExamplesEngine' ). ];
+			package: 'GToolkit-Examples-Dummies-Package1' with: [
+				spec requires: #('GToolkitExamplesEngine' ). ];
+			package: 'GToolkit-Examples-Dummies-Package2' with: [
+				spec requires: #('GToolkitExamplesEngine' 'GToolkit-Examples-Dummies-Package1' ). ];
+			package: 'GToolkit-Examples-Dummies-Package3' with: [
+				spec requires: #('GToolkitExamplesEngine' 'GToolkit-Examples-Dummies-Package1' 'GToolkit-Examples-Dummies-Package2' ). ];
+			package: 'GToolkit-Examples-Dummies-Package4' with: [
+				spec requires: #('GToolkitExamplesEngine' ). ];
 			package: 'GToolkit-Examples-Roassal2UI' with: [
 				spec requires: #('GToolkitExamplesEngine' ). ];
 			package: 'GToolkit-Examples-Extensions' with: [
