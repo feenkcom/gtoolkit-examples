@@ -37,15 +37,12 @@ GtExampleOpenDebugger >> initialize [
 ]
 
 { #category : #primitives }
-GtExampleOpenDebugger >> primitiveProcessExample: anExample withReceiver: anExampleReceiver [
+GtExampleOpenDebugger >> primitiveProcessExample: anExample withProviderContext: aProviderContext [
 	| aCompiledMethod aProcess aContext aDebugSession |
 	aCompiledMethod := anExample method.
 	aProcess := [ 
 		| aValue |
-		aValue := aCompiledMethod
-			valueWithReceiver: anExampleReceiver receiver
-			arguments: anExampleReceiver arguments
-				"(evalContext ifNil: [ #() ] ifNotNil: [ {evalContext} ])".
+		aValue := aProviderContext performExample: anExample.
 		self callbackWithExample: anExample result: aValue ]
 		newProcess.
 	aContext := aProcess suspendedContext.

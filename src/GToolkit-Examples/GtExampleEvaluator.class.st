@@ -12,16 +12,16 @@ Class {
 
 { #category : #private }
 GtExampleEvaluator >> basicProcess: anExample [
-	| currentResult exampleReceiver dependencies |
+	| currentResult providerContext dependencies |
 	context example: anExample.
 
 	dependencies := self dependenciesFor: anExample.
 	currentResult := self newResultFor: anExample.
-	exampleReceiver := anExample receiver.
+	providerContext := anExample providerContext.
 	
-	[ currentResult returnValue: (self primitiveProcessExample: anExample withReceiver: exampleReceiver) ] 
+	[ currentResult returnValue: (self primitiveProcessExample: anExample withProviderContext: providerContext) ] 
 		ensure: [ 
-			self processAfter: anExample withDependencies: dependencies andReceiver: exampleReceiver ].
+			self processAfter: anExample withDependencies: dependencies andProviderContext: providerContext ].
 	
 	^ currentResult
 ]
@@ -68,25 +68,22 @@ GtExampleEvaluator >> newResultFor: anExample [
 ]
 
 { #category : #primitives }
-GtExampleEvaluator >> primitiveProcessExample: anExample withReceiver: anExampleReceiver [
-	^ anExampleReceiver receiver 
-		perform: anExample method selector 
-		withArguments: anExampleReceiver arguments
+GtExampleEvaluator >> primitiveProcessExample: anExample withProviderContext: aProviderContext [
+	"Perform an example using a provider context and return its result"
+	^ aProviderContext performExample: anExample
 ]
 
 { #category : #private }
-GtExampleEvaluator >> processAfter: anExample withDependencies: exampleDependencies andReceiver: anExampleReceiver [
-	self processAfterMethodFor: anExample withReceiver: anExampleReceiver.
+GtExampleEvaluator >> processAfter: anExample withDependencies: exampleDependencies andProviderContext: aProviderContext [
+	self processAfterMethodFor: anExample withProviderContext: aProviderContext.
 	exampleDependencies reversed do: [ :anotherExample |
-		self processAfterMethodFor: anotherExample withReceiver: anExampleReceiver ]
+		self processAfterMethodFor: anotherExample withProviderContext: aProviderContext ]
 ]
 
 { #category : #private }
-GtExampleEvaluator >> processAfterMethodFor: anExample withReceiver: anExampleReceiver [
+GtExampleEvaluator >> processAfterMethodFor: anExample withProviderContext: aProviderContext [
 	anExample after ifNil: [ ^ self ].
-	anExample after method
-		valueWithReceiver: anExampleReceiver receiver
-		arguments: #()
+	aProviderContext performAfterMethodForExample: anExample.
 ]
 
 { #category : #public }
