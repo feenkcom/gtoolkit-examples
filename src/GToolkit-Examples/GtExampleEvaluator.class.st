@@ -12,16 +12,16 @@ Class {
 
 { #category : #private }
 GtExampleEvaluator >> basicProcess: anExample [
-	| currentResult providerContext dependencies |
+	| currentResult providerValue dependencies |
 	context example: anExample.
 
 	dependencies := self dependenciesFor: anExample.
 	currentResult := self newResultFor: anExample.
-	providerContext := anExample providerContext.
+	providerValue := anExample providerValue.
 	
-	[ currentResult returnValue: (self primitiveProcessExample: anExample withProviderContext: providerContext) ] 
+	[ currentResult returnValue: (self primitiveProcessExample: anExample withProviderValue: providerValue) ] 
 		ensure: [ 
-			self processAfter: anExample withDependencies: dependencies andProviderContext: providerContext ].
+			self processAfter: anExample withDependencies: dependencies andProviderValue: providerValue ].
 	
 	^ currentResult
 ]
@@ -68,22 +68,22 @@ GtExampleEvaluator >> newResultFor: anExample [
 ]
 
 { #category : #primitives }
-GtExampleEvaluator >> primitiveProcessExample: anExample withProviderContext: aProviderContext [
+GtExampleEvaluator >> primitiveProcessExample: anExample withProviderValue: aProviderValue [
 	"Perform an example using a provider context and return its result"
-	^ aProviderContext performExample: anExample
+	^ aProviderValue performExample: anExample
 ]
 
 { #category : #private }
-GtExampleEvaluator >> processAfter: anExample withDependencies: exampleDependencies andProviderContext: aProviderContext [
-	self processAfterMethodFor: anExample withProviderContext: aProviderContext.
+GtExampleEvaluator >> processAfter: anExample withDependencies: exampleDependencies andProviderValue: aProviderValue [
+	self processAfterMethodFor: anExample withProviderContext: aProviderValue.
 	exampleDependencies reversed do: [ :anotherExample |
-		self processAfterMethodFor: anotherExample withProviderContext: aProviderContext ]
+		self processAfterMethodFor: anotherExample withProviderContext: aProviderValue ]
 ]
 
 { #category : #private }
-GtExampleEvaluator >> processAfterMethodFor: anExample withProviderContext: aProviderContext [
+GtExampleEvaluator >> processAfterMethodFor: anExample withProviderContext: aProviderValue [
 	anExample after ifNil: [ ^ self ].
-	aProviderContext performAfterMethodForExample: anExample.
+	aProviderValue performAfterMethodForExample: anExample.
 ]
 
 { #category : #public }

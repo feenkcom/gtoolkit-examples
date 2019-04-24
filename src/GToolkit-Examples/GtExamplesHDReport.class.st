@@ -205,7 +205,7 @@ GtExamplesHDReport >> stackTraceString: err of: anExample [
 		context := err signalerContext.
 		[ context isNil 
 			or: [  
-				(context methodSelector == #primitiveProcessExample:withProviderContext: and: [ 
+				(context methodSelector == #primitiveProcessExample:withProviderValue: and: [ 
 					context arguments first = anExample ])
 					or: [ context receiver = anExample and: [ context methodSelector = #debug ] ] ] 
 		] whileFalse: [

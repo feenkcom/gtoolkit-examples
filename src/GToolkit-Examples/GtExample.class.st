@@ -475,6 +475,12 @@ GtExample >> providerContext [
 ]
 
 { #category : #'accessing-dynamic' }
+GtExample >> providerValue [
+	<return: #GtExampleProviderValue>
+	^ self providerContext providerValue
+]
+
+{ #category : #'accessing-dynamic' }
 GtExample >> result [
 	^ self run
 ]

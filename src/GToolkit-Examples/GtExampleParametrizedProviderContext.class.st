@@ -2,9 +2,7 @@ Class {
 	#name : #GtExampleParametrizedProviderContext,
 	#superclass : #GtExampleProviderContext,
 	#instVars : [
-		'providerClass',
-		'receiver',
-		'isReceiverInitialized',
+		'receiverClass',
 		'arguments'
 	],
 	#category : #'GToolkit-Examples-Core'
@@ -24,12 +22,9 @@ GtExampleParametrizedProviderContext >> arguments: anArray [
 GtExampleParametrizedProviderContext >> initialize [
 	super initialize.
 	arguments := #().
-	providerClass := nil.
-	receiver := nil.
-	isReceiverInitialized := false.
 ]
 
-{ #category : #accessing }
+{ #category : #'instance creation' }
 GtExampleParametrizedProviderContext >> newReceiver [
 	^ self providerClass isMeta
 		ifTrue: [ self providerClass instanceSide ]
@@ -37,43 +32,28 @@ GtExampleParametrizedProviderContext >> newReceiver [
 ]
 
 { #category : #actions }
-GtExampleParametrizedProviderContext >> performAfterMethodForExample: anExample [
+GtExampleParametrizedProviderContext >> performAfterMethodForExample: anExample withReceiver: anObject [
 	"Perform an example using a provider context and return its result"
-	^ self receiver 
+	^ anObject 
 		perform: anExample after method selector 
 		withArguments: self arguments
 ]
 
 { #category : #actions }
-GtExampleParametrizedProviderContext >> performExample: anExample [
+GtExampleParametrizedProviderContext >> performExample: anExample withReceiver: anObject [
 	"Perform an example using a provider context and return its result"
-	^ self receiver 
+	^ anObject 
 		perform: anExample method selector 
 		withArguments: self arguments
 ]
 
 { #category : #accessing }
-GtExampleParametrizedProviderContext >> provider [
-	^ self providerClass isMeta
-		ifTrue: [ self providerClass instanceSide ]
-		ifFalse: [ self providerClass instanceSide new ]
-]
-
-{ #category : #accessing }
 GtExampleParametrizedProviderContext >> providerClass [
 	<return: #Class or: #Metaclass>
-	^ providerClass
+	^ receiverClass
 ]
 
 { #category : #accessing }
 GtExampleParametrizedProviderContext >> providerClass: aClass [
-	providerClass := aClass
-]
-
-{ #category : #accessing }
-GtExampleParametrizedProviderContext >> receiver [
-	isReceiverInitialized ifFalse: [ 
-		receiver := self newReceiver. 
-		isReceiverInitialized := true ].
-	^ receiver
+	receiverClass := aClass
 ]

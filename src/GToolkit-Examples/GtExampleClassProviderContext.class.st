@@ -2,20 +2,10 @@ Class {
 	#name : #GtExampleClassProviderContext,
 	#superclass : #GtExampleProviderContext,
 	#instVars : [
-		'providerClass',
-		'receiver',
-		'isReceiverInitialized'
+		'providerClass'
 	],
 	#category : #'GToolkit-Examples-Core'
 }
-
-{ #category : #initialization }
-GtExampleClassProviderContext >> initialize [
-	super initialize.
-	providerClass := nil.
-	receiver := nil.
-	isReceiverInitialized := false.
-]
 
 { #category : #'instance creation' }
 GtExampleClassProviderContext >> newReceiver [
@@ -25,17 +15,17 @@ GtExampleClassProviderContext >> newReceiver [
 ]
 
 { #category : #actions }
-GtExampleClassProviderContext >> performAfterMethodForExample: anExample [
+GtExampleClassProviderContext >> performAfterMethodForExample: anExample withReceiver: anObject [
 	"Perform an example using a provider context and return its result"
-	^ self receiver 
+	^ anObject 
 		perform: anExample after method selector 
 		withArguments: #()
 ]
 
 { #category : #actions }
-GtExampleClassProviderContext >> performExample: anExample [
+GtExampleClassProviderContext >> performExample: anExample withReceiver: anObject [
 	"Perform an example using a provider context and return its result"
-	^ self receiver 
+	^ anObject 
 		perform: anExample method selector 
 		withArguments: #()
 ]
@@ -49,12 +39,4 @@ GtExampleClassProviderContext >> providerClass [
 { #category : #accessing }
 GtExampleClassProviderContext >> providerClass: aClass [
 	providerClass := aClass
-]
-
-{ #category : #'instance creation' }
-GtExampleClassProviderContext >> receiver [
-	isReceiverInitialized ifFalse: [ 
-		receiver := self newReceiver. 
-		isReceiverInitialized := true ].
-	^ receiver
 ]
