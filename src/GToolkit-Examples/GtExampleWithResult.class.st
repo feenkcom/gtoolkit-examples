@@ -47,7 +47,7 @@ GtExampleWithResult >> gtInspectorActionReturnValue [
 	^ self example gtInspectorActionReturnValue
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #ui }
 GtExampleWithResult >> gtInspectorActions [
 	^ super gtInspectorActions addAll: self example gtInspectorActions; yourself
 ]

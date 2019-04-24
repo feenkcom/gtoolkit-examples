@@ -470,6 +470,17 @@ GtExample >> providerClass [
 ]
 
 { #category : #'accessing-dynamic' }
+GtExample >> providerContext [
+	^ GtExampleClassProviderContext new providerClass: self providerClass.
+]
+
+{ #category : #'accessing-dynamic' }
+GtExample >> receiver [
+	<return: #GtExampleReceiver>
+	^ self providerContext receiver
+]
+
+{ #category : #'accessing-dynamic' }
 GtExample >> result [
 	^ self run
 ]

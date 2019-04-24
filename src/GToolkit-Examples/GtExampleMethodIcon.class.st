@@ -31,6 +31,8 @@ GtExampleMethodIcon class >> convertFromByteArray: aByteArray extent: anExtent d
 
 { #category : #private }
 GtExampleMethodIcon >> basicForm [
+	"Note: Likely used for Roassal2 Example Browser.
+	We may want to remove it."
 	^ self class 
 		perform: self converter 
 		withArguments: { self provider perform: self selector }
