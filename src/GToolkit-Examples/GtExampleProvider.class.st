@@ -12,8 +12,3 @@ Class {
 	#classTraits : 'TGtExampleAssertable classTrait',
 	#category : #'GToolkit-Examples-Core'
 }
-
-{ #category : #testing }
-GtExampleProvider class >> isDeprecated [
-	^ true
-]
