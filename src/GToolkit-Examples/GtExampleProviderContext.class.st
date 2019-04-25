@@ -4,6 +4,28 @@ Class {
 	#category : #'GToolkit-Examples-Core'
 }
 
+{ #category : #testing }
+GtExampleProviderContext class >> canHandleCompiledMethod: aCompiledMethod [
+	"Return true if a provider context can handle the compiled method"
+	<return: #Boolean>
+	^ self subclassResponsibility
+]
+
+{ #category : #'instance creation' }
+GtExampleProviderContext class >> compiledMethod: aCompiledMethod [
+	"Return a concretee provider context instance"
+	<return: #GtExampleProviderContext>
+	^ self subclassResponsibility
+]
+
+{ #category : #'instance creation' }
+GtExampleProviderContext class >> fromCompiledMethod: aCompiledMethod [
+	self allSubclassesDo: [ :eachSubclass | 
+		(eachSubclass canHandleCompiledMethod: aCompiledMethod)
+			ifTrue: [ ^ eachSubclass compiledMethod: aCompiledMethod ] ].
+	self error: 'There is no a provider context for ', aCompiledMethod printString.
+]
+
 { #category : #'instance creation' }
 GtExampleProviderContext >> newReceiver [
 	"Return a new receiver (object) to perform an example"

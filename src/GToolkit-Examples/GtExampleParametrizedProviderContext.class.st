@@ -8,6 +8,24 @@ Class {
 	#category : #'GToolkit-Examples-Core'
 }
 
+{ #category : #testing }
+GtExampleParametrizedProviderContext class >> canHandleCompiledMethod: aCompiledMethod [
+	"Return true if a provider context can handle the compiled method"
+	<return: #Boolean>
+	^ aCompiledMethod numArgs > 0
+]
+
+{ #category : #'instance creation' }
+GtExampleParametrizedProviderContext class >> compiledMethod: aCompiledMethod [
+	"Return a concretee provider context instance"
+	<return: #GtExampleProviderContext>
+	| aDefaultArguments |
+	aDefaultArguments := aCompiledMethod pragmas 
+		select: [ :eachPragma | eachPragma selector = #value: ]
+		thenCollect: [ :eachPragma | eachPragma arguments first ].
+	^ self new arguments: aDefaultArguments
+]
+
 { #category : #accessing }
 GtExampleParametrizedProviderContext >> arguments [
 	^ arguments

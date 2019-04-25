@@ -7,6 +7,20 @@ Class {
 	#category : #'GToolkit-Examples-Core'
 }
 
+{ #category : #testing }
+GtExampleClassProviderContext class >> canHandleCompiledMethod: aCompiledMethod [
+	"Return true if a provider context can handle the compiled method"
+	<return: #Boolean>
+	^ aCompiledMethod numArgs = 0
+]
+
+{ #category : #'instance creation' }
+GtExampleClassProviderContext class >> compiledMethod: aCompiledMethod [
+	"Return a concretee provider context instance"
+	<return: #GtExampleProviderContext>
+	^ self new
+]
+
 { #category : #'instance creation' }
 GtExampleClassProviderContext >> newReceiver [
 	^ self providerClass isMeta

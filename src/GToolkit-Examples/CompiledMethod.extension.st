@@ -40,7 +40,7 @@ CompiledMethod >> isGTExampleMethod [
 			ifTrue: [ ^ self originalMethod isGTExampleMethod ].
 
 	^ (self pragmas anySatisfy: [ :each | each isGTExamplePragma ])
-		and: [ self numArgs = 0 ]
+		"and: [ self numArgs = 0 ]"
 ]
 
 { #category : #'*GToolkit-Examples-Core' }

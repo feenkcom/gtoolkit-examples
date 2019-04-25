@@ -26,7 +26,8 @@ Class {
 		'children',
 		'properties',
 		'after',
-		'problems'
+		'problems',
+		'providerContext'
 	],
 	#category : #'GToolkit-Examples-Core'
 }
@@ -104,6 +105,11 @@ GtExample >> debugger [
 	^ GtExampleDebugger new 
 		example: self;
 		yourself
+]
+
+{ #category : #defaults }
+GtExample >> defaultProviderContext [
+	^ GtExampleClassProviderContext new providerClass: self providerClass.
 ]
 
 { #category : #private }
@@ -469,9 +475,14 @@ GtExample >> providerClass [
 	^ providerClass
 ]
 
-{ #category : #'accessing-dynamic' }
+{ #category : #accessing }
 GtExample >> providerContext [
-	^ GtExampleClassProviderContext new providerClass: self providerClass.
+	^ providerContext ifNil: [ providerContext := self defaultProviderContext ]
+]
+
+{ #category : #accessing }
+GtExample >> providerContext: aGtExampleProviderContext [
+	providerContext := aGtExampleProviderContext
 ]
 
 { #category : #'accessing-dynamic' }
