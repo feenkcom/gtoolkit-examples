@@ -85,3 +85,13 @@ GtExamplesParametrizedExamples >> resultOfParametrizedExampleInClassA [
 	self assert: aResult hasException not.
 	^ aResult
 ]
+
+{ #category : #'examples - results' }
+GtExamplesParametrizedExamples >> resultOfParametrizedExampleWithTwoArgumentsInClassA [
+	<gtExample>
+	| aResult |
+	aResult := self parametrizedExampleWithTwoArgumentsInClassA result.
+	self assert: aResult returnValue equals: 42.
+	self assert: aResult hasException not.
+	^ aResult
+]
