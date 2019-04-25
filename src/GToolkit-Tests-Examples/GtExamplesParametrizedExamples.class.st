@@ -9,7 +9,7 @@ GtExamplesParametrizedExamples >> allExamplesFromClassA [
 	<gtExample>
 	| anExamples | 
 	anExamples := self exampleFactoryForClassA gtExamplesAllContained.
-	self assertExamples: anExamples withSelectors: #( parametrizedExample: ).
+	self assertExamples: anExamples withSelectors: #( parametrizedExample: #parametrizedExample:withTwoArguments: ).
 	^ anExamples
 	
 ]
@@ -51,7 +51,7 @@ GtExamplesParametrizedExamples >> exampleFactoryForClassA [
 ]
 
 { #category : #'examples - standalone' }
-GtExamplesParametrizedExamples >> exampleInClassA [
+GtExamplesParametrizedExamples >> parametrizedExampleInClassA [
 	<gtExample>
 	| anExample |
 	anExample := self allExamplesFromClassA detect: [ :each | 
@@ -59,16 +59,29 @@ GtExamplesParametrizedExamples >> exampleInClassA [
 	self assertParametrizedExample: anExample 
 		inClass: GtDummyExamplesWithParametrizedExampleA 
 		withProvider: GtDummyExamplesWithParametrizedExampleA.
-	self assert: anExample providerContext arguments equals: #( 42 ).
+	self assert: anExample providerContext arguments equals: #( 21 ).
+	^ anExample
+]
+
+{ #category : #'examples - standalone' }
+GtExamplesParametrizedExamples >> parametrizedExampleWithTwoArgumentsInClassA [
+	<gtExample>
+	| anExample |
+	anExample := self allExamplesFromClassA detect: [ :each | 
+		each selector = #parametrizedExample:withTwoArguments: ].
+	self assertParametrizedExample: anExample 
+		inClass: GtDummyExamplesWithParametrizedExampleA 
+		withProvider: GtDummyExamplesWithParametrizedExampleA.
+	self assert: anExample providerContext arguments equals: #( 40 2 ).
 	^ anExample
 ]
 
 { #category : #'examples - results' }
-GtExamplesParametrizedExamples >> resultOfExampleInClassA [
+GtExamplesParametrizedExamples >> resultOfParametrizedExampleInClassA [
 	<gtExample>
 	| aResult |
-	aResult := self exampleInClassA result.
-	self assert: aResult returnValue equals: 84.
+	aResult := self parametrizedExampleInClassA result.
+	self assert: aResult returnValue equals: 42.
 	self assert: aResult hasException not.
 	^ aResult
 ]
