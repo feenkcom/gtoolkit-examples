@@ -37,6 +37,12 @@ GtExampleSubject >> gtExamplesContained [
 	^ Smalltalk gtExamplesContained select: [ :each | each hasSubject: self ]
 ]
 
+{ #category : #'accessing-dynamic' }
+GtExampleSubject >> gtParametrizedExamplesContained [
+	^ Smalltalk gtParametrizedExamplesContained 
+			select: [ :each | each hasSubject: self ]
+]
+
 { #category : #testing }
 GtExampleSubject >> hash [
 	^ self subclassResponsibility

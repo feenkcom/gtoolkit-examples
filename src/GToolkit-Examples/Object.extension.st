@@ -51,6 +51,21 @@ Object >> gtExamplesFactory [
 ]
 
 { #category : #'*GToolkit-Examples-Core' }
+Object >> gtParametrizedExamples [
+	^ self class gtParametrizedExamples
+]
+
+{ #category : #'*GToolkit-Examples-Core' }
+Object >> gtParametrizedExamplesContained [
+	^ self gtParametrizedExamples
+]
+
+{ #category : #'*GToolkit-Examples-Core' }
+Object >> gtParametrizedExamplesFactory [
+	^ self class gtParametrizedExamplesFactory
+]
+
+{ #category : #'*GToolkit-Examples-Core' }
 Object >> isGTExample [
 	^ false
 ]
@@ -62,5 +77,10 @@ Object >> isGTExampleError [
 
 { #category : #'*GToolkit-Examples-Core' }
 Object >> isGTExampleMethod [
+	^ false
+]
+
+{ #category : #'*GToolkit-Examples-Core' }
+Object >> isGTParametrizedExampleMethod [
 	^ false
 ]

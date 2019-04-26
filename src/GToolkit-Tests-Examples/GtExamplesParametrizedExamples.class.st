@@ -4,20 +4,10 @@ Class {
 	#category : #'GToolkit-Tests-Examples'
 }
 
-{ #category : #'examples - groups' }
-GtExamplesParametrizedExamples >> allExamplesFromClassA [
-	<gtExample>
-	| anExamples | 
-	anExamples := self exampleFactoryForClassA gtExamplesAllContained.
-	self assertExamples: anExamples withSelectors: #( parametrizedExample: #parametrizedExample:withTwoArguments: ).
-	^ anExamples
-	
-]
-
 { #category : #assertions }
 GtExamplesParametrizedExamples >> assertExampleFactory: anExampleFactory forClass: aSourceClass [
 	self assert: anExampleFactory sourceClass equals: aSourceClass.
-	self assert: anExampleFactory exampleClass equals: GtExample.
+	self assert: anExampleFactory exampleClass equals: GtParametrizedExample.
 ]
 
 { #category : #assertions }
@@ -30,7 +20,7 @@ GtExamplesParametrizedExamples >> assertExamples: currentExamples withSelectors:
 
 { #category : #assertions }
 GtExamplesParametrizedExamples >> assertParametrizedExample: example inClass: aMethodClass withProvider: aProviderClass [
-	self assert: example class equals: GtExample.
+	self assert: example class equals: GtParametrizedExample.
 	self assert: example providerContext class equals: GtExampleParametrizedProviderContext.
 	self assert: example providerContext providerClass equals: aProviderClass.
 	self assert: example providerClass equals: aProviderClass.
@@ -42,10 +32,10 @@ GtExamplesParametrizedExamples >> assertParametrizedExample: example inClass: aM
 ]
 
 { #category : #'examples - factories' }
-GtExamplesParametrizedExamples >> exampleFactoryForClassA [
+GtExamplesParametrizedExamples >> parametrizedExampleFactoryForClassA [
 	<gtExample>
 	| anExampleFactory | 
-	anExampleFactory := GtDummyExamplesWithParametrizedExampleA gtExamplesFactory.
+	anExampleFactory := GtDummyExamplesWithParametrizedExampleA gtParametrizedExamplesFactory.
 	self assertExampleFactory: anExampleFactory forClass: GtDummyExamplesWithParametrizedExampleA.
 	^ anExampleFactory
 ]
@@ -54,7 +44,7 @@ GtExamplesParametrizedExamples >> exampleFactoryForClassA [
 GtExamplesParametrizedExamples >> parametrizedExampleInClassA [
 	<gtExample>
 	| anExample |
-	anExample := self allExamplesFromClassA detect: [ :each | 
+	anExample := self parametrizedExamplesFromClassA detect: [ :each | 
 		each selector = #parametrizedExample: ].
 	self assertParametrizedExample: anExample 
 		inClass: GtDummyExamplesWithParametrizedExampleA 
@@ -67,13 +57,23 @@ GtExamplesParametrizedExamples >> parametrizedExampleInClassA [
 GtExamplesParametrizedExamples >> parametrizedExampleWithTwoArgumentsInClassA [
 	<gtExample>
 	| anExample |
-	anExample := self allExamplesFromClassA detect: [ :each | 
+	anExample := self parametrizedExamplesFromClassA detect: [ :each | 
 		each selector = #parametrizedExample:withTwoArguments: ].
 	self assertParametrizedExample: anExample 
 		inClass: GtDummyExamplesWithParametrizedExampleA 
 		withProvider: GtDummyExamplesWithParametrizedExampleA.
 	self assert: anExample providerContext arguments equals: #( 40 2 ).
 	^ anExample
+]
+
+{ #category : #'examples - groups' }
+GtExamplesParametrizedExamples >> parametrizedExamplesFromClassA [
+	<gtExample>
+	| anExamples | 
+	anExamples := self parametrizedExampleFactoryForClassA gtParametrizedExamplesContained.
+	self assertExamples: anExamples withSelectors: #( parametrizedExample: #parametrizedExample:withTwoArguments: ).
+	^ anExamples
+	
 ]
 
 { #category : #'examples - results' }

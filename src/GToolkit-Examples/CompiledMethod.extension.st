@@ -15,12 +15,30 @@ CompiledMethod >> gtExampleValue [
 CompiledMethod >> gtExamples [
 	^ self gtExample 
 		ifNotNil: [ :example | { example } ]
-		ifNil: [ {  } ]
+		ifNil: [ #( ) ]
 ]
 
 { #category : #'*GToolkit-Examples-Core' }
 CompiledMethod >> gtExamplesFactory [
 	^ self methodClass instanceSide gtExamplesFactory
+]
+
+{ #category : #'*GToolkit-Examples-Core' }
+CompiledMethod >> gtParametrizedExample [
+	self gtParametrizedExamplesFactory exampleMethod: self do: [ :example | ^ example ].
+	^ nil
+]
+
+{ #category : #'*GToolkit-Examples-Core' }
+CompiledMethod >> gtParametrizedExamples [
+	^ self gtParametrizedExample 
+		ifNotNil: [ :example | { example } ]
+		ifNil: [ #( ) ]
+]
+
+{ #category : #'*GToolkit-Examples-Core' }
+CompiledMethod >> gtParametrizedExamplesFactory [
+	^ self methodClass instanceSide gtParametrizedExamplesFactory
 ]
 
 { #category : #'*GToolkit-Examples-Core' }
@@ -40,7 +58,20 @@ CompiledMethod >> isGTExampleMethod [
 			ifTrue: [ ^ self originalMethod isGTExampleMethod ].
 
 	^ (self pragmas anySatisfy: [ :each | each isGTExamplePragma ])
-		"and: [ self numArgs = 0 ]"
+		and: [ self numArgs = 0 ]
+]
+
+{ #category : #'*GToolkit-Examples-Core' }
+CompiledMethod >> isGTParametrizedExampleMethod [
+
+	"Spy2 changes the AST of the method and removes pragmas.
+	Therefore we need to ask an original method instead"
+	((self respondsTo: #isSpy)
+		and: [ self isSpy ])
+			ifTrue: [ ^ self originalMethod isGTParametrizedExampleMethod ].
+
+	^ (self pragmas anySatisfy: [ :each | each isGTExamplePragma ])
+		and: [ self numArgs > 0 ]
 ]
 
 { #category : #'*GToolkit-Examples-Core' }

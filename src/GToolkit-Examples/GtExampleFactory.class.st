@@ -214,6 +214,15 @@ GtExampleFactory >> gtExamplesContained [
 	^ examples
 ]
 
+{ #category : #public }
+GtExampleFactory >> gtParametrizedExamplesContained [
+	"Return examples explicitly defined only in the source class."
+	| examples |
+	examples := OrderedCollection new.
+	self examplesDo: [ :example | examples add: example ].
+	^ examples
+]
+
 { #category : #'private - creating examples' }
 GtExampleFactory >> initializeExample: aGTExample fromMethod: aCompiledMethod [
 	self initializeProviderContextForExample: aGTExample fromMethod: aCompiledMethod.

@@ -4,6 +4,12 @@ Class {
 	#category : #'GToolkit-Examples-Dummies-Package5'
 }
 
+{ #category : #accessing }
+GtDummyExamplesWithParametrizedExampleA >> normalExample [
+	<gtExample>
+	^ 108
+]
+
 { #category : #'parametrized examples' }
 GtDummyExamplesWithParametrizedExampleA >> parametrizedExample: aNumber [
 	<gtExample>
