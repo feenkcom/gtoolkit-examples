@@ -13,7 +13,7 @@ GtDummyExamplesWithParametrizedExampleA >> normalExample [
 { #category : #'parametrized examples' }
 GtDummyExamplesWithParametrizedExampleA >> parametrizedExample: aNumber [
 	<gtExample>
-	<value: 21>
+	<defaultValue: 21>
 	| aResult |
 	aResult := aNumber * 2.
 	self assert: aResult isNotNil.
@@ -23,8 +23,8 @@ GtDummyExamplesWithParametrizedExampleA >> parametrizedExample: aNumber [
 { #category : #'parametrized examples' }
 GtDummyExamplesWithParametrizedExampleA >> parametrizedExample: aNumber withTwoArguments: anotherNumber [
 	<gtExample>
-	<value: 40>
-	<value: 2>
+	<defaultValue: 40>
+	<defaultValue: 2>
 	| aResult |
 	aResult := aNumber + anotherNumber.
 	self assert: aResult isNotNil.

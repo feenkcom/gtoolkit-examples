@@ -21,7 +21,7 @@ GtExampleParametrizedProviderContext class >> compiledMethod: aCompiledMethod [
 	<return: #GtExampleProviderContext>
 	| aDefaultArguments |
 	aDefaultArguments := aCompiledMethod pragmas 
-		select: [ :eachPragma | eachPragma selector = #value: ]
+		select: [ :eachPragma | eachPragma selector = #defaultValue: ]
 		thenCollect: [ :eachPragma | eachPragma arguments first ].
 	^ self new arguments: aDefaultArguments
 ]
