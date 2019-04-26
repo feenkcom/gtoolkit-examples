@@ -1,7 +1,7 @@
 Class {
 	#name : #GtDummyExamplesRecursive,
 	#superclass : #GtAbstractDummyExamples,
-	#category : 'GToolkit-Examples-Dummies-Data'
+	#category : #'GToolkit-Examples-Dummies-Data'
 }
 
 { #category : #'examples 1' }

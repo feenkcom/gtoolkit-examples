@@ -1,17 +1,17 @@
 Class {
 	#name : #GtDummyExamplesWithGlobalSubjects,
 	#superclass : #GtAbstractDummyExamples,
-	#category : 'GToolkit-Examples-Dummies-Data'
+	#category : #'GToolkit-Examples-Dummies-Data'
 }
 
 { #category : #examples }
 GtDummyExamplesWithGlobalSubjects class >> classSideSubjects1 [
 	<gtExample>
 	
-	self assert: self gtExampleContext example subjects first class equals: GtExampleClassSubject.
-	self assert: self gtExampleContext example subjects first theClassName equals: 'GtDummyExamplesWithGlobalSubjects'.
-	self assert: self gtExampleContext example subjects first theClass equals: GtDummyExamplesWithGlobalSubjects.
-	self assert: self gtExampleContext example subjects first exists.
+	self assert: self gtExampleRuntimeContext example subjects first class equals: GtExampleClassSubject.
+	self assert: self gtExampleRuntimeContext example subjects first theClassName equals: 'GtDummyExamplesWithGlobalSubjects'.
+	self assert: self gtExampleRuntimeContext example subjects first theClass equals: GtDummyExamplesWithGlobalSubjects.
+	self assert: self gtExampleRuntimeContext example subjects first exists.
 	
 	^ 0
 ]
@@ -20,10 +20,10 @@ GtDummyExamplesWithGlobalSubjects class >> classSideSubjects1 [
 GtDummyExamplesWithGlobalSubjects class >> classSideSubjects2 [
 	<gtExample>
 	
-	self assert: self gtExampleContext example subjects first class equals: GtExampleClassSubject.
-	self assert: self gtExampleContext example subjects first theClassName equals: 'GtDummyExamplesWithGlobalSubjects'.
-	self assert: self gtExampleContext example subjects first theClass equals: GtDummyExamplesWithGlobalSubjects.
-	self assert: self gtExampleContext example subjects first exists.
+	self assert: self gtExampleRuntimeContext example subjects first class equals: GtExampleClassSubject.
+	self assert: self gtExampleRuntimeContext example subjects first theClassName equals: 'GtDummyExamplesWithGlobalSubjects'.
+	self assert: self gtExampleRuntimeContext example subjects first theClass equals: GtDummyExamplesWithGlobalSubjects.
+	self assert: self gtExampleRuntimeContext example subjects first exists.
 	
 	^ 0
 ]
@@ -37,7 +37,7 @@ GtDummyExamplesWithGlobalSubjects class >> gtExamplesSubjects [
 GtDummyExamplesWithGlobalSubjects >> multipleSubjects1 [
 	<gtExample>
 	| example |
-	example := self gtExampleContext example.
+	example := self gtExampleRuntimeContext example.
 	self assert: example subjects size = 3.
 	self assert: (example subjects allSatisfy: [ :each | each exists ]).
 	self class gtExamplesSubjects do: [ :each |
@@ -50,10 +50,10 @@ GtDummyExamplesWithGlobalSubjects >> multipleSubjects1 [
 GtDummyExamplesWithGlobalSubjects >> multipleSubjects2 [
 	<gtExample>
 	
-	self assert: self gtExampleContext example subjects size = 3.
-	self assert: (self gtExampleContext example subjects allSatisfy: [ :each | each exists ]).
+	self assert: self gtExampleRuntimeContext example subjects size = 3.
+	self assert: (self gtExampleRuntimeContext example subjects allSatisfy: [ :each | each exists ]).
 	self class gtExamplesSubjects do: [ :each |
-		self assert: (self gtExampleContext example hasSubject: (self class gtExamplesFactoryClass subjectFrom: each)) ].
+		self assert: (self gtExampleRuntimeContext example hasSubject: (self class gtExamplesFactoryClass subjectFrom: each)) ].
 	
 	^ 0
 ]
@@ -62,10 +62,10 @@ GtDummyExamplesWithGlobalSubjects >> multipleSubjects2 [
 GtDummyExamplesWithGlobalSubjects >> multipleSubjects3 [
 	<gtExample>
 	
-	self assert: self gtExampleContext example subjects size = 3.
-	self assert: (self gtExampleContext example subjects allSatisfy: [ :each | each exists ]).
+	self assert: self gtExampleRuntimeContext example subjects size = 3.
+	self assert: (self gtExampleRuntimeContext example subjects allSatisfy: [ :each | each exists ]).
 	self class gtExamplesSubjects do: [ :each |
-		self assert: (self gtExampleContext example hasSubject: (self class gtExamplesFactoryClass subjectFrom: each)) ].
+		self assert: (self gtExampleRuntimeContext example hasSubject: (self class gtExamplesFactoryClass subjectFrom: each)) ].
 	
 	^ 0
 ]

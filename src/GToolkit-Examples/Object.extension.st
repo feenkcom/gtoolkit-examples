@@ -11,13 +11,14 @@ Object >> assert: actual equals: expected [
 ]
 
 { #category : #'*GToolkit-Examples-Core' }
-Object class >> gtExampleContext [
-	^ self gtExamplesFactoryClass gtExampleContext
+Object class >> gtExampleRuntimeContext [
+	^ self gtExamplesFactoryClass gtExampleRuntimeContext
 ]
 
 { #category : #'*GToolkit-Examples-Core' }
-Object >> gtExampleContext [
-	^ self class gtExampleContext
+Object >> gtExampleRuntimeContext [
+	<return: #GtExampleRuntimeContext>
+	^ self class gtExampleRuntimeContext
 ]
 
 { #category : #'*GToolkit-Examples-Core' }

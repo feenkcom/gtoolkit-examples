@@ -1,7 +1,7 @@
 Class {
 	#name : #GtDummyExamplesInvalidAfter,
 	#superclass : #GtAbstractDummyExamples,
-	#category : 'GToolkit-Examples-Dummies-Data'
+	#category : #'GToolkit-Examples-Dummies-Data'
 }
 
 { #category : #examples }

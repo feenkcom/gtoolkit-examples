@@ -1,7 +1,7 @@
 Class {
 	#name : #GtDummyExamplesExternalSubclassDependencies,
 	#superclass : #GtDummyExamplesExternalDependencies,
-	#category : 'GToolkit-Examples-Dummies-Data'
+	#category : #'GToolkit-Examples-Dummies-Data'
 }
 
 { #category : #examples }

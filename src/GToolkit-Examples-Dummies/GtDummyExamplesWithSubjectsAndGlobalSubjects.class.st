@@ -1,7 +1,7 @@
 Class {
 	#name : #GtDummyExamplesWithSubjectsAndGlobalSubjects,
 	#superclass : #GtAbstractDummyExamples,
-	#category : 'GToolkit-Examples-Dummies-Data'
+	#category : #'GToolkit-Examples-Dummies-Data'
 }
 
 { #category : #config }
@@ -15,8 +15,8 @@ GtDummyExamplesWithSubjectsAndGlobalSubjects >> multipleSubjects1 [
 	<subjectClass: 'GtExample'>
 	<subjectClass: #GtExample>
 	
-	self assert: self gtExampleContext example subjects size equals: 3.
-	self assert: (self gtExampleContext example subjects select: [ :each | each exists ]) size equals: 3.
+	self assert: self gtExampleRuntimeContext example subjects size equals: 3.
+	self assert: (self gtExampleRuntimeContext example subjects select: [ :each | each exists ]) size equals: 3.
 	
 	^ 0
 ]
@@ -28,8 +28,8 @@ GtDummyExamplesWithSubjectsAndGlobalSubjects >> multipleSubjects2 [
 	<subjectClass: 'Object'> " overlap "
 	<subjectClass: #Array> " overlap "
 	
-	self assert: self gtExampleContext example subjects size equals: 3.
-	self assert: (self gtExampleContext example subjects select: [ :each | each exists ]) size equals: 3.
+	self assert: self gtExampleRuntimeContext example subjects size equals: 3.
+	self assert: (self gtExampleRuntimeContext example subjects select: [ :each | each exists ]) size equals: 3.
 	
 	^ 0
 ]

@@ -23,7 +23,7 @@ GtExampleFactory class >> classSubjectFrom: aClass [
 ]
 
 { #category : #accessing }
-GtExampleFactory class >> gtExampleContext [
+GtExampleFactory class >> gtExampleRuntimeContext [
 	^ GtCurrentExampleContext value 
 ]
 

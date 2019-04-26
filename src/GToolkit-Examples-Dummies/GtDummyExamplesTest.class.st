@@ -1,7 +1,7 @@
 Class {
 	#name : #GtDummyExamplesTest,
 	#superclass : #TestCase,
-	#category : 'GToolkit-Examples-Dummies-Tests'
+	#category : #'GToolkit-Examples-Dummies-Tests'
 }
 
 { #category : #accessing }

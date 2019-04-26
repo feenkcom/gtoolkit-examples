@@ -2,7 +2,7 @@
 I am a utility that holds custom contextual information about the current example.
 "
 Class {
-	#name : #GtExampleProcessorContext,
+	#name : #GtExampleRuntimeContext,
 	#superclass : #IdentityDictionary,
 	#instVars : [
 		'example'
@@ -11,11 +11,11 @@ Class {
 }
 
 { #category : #accessing }
-GtExampleProcessorContext >> example [
+GtExampleRuntimeContext >> example [
 	^ example
 ]
 
 { #category : #accessing }
-GtExampleProcessorContext >> example: anObject [
+GtExampleRuntimeContext >> example: anObject [
 	example := anObject
 ]

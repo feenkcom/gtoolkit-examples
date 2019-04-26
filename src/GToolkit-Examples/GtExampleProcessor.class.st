@@ -58,7 +58,7 @@ GtExampleProcessor >> example: anObject [
 { #category : #initialization }
 GtExampleProcessor >> initialize [
 	super initialize.
-	context := GtExampleProcessorContext new
+	context := GtExampleRuntimeContext new
 ]
 
 { #category : #private }

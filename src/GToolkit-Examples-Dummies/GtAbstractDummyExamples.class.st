@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#traits : 'TGtExampleAssertable',
 	#classTraits : 'TGtExampleAssertable classTrait',
-	#category : 'GToolkit-Examples-Dummies-Data'
+	#category : #'GToolkit-Examples-Dummies-Data'
 }
 
 { #category : #testing }
