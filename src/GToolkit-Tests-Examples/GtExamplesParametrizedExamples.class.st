@@ -30,11 +30,56 @@ GtExamplesParametrizedExamples >> assertParametrizedExample: example inClass: aM
 ]
 
 { #category : #'examples - factories' }
+GtExamplesParametrizedExamples >> exampleFactoryForClassB [
+	<gtExample>
+	| anExampleFactory | 
+	anExampleFactory := GtDummyExamplesWithParametrizedExampleB gtExamplesFactory.
+	"self assertExampleFactory: anExampleFactory forClass: GtDummyExamplesWithParametrizedExampleB."
+	^ anExampleFactory
+]
+
+{ #category : #'examples - groups' }
+GtExamplesParametrizedExamples >> examplesFromClassB [
+	<gtExample>
+	| anExamples | 
+	anExamples := self exampleFactoryForClassB gtExamplesContained.
+	self 
+		assertExamples: anExamples 
+		withSelectors: #( #normalExample ).
+	^ anExamples
+	
+]
+
+{ #category : #'examples - standalone' }
+GtExamplesParametrizedExamples >> normalExampleWithParametrizedExampleDependencyInClassB [
+	<gtExample>
+	| anExample theDependencies |
+	anExample := self examplesFromClassB detect: [ :each | 
+		each selector = #normalExample ].
+	"self assertParametrizedExample: anExample 
+		inClass: GtDummyExamplesWithParametrizedExampleB 
+		withProvider: GtDummyExamplesWithParametrizedExampleB."
+	theDependencies := anExample directDependencies.
+	self assert: theDependencies size equals: 1. 
+	self assert: theDependencies first method equals: GtDummyExamplesWithParametrizedExampleB >> #ignoringParameterExample:.
+	^ anExample
+]
+
+{ #category : #'examples - factories' }
 GtExamplesParametrizedExamples >> parametrizedExampleFactoryForClassA [
 	<gtExample>
 	| anExampleFactory | 
 	anExampleFactory := GtDummyExamplesWithParametrizedExampleA gtParametrizedExamplesFactory.
 	self assertExampleFactory: anExampleFactory forClass: GtDummyExamplesWithParametrizedExampleA.
+	^ anExampleFactory
+]
+
+{ #category : #'examples - factories' }
+GtExamplesParametrizedExamples >> parametrizedExampleFactoryForClassB [
+	<gtExample>
+	| anExampleFactory | 
+	anExampleFactory := GtDummyExamplesWithParametrizedExampleB gtParametrizedExamplesFactory.
+	self assertExampleFactory: anExampleFactory forClass: GtDummyExamplesWithParametrizedExampleB.
 	^ anExampleFactory
 ]
 
@@ -52,6 +97,22 @@ GtExamplesParametrizedExamples >> parametrizedExampleInClassA [
 ]
 
 { #category : #'examples - standalone' }
+GtExamplesParametrizedExamples >> parametrizedExampleInClassB [
+	<gtExample>
+	| anExample theDependencies |
+	anExample := self parametrizedExamplesFromClassB detect: [ :each | 
+		each selector = #parametrizedExampleWithNormalExampleDependency: ].
+	self assertParametrizedExample: anExample 
+		inClass: GtDummyExamplesWithParametrizedExampleB 
+		withProvider: GtDummyExamplesWithParametrizedExampleB.
+	self assert: anExample arguments equals: #( ).
+	theDependencies := anExample directDependencies.
+	self assert: theDependencies size equals: 1. 
+	self assert: theDependencies first method equals: GtDummyExamplesWithParametrizedExampleB >> #normalExample.
+	^ anExample
+]
+
+{ #category : #'examples - standalone' }
 GtExamplesParametrizedExamples >> parametrizedExampleWithTwoArgumentsInClassA [
 	<gtExample>
 	| anExample |
@@ -64,12 +125,45 @@ GtExamplesParametrizedExamples >> parametrizedExampleWithTwoArgumentsInClassA [
 	^ anExample
 ]
 
+{ #category : #'examples - standalone' }
+GtExamplesParametrizedExamples >> parametrizedExampleWithTwoArgumentsInClassB [
+	<gtExample>
+	| anExample theDependencies |
+	anExample := self parametrizedExamplesFromClassB detect: [ :each | 
+		each selector = #parametrizedExample:withTwoArgumentsAndParametrizedExampleDependency: ].
+	self assertParametrizedExample: anExample 
+		inClass: GtDummyExamplesWithParametrizedExampleB 
+		withProvider: GtDummyExamplesWithParametrizedExampleB.
+	self assert: anExample arguments equals: #( ).
+	theDependencies := anExample directDependencies.
+	self assert: theDependencies size equals: 1. 
+	self 
+		assert: theDependencies first method 
+		equals: GtDummyExamplesWithParametrizedExampleB >> #parametrizedExampleWithNormalExampleDependency:.
+	^ anExample
+]
+
 { #category : #'examples - groups' }
 GtExamplesParametrizedExamples >> parametrizedExamplesFromClassA [
 	<gtExample>
 	| anExamples | 
 	anExamples := self parametrizedExampleFactoryForClassA gtParametrizedExamplesContained.
 	self assertExamples: anExamples withSelectors: #( parametrizedExample: #parametrizedExample:withTwoArguments: ).
+	^ anExamples
+	
+]
+
+{ #category : #'examples - groups' }
+GtExamplesParametrizedExamples >> parametrizedExamplesFromClassB [
+	<gtExample>
+	| anExamples | 
+	anExamples := self parametrizedExampleFactoryForClassB gtParametrizedExamplesContained.
+	self 
+		assertExamples: anExamples 
+		withSelectors: #( 
+				ignoringParameterExample:
+				parametrizedExample:withTwoArgumentsAndParametrizedExampleDependency: 
+				parametrizedExampleWithNormalExampleDependency: ).
 	^ anExamples
 	
 ]

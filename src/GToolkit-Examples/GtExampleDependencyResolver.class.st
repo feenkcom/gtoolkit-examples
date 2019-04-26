@@ -14,9 +14,12 @@ GtExampleDependencyResolver >> appliesTo: anASTNode [
 
 { #category : #private }
 GtExampleDependencyResolver >> exampleFromMethod: aMethod [
+	self flag: 'figure out how to remove the if statements'.
 	^ aMethod isGTExampleMethod 
 		ifTrue: [ aMethod  gtExample ]
-		ifFalse: [ nil ]
+		ifFalse: [ aMethod isGTParametrizedExampleMethod 
+			ifTrue: [ aMethod gtParametrizedExample ] 
+			ifFalse: [ nil ] ]
 ]
 
 { #category : #action }

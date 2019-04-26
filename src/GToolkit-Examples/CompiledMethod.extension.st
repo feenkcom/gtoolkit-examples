@@ -73,9 +73,3 @@ CompiledMethod >> isGTParametrizedExampleMethod [
 	^ (self pragmas anySatisfy: [ :each | each isGTExamplePragma ])
 		and: [ self numArgs > 0 ]
 ]
-
-{ #category : #'*GToolkit-Examples-Core' }
-CompiledMethod >> isGTReservedMethod [
-	^ #( gtExamplesFactory gtExample gtExamples ) 
-			anySatisfy: [ :selector | selector = self selector ]
-]
