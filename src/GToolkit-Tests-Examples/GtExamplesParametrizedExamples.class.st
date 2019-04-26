@@ -21,8 +21,6 @@ GtExamplesParametrizedExamples >> assertExamples: currentExamples withSelectors:
 { #category : #assertions }
 GtExamplesParametrizedExamples >> assertParametrizedExample: example inClass: aMethodClass withProvider: aProviderClass [
 	self assert: example class equals: GtParametrizedExample.
-	self assert: example providerContext class equals: GtExampleParametrizedProviderContext.
-	self assert: example providerContext providerClass equals: aProviderClass.
 	self assert: example providerClass equals: aProviderClass.
 	self assert: example methodClass equals: aMethodClass.
 	self assert: example provider class equals: aProviderClass.
@@ -49,7 +47,7 @@ GtExamplesParametrizedExamples >> parametrizedExampleInClassA [
 	self assertParametrizedExample: anExample 
 		inClass: GtDummyExamplesWithParametrizedExampleA 
 		withProvider: GtDummyExamplesWithParametrizedExampleA.
-	self assert: anExample providerContext arguments equals: #( 21 ).
+	self assert: anExample arguments equals: #( ).
 	^ anExample
 ]
 
@@ -62,7 +60,7 @@ GtExamplesParametrizedExamples >> parametrizedExampleWithTwoArgumentsInClassA [
 	self assertParametrizedExample: anExample 
 		inClass: GtDummyExamplesWithParametrizedExampleA 
 		withProvider: GtDummyExamplesWithParametrizedExampleA.
-	self assert: anExample providerContext arguments equals: #( 40 2 ).
+	self assert: anExample arguments equals: #( ).
 	^ anExample
 ]
 
@@ -79,8 +77,10 @@ GtExamplesParametrizedExamples >> parametrizedExamplesFromClassA [
 { #category : #'examples - results' }
 GtExamplesParametrizedExamples >> resultOfParametrizedExampleInClassA [
 	<gtExample>
-	| aResult |
-	aResult := self parametrizedExampleInClassA result.
+	| anExample aResult |
+	anExample := self parametrizedExampleInClassA.
+	anExample arguments: #( 21 ).
+	aResult := anExample result.
 	self assert: aResult returnValue equals: 42.
 	self assert: aResult hasException not.
 	^ aResult
@@ -89,8 +89,10 @@ GtExamplesParametrizedExamples >> resultOfParametrizedExampleInClassA [
 { #category : #'examples - results' }
 GtExamplesParametrizedExamples >> resultOfParametrizedExampleWithTwoArgumentsInClassA [
 	<gtExample>
-	| aResult |
-	aResult := self parametrizedExampleWithTwoArgumentsInClassA result.
+	| anExample aResult |
+	anExample := self parametrizedExampleWithTwoArgumentsInClassA.
+	anExample arguments: #( 40 2 ).
+	aResult := anExample result.
 	self assert: aResult returnValue equals: 42.
 	self assert: aResult hasException not.
 	^ aResult

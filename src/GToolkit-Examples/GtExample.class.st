@@ -26,8 +26,7 @@ Class {
 		'children',
 		'properties',
 		'after',
-		'problems',
-		'providerContext'
+		'problems'
 	],
 	#category : #'GToolkit-Examples-Core'
 }
@@ -74,12 +73,6 @@ GtExample >> allDependencies [
 ]
 
 { #category : #'accessing-dynamic' }
-GtExample >> arguments [
-	self flag: 'For compatibility with the previous version. Consider removing'.
-	^ #()
-]
-
-{ #category : #'accessing-dynamic' }
 GtExample >> asExampleWithResult [
 	^ GtExampleWithResult new example: self
 ]
@@ -105,11 +98,6 @@ GtExample >> debugger [
 	^ GtExampleDebugger new 
 		example: self;
 		yourself
-]
-
-{ #category : #defaults }
-GtExample >> defaultProviderContext [
-	^ GtExampleClassProviderContext new providerClass: self providerClass.
 ]
 
 { #category : #private }
@@ -141,6 +129,14 @@ GtExample >> directDependencies [
 { #category : #TODO }
 GtExample >> directDependents [
 	^ #()
+]
+
+{ #category : #'accessing-dynamic' }
+GtExample >> evaluationContext [
+	<return: #GtExampleEvaluationContext>
+	^ GtExampleEvaluationContext new 
+			provider: self provider;
+			arguments: #()
 ]
 
 { #category : #'accessing-dynamic' }
@@ -473,22 +469,6 @@ GtExample >> provider [
 { #category : #accessing }
 GtExample >> providerClass [
 	^ providerClass
-]
-
-{ #category : #accessing }
-GtExample >> providerContext [
-	^ providerContext ifNil: [ providerContext := self defaultProviderContext ]
-]
-
-{ #category : #accessing }
-GtExample >> providerContext: aGtExampleProviderContext [
-	providerContext := aGtExampleProviderContext
-]
-
-{ #category : #'accessing-dynamic' }
-GtExample >> providerValue [
-	<return: #GtExampleProviderValue>
-	^ self providerContext providerValue
 ]
 
 { #category : #'accessing-dynamic' }

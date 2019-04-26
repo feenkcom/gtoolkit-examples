@@ -225,7 +225,6 @@ GtExampleFactory >> gtParametrizedExamplesContained [
 
 { #category : #'private - creating examples' }
 GtExampleFactory >> initializeExample: aGTExample fromMethod: aCompiledMethod [
-	self initializeProviderContextForExample: aGTExample fromMethod: aCompiledMethod.
 	self initializeSubjectsForExample: aGTExample.
 	self initializePragmasFromMethod: aCompiledMethod forExample: aGTExample.
 
@@ -248,14 +247,6 @@ GtExampleFactory >> initializePragmas: aCollection forExample: aGTExample [
 { #category : #'private-init' }
 GtExampleFactory >> initializePragmasFromMethod: aCompiledMethod forExample: aGTExample [
 	self initializePragmas: aCompiledMethod pragmas forExample: aGTExample
-]
-
-{ #category : #'private - creating examples' }
-GtExampleFactory >> initializeProviderContextForExample: aGTExample fromMethod: aCompiledMethod [
-	| aProviderContext |
-	aProviderContext := GtExampleProviderContext fromCompiledMethod: aCompiledMethod.
-	aProviderContext providerClass: aGTExample providerClass.
-	aGTExample providerContext: aProviderContext.
 ]
 
 { #category : #'private-init' }
