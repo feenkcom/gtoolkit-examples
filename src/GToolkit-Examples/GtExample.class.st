@@ -422,6 +422,11 @@ GtExample >> noTestReport [
 	self propertyAt: #noTestReport put: true
 ]
 
+{ #category : #accessing }
+GtExample >> numberOfRequieredArguments [
+	^ 0
+]
+
 { #category : #actions }
 GtExample >> openDebugger [
 	^ self openingDebugger result

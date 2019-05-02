@@ -25,8 +25,23 @@ GtParametrizedExample >> evaluationContext [
 			arguments: self arguments
 ]
 
+{ #category : #accessing }
+GtParametrizedExample >> gtArgumentsFor: aView [ 
+	<gtView>
+	self arguments ifNil: [ ^ aView empty ].
+	^ aView list 
+		title: 'Arguments';
+		priority: 5;
+		items: [ self arguments ]
+]
+
 { #category : #initialization }
 GtParametrizedExample >> initialize [
 	super initialize.
 	arguments := #().
+]
+
+{ #category : #accessing }
+GtParametrizedExample >> numberOfRequieredArguments [
+	^ self method numArgs
 ]
