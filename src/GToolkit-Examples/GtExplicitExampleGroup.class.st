@@ -20,7 +20,17 @@ GtExplicitExampleGroup >> examples [
 
 { #category : #accessing }
 GtExplicitExampleGroup >> examples: aCollection [
-	examples := aCollection collect: [ :each | each asExampleWithResult ]
+	self unsubscribeFromExamples.
+	examples := aCollection collect: [ :each | each asExampleWithResult ].
+	self subscribeToExamples.
+	
+]
+
+{ #category : #'announcement handling' }
+GtExplicitExampleGroup >> handleExampleAnnouncement: aGtExampleAnnouncement [
+	self ignoreAnnouncements ifTrue: [ ^ self ].
+	self hasAnnouncer ifFalse: [ ^ self ].
+	self announcer announce: aGtExampleAnnouncement.
 ]
 
 { #category : #initialization }
@@ -32,4 +42,20 @@ GtExplicitExampleGroup >> initialize [
 { #category : #accessing }
 GtExplicitExampleGroup >> size [
 	^ examples size
+]
+
+{ #category : #subscriptions }
+GtExplicitExampleGroup >> subscribeToExamples [
+	self examples ifNil: [ ^ self ].
+	self examples do: [ :eachExample | 
+		eachExample announcer
+			subscribe: GtExampleAnnouncement 
+			send: #handleExampleAnnouncement: 
+			to: self ].
+]
+
+{ #category : #subscriptions }
+GtExplicitExampleGroup >> unsubscribeFromExamples [
+	self examples ifNil: [ ^ self ].
+	self examples do: [ :eachExample | eachExample unsubscribe: self ].
 ]

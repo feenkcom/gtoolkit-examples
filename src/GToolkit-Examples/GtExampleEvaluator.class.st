@@ -12,6 +12,7 @@ Class {
 
 { #category : #private }
 GtExampleEvaluator >> basicProcess: anExample [
+	<return: #GtExampleResult>
 	| currentResult anEvaluationContext dependencies |
 	context example: anExample.
 
@@ -63,8 +64,7 @@ GtExampleEvaluator >> handleDependencyErrorFor: anExample [
 GtExampleEvaluator >> newResultFor: anExample [
 	^ GtExampleResult new 
 		example: anExample;
-		context: self context;
-		yourself.
+		context: self context
 ]
 
 { #category : #primitives }
@@ -92,6 +92,7 @@ GtExampleEvaluator >> processAfterMethodFor: anExample withEvaluationContext: an
 
 { #category : #public }
 GtExampleEvaluator >> result [
+	<return: #GtExampleResult>
 	self do: [ result := self value ] 
 		on: GtExampleResult signalableExceptions
 		do: [ :anException |

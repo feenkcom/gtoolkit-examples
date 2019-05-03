@@ -12,6 +12,12 @@ Class {
 }
 
 { #category : #accessing }
+GtExampleWithResult >> announcer [
+	<return: #Announcer>
+	^ self example announcer
+]
+
+{ #category : #accessing }
 GtExampleWithResult >> asExampleWithResult [
 	^ self
 ]
@@ -78,9 +84,10 @@ GtExampleWithResult >> hasResult [
 
 { #category : #ui }
 GtExampleWithResult >> icon [
-	self isSuccess ifTrue: [ ^ ThemeIcons current iconNamed: #testGreen ].
-	(self isError or: [ self isFailure ]) ifTrue: [ ^ ThemeIcons current iconNamed: #testRed ].
-	^ ThemeIcons current iconNamed: #testNotRun
+	<return: #Form>
+	^ self result 
+			ifNotNil: #icon
+			ifNil: [ ^ ThemeIcons current iconNamed: #testNotRun ]
 ]
 
 { #category : #testing }
@@ -146,6 +153,7 @@ GtExampleWithResult >> resultOrErrorName [
 
 { #category : #public }
 GtExampleWithResult >> run [
+	<return: #GtExampleResult>
 	self result: self example run.
 	^ self result.
 ]

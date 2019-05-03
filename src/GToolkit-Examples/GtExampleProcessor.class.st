@@ -63,11 +63,13 @@ GtExampleProcessor >> initialize [
 
 { #category : #private }
 GtExampleProcessor >> process: anExample [
+	<return: #GtExampleResult>
 	^ self basicProcess: anExample
 ]
 
 { #category : #public }
 GtExampleProcessor >> value [ 
+	<return: #GtExampleResult>
 	^ self withContextDo: [ self process: self example ]
 ]
 
