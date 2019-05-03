@@ -7,7 +7,7 @@ Class {
 { #category : #assertions }
 GtExamplesParametrizedExamples >> assertExampleFactory: anExampleFactory forClass: aSourceClass [
 	self assert: anExampleFactory sourceClass equals: aSourceClass.
-	self assert: anExampleFactory exampleClass equals: GtParametrizedExample.
+	self assert: anExampleFactory exampleClass equals: GtExample.
 ]
 
 { #category : #assertions }
@@ -29,12 +29,18 @@ GtExamplesParametrizedExamples >> assertParametrizedExample: example inClass: aM
 	self assert: example exists.
 ]
 
+{ #category : #assertions }
+GtExamplesParametrizedExamples >> assertParametrizedExampleFactory: anExampleFactory forClass: aSourceClass [
+	self assert: anExampleFactory sourceClass equals: aSourceClass.
+	self assert: anExampleFactory exampleClass equals: GtParametrizedExample.
+]
+
 { #category : #'examples - factories' }
 GtExamplesParametrizedExamples >> exampleFactoryForClassB [
 	<gtExample>
 	| anExampleFactory | 
 	anExampleFactory := GtDummyExamplesWithParametrizedExampleB gtExamplesFactory.
-	"self assertExampleFactory: anExampleFactory forClass: GtDummyExamplesWithParametrizedExampleB."
+	self assertExampleFactory: anExampleFactory forClass: GtDummyExamplesWithParametrizedExampleB.
 	^ anExampleFactory
 ]
 
@@ -70,7 +76,7 @@ GtExamplesParametrizedExamples >> parametrizedExampleFactoryForClassA [
 	<gtExample>
 	| anExampleFactory | 
 	anExampleFactory := GtDummyExamplesWithParametrizedExampleA gtParametrizedExamplesFactory.
-	self assertExampleFactory: anExampleFactory forClass: GtDummyExamplesWithParametrizedExampleA.
+	self assertParametrizedExampleFactory: anExampleFactory forClass: GtDummyExamplesWithParametrizedExampleA.
 	^ anExampleFactory
 ]
 
@@ -79,7 +85,7 @@ GtExamplesParametrizedExamples >> parametrizedExampleFactoryForClassB [
 	<gtExample>
 	| anExampleFactory | 
 	anExampleFactory := GtDummyExamplesWithParametrizedExampleB gtParametrizedExamplesFactory.
-	self assertExampleFactory: anExampleFactory forClass: GtDummyExamplesWithParametrizedExampleB.
+	self assertParametrizedExampleFactory: anExampleFactory forClass: GtDummyExamplesWithParametrizedExampleB.
 	^ anExampleFactory
 ]
 
