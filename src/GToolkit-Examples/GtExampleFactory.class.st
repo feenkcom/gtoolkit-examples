@@ -23,7 +23,7 @@ GtExampleFactory class >> classSubjectFrom: aClass [
 ]
 
 { #category : #accessing }
-GtExampleFactory class >> gtExampleContext [
+GtExampleFactory class >> gtExampleRuntimeContext [
 	^ GtCurrentExampleContext value 
 ]
 
@@ -207,6 +207,15 @@ GtExampleFactory >> gtExamplesAllContained [
 
 { #category : #public }
 GtExampleFactory >> gtExamplesContained [
+	"Return examples explicitly defined only in the source class."
+	| examples |
+	examples := OrderedCollection new.
+	self examplesDo: [ :example | examples add: example ].
+	^ examples
+]
+
+{ #category : #public }
+GtExampleFactory >> gtParametrizedExamplesContained [
 	"Return examples explicitly defined only in the source class."
 	| examples |
 	examples := OrderedCollection new.

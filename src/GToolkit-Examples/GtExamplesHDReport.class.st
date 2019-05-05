@@ -14,7 +14,7 @@ Class {
 		'examplesFailures',
 		'title'
 	],
-	#category : 'GToolkit-Examples-Testing'
+	#category : #'GToolkit-Examples-Testing'
 }
 
 { #category : #running }
@@ -195,7 +195,7 @@ GtExamplesHDReport >> setUp [
 	
 	"Now this is ugly. We want to update the time and the number of failures and errors, but still at the same time stream a valid XML. So remember this position and add some whitespace, that we can fill later."
 	examplesPosition := stream wrappedStream position - 1.
-	stream nextPutAll: (String new: 100 withAll: $ ); lf.
+	stream nextPutAll: (String new: 100 withAll: Character space); lf.
 ]
 
 { #category : #private }
@@ -205,7 +205,7 @@ GtExamplesHDReport >> stackTraceString: err of: anExample [
 		context := err signalerContext.
 		[ context isNil 
 			or: [  
-				(context methodSelector == #'primitiveProcessExample:withProvider:' and: [ 
+				(context methodSelector == #primitiveProcessExample:withEvaluationContext: and: [ 
 					context arguments first = anExample ])
 					or: [ context receiver = anExample and: [ context methodSelector = #debug ] ] ] 
 		] whileFalse: [

@@ -26,7 +26,8 @@ Class {
 		'children',
 		'properties',
 		'after',
-		'problems'
+		'problems',
+		'announcer'
 	],
 	#category : #'GToolkit-Examples-Core'
 }
@@ -72,10 +73,18 @@ GtExample >> allDependencies [
 	^ examples
 ]
 
-{ #category : #'accessing-dynamic' }
-GtExample >> arguments [
-	self flag: 'For compatibility with the previous version. Consider removing'.
-	^ #()
+{ #category : #accessing }
+GtExample >> announcer [
+	<return: #Announcer>
+	^ announcer ifNil: [ announcer := Announcer new ]
+]
+
+{ #category : #accessing }
+GtExample >> announcer: anAnnouncer [
+	self 
+		assert: [ anAnnouncer isNotNil ]
+		description: [ 'Example Announcer must be non-nil' ].
+	announcer := anAnnouncer
 ]
 
 { #category : #'accessing-dynamic' }
@@ -138,6 +147,14 @@ GtExample >> directDependents [
 ]
 
 { #category : #'accessing-dynamic' }
+GtExample >> evaluationContext [
+	<return: #GtExampleEvaluationContext>
+	^ GtExampleEvaluationContext new 
+			provider: self provider;
+			arguments: #()
+]
+
+{ #category : #'accessing-dynamic' }
 GtExample >> evaluator [
 	^ GtExampleEvaluator new 
 		example: self;
@@ -175,6 +192,11 @@ GtExample >> gtExample [
 { #category : #testing }
 GtExample >> hasAfter [
 	^ after notNil
+]
+
+{ #category : #testing }
+GtExample >> hasAnnouncer [
+	^ announcer isNotNil
 ]
 
 { #category : #testing }
@@ -420,6 +442,11 @@ GtExample >> noTestReport [
 	self propertyAt: #noTestReport put: true
 ]
 
+{ #category : #accessing }
+GtExample >> numberOfRequieredArguments [
+	^ 0
+]
+
 { #category : #actions }
 GtExample >> openDebugger [
 	^ self openingDebugger result
@@ -471,6 +498,7 @@ GtExample >> providerClass [
 
 { #category : #'accessing-dynamic' }
 GtExample >> result [
+	<return: #GtExampleResult>
 	^ self run
 ]
 
@@ -481,7 +509,16 @@ GtExample >> returnValue [
 
 { #category : #actions }
 GtExample >> run [
-	^ self evaluator result 
+	<return: #GtExampleResult>
+	| aResult |
+	aResult := self evaluator result.
+	self hasAnnouncer ifTrue: [
+		| anAnnouncement |
+		anAnnouncement := GtExampleExecuted new 
+			example: self;
+			result: aResult.
+		self announcer announce: anAnnouncement ].
+	^ aResult
 ]
 
 { #category : #actions }

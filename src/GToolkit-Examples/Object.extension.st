@@ -11,13 +11,14 @@ Object >> assert: actual equals: expected [
 ]
 
 { #category : #'*GToolkit-Examples-Core' }
-Object class >> gtExampleContext [
-	^ self gtExamplesFactoryClass gtExampleContext
+Object class >> gtExampleRuntimeContext [
+	^ self gtExamplesFactoryClass gtExampleRuntimeContext
 ]
 
 { #category : #'*GToolkit-Examples-Core' }
-Object >> gtExampleContext [
-	^ self class gtExampleContext
+Object >> gtExampleRuntimeContext [
+	<return: #GtExampleRuntimeContext>
+	^ self class gtExampleRuntimeContext
 ]
 
 { #category : #'*GToolkit-Examples-Core' }
@@ -51,6 +52,21 @@ Object >> gtExamplesFactory [
 ]
 
 { #category : #'*GToolkit-Examples-Core' }
+Object >> gtParametrizedExamples [
+	^ self class gtParametrizedExamples
+]
+
+{ #category : #'*GToolkit-Examples-Core' }
+Object >> gtParametrizedExamplesContained [
+	^ self gtParametrizedExamples
+]
+
+{ #category : #'*GToolkit-Examples-Core' }
+Object >> gtParametrizedExamplesFactory [
+	^ self class gtParametrizedExamplesFactory
+]
+
+{ #category : #'*GToolkit-Examples-Core' }
 Object >> isGTExample [
 	^ false
 ]
@@ -62,5 +78,10 @@ Object >> isGTExampleError [
 
 { #category : #'*GToolkit-Examples-Core' }
 Object >> isGTExampleMethod [
+	^ false
+]
+
+{ #category : #'*GToolkit-Examples-Core' }
+Object >> isGTParametrizedExampleMethod [
 	^ false
 ]

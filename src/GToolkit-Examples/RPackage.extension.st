@@ -23,3 +23,15 @@ RPackage >> gtExamplesContained [
 		flatCollect: #gtExamples.
 	^ examples asOrderedCollection
 ]
+
+{ #category : #'*GToolkit-Examples-Core' }
+RPackage >> gtParametrizedExamplesContained [
+	"I obtained the examples contained only in this package by collecting the examples 
+	contained by the classes in this package."
+	| examples |
+	examples := ((self definedClasses reject: [ :aClass | 
+			aClass isAbstract or: [ aClass isTrait ] ])
+		asSortedCollection: [ :a :b | a name <= b name ])
+		flatCollect: #gtParametrizedExamples.
+	^ examples asOrderedCollection
+]

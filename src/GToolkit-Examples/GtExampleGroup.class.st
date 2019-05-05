@@ -7,7 +7,8 @@ Class {
 	#name : #GtExampleGroup,
 	#superclass : #Object,
 	#instVars : [
-		'announcer'
+		'announcer',
+		'ignoreAnnouncements'
 	],
 	#category : #'GToolkit-Examples-Core'
 }
@@ -19,12 +20,16 @@ GtExampleGroup class >> withAll: aCollection [
 
 { #category : #accessing }
 GtExampleGroup >> announcer [
-	^ announcer
+	<return: #Announcer>
+	^ announcer ifNil: [ announcer := Announcer new ]
 ]
 
 { #category : #accessing }
-GtExampleGroup >> announcer: anObject [
-	announcer := anObject
+GtExampleGroup >> announcer: anAnnouncer [
+	self 
+		assert: [ anAnnouncer isNotNil ]
+		description: [ 'Example Group Announcer must be non-nil' ].
+	announcer := anAnnouncer
 ]
 
 { #category : #enumerating }
@@ -155,14 +160,31 @@ GtExampleGroup >> gtInspectorExamplesIn: composite [
 ]
 
 { #category : #testing }
+GtExampleGroup >> hasAnnouncer [
+	^ announcer isNotNil
+]
+
+{ #category : #testing }
 GtExampleGroup >> ifEmpty: aBlockClosure [ 
 	^ self examples ifEmpty: aBlockClosure 
+]
+
+{ #category : #testing }
+GtExampleGroup >> ignoreAnnouncements [
+	<return: #Boolean>
+	^ ignoreAnnouncements
+]
+
+{ #category : #'announcement handling' }
+GtExampleGroup >> ignoreAnnouncementsDuring: aBlock [
+	ignoreAnnouncements := true.
+	aBlock ensure: [ ignoreAnnouncements := false ].
 ]
 
 { #category : #initialization }
 GtExampleGroup >> initialize [
 	super initialize.
-	announcer := Announcer new
+	ignoreAnnouncements := false.
 ]
 
 { #category : #testing }
@@ -221,19 +243,23 @@ GtExampleGroup >> numberOfSuccesses [
 
 { #category : #'accessing - dynamic' }
 GtExampleGroup >> results [
-	^ self collect:  [:example | example run]
+	^ self collect:  [ :example | example run ]
 ]
 
 { #category : #'accessing - dynamic' }
 GtExampleGroup >> returnValues [
-	^ self results collect: [:result | result returnValue]
+	^ self results collect: [ :result | result returnValue ]
 ]
 
 { #category : #actions }
 GtExampleGroup >> runAll [
 	self examples 
-		do: [ :each | each ignoreTest ifFalse: [ each run ] ] 
+		do: [ :eachExampleWithResult | 
+			eachExampleWithResult ignoreTest ifFalse: [ 
+				self ignoreAnnouncementsDuring: [ eachExampleWithResult run ] ] ] 
 		displayingProgress: 'Running examples ...'.
+	self hasAnnouncer ifFalse: [ ^ self ].
+	self announcer announce: (GtExamplesExecuted new group: self).
 ]
 
 { #category : #actions }

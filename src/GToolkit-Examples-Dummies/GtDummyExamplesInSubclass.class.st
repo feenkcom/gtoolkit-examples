@@ -1,7 +1,7 @@
 Class {
 	#name : #GtDummyExamplesInSubclass,
 	#superclass : #GtDummyExamplesSuperclass,
-	#category : 'GToolkit-Examples-Dummies-Data'
+	#category : #'GToolkit-Examples-Dummies-Data'
 }
 
 { #category : #examples }
@@ -22,9 +22,9 @@ GtDummyExamplesInSubclass >> dCallSuper [
 	|dCallSuper|
 	dCallSuper := super dCallSuper + 1.
 	
-	self assert: self gtExampleContext example directDependencies size equals: 1.
+	self assert: self gtExampleRuntimeContext example directDependencies size equals: 1.
 	self 
-		assert: self gtExampleContext example directDependencies first method 
+		assert: self gtExampleRuntimeContext example directDependencies first method 
 		equals: (self class superclass compiledMethodAt: thisContext selector).
 	
 	^ dCallSuper
@@ -37,9 +37,9 @@ GtDummyExamplesInSubclass >> eCallToDifferentSuper [
 	
 	result := super dCallSuper + 1.
 	
-	self assert: self gtExampleContext example directDependencies size equals: 1.
+	self assert: self gtExampleRuntimeContext example directDependencies size equals: 1.
 	self 
-		assert: self gtExampleContext example directDependencies first method 
+		assert: self gtExampleRuntimeContext example directDependencies first method 
 		equals: (self class superclass compiledMethodAt: #dCallSuper).
 	
 
@@ -52,9 +52,9 @@ GtDummyExamplesInSubclass >> eTwoCallsToSameSuperclassMethodWithSameSelector [
 	
 	result := super aSuperclass + self aSuperclass.
 	
-	self assert: self gtExampleContext example directDependencies size equals: 1.
+	self assert: self gtExampleRuntimeContext example directDependencies size equals: 1.
 	self 
-		assert: self gtExampleContext example directDependencies first method 
+		assert: self gtExampleRuntimeContext example directDependencies first method 
 		equals: (self class lookupSelector: #aSuperclass).
 
 	^ result
@@ -67,12 +67,12 @@ GtDummyExamplesInSubclass >> fTwoCallsToDifferentMethodsWithSameSelector [
 	
 	result := super bInBoth + self bInBoth.
 	
-	self assert: self gtExampleContext example directDependencies size equals: 2.
+	self assert: self gtExampleRuntimeContext example directDependencies size equals: 2.
 	self 
-		assert: self gtExampleContext example directDependencies first method 
+		assert: self gtExampleRuntimeContext example directDependencies first method 
 		equals: (self class superclass lookupSelector: #bInBoth).
 		self 
-		assert: self gtExampleContext example directDependencies second method 
+		assert: self gtExampleRuntimeContext example directDependencies second method 
 		equals: (self class lookupSelector: #bInBoth).
 
 	^ result
@@ -85,12 +85,12 @@ GtDummyExamplesInSubclass >> gCallsToDifferentSelfAndSuperMethods [
 	
 	result := super aSuperclass + self bInBoth.
 	
-	self assert: self gtExampleContext example directDependencies size equals: 2.
+	self assert: self gtExampleRuntimeContext example directDependencies size equals: 2.
 	self 
-		assert: self gtExampleContext example directDependencies first method 
+		assert: self gtExampleRuntimeContext example directDependencies first method 
 		equals: (self class superclass lookupSelector: #aSuperclass).
 		self 
-		assert: self gtExampleContext example directDependencies second method 
+		assert: self gtExampleRuntimeContext example directDependencies second method 
 		equals: (self class lookupSelector: #bInBoth).
 
 	^ result
@@ -103,9 +103,9 @@ GtDummyExamplesInSubclass >> hSelfCallToMethodFromSuperclass [
 	
 	result := self aSuperclass.
 	
-	self assert: self gtExampleContext example directDependencies size equals: 1.
+	self assert: self gtExampleRuntimeContext example directDependencies size equals: 1.
 	self 
-		assert: self gtExampleContext example directDependencies first method 
+		assert: self gtExampleRuntimeContext example directDependencies first method 
 		equals: (self class superclass lookupSelector: #aSuperclass).
 
 	^ result

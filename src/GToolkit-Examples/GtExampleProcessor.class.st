@@ -15,7 +15,7 @@ Class {
 		'example',
 		'context'
 	],
-	#category : 'GToolkit-Examples-Runtime'
+	#category : #'GToolkit-Examples-Runtime'
 }
 
 { #category : #private }
@@ -58,16 +58,18 @@ GtExampleProcessor >> example: anObject [
 { #category : #initialization }
 GtExampleProcessor >> initialize [
 	super initialize.
-	context := GtExampleContext new
+	context := GtExampleRuntimeContext new
 ]
 
 { #category : #private }
 GtExampleProcessor >> process: anExample [
+	<return: #GtExampleResult>
 	^ self basicProcess: anExample
 ]
 
 { #category : #public }
 GtExampleProcessor >> value [ 
+	<return: #GtExampleResult>
 	^ self withContextDo: [ self process: self example ]
 ]
 

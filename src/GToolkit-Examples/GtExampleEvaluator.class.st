@@ -5,24 +5,24 @@ Class {
 	#name : #GtExampleEvaluator,
 	#superclass : #GtExampleProcessor,
 	#instVars : [
-		'providers',
 		'result'
 	],
-	#category : 'GToolkit-Examples-Runtime'
+	#category : #'GToolkit-Examples-Runtime'
 }
 
 { #category : #private }
 GtExampleEvaluator >> basicProcess: anExample [
-	| currentResult currentProvider dependencies |
+	<return: #GtExampleResult>
+	| currentResult anEvaluationContext dependencies |
 	context example: anExample.
 
 	dependencies := self dependenciesFor: anExample.
 	currentResult := self newResultFor: anExample.
-	currentProvider := anExample provider.
+	anEvaluationContext := anExample evaluationContext.
 	
-	[ currentResult returnValue: (self primitiveProcessExample: anExample withProvider: currentProvider) ] 
+	[ currentResult returnValue: (self primitiveProcessExample: anExample withEvaluationContext: anEvaluationContext) ] 
 		ensure: [ 
-			self processAfter: anExample withDependencies: dependencies andProvider: currentProvider ].
+			self processAfter: anExample withDependencies: dependencies andEvaluationContext: anEvaluationContext ].
 	
 	^ currentResult
 ]
@@ -60,50 +60,39 @@ GtExampleEvaluator >> handleDependencyErrorFor: anExample [
 		yourself) signal
 ]
 
-{ #category : #initialization }
-GtExampleEvaluator >> initialize [
-	super initialize.
-	
-	providers := IdentityDictionary new.
-]
-
 { #category : #private }
 GtExampleEvaluator >> newResultFor: anExample [
 	^ GtExampleResult new 
 		example: anExample;
-		context: self context;
-		yourself.
+		context: self context
 ]
 
 { #category : #primitives }
-GtExampleEvaluator >> primitiveProcessExample: anExample withProvider: aProvider [
-	^ aProvider perform: anExample method selector
+GtExampleEvaluator >> primitiveProcessExample: anExample withEvaluationContext: anEvaluationContext [
+	"Perform an example using a provider context and return its result"
+	^ anEvaluationContext provider 
+		perform: anExample method selector 
+		withArguments: anEvaluationContext arguments
 ]
 
 { #category : #private }
-GtExampleEvaluator >> processAfter: anExample withDependencies: exampleDependencies andProvider: aProvider [
-	self processAfterMethodFor: anExample withProvider: aProvider.
+GtExampleEvaluator >> processAfter: anExample withDependencies: exampleDependencies andEvaluationContext: anEvaluationContext [
+	self processAfterMethodFor: anExample withEvaluationContext: anEvaluationContext.
 	exampleDependencies reversed do: [ :anotherExample |
-		self processAfterMethodFor: anotherExample withProvider: aProvider ]
+		self processAfterMethodFor: anotherExample withEvaluationContext: anEvaluationContext ]
 ]
 
 { #category : #private }
-GtExampleEvaluator >> processAfterMethodFor: anExample withProvider: aProvider [
+GtExampleEvaluator >> processAfterMethodFor: anExample withEvaluationContext: anEvaluationContext [
 	anExample after ifNil: [ ^ self ].
-	anExample after method
-		valueWithReceiver: aProvider
-		arguments: #()
-]
-
-{ #category : #private }
-GtExampleEvaluator >> providerFor: anExampleOrExampleMethod [
-	| newProvider |
-	newProvider := anExampleOrExampleMethod provider.
-	^ providers at: newProvider class ifAbsentPut: [ newProvider ]
+	anEvaluationContext provider
+		perform: anExample after method selector 
+		withArguments: #()
 ]
 
 { #category : #public }
 GtExampleEvaluator >> result [
+	<return: #GtExampleResult>
 	self do: [ result := self value ] 
 		on: GtExampleResult signalableExceptions
 		do: [ :anException |

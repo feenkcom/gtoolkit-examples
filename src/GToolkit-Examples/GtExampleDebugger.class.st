@@ -5,7 +5,7 @@ In case of an error, I do not intervene, and thus I allow the user to intervene 
 Class {
 	#name : #GtExampleDebugger,
 	#superclass : #GtExampleEvaluator,
-	#category : 'GToolkit-Examples-Runtime'
+	#category : #'GToolkit-Examples-Runtime'
 }
 
 { #category : #private }

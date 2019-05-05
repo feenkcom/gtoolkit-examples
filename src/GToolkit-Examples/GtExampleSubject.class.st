@@ -8,7 +8,7 @@ The subject information is useful both when understanding the goal of an example
 Class {
 	#name : #GtExampleSubject,
 	#superclass : #GtExampleAspect,
-	#category : 'GToolkit-Examples-Subjects'
+	#category : #'GToolkit-Examples-Subjects'
 }
 
 { #category : #testing }
@@ -35,6 +35,12 @@ GtExampleSubject >> gtDisplayOn: aStream [
 { #category : #'accessing-dynamic' }
 GtExampleSubject >> gtExamplesContained [
 	^ Smalltalk gtExamplesContained select: [ :each | each hasSubject: self ]
+]
+
+{ #category : #'accessing-dynamic' }
+GtExampleSubject >> gtParametrizedExamplesContained [
+	^ Smalltalk gtParametrizedExamplesContained 
+			select: [ :each | each hasSubject: self ]
 ]
 
 { #category : #testing }

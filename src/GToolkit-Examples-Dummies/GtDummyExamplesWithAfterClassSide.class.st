@@ -1,7 +1,7 @@
 Class {
 	#name : #GtDummyExamplesWithAfterClassSide,
 	#superclass : #GtAbstractDummyExamples,
-	#category : 'GToolkit-Examples-Dummies-Data'
+	#category : #'GToolkit-Examples-Dummies-Data'
 }
 
 { #category : #examples }
@@ -12,71 +12,71 @@ GtDummyExamplesWithAfterClassSide class >> a [
 	
 	self b.
 	
-	self assert: (self gtExampleContext includesKey: #c).
-	self assert: (self gtExampleContext includesKey: #c2).
-	self assert: (self gtExampleContext includesKey: #b).
-	self assert: (self gtExampleContext includesKey: #b2).
+	self assert: (self gtExampleRuntimeContext includesKey: #c).
+	self assert: (self gtExampleRuntimeContext includesKey: #c2).
+	self assert: (self gtExampleRuntimeContext includesKey: #b).
+	self assert: (self gtExampleRuntimeContext includesKey: #b2).
 	
-	self gtExampleContext at: #a put: #a.
-	self gtExampleContext at: #a2 put: #a2.
+	self gtExampleRuntimeContext at: #a put: #a.
+	self gtExampleRuntimeContext at: #a2 put: #a2.
 	
-	^ self gtExampleContext
+	^ self gtExampleRuntimeContext
 ]
 
 { #category : #after }
 GtDummyExamplesWithAfterClassSide class >> afterA [
-	self assert: (self gtExampleContext includesKey: #a).
-	self assert: (self gtExampleContext includesKey: #a2).
-	self assert: (self gtExampleContext includesKey: #b).
-	self assert: (self gtExampleContext includesKey: #b2).
-	self assert: (self gtExampleContext includesKey: #c).
-	self assert: (self gtExampleContext includesKey: #c2).
+	self assert: (self gtExampleRuntimeContext includesKey: #a).
+	self assert: (self gtExampleRuntimeContext includesKey: #a2).
+	self assert: (self gtExampleRuntimeContext includesKey: #b).
+	self assert: (self gtExampleRuntimeContext includesKey: #b2).
+	self assert: (self gtExampleRuntimeContext includesKey: #c).
+	self assert: (self gtExampleRuntimeContext includesKey: #c2).
 	
-	self gtExampleContext removeKey: #a.
+	self gtExampleRuntimeContext removeKey: #a.
 	
-	self assert: (self gtExampleContext includesKey: #a) not.
-	self assert: (self gtExampleContext includesKey: #a2).
-	self assert: (self gtExampleContext includesKey: #b).
-	self assert: (self gtExampleContext includesKey: #b2).
-	self assert: (self gtExampleContext includesKey: #c).
-	self assert: (self gtExampleContext includesKey: #c2).
+	self assert: (self gtExampleRuntimeContext includesKey: #a) not.
+	self assert: (self gtExampleRuntimeContext includesKey: #a2).
+	self assert: (self gtExampleRuntimeContext includesKey: #b).
+	self assert: (self gtExampleRuntimeContext includesKey: #b2).
+	self assert: (self gtExampleRuntimeContext includesKey: #c).
+	self assert: (self gtExampleRuntimeContext includesKey: #c2).
 	
-	(self gtExampleContext at: #execution ifAbsentPut: [ OrderedCollection new ])
+	(self gtExampleRuntimeContext at: #execution ifAbsentPut: [ OrderedCollection new ])
 		add: #afterA
 ]
 
 { #category : #after }
 GtDummyExamplesWithAfterClassSide class >> afterB [
-	self assert: (self gtExampleContext includesKey: #a) not.
-	self assert: (self gtExampleContext includesKey: #b).
-	self assert: (self gtExampleContext includesKey: #b2).
-	self assert: (self gtExampleContext includesKey: #c).
-	self assert: (self gtExampleContext includesKey: #c2).
+	self assert: (self gtExampleRuntimeContext includesKey: #a) not.
+	self assert: (self gtExampleRuntimeContext includesKey: #b).
+	self assert: (self gtExampleRuntimeContext includesKey: #b2).
+	self assert: (self gtExampleRuntimeContext includesKey: #c).
+	self assert: (self gtExampleRuntimeContext includesKey: #c2).
 	
-	self gtExampleContext removeKey: #b.
+	self gtExampleRuntimeContext removeKey: #b.
 	
-	self assert: (self gtExampleContext includesKey: #b) not.
-	self assert: (self gtExampleContext includesKey: #b2).
-	self assert: (self gtExampleContext includesKey: #c).
-	self assert: (self gtExampleContext includesKey: #c2).
+	self assert: (self gtExampleRuntimeContext includesKey: #b) not.
+	self assert: (self gtExampleRuntimeContext includesKey: #b2).
+	self assert: (self gtExampleRuntimeContext includesKey: #c).
+	self assert: (self gtExampleRuntimeContext includesKey: #c2).
 	
-	(self gtExampleContext at: #execution ifAbsentPut: [ OrderedCollection new ])
+	(self gtExampleRuntimeContext at: #execution ifAbsentPut: [ OrderedCollection new ])
 		add: #afterB
 ]
 
 { #category : #after }
 GtDummyExamplesWithAfterClassSide class >> afterC [	
-	self assert: (self gtExampleContext includesKey: #a) not.
-	self assert: (self gtExampleContext includesKey: #b) not.
-	self assert: (self gtExampleContext includesKey: #c).
-	self assert: (self gtExampleContext includesKey: #c2).
+	self assert: (self gtExampleRuntimeContext includesKey: #a) not.
+	self assert: (self gtExampleRuntimeContext includesKey: #b) not.
+	self assert: (self gtExampleRuntimeContext includesKey: #c).
+	self assert: (self gtExampleRuntimeContext includesKey: #c2).
 	
-	self gtExampleContext removeKey: #c.
+	self gtExampleRuntimeContext removeKey: #c.
 	
-	self assert: (self gtExampleContext includesKey: #c) not.
-	self assert: (self gtExampleContext includesKey: #c2).
+	self assert: (self gtExampleRuntimeContext includesKey: #c) not.
+	self assert: (self gtExampleRuntimeContext includesKey: #c2).
 	
-	(self gtExampleContext at: #execution ifAbsentPut: [ OrderedCollection new ])
+	(self gtExampleRuntimeContext at: #execution ifAbsentPut: [ OrderedCollection new ])
 		add: #afterC
 ]
 
@@ -88,16 +88,16 @@ GtDummyExamplesWithAfterClassSide class >> b [
 	
 	self c.
 	
-	self assert: (self gtExampleContext includesKey: #c).
-	self assert: (self gtExampleContext includesKey: #c2).
+	self assert: (self gtExampleRuntimeContext includesKey: #c).
+	self assert: (self gtExampleRuntimeContext includesKey: #c2).
 	
-	self gtExampleContext at: #b put: #b.
-	self gtExampleContext at: #b2 put: #b2.
+	self gtExampleRuntimeContext at: #b put: #b.
+	self gtExampleRuntimeContext at: #b2 put: #b2.
 	
-	self assert: ((self gtExampleContext at: #b) = #b).
-	self assert: ((self gtExampleContext at: #b2) = #b2).
+	self assert: ((self gtExampleRuntimeContext at: #b) = #b).
+	self assert: ((self gtExampleRuntimeContext at: #b2) = #b2).
 	
-	^ self gtExampleContext
+	^ self gtExampleRuntimeContext
 ]
 
 { #category : #examples }
@@ -106,11 +106,11 @@ GtDummyExamplesWithAfterClassSide class >> c [
 	<after: #afterC>
 	" START -> C -> afterC -> END "
 	
-	self gtExampleContext at: #c put: #c.
-	self gtExampleContext at: #c2 put: #c2.
+	self gtExampleRuntimeContext at: #c put: #c.
+	self gtExampleRuntimeContext at: #c2 put: #c2.
 	
-	self assert: ((self gtExampleContext at: #c) = #c).
-	self assert: ((self gtExampleContext at: #c2) = #c2).
+	self assert: ((self gtExampleRuntimeContext at: #c) = #c).
+	self assert: ((self gtExampleRuntimeContext at: #c2) = #c2).
 	
-	^ self gtExampleContext
+	^ self gtExampleRuntimeContext
 ]
