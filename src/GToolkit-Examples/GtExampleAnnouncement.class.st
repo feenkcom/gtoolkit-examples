@@ -20,3 +20,14 @@ GtExampleAnnouncement >> example: aGtExampleWithResult [
 		description: [ 'Example must be non-nil' ].
 	example := aGtExampleWithResult
 ]
+
+{ #category : #testing }
+GtExampleAnnouncement >> hasResult [
+	<return: #Boolean>
+	^ self example hasResult
+]
+
+{ #category : #accessing }
+GtExampleAnnouncement >> returnValue [
+	^ self example returnValue
+]

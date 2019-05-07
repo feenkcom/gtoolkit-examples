@@ -178,6 +178,11 @@ GtExampleWithResult >> resultOrErrorName [
 		ifFalse: [ 'N/A' ]
 ]
 
+{ #category : #accessing }
+GtExampleWithResult >> returnValue [
+	^ self result returnValue
+]
+
 { #category : #public }
 GtExampleWithResult >> run [
 	<return: #GtExampleResult>
