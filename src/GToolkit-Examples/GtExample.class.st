@@ -77,6 +77,19 @@ GtExample >> asExampleWithResult [
 	^ GtExampleWithResult new example: self
 ]
 
+{ #category : #testing }
+GtExample >> canBeExecuted [
+	"Return true if example can be executed"
+	<return: #Boolean>
+	^ self exists and: [ self hasProblems not ]
+]
+
+{ #category : #accessing }
+GtExample >> changeArguments: aCollection [
+	"Indicate that no arguments were changed"
+	^ false
+]
+
 { #category : #printing }
 GtExample >> classLabel [
 	^ String streamContents: [ :aStream |

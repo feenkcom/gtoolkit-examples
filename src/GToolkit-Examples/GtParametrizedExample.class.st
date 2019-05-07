@@ -17,6 +17,22 @@ GtParametrizedExample >> arguments: anObject [
 	arguments := anObject
 ]
 
+{ #category : #testing }
+GtParametrizedExample >> canBeExecuted [
+	"Return true if example can be executed"
+	<return: #Boolean>
+	^ super canBeExecuted and: [ self hasEnoughArguments ]
+]
+
+{ #category : #accessing }
+GtParametrizedExample >> changeArguments: aCollection [
+	"Indicate whether arguments were changed"
+	<return: #Boolean>
+	self arguments = aCollection ifTrue: [ ^ false ].
+	self arguments: aCollection.
+	^ true
+]
+
 { #category : #'accessing-dynamic' }
 GtParametrizedExample >> evaluationContext [
 	<return: #GtExampleEvaluationContext>
@@ -33,6 +49,11 @@ GtParametrizedExample >> gtArgumentsFor: aView [
 		title: 'Arguments';
 		priority: 5;
 		items: [ self arguments ]
+]
+
+{ #category : #testing }
+GtParametrizedExample >> hasEnoughArguments [
+	^ self arguments size = self numberOfRequieredArguments
 ]
 
 { #category : #initialization }

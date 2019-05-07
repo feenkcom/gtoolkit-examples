@@ -31,6 +31,20 @@ GtExampleWithResult >> asExampleWithResult [
 	^ self
 ]
 
+{ #category : #testing }
+GtExampleWithResult >> canBeExecuted [
+	"Return true if example can be executed"
+	<return: #Boolean>
+	^ self example canBeExecuted
+]
+
+{ #category : #accessing }
+GtExampleWithResult >> changeArguments: aCollection [
+	(self example changeArguments: aCollection) ifFalse: [ ^ self ].
+	self notifyArgumentsChanged. 
+	
+]
+
 { #category : #public }
 GtExampleWithResult >> debug [
 	self result: self example debug
@@ -134,12 +148,25 @@ GtExampleWithResult >> noTest [
 ]
 
 { #category : #notifying }
+GtExampleWithResult >> notifyArgumentsChanged [
+	| anAnnouncement |
+	self hasAnnouncer ifFalse: [ ^ self ].
+	anAnnouncement := GtExampleArgumentsChanged new example: self.
+	self announcer announce: anAnnouncement.
+]
+
+{ #category : #notifying }
 GtExampleWithResult >> notifyExampleExecuted [
 	| anAnnouncement |
 	self hasAnnouncer ifFalse: [ ^ self ].
-	anAnnouncement := GtExampleExecuted new 
-		example: self.
+	anAnnouncement := GtExampleExecuted new example: self.
 	self announcer announce: anAnnouncement.
+]
+
+{ #category : #accessing }
+GtExampleWithResult >> numberOfRequieredArguments [
+	<return: #Integer>
+	^ self example numberOfRequieredArguments
 ]
 
 { #category : #public }
