@@ -9,14 +9,14 @@ Class {
 
 { #category : #accessing }
 GtExampleAnnouncement >> example [
-	<return: #GtExample>
+	<return: #GtExampleWithResult>
 	^ example
 ]
 
 { #category : #accessing }
-GtExampleAnnouncement >> example: aGtExample [
+GtExampleAnnouncement >> example: aGtExampleWithResult [
 	self 
-		assert: [ aGtExample isNotNil ] 
+		assert: [ aGtExampleWithResult isNotNil ] 
 		description: [ 'Example must be non-nil' ].
-	example := aGtExample
+	example := aGtExampleWithResult
 ]

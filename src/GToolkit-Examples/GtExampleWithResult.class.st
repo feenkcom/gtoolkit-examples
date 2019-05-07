@@ -6,7 +6,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'example',
-		'result'
+		'result',
+		'announcer'
 	],
 	#category : #'GToolkit-Examples-Runtime'
 }
@@ -14,7 +15,15 @@ Class {
 { #category : #accessing }
 GtExampleWithResult >> announcer [
 	<return: #Announcer>
-	^ self example announcer
+	^ announcer ifNil: [ announcer := Announcer new ]
+]
+
+{ #category : #accessing }
+GtExampleWithResult >> announcer: anAnnouncer [
+	self 
+		assert: [ anAnnouncer isNotNil ]
+		description: [ 'Example Announcer must be non-nil' ].
+	announcer := anAnnouncer
 ]
 
 { #category : #accessing }
@@ -71,10 +80,9 @@ GtExampleWithResult >> gtInspectorSourceIn: composite [
 	self example gtInspectorSourceIn: composite
 ]
 
-{ #category : #ui }
-GtExampleWithResult >> gtSourceFor: aView [
-	<gtView>
-	^ self example gtCoderSourceFor: aView
+{ #category : #testing }
+GtExampleWithResult >> hasAnnouncer [
+	^ announcer isNotNil
 ]
 
 { #category : #testing }
@@ -125,6 +133,15 @@ GtExampleWithResult >> noTest [
 	^ self example noTest
 ]
 
+{ #category : #notifying }
+GtExampleWithResult >> notifyExampleExecuted [
+	| anAnnouncement |
+	self hasAnnouncer ifFalse: [ ^ self ].
+	anAnnouncement := GtExampleExecuted new 
+		example: self.
+	self announcer announce: anAnnouncement.
+]
+
 { #category : #public }
 GtExampleWithResult >> openDebugger [
 	self result: self example openDebugger
@@ -132,12 +149,15 @@ GtExampleWithResult >> openDebugger [
 
 { #category : #accessing }
 GtExampleWithResult >> result [
+	<return: #GtExampleResult>
 	^ result
 ]
 
 { #category : #accessing }
-GtExampleWithResult >> result: anObject [
-	result := anObject
+GtExampleWithResult >> result: aGtExampleResult [
+	result == aGtExampleResult ifTrue: [ ^ self ].
+	result := aGtExampleResult.
+	self notifyExampleExecuted
 ]
 
 { #category : #printing }
