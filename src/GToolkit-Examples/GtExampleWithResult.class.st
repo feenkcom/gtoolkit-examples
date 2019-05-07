@@ -148,6 +148,13 @@ GtExampleWithResult >> openDebugger [
 ]
 
 { #category : #accessing }
+GtExampleWithResult >> openingDebugger [
+	<return: #GtExampleOpenDebugger>
+	^ self example openingDebugger
+		callback: [ :anExampleResult | self result: anExampleResult ]
+]
+
+{ #category : #accessing }
 GtExampleWithResult >> result [
 	<return: #GtExampleResult>
 	^ result
