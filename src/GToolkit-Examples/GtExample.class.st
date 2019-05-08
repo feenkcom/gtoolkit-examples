@@ -26,8 +26,7 @@ Class {
 		'children',
 		'properties',
 		'after',
-		'problems',
-		'announcer'
+		'problems'
 	],
 	#category : #'GToolkit-Examples-Core'
 }
@@ -73,23 +72,22 @@ GtExample >> allDependencies [
 	^ examples
 ]
 
-{ #category : #accessing }
-GtExample >> announcer [
-	<return: #Announcer>
-	^ announcer ifNil: [ announcer := Announcer new ]
-]
-
-{ #category : #accessing }
-GtExample >> announcer: anAnnouncer [
-	self 
-		assert: [ anAnnouncer isNotNil ]
-		description: [ 'Example Announcer must be non-nil' ].
-	announcer := anAnnouncer
-]
-
 { #category : #'accessing-dynamic' }
 GtExample >> asExampleWithResult [
 	^ GtExampleWithResult new example: self
+]
+
+{ #category : #testing }
+GtExample >> canBeExecuted [
+	"Return true if example can be executed"
+	<return: #Boolean>
+	^ self exists and: [ self hasProblems not ]
+]
+
+{ #category : #accessing }
+GtExample >> changeArguments: aCollection [
+	"Indicate that no arguments were changed"
+	^ false
 ]
 
 { #category : #printing }
@@ -192,11 +190,6 @@ GtExample >> gtExample [
 { #category : #testing }
 GtExample >> hasAfter [
 	^ after notNil
-]
-
-{ #category : #testing }
-GtExample >> hasAnnouncer [
-	^ announcer isNotNil
 ]
 
 { #category : #testing }
@@ -510,15 +503,7 @@ GtExample >> returnValue [
 { #category : #actions }
 GtExample >> run [
 	<return: #GtExampleResult>
-	| aResult |
-	aResult := self evaluator result.
-	self hasAnnouncer ifTrue: [
-		| anAnnouncement |
-		anAnnouncement := GtExampleExecuted new 
-			example: self;
-			result: aResult.
-		self announcer announce: anAnnouncement ].
-	^ aResult
+	^ self evaluator result
 ]
 
 { #category : #actions }

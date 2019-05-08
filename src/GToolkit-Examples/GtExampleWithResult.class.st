@@ -6,7 +6,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'example',
-		'result'
+		'result',
+		'announcer'
 	],
 	#category : #'GToolkit-Examples-Runtime'
 }
@@ -14,12 +15,34 @@ Class {
 { #category : #accessing }
 GtExampleWithResult >> announcer [
 	<return: #Announcer>
-	^ self example announcer
+	^ announcer ifNil: [ announcer := Announcer new ]
+]
+
+{ #category : #accessing }
+GtExampleWithResult >> announcer: anAnnouncer [
+	self 
+		assert: [ anAnnouncer isNotNil ]
+		description: [ 'Example Announcer must be non-nil' ].
+	announcer := anAnnouncer
 ]
 
 { #category : #accessing }
 GtExampleWithResult >> asExampleWithResult [
 	^ self
+]
+
+{ #category : #testing }
+GtExampleWithResult >> canBeExecuted [
+	"Return true if example can be executed"
+	<return: #Boolean>
+	^ self example canBeExecuted
+]
+
+{ #category : #accessing }
+GtExampleWithResult >> changeArguments: aCollection [
+	(self example changeArguments: aCollection) ifFalse: [ ^ self ].
+	self notifyArgumentsChanged. 
+	
 ]
 
 { #category : #public }
@@ -71,10 +94,9 @@ GtExampleWithResult >> gtInspectorSourceIn: composite [
 	self example gtInspectorSourceIn: composite
 ]
 
-{ #category : #ui }
-GtExampleWithResult >> gtSourceFor: aView [
-	<gtView>
-	^ self example gtCoderSourceFor: aView
+{ #category : #testing }
+GtExampleWithResult >> hasAnnouncer [
+	^ announcer isNotNil
 ]
 
 { #category : #testing }
@@ -125,19 +147,51 @@ GtExampleWithResult >> noTest [
 	^ self example noTest
 ]
 
+{ #category : #notifying }
+GtExampleWithResult >> notifyArgumentsChanged [
+	| anAnnouncement |
+	self hasAnnouncer ifFalse: [ ^ self ].
+	anAnnouncement := GtExampleArgumentsChanged new example: self.
+	self announcer announce: anAnnouncement.
+]
+
+{ #category : #notifying }
+GtExampleWithResult >> notifyExampleExecuted [
+	| anAnnouncement |
+	self hasAnnouncer ifFalse: [ ^ self ].
+	anAnnouncement := GtExampleExecuted new example: self.
+	self announcer announce: anAnnouncement.
+]
+
+{ #category : #accessing }
+GtExampleWithResult >> numberOfRequieredArguments [
+	<return: #Integer>
+	^ self example numberOfRequieredArguments
+]
+
 { #category : #public }
 GtExampleWithResult >> openDebugger [
 	self result: self example openDebugger
 ]
 
 { #category : #accessing }
+GtExampleWithResult >> openingDebugger [
+	<return: #GtExampleOpenDebugger>
+	^ self example openingDebugger
+		callback: [ :anExampleResult | self result: anExampleResult ]
+]
+
+{ #category : #accessing }
 GtExampleWithResult >> result [
+	<return: #GtExampleResult>
 	^ result
 ]
 
 { #category : #accessing }
-GtExampleWithResult >> result: anObject [
-	result := anObject
+GtExampleWithResult >> result: aGtExampleResult [
+	result == aGtExampleResult ifTrue: [ ^ self ].
+	result := aGtExampleResult.
+	self notifyExampleExecuted
 ]
 
 { #category : #printing }
@@ -149,6 +203,11 @@ GtExampleWithResult >> resultOrErrorName [
 				ifTrue: [ self result exampleException class name asString ]
 				ifFalse: [ '' "if there was a problem" ] ] ]
 		ifFalse: [ 'N/A' ]
+]
+
+{ #category : #accessing }
+GtExampleWithResult >> returnValue [
+	^ self result returnValue
 ]
 
 { #category : #public }

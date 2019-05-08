@@ -93,16 +93,17 @@ GtExamplesAnnouncingExamples >> registerExampleAnnouncementsFrom: anExample to: 
 { #category : #'examples - results' }
 GtExamplesAnnouncingExamples >> resultFromMethodNumberExample [
 	<gtExample>
-	| anExample aGtExampleResult theAnnouncements |
+	| anExampleWithResult aGtExampleResult theAnnouncements |
 	theAnnouncements := OrderedCollection new.
-	anExample := self exampleFromMethodNumberExample.
-	self registerExampleAnnouncementsFrom: anExample to: theAnnouncements.
-	aGtExampleResult := anExample result.
+	anExampleWithResult := self exampleFromMethodNumberExample asExampleWithResult.
+	self registerExampleAnnouncementsFrom: anExampleWithResult to: theAnnouncements.
+	aGtExampleResult := anExampleWithResult run.
+	self assert: anExampleWithResult result == aGtExampleResult.
 	self assert: aGtExampleResult returnValue equals: 42.
 	self assert: aGtExampleResult hasException not.
 	self assert: theAnnouncements size equals: 1.
 	self assert: theAnnouncements first class equals: GtExampleExecuted.
-	self assert: theAnnouncements first example == anExample.
+	self assert: theAnnouncements first example == anExampleWithResult.
 	self assert: theAnnouncements first result == aGtExampleResult.
 	^ aGtExampleResult
 ]
