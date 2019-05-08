@@ -13,8 +13,11 @@ GtParametrizedExample >> arguments [
 ]
 
 { #category : #accessing }
-GtParametrizedExample >> arguments: anObject [
-	arguments := anObject
+GtParametrizedExample >> arguments: anArray [
+	self 
+		assert: [ anArray isArray ] 
+		description: [ 'Arguments must be an Array collection' ].
+	arguments := anArray
 ]
 
 { #category : #testing }
