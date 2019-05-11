@@ -96,7 +96,7 @@ GtExampleGroup >> gtClassesFor: aView [
 	<gtView>
 	self examples ifEmpty: [ ^ aView empty ].
 	^ aView columnedList
-		title: 'Classes';
+		title: 'By class';
 		items: [ (self examples groupedBy: [ :eachExample | 
 			eachExample methodClass instanceSide ]) associations ];
 		column: 'Class' item: [ :anAssoc | anAssoc key ];
