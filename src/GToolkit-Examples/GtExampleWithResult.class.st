@@ -65,6 +65,17 @@ GtExampleWithResult >> example: anObject [
 	example := anObject
 ]
 
+{ #category : #accessing }
+GtExampleWithResult >> gtConnectionsFor: aView [
+	^ self example gtConnectionsFor: aView
+]
+
+{ #category : #accessing }
+GtExampleWithResult >> gtDependenciesGraphFor: aView [
+	<gtView>
+	^ self example gtDependenciesGraphFor: aView
+]
+
 { #category : #printing }
 GtExampleWithResult >> gtDisplayOn: stream [
 	self example gtDisplayOn: stream
