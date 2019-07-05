@@ -179,6 +179,24 @@ GtExample >> form: anIcon [
 	form := anIcon
 ]
 
+{ #category : #printing }
+GtExample >> gtDisplayOn: aStream [
+	
+	self printClassLabelOn: aStream.
+	aStream 
+		nextPutAll: ' >> '; 
+		print: self selector.
+		
+	self gtDisplayValidityOn: aStream
+]
+
+{ #category : #printing }
+GtExample >> gtDisplayValidityOn: aStream [
+	self isValid ifTrue: [ ^ self ].
+	
+	aStream nextPutAll: ' [invalid]'
+]
+
 { #category : #'PRAGMA-SELECTORS' }
 GtExample >> gtExample [
 	<gtExamplePragma>
