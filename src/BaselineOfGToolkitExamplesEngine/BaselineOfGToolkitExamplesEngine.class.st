@@ -22,6 +22,5 @@ BaselineOfGToolkitExamplesEngine >> baseline: spec [
 	spec for: #common do: [ 
 		spec
 			package: 'GToolkit-Examples';
-			package: 'GToolkit-Examples-UI' with: [ spec requires: #('GToolkit-Examples') ];
 			package: 'GToolkit-Examples-Calypso' with: [ spec requires: #( 'GToolkit-Examples' ) ]. ].
 ]
