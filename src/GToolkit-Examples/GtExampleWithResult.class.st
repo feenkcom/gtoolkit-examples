@@ -154,6 +154,12 @@ GtExampleWithResult >> methodClass [
 ]
 
 { #category : #accessing }
+GtExampleWithResult >> methodPackage [
+	<return: #RPackage>
+	^ self example methodPackage
+]
+
+{ #category : #accessing }
 GtExampleWithResult >> noTest [
 	^ self example noTest
 ]

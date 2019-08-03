@@ -159,6 +159,19 @@ GtExampleGroup >> gtInspectorExamplesIn: composite [
 				w transmit fromOutsidePort: #toSelect; toOutsidePort: #selection ] ]
 ]
 
+{ #category : #accessing }
+GtExampleGroup >> gtPackagesFor: aView [ 
+	<gtView>
+	self examples ifEmpty: [ ^ aView empty ].
+	^ aView columnedList
+		title: 'By package';
+		items: [ (self examples groupedBy: [ :eachExample | 
+			eachExample methodPackage ]) associations ];
+		column: 'Package' item: [ :anAssoc | anAssoc key ];
+		column: 'Number of examples' item: [ :anAssoc | anAssoc value size ];
+		send: [ :anAssoc | anAssoc ifNotNil: [ anAssoc key ] ]
+]
+
 { #category : #testing }
 GtExampleGroup >> hasAnnouncer [
 	^ announcer isNotNil
