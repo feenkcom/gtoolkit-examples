@@ -425,6 +425,12 @@ GtExample >> methodClass [
 	^ methodClass
 ]
 
+{ #category : #accessing }
+GtExample >> methodPackage [
+	<return: #RPackage>
+	^ self method package
+]
+
 { #category : #'accessing-dynamic' }
 GtExample >> methodProtocol [
 	"Return method protocol"
