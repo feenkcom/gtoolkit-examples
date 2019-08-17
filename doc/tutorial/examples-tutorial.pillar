@@ -28,7 +28,7 @@ ${changes:03-fileContents-fileReference.ombu}$
 
 In the example above, the example [A] depends on the examples [B] and [C]. The dependencies can also be navigated visually:
 
-${example:GtExamplesTutorial>>#createFileInMemory}$[[[	GtExampleGroup new examples: GtExamplesTutorial gtExamples]]]
+${example:GtExamplesTutorial>>#createFileInMemory}$[[[	GtExampleGroup withAll: GtExamplesTutorial gtExamples]]]
 !!Cleaning up after using an example
 
 In the current scenario, the file is created in memory. But, what would happen if the example would create the file on disk? Let's create such an example to explore the situation:
