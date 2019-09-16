@@ -47,11 +47,12 @@ GtExplicitExampleGroup >> size [
 { #category : #subscriptions }
 GtExplicitExampleGroup >> subscribeToExamples [
 	self examples ifNil: [ ^ self ].
-	self examples do: [ :eachExample | 
-		eachExample announcer
-			subscribe: GtExampleAnnouncement 
-			send: #handleExampleAnnouncement: 
-			to: self ].
+	self examples
+		do: [ :eachExample | 
+			eachExample announcer
+				when: GtExampleAnnouncement
+				send: #handleExampleAnnouncement:
+				to: self ]
 ]
 
 { #category : #subscriptions }
