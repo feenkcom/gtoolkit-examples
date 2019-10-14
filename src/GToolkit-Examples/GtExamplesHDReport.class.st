@@ -251,7 +251,7 @@ GtExamplesHDReport >> writeError: error stack: stack [
 ]
 
 { #category : #private }
-GtExamplesHDReport >> writeException: error stack: stack. [
+GtExamplesHDReport >> writeException: error stack: stack [.
 
 	stream 
 		nextPutAll: (self encode: error class name); 
