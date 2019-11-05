@@ -82,12 +82,6 @@ GtExampleWithResult >> gtDisplayOn: stream [
 ]
 
 { #category : #ui }
-GtExampleWithResult >> gtInspectorActionReturnValue [
-	<gtInspectorAction>
-	^ self example gtInspectorActionReturnValue
-]
-
-{ #category : #ui }
 GtExampleWithResult >> gtInspectorActions [
 	^ super gtInspectorActions addAll: self example gtInspectorActions; yourself
 ]
@@ -97,12 +91,6 @@ GtExampleWithResult >> gtInspectorPresentationsIn: composite inContext: aGTInspe
 	"we collect all presentations from the wrapped example"
 	super gtInspectorPresentationsIn: composite inContext: aGTInspector.
 	self example gtInspectorPresentationsIn: composite inContext: aGTInspector
-]
-
-{ #category : #ui }
-GtExampleWithResult >> gtInspectorSourceIn: composite [
-	<gtInspectorPresentationOrder: 0>
-	self example gtInspectorSourceIn: composite
 ]
 
 { #category : #testing }
