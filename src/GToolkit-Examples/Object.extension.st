@@ -7,7 +7,15 @@ Object >> asGTExampleSubject [
 
 { #category : #'*GToolkit-Examples-Core' }
 Object >> assert: actual equals: expected [
-	self assert: actual = expected
+	self
+		assert: actual = expected
+		description: [ String streamContents: [:stream |
+			stream
+				nextPutAll: 'Assertion failed. Got ';
+				nextPutAll: actual fullPrintString;
+				nextPutAll: ' instead of ';
+				nextPutAll: expected fullPrintString;
+				nextPutAll: '.'] ]
 ]
 
 { #category : #'*GToolkit-Examples-Core' }
