@@ -108,7 +108,7 @@ GtExamplesExamplesWithInheritance >> allExamplesFromSubclassOfSubclassB [
 ]
 
 { #category : #assertions }
-GtExamplesExamplesWithInheritance >> assertConcreteExample: example inClass: aMethodClass. [
+GtExamplesExamplesWithInheritance >> assertConcreteExample: example inClass: aMethodClass [.
 	self assert: example isInherited not.
 	self assert: example providerClass equals: aMethodClass.
 	self assert: example methodClass equals: aMethodClass.
@@ -133,7 +133,7 @@ GtExamplesExamplesWithInheritance >> assertExamples: currentExamples withSelecto
 ]
 
 { #category : #assertions }
-GtExamplesExamplesWithInheritance >> assertInheritedExample: example inClass: aMethodClass withProvider: aProviderClass. [
+GtExamplesExamplesWithInheritance >> assertInheritedExample: example inClass: aMethodClass withProvider: aProviderClass [.
 	self assert: example isInherited.
 	self assert: example providerClass equals: aProviderClass.
 	self assert: example methodClass equals: aMethodClass.
