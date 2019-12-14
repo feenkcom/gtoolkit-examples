@@ -117,7 +117,7 @@ GtExamplesExamplesWithRuntimeErrors >> exampleResultWithMessageNotUnderstoodExce
 	self 
 		assertExpectedErrorFor: result 
 		ofClass: MessageNotUnderstood 
-		withMessage: 'GtDummyExamplesInvalidDependencies class>>a1'.
+		withMessage: 'GtDummyExamplesInvalidDependencies class>> #a1'.
 	
 	^ result
 ]
