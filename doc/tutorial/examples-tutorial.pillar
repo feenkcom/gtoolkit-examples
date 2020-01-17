@@ -5,11 +5,10 @@ Let us imagine that we want to explain how to create a file with some contents. 
 ${changes:01-createFileOnDisk.ombu}$
 Applying the above changes leads to the following method.
 ${example:GtExamplesTutorial>>#createFileInMemory}$
-You can take a closer look at it in the code browser:${class:name=GtExamplesTutorial}$[[[
-	GtExamplesTutorial browse.]]]
-The only special thing about the unary method is the Pragma ==<gtExample>== which converts any regular method into a ==GtExample==. The name of the method can be arbitrary.
+You can take a closer look at it by browsing the class ${class:name=GtExamplesTutorial}$.
+The only special thing about the unary method is the Pragma ==<gtExample>== which converts any regular method into a ${class:GtExample}$. The name of the method can be arbitrary.
 
-A ==GtExample== might be annotated with additional and optional meta-information like ==#label:== (a title or very short description), ==#description:== (a long description explaining the intention of the example) or ==#icon:==. These are useful for tooling purposes.
+An example might be annotated with additional and optional meta-information like ==#label:== (a title or very short description), ==#description:== (a long description explaining the intention of the example) or ==#icon:==. These are useful for tooling purposes.
 
 ${changes:02-createFileOnDisk.ombu}$
 Once we have an example, we can execute it both as a plain method to get the result:[[[	GtExamplesTutorial new createFileInMemory]]]or as an example: [[[	(GtExamplesTutorial>>#createFileInMemory) gtExample run returnValue]]]In both cases, we get the returned object.
@@ -28,7 +27,10 @@ ${changes:03-fileContents-fileReference.ombu}$
 
 In the example above, the example [A] depends on the examples [B] and [C]. The dependencies can also be navigated visually:
 
-${example:GtExamplesTutorial>>#createFileInMemory}$[[[	GtExampleGroup new examples: GtExamplesTutorial gtExamples]]]
+${example:GtExamplesTutorial>>#createFileInMemory}$
+And you can progammatically inspect multiple such examples:
+[[[GtExampleGroup withAll: GtExamplesTutorial gtExamples]]]
+
 !!Cleaning up after using an example
 
 In the current scenario, the file is created in memory. But, what would happen if the example would create the file on disk? Let's create such an example to explore the situation:
@@ -36,7 +38,7 @@ In the current scenario, the file is created in memory. But, what would happen i
 ${changes:04-fileOnDisk.ombu}$
 
 [[[
-	(GtExamplesTutorial>>#createFileOnDisk) gtExample run returnValue
+(GtExamplesTutorial>>#createFileOnDisk) gtExample run returnValue
 ]]]
 
 At first sight, we got the same result. However, one issue with our current scenario is the side effect of leaving that file reside on disk. In this situation we would like to cleanup such artifacts after running an example. We can do that with the declaration of a so called after-method.
@@ -66,5 +68,5 @@ Stepping back, we can express everything that we can express with regular xUnit 
 - assertions: We can write assertions in each example.
 - tearDown: We can define behavior to cleanup after the example execution (like tearDown).
 
-But, with examples, we can go beyond what is typically possible with xUnit. As we have only example as a concept, we can write assertions even in "setup" examples or in after methods. Furthermore, we have a way to reuse code at multiple levels, not just two (i.e., setup/test). To understand the dependencies, let's look at the current state of our examples, by inspecting the following code:[[[	GtExampleGroup new examples: GtExamplesTutorial gtExamples]]]In the map of examples, we see how examples depend on each other. We see that the top two examples (creating the file in memory and on disk) share one common example that provides the contents.But, the situation can get more elaborate, enabling a more fine grained level of reuse. For example, take a look at these set of examples from Bloc:[[[	GtExampleGroup new examples: BrToggleExamples gtExamples]]]
-!!Examples as documentationOn the one hand, examples can replace tests. On the other hand, examples can also provide the main building blocks for documentation, too. The ==BrToggleExamples== class comment provides a good example of how we can put together a tutorial by glueing live examples with explanations:[[[	GtDocumenter editorForText: BrToggleExamples comment ]]]All in all, examples provide both a more flexible platform for expressing tests, and once examples are created as part of a typical development effort, they can also serve as critical building blocks for documentation.
+But, with examples, we can go beyond what is typically possible with xUnit. As we have only example as a concept, we can write assertions even in "setup" examples or in after methods. Furthermore, we have a way to reuse code at multiple levels, not just two (i.e., setup/test). To understand the dependencies, let's look at the current state of our examples, by inspecting the following code:[[[GtExampleGroup withAll: GtExamplesTutorial gtExamples]]]In the map of examples, we see how examples depend on each other. We see that the top two examples (creating the file in memory and on disk) share one common example that provides the contents.But, the situation can get more elaborate, enabling a more fine grained level of reuse. For example, take a look at these set of examples from Bloc:[[[GtExampleGroup withAll: BrToggleExamples gtExamples]]]
+!!Examples as documentationOn the one hand, examples can replace tests. On the other hand, examples can also provide the main building blocks for documentation, too. The ==BrToggleExamples== class comment provides a good example of how we can put together a tutorial by glueing live examples with explanations:[[[GtDocument forClass: BrToggleExamples ]]]All in all, examples provide both a more flexible platform for expressing tests, and once examples are created as part of a typical development effort, they can also serve as critical building blocks for documentation.
