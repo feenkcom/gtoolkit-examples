@@ -227,6 +227,12 @@ GtExampleWithResult >> selector [
 	^ self example selector
 ]
 
+{ #category : #'as yet unclassified' }
+GtExampleWithResult >> sourceCode [
+	<return: #String>
+	^ self example sourceCode
+]
+
 { #category : #printing }
 GtExampleWithResult >> statusText [
 	self hasResult
