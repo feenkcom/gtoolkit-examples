@@ -98,7 +98,8 @@ GtExampleGroup >> gtClassesFor: aView [
 	^ aView columnedList
 		title: 'By class';
 		items: [ (self examples groupedBy: [ :eachExample | 
-			eachExample methodClass instanceSide ]) associations ];
+			eachExample methodClass instanceSide ]) associations
+				sorted: [ :a :b | a key name < b key name ] ];
 		column: 'Class' item: [ :anAssoc | anAssoc key ];
 		column: 'Number of examples' item: [ :anAssoc | anAssoc value size ];
 		send: [ :anAssoc | anAssoc ifNotNil: [ anAssoc key ] ]
