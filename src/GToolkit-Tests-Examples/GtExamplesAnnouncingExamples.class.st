@@ -86,7 +86,7 @@ GtExamplesAnnouncingExamples >> individualExampleExecutionFromClassA [
 { #category : #convenience }
 GtExamplesAnnouncingExamples >> registerExampleAnnouncementsFrom: anExample to: theAnnouncements [
 	anExample announcer
-		subscribe: Announcement
+		when: Announcement
 		do: [ :anAnnouncement | theAnnouncements addLast: anAnnouncement ]
 ]
 
