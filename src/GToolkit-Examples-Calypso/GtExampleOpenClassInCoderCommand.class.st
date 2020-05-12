@@ -43,10 +43,10 @@ GtExampleOpenClassInCoderCommand class >> menuItemOrder [
 GtExampleOpenClassInCoderCommand >> execute [
 	selectedItems
 		do: [ :eachDataSourceItem | 
-			(self class environment at: #GtInspector)
+			(self class environment at: #GtPager)
 				openOn:
-					((self class environment at: #GtClassCoder)
-						forClass: eachDataSourceItem actualObject) asElement
+					(GtPager createWrappedOn: ((self class environment at: #GtClassCoder)
+						forClass: eachDataSourceItem actualObject))
 				title: 'Coder' ]
 ]
 
