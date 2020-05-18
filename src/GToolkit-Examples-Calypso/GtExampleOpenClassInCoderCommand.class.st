@@ -43,11 +43,9 @@ GtExampleOpenClassInCoderCommand class >> menuItemOrder [
 GtExampleOpenClassInCoderCommand >> execute [
 	selectedItems
 		do: [ :eachDataSourceItem | 
-			(self class environment at: #GtPager)
-				openOn:
-					(GtPager createWrappedOn: ((self class environment at: #GtClassCoder)
-						forClass: eachDataSourceItem actualObject))
-				title: 'Coder' ]
+			((self class environment at: #GtCoder)
+				forClass: eachDataSourceItem actualObject)
+					openInPager maximized ]
 ]
 
 { #category : #execution }
