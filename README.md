@@ -1,4 +1,4 @@
-# GT Examples [![Build Status](https://travis-ci.com/feenkcom/gtoolkit-examples.svg?branch=master)](https://travis-ci.com/feenkcom/gtoolkit-examples)
+# GT Examples
 
 Examples is a slim engine that lets you define examples throughout the code and use them for documentation or testing. Through Examples, a developer can switch rapidly from the static code to a live environment and program in the presence of objects. In essence, it enables example-driven development. It is part of the [Glamorous Toolkit project](https://github.com/feenkcom/gtoolkit).
 
@@ -12,14 +12,5 @@ To load the latest version separately, use the following snippet.
 Metacello new
    baseline: 'GToolkitExamples';
    repository: 'github://feenkcom/gtoolkit-examples/src';
-   load.
-```
-
-If you are using Pharo 6 or Pharo 6.1, use the following snipet. GT Examples does not support older Pharo versions.
-
-```Smalltalk
-Metacello new
-   baseline: 'GToolkitExamples';
-   repository: 'github://feenkcom/gtoolkit-examples:pharo6/src';
    load.
 ```
