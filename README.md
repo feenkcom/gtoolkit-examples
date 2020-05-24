@@ -14,12 +14,3 @@ Metacello new
    repository: 'github://feenkcom/gtoolkit-examples/src';
    load.
 ```
-
-If you are using Pharo 6 or Pharo 6.1, use the following snipet. GT Examples does not support older Pharo versions.
-
-```Smalltalk
-Metacello new
-   baseline: 'GToolkitExamples';
-   repository: 'github://feenkcom/gtoolkit-examples:pharo6/src';
-   load.
-```
