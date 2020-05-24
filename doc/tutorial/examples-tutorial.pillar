@@ -1,4 +1,5 @@
-!ExamplesExamples combine testing with documentation.!!Exemplifying examples
+!Examples by exampleExamples combine testing with documentation.
+!!Constructing examples
 
 Let us imagine that we want to explain how to create a file with some contents. To store this example, we create a unary method:
 
@@ -11,7 +12,8 @@ The only special thing about the unary method is the Pragma ==<gtExample>== whic
 An example might be annotated with additional and optional meta-information like ==#label:== (a title or very short description), ==#description:== (a long description explaining the intention of the example) or ==#icon:==. These are useful for tooling purposes.
 
 ${changes:02-createFileOnDisk.ombu}$
-Once we have an example, we can execute it both as a plain method to get the result:[[[	GtExamplesTutorial new createFileInMemory]]]or as an example: [[[	(GtExamplesTutorial>>#createFileInMemory) gtExample run returnValue]]]In both cases, we get the returned object.
+Once we have an example, we can execute it both as a plain method to get the result:[[[GtExamplesTutorial new createFileInMemory]]]or as an example: [[[(GtExamplesTutorial>>#createFileInMemory) gtExample run returnValue]]]In both cases, we get the returned object.
+
 !!Example dependencies
 
 As examples return objects, we can use those objects to compose other objects that in their turn can also constitute examples. To support this, examples may be chained to form trees (or even graphs) of depending examples.
@@ -53,6 +55,7 @@ After-methods are similar to tearDown-methods in xUnit, however there are subtle
 - The after-method is dedicated (but not exclusive) to a single example while tearDown (in most xUnits) is a global implementation covering multiple test-cases at once.
 - When multiple examples are chained, each declaring an after-method, multiple after-methods will be performed, in the same order as their corresponding examples.
 - Since each example intends to focus on a (fine-grained) object and/or behaviour, so does its after-method, only “tearing-down” the subject of the example.
+
 
 !!Assertions
 
