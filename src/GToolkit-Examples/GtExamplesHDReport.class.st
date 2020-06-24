@@ -12,6 +12,7 @@ Class {
 		'examplesPosition',
 		'examplesErrors',
 		'examplesFailures',
+		'examplesExecuted',
 		'title'
 	],
 	#category : #'GToolkit-Examples-Testing'
@@ -73,13 +74,23 @@ GtExamplesHDReport >> examplesErrors [
 ]
 
 { #category : #accessing }
+GtExamplesHDReport >> examplesExecuted [ 
+	^ examplesExecuted
+]
+
+{ #category : #accessing }
 GtExamplesHDReport >> examplesFailures [
 	^ examplesFailures
 ]
 
 { #category : #accessing }
-GtExamplesHDReport >> examplesPassing [ 
-	^ self examplesTotal - self examplesFailures - self examplesErrors
+GtExamplesHDReport >> examplesPassing [
+	^ self examplesExecuted - self examplesFailures - self examplesErrors
+]
+
+{ #category : #accessing }
+GtExamplesHDReport >> examplesSkipped [
+	^ self examplesTotal - self examplesExecuted
 ]
 
 { #category : #accessing }
@@ -102,7 +113,10 @@ GtExamplesHDReport >> initialize [
 	| aFile |
 	super initialize.
 	executionTime := 0 asDuration.
-	examplesPosition := examplesFailures := examplesErrors := 0.
+	examplesPosition := 0.
+	examplesExecuted := 0.
+	examplesFailures := 0.
+	examplesErrors := 0.
 	
 	aFile := File named: 'progress-examples.log'.
 	aFile delete.
@@ -132,7 +146,8 @@ GtExamplesHDReport >> run [
 { #category : #running }
 GtExamplesHDReport >> runAll [
 	CurrentExecutionEnvironment runTestsBy: [ 
-		examples do: [ :each | each ignoreTest ifFalse: [ self runExample: each ] ]
+		examples do: [ :each | each ignoreTest ifFalse: [ 
+				self runExample: each ] ]
 	]
 ]
 
@@ -142,6 +157,7 @@ GtExamplesHDReport >> runExample: anExample [
 	self
 		beginExample: anExample
 		runBlock: [
+			examplesExecuted := examplesExecuted + 1.
 			[ anExample debug returnValue ]
 				on: Halt , Error , AssertionFailure
 				do: [ :err | 

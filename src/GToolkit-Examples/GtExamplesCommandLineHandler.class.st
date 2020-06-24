@@ -75,12 +75,14 @@ GtExamplesCommandLineHandler >> inform: aString [
 { #category : #private }
 GtExamplesCommandLineHandler >> informResults: results [
 	self stdout 
-		<< ('{1} run, {2} passes, {3} failures, {4} errors.'
+		<< ('{1} examples, {2} executed, {3} passes, {4} failures, {5} errors, {6} skipped.'
 			format: {
 				results sum: #examplesTotal.
+				results sum: #examplesExecuted.
 				results sum: #examplesPassing.
 				results sum: #examplesFailures.
-				results sum: #examplesErrors })
+				results sum: #examplesErrors.
+				results sum: #examplesSkipped })
 		<< OSPlatform current lineEnding
 ]
 
