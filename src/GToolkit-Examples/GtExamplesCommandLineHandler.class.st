@@ -22,6 +22,9 @@ GtExamplesCommandLineHandler >> activate [
 	self activateHelp
 		ifTrue: [  ^ self ].
 	self runPackages.
+	
+	(self hasOption: 'no-quit')
+		ifFalse: [ self quit ]
 ]
 
 { #category : #accessing }
@@ -108,5 +111,4 @@ GtExamplesCommandLineHandler >> runPackages [
 			and: [ results anySatisfy: #hasErrors ])
 			ifTrue: [^ self exitFailure: 'Tests do not pass!' ].
 	].
-	Smalltalk snapshot: false andQuit: true.
 ]
