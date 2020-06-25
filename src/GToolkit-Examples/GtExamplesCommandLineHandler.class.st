@@ -22,6 +22,9 @@ GtExamplesCommandLineHandler >> activate [
 	self activateHelp
 		ifTrue: [  ^ self ].
 	self runPackages.
+	
+	(self hasOption: 'no-quit')
+		ifFalse: [ self quit ]
 ]
 
 { #category : #accessing }
@@ -72,12 +75,14 @@ GtExamplesCommandLineHandler >> inform: aString [
 { #category : #private }
 GtExamplesCommandLineHandler >> informResults: results [
 	self stdout 
-		<< ('{1} run, {2} passes, {3} failures, {4} errors.'
+		<< ('{1} examples, {2} executed, {3} passes, {4} failures, {5} errors, {6} skipped.'
 			format: {
 				results sum: #examplesTotal.
+				results sum: #examplesExecuted.
 				results sum: #examplesPassing.
 				results sum: #examplesFailures.
-				results sum: #examplesErrors })
+				results sum: #examplesErrors.
+				results sum: #examplesSkipped })
 		<< OSPlatform current lineEnding
 ]
 
@@ -108,5 +113,4 @@ GtExamplesCommandLineHandler >> runPackages [
 			and: [ results anySatisfy: #hasErrors ])
 			ifTrue: [^ self exitFailure: 'Tests do not pass!' ].
 	].
-	Smalltalk snapshot: false andQuit: true.
 ]
