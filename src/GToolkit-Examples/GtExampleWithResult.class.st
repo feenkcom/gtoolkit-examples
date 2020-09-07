@@ -67,6 +67,7 @@ GtExampleWithResult >> example: anObject [
 
 { #category : #accessing }
 GtExampleWithResult >> gtConnectionsFor: aView [
+	<gtView>
 	^ self example gtConnectionsFor: aView
 ]
 
