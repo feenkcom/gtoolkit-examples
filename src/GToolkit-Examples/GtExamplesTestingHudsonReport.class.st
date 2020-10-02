@@ -48,6 +48,26 @@ GtExamplesTestingHudsonReport >> containerNameFor: anExample [
 	^ self subclassResponsibility
 ]
 
+{ #category : #running }
+GtExamplesTestingHudsonReport >> end [
+	resultsStream tab; nextPutAll: '<system-out><![CDATA[]]></system-out>'; lf.
+	resultsStream tab; nextPutAll: '<system-err><![CDATA[]]></system-err>'; lf.
+	resultsStream nextPutAll: '</testsuite>'.
+	
+	resultsStream wrappedStream position: resultSummaryPosition.
+	resultsStream 
+		nextPutAll: ' failures="'; print: self failureCount; 
+		nextPutAll: '" errors="'; print: self errorCount; 
+		nextPutAll: '" time="'; print: executionTime asMilliSeconds / 1000.0; 
+		nextPutAll: '">'.
+	resultsStream close.
+	
+	progressStream 
+		nextPutAll: ('Finished running {1}: ' format: {self class name});
+		nextPutAll: self reportName;
+		close
+]
+
 { #category : #private }
 GtExamplesTestingHudsonReport >> endTestCase [
 	resultsStream tab; nextPutAll: '</testcase>'; lf.
@@ -210,22 +230,8 @@ GtExamplesTestingHudsonReport >> startFor: examplesToTest [
 
 { #category : #running }
 GtExamplesTestingHudsonReport >> tearDown [
-	resultsStream tab; nextPutAll: '<system-out><![CDATA[]]></system-out>'; lf.
-	resultsStream tab; nextPutAll: '<system-err><![CDATA[]]></system-err>'; lf.
-	resultsStream nextPutAll: '</testsuite>'.
-	
-	resultsStream wrappedStream position: resultSummaryPosition.
-	resultsStream 
-		nextPutAll: ' failures="'; print: self failureCount; 
-		nextPutAll: '" errors="'; print: self errorCount; 
-		nextPutAll: '" time="'; print: executionTime asMilliSeconds / 1000.0; 
-		nextPutAll: '">'.
-	resultsStream close.
-	
-	progressStream 
-		nextPutAll: ('Finished running {1}: ' format: {self class name});
-		nextPutAll: self reportName;
-		close
+	self end. 
+	self ensureStreamsClosed
 ]
 
 { #category : #accessing }
