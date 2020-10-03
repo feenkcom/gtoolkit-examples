@@ -61,7 +61,7 @@ GtExamplesCommandLineHandler >> addPackagesMatchingRegex: aRegex to: aSet [
 
 { #category : #private }
 GtExamplesCommandLineHandler >> exampleReport [
-	(self hasOption: 'junit-xml-output') ifTrue: [ ^ GtExamplesHDReport ].
+	(self hasOption: 'junit-xml-output') ifTrue: [ ^ GtExamplesHudsonReport ].
 	^ self error: 'only works for now for junit for now'
 ]
 
@@ -77,12 +77,12 @@ GtExamplesCommandLineHandler >> informResults: results [
 	self stdout 
 		<< ('{1} examples, {2} executed, {3} passes, {4} failures, {5} errors, {6} skipped.'
 			format: {
-				results sum: #examplesTotal.
-				results sum: #examplesExecuted.
-				results sum: #examplesPassing.
-				results sum: #examplesFailures.
-				results sum: #examplesErrors.
-				results sum: #examplesSkipped })
+				results sum: #totalCount.
+				results sum: #executedCount.
+				results sum: #passingCount.
+				results sum: #failureCount.
+				results sum: #errorCount.
+				results sum: #skippedCount })
 		<< OSPlatform current lineEnding
 ]
 
