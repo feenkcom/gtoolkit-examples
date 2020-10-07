@@ -100,6 +100,11 @@ GtExampleWithResult >> hasAnnouncer [
 ]
 
 { #category : #testing }
+GtExampleWithResult >> hasNoTestPragma [
+	^ self example hasNoTestPragma
+]
+
+{ #category : #testing }
 GtExampleWithResult >> hasResult [
 	^ result notNil
 ]
