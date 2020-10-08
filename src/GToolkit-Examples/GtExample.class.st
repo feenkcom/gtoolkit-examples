@@ -231,6 +231,11 @@ GtExample >> hasLiteralThorough: aLiteral [
 ]
 
 { #category : #testing }
+GtExample >> hasNoTestPragma [
+	^ self method hasPragmaNamed: #noTest
+]
+
+{ #category : #testing }
 GtExample >> hasProblems [
 	^ problems notEmpty
 			or: [  self hasValidAfter not
