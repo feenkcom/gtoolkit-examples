@@ -394,10 +394,16 @@ GtExample >> isInherited [
 ]
 
 { #category : #testing }
+GtExample >> isMethodDefined [
+	^ self methodClass includesSelector: self selector
+]
+
+{ #category : #testing }
 GtExample >> isValid [
-	^ self hasProblems not
-		and: [ self hasValidProviderClass 
-			and: [ self traverser canProcess ] ]
+	^ self isMethodDefined and: [
+		self hasProblems not
+			and: [ self hasValidProviderClass 
+				and: [ self traverser canProcess ] ] ]
 ]
 
 { #category : #accessing }
@@ -428,6 +434,12 @@ GtExample >> method [
 { #category : #accessing }
 GtExample >> methodClass [
 	^ methodClass
+]
+
+{ #category : #'accessing-dynamic' }
+GtExample >> methodDo: aBlockClosure [ 
+	self isMethodDefined ifFalse: [ ^ self ].
+	aBlockClosure cull: self method
 ]
 
 { #category : #accessing }
