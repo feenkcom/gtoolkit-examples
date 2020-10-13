@@ -56,11 +56,15 @@ GtExampleDependenciesResolver >> resolveDependenciesForExample: anExample [
 	| exampleDependencies |
 	
 	exampleDependencies := OrderedCollection new.
-	anExample method ast nodesDo: [ :aNode | 
-		self withExampleFrom: aNode fromMethod: anExample method ifPresentDo: [ :possibleExampleDependency |
-			exampleDependencies 
+	anExample methodDo: [ :aMethod | 
+		aMethod ast nodesDo: [ :aNode | 
+			self 
+			withExampleFrom: aNode 
+			fromMethod: aMethod 
+			ifPresentDo: [ :possibleExampleDependency |
+				exampleDependencies 
 					detect: [ :anotherExample | anotherExample = possibleExampleDependency ]
-					ifNone: [ exampleDependencies add: possibleExampleDependency ] ] ].
+					ifNone: [ exampleDependencies add: possibleExampleDependency ] ] ] ].
 	^ exampleDependencies
 ]
 
