@@ -12,6 +12,12 @@ Class {
 	#category : #'GToolkit-Examples-Runtime'
 }
 
+{ #category : #comparing }
+GtExampleWithResult >> = anExample [
+	^ self class = anExample class and: [ 
+		self example = anExample example ]
+]
+
 { #category : #accessing }
 GtExampleWithResult >> announcer [
 	<return: #Announcer>
@@ -45,6 +51,14 @@ GtExampleWithResult >> changeArguments: aCollection [
 	
 ]
 
+{ #category : #ui }
+GtExampleWithResult >> color [
+	<return: #Color>
+	^ self result 
+			ifNotNil: #color
+			ifNil: [ Color fromHexString: #'f0f0f0' ]
+]
+
 { #category : #public }
 GtExampleWithResult >> debug [
 	self result: self example debug
@@ -52,7 +66,7 @@ GtExampleWithResult >> debug [
 
 { #category : #accessing }
 GtExampleWithResult >> directDependencies [
-	^ self example directDependencies
+	^ self example directDependencies collect: #asExampleWithResult
 ]
 
 { #category : #accessing }
@@ -109,12 +123,17 @@ GtExampleWithResult >> hasResult [
 	^ result notNil
 ]
 
+{ #category : #comparing }
+GtExampleWithResult >> hash [
+	^ self class hash bitXor: self example hash
+]
+
 { #category : #ui }
 GtExampleWithResult >> icon [
 	<return: #Form>
 	^ self result 
 			ifNotNil: #icon
-			ifNil: [ ^ ThemeIcons current iconNamed: #testNotRun ]
+			ifNil: [ ThemeIcons current iconNamed: #testNotRun ]
 ]
 
 { #category : #testing }
@@ -233,7 +252,7 @@ GtExampleWithResult >> selector [
 	^ self example selector
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GtExampleWithResult >> sourceCode [
 	<return: #String>
 	^ self example sourceCode

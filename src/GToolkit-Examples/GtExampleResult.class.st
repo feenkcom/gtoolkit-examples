@@ -44,6 +44,15 @@ GtExampleResult class >> signalableExceptions [
 		Deprecation
 ]
 
+{ #category : #ui }
+GtExampleResult >> color [
+	<return: #Color>
+	self isSuccess ifTrue: [ ^ Color fromHexString: #'95de64' ].
+	self isFailure ifTrue: [ ^ Color fromHexString: #ffd666 ].
+	self isError ifTrue: [ ^ Color fromHexString: #ff7875 ].
+	^ Color fromHexString: #'f0f0f0'
+]
+
 { #category : #accessing }
 GtExampleResult >> context [
 	^ context
