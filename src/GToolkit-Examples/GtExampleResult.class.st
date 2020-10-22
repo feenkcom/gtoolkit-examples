@@ -38,10 +38,7 @@ GtExampleResult class >> signalableExceptions [
 	^ ExceptionSet new ,
 		Halt ,
 		Error ,
-		Exit ,
-		UnhandledError,
-		TestFailure,
-		Deprecation
+		TestFailure
 ]
 
 { #category : #ui }
@@ -131,14 +128,14 @@ GtExampleResult >> icon [
 GtExampleResult >> isError [
 	^ self isSuccess not
 		and: [ self hasException
-			and: [ (self exampleException isKindOf: AssertionFailure) not ] ]
+			and: [ (self exampleException isKindOf: self class failure) not ] ]
 ]
 
 { #category : #testing }
 GtExampleResult >> isFailure [
 	^ self isSuccess not
 		and: [ self hasException
-			and: [ self exampleException isKindOf: AssertionFailure ] ]
+			and: [ self exampleException isKindOf: self class failure ] ]
 ]
 
 { #category : #testing }
