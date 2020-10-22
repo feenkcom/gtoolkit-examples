@@ -213,7 +213,8 @@ GtExamplesTestingHudsonReport >> signalableExceptions [
 	^ ExceptionSet new ,
 		Halt ,
 		Error ,
-		TestFailure
+		TestFailure,
+		Deprecation 
 ]
 
 { #category : #accessing }
