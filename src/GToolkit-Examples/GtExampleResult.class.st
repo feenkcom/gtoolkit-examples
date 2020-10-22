@@ -38,10 +38,7 @@ GtExampleResult class >> signalableExceptions [
 	^ ExceptionSet new ,
 		Halt ,
 		Error ,
-		Exit ,
-		UnhandledError,
-		TestFailure,
-		Deprecation
+		TestFailure
 ]
 
 { #category : #ui }
