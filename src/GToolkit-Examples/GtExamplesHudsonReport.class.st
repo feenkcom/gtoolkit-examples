@@ -52,7 +52,7 @@ GtExamplesHudsonReport >> runExample: anExample [
 		beginTestCase: anExample
 		runBlock: [
 			[ anExample debug ]
-				on: Halt , Error , AssertionFailure
+				on: self signalableExceptions
 				do: [ :err | 
 					error := err.
 					(anExample exceptions handles: err)

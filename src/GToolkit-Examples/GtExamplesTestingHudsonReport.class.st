@@ -209,6 +209,14 @@ GtExamplesTestingHudsonReport >> setUp [
 ]
 
 { #category : #accessing }
+GtExamplesTestingHudsonReport >> signalableExceptions [ 
+	^ ExceptionSet new ,
+		Halt ,
+		Error ,
+		TestFailure
+]
+
+{ #category : #accessing }
 GtExamplesTestingHudsonReport >> skippedCount [
 	^ self totalCount - self executedCount
 ]
