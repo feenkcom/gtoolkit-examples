@@ -267,7 +267,7 @@ GtExamplesTestingHudsonReport >> writeError: error stack: stack [
 ]
 
 { #category : #private }
-GtExamplesTestingHudsonReport >> writeException: error stack: stack [.
+GtExamplesTestingHudsonReport >> writeException: error stack: stack [	
 	resultsStream 
 		nextPutAll: (self encode: error class name); 
 		nextPutAll: '" message="'; nextPutAll: (self encode: (error messageText ifNil: [ error description ])); 
