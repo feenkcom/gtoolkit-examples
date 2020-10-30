@@ -267,10 +267,16 @@ GtExamplesTestingHudsonReport >> writeError: error stack: stack [
 ]
 
 { #category : #private }
-GtExamplesTestingHudsonReport >> writeException: error stack: stack [.
+GtExamplesTestingHudsonReport >> writeException: error stack: stack [
+	| messageText |
+	
+	messageText := (error isKindOf: Deprecation)
+		ifFalse: [ error messageTextForFrozenException ]
+		ifTrue: [ error messageText ].
+	
 	resultsStream 
 		nextPutAll: (self encode: error class name); 
-		nextPutAll: '" message="'; nextPutAll: (self encode: (error messageText ifNil: [ error description ])); 
+		nextPutAll: '" message="'; nextPutAll: (self encode: (messageText ifNil: [ error description ])); 
 		nextPutAll: '">'; 
 		nextPutAll: (self encode: stack).
 ]
