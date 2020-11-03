@@ -16,7 +16,7 @@ GtExampleOpenClassInCoderCommand class >> browserTabActivation [
 { #category : #testing }
 GtExampleOpenClassInCoderCommand class >> canBeExecutedInContext: aToolContext [
 	^ (super canBeExecutedInContext: aToolContext) and: [ 
-			self environment hasClassNamed: #GtClassCoder ]
+			self environment hasClassNamed: #GtBehaviorCoder ]
 ]
 
 { #category : #accessing }
