@@ -114,3 +114,12 @@ GtExamplesCommandLineHandler >> runPackages [
 			ifTrue: [^ self exitFailure: 'Tests do not pass!' ].
 	].
 ]
+
+{ #category : #accessing }
+GtExamplesCommandLineHandler >> runPackagesInUI [
+	| packages results |
+	packages := self packages.
+	results := (GtExamplesHudsonReport runPackages: self packages) select: #notNil.				
+	^ results
+			
+]
