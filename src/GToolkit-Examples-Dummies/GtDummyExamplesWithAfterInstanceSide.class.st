@@ -88,6 +88,24 @@ GtDummyExamplesWithAfterInstanceSide >> afterC [
 	afterExecution add: #afterC
 ]
 
+{ #category : #after }
+GtDummyExamplesWithAfterInstanceSide >> afterD [
+	self assert: (self gtExampleRuntimeContext includesKey: #a) not.
+	self assert: (self gtExampleRuntimeContext includesKey: #b) not.
+	self assert: (self gtExampleRuntimeContext includesKey: #c) not.
+	self assert: (self gtExampleRuntimeContext includesKey: #d).
+	self assert: (self gtExampleRuntimeContext includesKey: #d2).
+	
+	self gtExampleRuntimeContext removeKey: #d.
+	
+	self assert: (self gtExampleRuntimeContext includesKey: #d) not.
+	self assert: (self gtExampleRuntimeContext includesKey: #d2).
+	
+	(self gtExampleRuntimeContext at: #execution ifAbsentPut: [ OrderedCollection new ])
+		add: #afterD.
+	afterExecution add: #afterD
+]
+
 { #category : #accessing }
 GtDummyExamplesWithAfterInstanceSide >> afterExecution [
 	^ afterExecution

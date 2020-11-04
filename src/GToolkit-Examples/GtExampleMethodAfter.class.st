@@ -6,3 +6,19 @@ Class {
 	#superclass : #GtAbstractExampleMethod,
 	#category : #'GToolkit-Examples-Organization'
 }
+
+{ #category : #testing }
+GtExampleMethodAfter >> exists [
+	^ self methodClassName notNil
+		and: [ self methodClass notNil
+			and: [ (self methodClass whichClassIncludesSelector: self selector) notNil ] ]
+]
+
+{ #category : #'accessing-dynamic' }
+GtExampleMethodAfter >> method [
+	^ self exists 
+		ifTrue: [
+			(self methodClass whichClassIncludesSelector: self selector)
+				ifNotNil: [ :aMethodClass | aMethodClass >> self selector ] ]
+		ifFalse: [ nil ]
+]
