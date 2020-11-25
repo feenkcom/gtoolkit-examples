@@ -79,7 +79,11 @@ GtExampleEvaluator >> primitiveProcessExample: anExample withEvaluationContext: 
 GtExampleEvaluator >> processAfter: anExample withDependencies: exampleDependencies andEvaluationContext: anEvaluationContext [
 	self processAfterMethodFor: anExample withEvaluationContext: anEvaluationContext.
 	exampleDependencies reversed do: [ :anotherExample |
-		self processAfterMethodFor: anotherExample withEvaluationContext: anEvaluationContext ]
+		| anotherExampleEvaluationContext |
+		anotherExampleEvaluationContext := anotherExample providerClass = anExample providerClass
+			ifTrue: [ anEvaluationContext ]
+			ifFalse: [ anotherExample evaluationContext ].
+		self processAfterMethodFor: anotherExample withEvaluationContext: anotherExampleEvaluationContext ]
 ]
 
 { #category : #private }
