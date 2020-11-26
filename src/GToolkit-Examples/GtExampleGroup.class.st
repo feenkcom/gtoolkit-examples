@@ -66,8 +66,29 @@ GtExampleGroup >> do: aBlock [
 ]
 
 { #category : #accessing }
+GtExampleGroup >> erroredExamples [
+	^ (self examples
+		select: [ :eachExample | eachExample isError ])
+			sorted: GtMethodsSortFunction new
+]
+
+{ #category : #accessing }
 GtExampleGroup >> examples [
 	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
+GtExampleGroup >> executedExamples [
+	^ (self examples
+		select: [ :eachExample | eachExample hasResult ])
+			sorted: GtMethodsSortFunction new
+]
+
+{ #category : #accessing }
+GtExampleGroup >> failedExamples [
+	^ (self examples
+		select: [ :eachExample | eachExample isFailure ])
+			sorted: GtMethodsSortFunction new
 ]
 
 { #category : #enumerating }
@@ -274,4 +295,23 @@ GtExampleGroup >> runNotYetExecuted [
 { #category : #enumerating }
 GtExampleGroup >> select: aBlock [
 	^ self class withAll: (self examples select: aBlock)
+]
+
+{ #category : #accessing }
+GtExampleGroup >> skippedExamples [
+	^ (self examples
+		reject: [ :eachExample | eachExample hasResult ])
+			sorted: GtMethodsSortFunction new
+]
+
+{ #category : #accessing }
+GtExampleGroup >> sortedExamples [
+	^ self examples sorted: GtMethodsSortFunction new
+]
+
+{ #category : #accessing }
+GtExampleGroup >> successfulExamples [
+	^ (self examples
+		select: [ :eachExample | eachExample isSuccess ])
+			sorted: GtMethodsSortFunction new
 ]
