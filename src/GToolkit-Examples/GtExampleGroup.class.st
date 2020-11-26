@@ -65,9 +65,24 @@ GtExampleGroup >> do: aBlock [
 	^ self examples do: aBlock
 ]
 
+{ #category : #'accessing - dynamic' }
+GtExampleGroup >> erroredExamples [
+	^ self examples select: [ :eachExample | eachExample isError ]
+]
+
 { #category : #accessing }
 GtExampleGroup >> examples [
 	^ self subclassResponsibility
+]
+
+{ #category : #'accessing - dynamic' }
+GtExampleGroup >> executedExamples [
+	^ self examples select: [ :eachExample | eachExample hasResult ]
+]
+
+{ #category : #'accessing - dynamic' }
+GtExampleGroup >> failedExamples [
+	^ self examples select: [ :eachExample | eachExample isFailure ]
 ]
 
 { #category : #enumerating }
@@ -274,4 +289,14 @@ GtExampleGroup >> runNotYetExecuted [
 { #category : #enumerating }
 GtExampleGroup >> select: aBlock [
 	^ self class withAll: (self examples select: aBlock)
+]
+
+{ #category : #'accessing - dynamic' }
+GtExampleGroup >> skippedExamples [
+	^ self examples reject: [ :eachExample | eachExample hasResult ]
+]
+
+{ #category : #'accessing - dynamic' }
+GtExampleGroup >> successfulExamples [
+	^ self examples select: [ :eachExample | eachExample isSuccess ]
 ]
