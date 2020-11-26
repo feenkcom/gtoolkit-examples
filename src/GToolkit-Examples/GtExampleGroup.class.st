@@ -65,11 +65,9 @@ GtExampleGroup >> do: aBlock [
 	^ self examples do: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - dynamic' }
 GtExampleGroup >> erroredExamples [
-	^ (self examples
-		select: [ :eachExample | eachExample isError ])
-			sorted: GtMethodsSortFunction new
+	^ self examples select: [ :eachExample | eachExample isError ]
 ]
 
 { #category : #accessing }
@@ -77,18 +75,14 @@ GtExampleGroup >> examples [
 	^ self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - dynamic' }
 GtExampleGroup >> executedExamples [
-	^ (self examples
-		select: [ :eachExample | eachExample hasResult ])
-			sorted: GtMethodsSortFunction new
+	^ self examples select: [ :eachExample | eachExample hasResult ]
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - dynamic' }
 GtExampleGroup >> failedExamples [
-	^ (self examples
-		select: [ :eachExample | eachExample isFailure ])
-			sorted: GtMethodsSortFunction new
+	^ self examples select: [ :eachExample | eachExample isFailure ]
 ]
 
 { #category : #enumerating }
@@ -297,21 +291,12 @@ GtExampleGroup >> select: aBlock [
 	^ self class withAll: (self examples select: aBlock)
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - dynamic' }
 GtExampleGroup >> skippedExamples [
-	^ (self examples
-		reject: [ :eachExample | eachExample hasResult ])
-			sorted: GtMethodsSortFunction new
+	^ self examples reject: [ :eachExample | eachExample hasResult ]
 ]
 
-{ #category : #accessing }
-GtExampleGroup >> sortedExamples [
-	^ self examples sorted: GtMethodsSortFunction new
-]
-
-{ #category : #accessing }
+{ #category : #'accessing - dynamic' }
 GtExampleGroup >> successfulExamples [
-	^ (self examples
-		select: [ :eachExample | eachExample isSuccess ])
-			sorted: GtMethodsSortFunction new
+	^ self examples select: [ :eachExample | eachExample isSuccess ]
 ]
