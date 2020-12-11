@@ -77,7 +77,7 @@ GtExamplesTestingHudsonReport >> endTestCase [
 { #category : #private }
 GtExamplesTestingHudsonReport >> ensureProgressFile [
 	| aFile |
-	aFile := File named: 'progress-constraints.log'.
+	aFile := File named: self progressFileName.
 	aFile delete.
 	progressStream := ZnCharacterWriteStream
 		on: (aFile writeStream 
@@ -159,6 +159,14 @@ GtExamplesTestingHudsonReport >> nameFor: anExample [
 { #category : #accessing }
 GtExamplesTestingHudsonReport >> passingCount [
 	^ self executedCount - self failureCount - self errorCount
+]
+
+{ #category : #private }
+GtExamplesTestingHudsonReport >> progressFileName [
+	"A name of the file in which to log the progress"
+	<return: #String>
+
+	^ self subclassResponsibility
 ]
 
 { #category : #accessing }

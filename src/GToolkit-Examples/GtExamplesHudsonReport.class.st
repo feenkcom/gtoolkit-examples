@@ -40,6 +40,11 @@ GtExamplesHudsonReport >> nameFor: anExample [
 	^ anExample selector
 ]
 
+{ #category : #private }
+GtExamplesHudsonReport >> progressFileName [
+	^ 'progress-examples.log'
+]
+
 { #category : #accessing }
 GtExamplesHudsonReport >> resultsFileName [
 	^ self reportName , '-Examples.xml'
