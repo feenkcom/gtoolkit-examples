@@ -19,9 +19,23 @@ GtExamplesCommandLineHandler class >> description [
 
 { #category : #activation }
 GtExamplesCommandLineHandler >> activate [
+	| theResults |
+
 	self activateHelp
 		ifTrue: [  ^ self ].
-	self runPackages.
+
+	theResults := self runPackages.
+	
+	(self hasOption: 'save')
+		ifTrue: [ Smalltalk saveSession ].
+	
+	((self hasOption: 'fail-on-failure') 
+		and: [ theResults anySatisfy: #hasFailuresOrErrors ])
+		ifTrue: [ ^ self exitFailure: 'Tests do not pass!' ].
+
+	((self hasOption: 'fail-on-error') 
+		and: [ theResults anySatisfy: #hasErrors ])
+		ifTrue: [ ^ self exitFailure: 'Tests do not pass!' ].
 	
 	(self hasOption: 'no-quit')
 		ifFalse: [ self quit ]
@@ -99,27 +113,24 @@ GtExamplesCommandLineHandler >> packages [
 { #category : #private }
 GtExamplesCommandLineHandler >> runPackages [
 	| packages results |
-	UIManager nonInteractiveDuring: [
-		packages := self packages.
-		self inform: 'Running examples in ', packages size asString, ' packages'.
-		results := (self exampleReport runPackages: self packages) select: #notNil.
-				
-		self informResults: results.
-		(self hasOption: 'save') ifTrue: [ Smalltalk saveSession ].
-		((self hasOption: 'fail-on-failure') 
-			and: [ results anySatisfy: #hasFailuresOrErrors ])
-			ifTrue: [^ self exitFailure: 'Tests do not pass!' ].
-		((self hasOption: 'fail-on-error') 
-			and: [ results anySatisfy: #hasErrors ])
-			ifTrue: [^ self exitFailure: 'Tests do not pass!' ].
-	].
+	
+	packages := self sortedPackageNamesToRun.
+	self inform: 'Running examples in ', packages size asString, ' packages'.
+	results := (self exampleReport runPackages: packages) select: #notNil.
+
+	self informResults: results.
+	^ results
+]
+
+{ #category : #private }
+GtExamplesCommandLineHandler >> runPackagesInUI [
+	| packages results |
+	packages := self sortedPackageNamesToRun.
+	results := (GtExamplesHudsonReport runPackages: packages) select: #notNil.				
+	^ results
 ]
 
 { #category : #accessing }
-GtExamplesCommandLineHandler >> runPackagesInUI [
-	| packages results |
-	packages := self packages.
-	results := (GtExamplesHudsonReport runPackages: self packages) select: #notNil.				
-	^ results
-			
+GtExamplesCommandLineHandler >> sortedPackageNamesToRun [
+	^ self packages sorted: [ :a :b | a < b ]
 ]
