@@ -59,7 +59,7 @@ GtExamplesHudsonReport >> runExample: anExample [
 			[ anExample debug ]
 				on: self signalableExceptions
 				do: [ :err | 
-					error := err.
+					error := err freeze.
 					(anExample exceptions handles: err)
 						ifFalse: [ 
 							stack := self stackTraceString: err of: anExample ] ] ].
