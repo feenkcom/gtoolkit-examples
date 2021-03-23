@@ -9,16 +9,41 @@ Class {
 
 { #category : #running }
 GtExamplesHudsonReport class >> runPackage: aString [
-	^ self new 
-		initializeWithTestCases: (RPackage organizer packageNamed: aString) gtExamplesAllContained ;
-		reportName: aString;
-		run
+	| theExamples theExamplesGroupedByClass |
+	
+	theExamples := (RPackage organizer packageNamed: aString) gtExamplesAllContained.
+	theExamplesGroupedByClass := theExamples groupedBy: [ :each | each methodClass ].
+
+	GtExamplesReportRunPackageSignal new
+		packageName: aString;
+		amountOfExampleClasses: theExamplesGroupedByClass size;
+		amountOfExamples: theExamples size;
+		emit.
+
+	^ theExamplesGroupedByClass associations collect: [ :eachAssoc |
+		| eachClass classExamples sortFunction |
+		
+		eachClass := eachAssoc key.
+		classExamples := eachAssoc value.
+		
+		sortFunction := GtMethodsSortFunction new.
+		classExamples := classExamples sorted: [ :a :b |
+			(sortFunction collate: a method with: b method) <= 0 ].
+
+		GtExamplesReportRunClassSignal new
+			exampleClass: eachClass;
+			amountOfExamples: classExamples size;
+			emit.
+
+		self new 
+			initializeWithTestCases: classExamples;
+			reportName: aString, '-', eachClass name;
+			run ]
 ]
 
 { #category : #running }
 GtExamplesHudsonReport class >> runPackages: aCollectionOfStrings [
-	^ aCollectionOfStrings collect: [ :each | 
-		self runPackage: each ]
+	^ aCollectionOfStrings flatCollect: [ :each | self runPackage: each ]
 ]
 
 { #category : #'accessing - test case' }
@@ -53,13 +78,18 @@ GtExamplesHudsonReport >> resultsFileName [
 { #category : #running }
 GtExamplesHudsonReport >> runExample: anExample [
 	| error stack |
+	
+	GtExamplesReportRunExampleSignal new
+		example: anExample;
+		emit.
+
 	self
 		beginTestCase: anExample
 		runBlock: [
 			[ anExample debug ]
 				on: self signalableExceptions
 				do: [ :err | 
-					error := err.
+					error := err freeze.
 					(anExample exceptions handles: err)
 						ifFalse: [ 
 							stack := self stackTraceString: err of: anExample ] ] ].

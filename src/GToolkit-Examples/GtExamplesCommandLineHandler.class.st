@@ -112,11 +112,19 @@ GtExamplesCommandLineHandler >> packages [
 
 { #category : #private }
 GtExamplesCommandLineHandler >> runPackages [
-	| packages results |
+	| packages results runBlock |
 	
 	packages := self sortedPackageNamesToRun.
 	self inform: 'Running examples in ', packages size asString, ' packages'.
-	results := (self exampleReport runPackages: packages) select: #notNil.
+	
+	runBlock := [ results := (self exampleReport runPackages: packages) select: #notNil ].
+	
+	(self hasOption: 'verbose')
+		ifTrue: [
+			NonInteractiveTranscriptLogger instance
+				runFor: GtExamplesReportSignal
+				during: runBlock ]
+		ifFalse: runBlock.
 
 	self informResults: results.
 	^ results
