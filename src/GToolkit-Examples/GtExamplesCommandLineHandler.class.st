@@ -107,7 +107,11 @@ GtExamplesCommandLineHandler >> installFlushChangesFileError [
 		metaObject: (self class environment at: #GtPharoFlushChangesFileSignal ifAbsent: [ ^ self ]);
 		selector: #signalIfOutsideModifier.
 		
-	(SourceFileArray>>#flushChangesFile) ast link: aLink
+	(SourceFileArray>>#flushChangesFile) ast link: aLink.
+	(Categorizer>>#classify:under:suppressIfDefault:) ast link: aLink.
+	(Categorizer>>#removeCategory:) ast link: aLink.
+	(Categorizer>>#addCategory:before:) ast link: aLink.
+	(Categorizer>>#renameCategory:toBe:) ast link: aLink.
 ]
 
 { #category : #private }
