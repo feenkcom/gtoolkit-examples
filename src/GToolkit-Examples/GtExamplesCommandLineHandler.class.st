@@ -100,6 +100,26 @@ GtExamplesCommandLineHandler >> informResults: results [
 		<< OSPlatform current lineEnding
 ]
 
+{ #category : #private }
+GtExamplesCommandLineHandler >> installFlushChangesFileError [
+	| aLink |
+	aLink := MetaLink new 
+		metaObject: (self class environment at: #GtPharoFlushChangesFileSignal ifAbsent: [ ^ self ]);
+		selector: #signalIfOutsideModifier.
+		
+	(SourceFileArray>>#flushChangesFile) ast link: aLink
+]
+
+{ #category : #private }
+GtExamplesCommandLineHandler >> installFlushChangesFileReporter [
+	| aLink |
+	aLink := MetaLink new 
+		metaObject: (self class environment at: #GtPharoFlushChangesFileSignal ifAbsent: [ ^ self ]);
+		selector: #emitIfOutsideModifier.
+		
+	(SourceFileArray>>#flushChangesFile) ast link: aLink
+]
+
 { #category : #accessing }
 GtExamplesCommandLineHandler >> packages [
 	| packages |
@@ -118,7 +138,10 @@ GtExamplesCommandLineHandler >> runPackages [
 	self inform: 'Running examples in ', packages size asString, ' packages'.
 	
 	runBlock := [ results := (self exampleReport runPackages: packages) select: #notNil ].
-	
+
+	"we should detect places that trigger changes file flushing without synchronisation"	
+	self installFlushChangesFileError.
+
 	(self hasOption: 'verbose')
 		ifTrue: [
 			NonInteractiveTranscriptLogger instance
