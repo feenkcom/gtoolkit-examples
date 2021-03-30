@@ -121,6 +121,8 @@ GtExamplesCommandLineHandler >> installFlushChangesFileError [
 	
 	(SourceFileBufferedReadWriteStream>>#close) ast link: aLink.
 	(SourceFileBufferedReadWriteStream>>#flush) ast link: aLink.
+	(SourceFile>>#close) ast link: aLink.
+
 ]
 
 { #category : #private }
