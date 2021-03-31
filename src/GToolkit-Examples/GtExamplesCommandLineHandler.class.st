@@ -158,7 +158,7 @@ GtExamplesCommandLineHandler >> runPackages [
 	runBlock := [ results := (self exampleReport runPackages: packages) select: #notNil ].
 
 	"we should detect places that trigger changes file flushing without synchronisation"	
-	self installFlushChangesFileError.
+	"self installFlushChangesFileError."
 
 	(self hasOption: 'verbose')
 		ifTrue: [
