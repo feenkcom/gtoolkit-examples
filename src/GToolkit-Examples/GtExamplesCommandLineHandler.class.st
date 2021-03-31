@@ -103,9 +103,11 @@ GtExamplesCommandLineHandler >> informResults: results [
 { #category : #private }
 GtExamplesCommandLineHandler >> installFlushChangesFileError [
 	| aLink |
+
 	aLink := MetaLink new 
 		metaObject: (self class environment at: #GtPharoFlushChangesFileSignal ifAbsent: [ ^ self ]);
-		selector: #signalIfOutsideModifier.
+		selector: #signalIfOutsideModifier:;
+		arguments: #(receiver).
 		
 	(SourceFileArray>>#flushChangesFile) ast link: aLink.
 	
@@ -114,13 +116,16 @@ GtExamplesCommandLineHandler >> installFlushChangesFileError [
 	(Categorizer>>#addCategory:before:) ast link: aLink.
 	(Categorizer>>#renameCategory:toBe:) ast link: aLink.
 	(Categorizer>>#removeEmptyCategories) ast link: aLink.
-	(Categorizer>>#basicRemoveElement:) ast link: aLink.
+	(Categorizer>>#removeElement:) ast link: aLink.
 	(Categorizer>>#changeFromCategorySpecs:) ast link: aLink.
 	(Categorizer>>#categories:) ast link: aLink.
 	(Categorizer>>#setDefaultList:) ast link: aLink.
 	
 	(SourceFileBufferedReadWriteStream>>#close) ast link: aLink.
 	(SourceFileBufferedReadWriteStream>>#flush) ast link: aLink.
+	(SourceFileBufferedReadWriteStream class>>#on:) ast link: aLink.
+	
+	(BinaryFileStream>>#close) ast link: aLink
 ]
 
 { #category : #private }
