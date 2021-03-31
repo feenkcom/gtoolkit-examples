@@ -11,6 +11,10 @@ Class {
 GtExamplesHudsonReport class >> runPackage: aString [
 	| theExamples theExamplesGroupedByClass |
 	
+	"Running all examples in the image may create a lot of objects,
+	to make it a bit more predictable we request gargabe collection manually."
+	Smalltalk garbageCollect.
+
 	theExamples := (RPackage organizer packageNamed: aString) gtExamplesAllContained.
 	theExamplesGroupedByClass := theExamples groupedBy: [ :each | each methodClass ].
 
@@ -113,10 +117,23 @@ GtExamplesHudsonReport >> stackTraceString: err of: anExample [
 		| context |
 		context := err signalerContext.
 		[ context isNil 
-			or: [  
-				(context methodSelector == #primitiveProcessExample:withEvaluationContext: and: [ 
-					context arguments first = anExample ])
-					or: [ context receiver = anExample and: [ context methodSelector = #debug ] ] ] 
+			or: [ 
+				| hasExampleOnTheStack |
+				
+				"Checking `object isKindOf: anExample class` may look excessive because we have an equality check `=`,
+				however, since `=` can be overriden by ccustom objects there is no guarantee that the implementation
+				of the equality method is sound and will not produce new errors. That is why we first make sure we deal with
+				an instance of GtExample for which we can guarantee the correctness of the `=`"
+				hasExampleOnTheStack :=
+					context methodSelector = #primitiveProcessExample:withEvaluationContext:
+						and: [ (context arguments first isKindOf: anExample class)
+							and: [ context arguments first = anExample ] ].
+
+				hasExampleOnTheStack := hasExampleOnTheStack or: [
+					(context receiver isKindOf: anExample class)
+						and: [ context receiver = anExample
+							and: [ context methodSelector = #debug ] ] ].
+				hasExampleOnTheStack ]
 		] whileFalse: [
 			str print: context; lf.
 			context := context sender ] ] 
