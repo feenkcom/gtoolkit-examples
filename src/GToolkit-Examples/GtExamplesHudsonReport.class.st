@@ -53,10 +53,10 @@ GtExamplesHudsonReport class >> runPackages: aCollectionOfStrings [
 { #category : #'accessing - test case' }
 GtExamplesHudsonReport >> containerNameFor: anExample [
 	| categoryName |
-	categoryName := anExample methodClass category copyReplaceAll: '-' with: '.'.
+	categoryName := anExample providerClass category copyReplaceAll: '-' with: '.'.
 	^ categoryName
 		, '.'
-		, anExample methodClass name
+		, anExample providerClass name
 ]
 
 { #category : #'accessing - test case' }
