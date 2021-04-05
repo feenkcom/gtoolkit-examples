@@ -100,6 +100,44 @@ GtExamplesCommandLineHandler >> informResults: results [
 		<< OSPlatform current lineEnding
 ]
 
+{ #category : #private }
+GtExamplesCommandLineHandler >> installFlushChangesFileError [
+	| aLink |
+
+	aLink := MetaLink new 
+		metaObject: (self class environment at: #GtPharoFlushChangesFileSignal ifAbsent: [ ^ self ]);
+		selector: #signalIfOutsideModifier:;
+		arguments: #(receiver).
+		
+	(SourceFileArray>>#flushChangesFile) ast link: aLink.
+	
+	(Categorizer>>#classify:under:suppressIfDefault:) ast link: aLink.
+	(Categorizer>>#removeCategory:) ast link: aLink.
+	(Categorizer>>#addCategory:before:) ast link: aLink.
+	(Categorizer>>#renameCategory:toBe:) ast link: aLink.
+	(Categorizer>>#removeEmptyCategories) ast link: aLink.
+	(Categorizer>>#removeElement:) ast link: aLink.
+	(Categorizer>>#changeFromCategorySpecs:) ast link: aLink.
+	(Categorizer>>#categories:) ast link: aLink.
+	(Categorizer>>#setDefaultList:) ast link: aLink.
+	
+	(SourceFileBufferedReadWriteStream>>#close) ast link: aLink.
+	(SourceFileBufferedReadWriteStream>>#flush) ast link: aLink.
+	(SourceFileBufferedReadWriteStream class>>#on:) ast link: aLink.
+	
+	(BinaryFileStream>>#close) ast link: aLink
+]
+
+{ #category : #private }
+GtExamplesCommandLineHandler >> installFlushChangesFileReporter [
+	| aLink |
+	aLink := MetaLink new 
+		metaObject: (self class environment at: #GtPharoFlushChangesFileSignal ifAbsent: [ ^ self ]);
+		selector: #emitIfOutsideModifier.
+		
+	(SourceFileArray>>#flushChangesFile) ast link: aLink
+]
+
 { #category : #accessing }
 GtExamplesCommandLineHandler >> packages [
 	| packages |
@@ -118,7 +156,10 @@ GtExamplesCommandLineHandler >> runPackages [
 	self inform: 'Running examples in ', packages size asString, ' packages'.
 	
 	runBlock := [ results := (self exampleReport runPackages: packages) select: #notNil ].
-	
+
+	"we should detect places that trigger changes file flushing without synchronisation"	
+	"self installFlushChangesFileError."
+
 	(self hasOption: 'verbose')
 		ifTrue: [
 			NonInteractiveTranscriptLogger instance
