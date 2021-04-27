@@ -42,6 +42,10 @@ GtDummyExamplesOnInstanceSide >> e [
 	^ 2
 ]
 
+{ #category : #accessing }
+GtDummyExamplesOnInstanceSide >> exampleMethod [
+]
+
 { #category : #examples }
 GtDummyExamplesOnInstanceSide >> return1A [
 	<gtExample>
