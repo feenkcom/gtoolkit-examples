@@ -1,3 +1,8 @@
+"
+This class contains tests
+
+
+"
 Class {
 	#name : #GtExampleResolverTest,
 	#superclass : #TestCase,

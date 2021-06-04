@@ -1,10 +1,12 @@
 "
 I store metadata for this package. These meta data are used by other tools such as the SmalllintManifestChecker and the critics Browser
+
+
 "
 Class {
 	#name : #ManifestGToolkitExamplesExtensions,
 	#superclass : #PackageManifest,
-	#category : 'GToolkit-Examples-Extensions'
+	#category : #'GToolkit-Examples-Extensions'
 }
 
 { #category : #'meta-data' }

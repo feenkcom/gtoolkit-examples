@@ -1,5 +1,7 @@
 "
 I define a different set of subjects for my overriden examples.
+
+
 "
 Class {
 	#name : #GtDummyExamplesWithInheritanceSubclassG,

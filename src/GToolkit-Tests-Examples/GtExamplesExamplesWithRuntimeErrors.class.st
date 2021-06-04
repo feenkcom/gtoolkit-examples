@@ -1,5 +1,7 @@
 "
-I provide examples for ==GtExample== instances that raise errors when the example is run.
+I provide examples for `GtExample` instances that raise errors when the example is run.
+
+
 "
 Class {
 	#name : #GtExamplesExamplesWithRuntimeErrors,
