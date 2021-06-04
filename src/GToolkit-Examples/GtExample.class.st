@@ -10,6 +10,8 @@ The class for which I represent the example is called my subject. I can have mul
 The object on which I am executed is the provider. This is obtained using the provider class. The class that offers the method out of which I am constructed is the method class. The provider class and the method class are not the same in case of inherited examples. For them, the provider class can be a subclass of the method class. In this case the method resides in a superclass and is executed on an instance of the subclass.
 
 I also know how to handle possible exceptions, which makes me a great candidate for encoding assumptions that are otherwise expressed as classic tests.
+
+
 "
 Class {
 	#name : #GtExample,

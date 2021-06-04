@@ -1,5 +1,7 @@
 "
-I provide examples for ==GtExample== instances that have an after method.
+I provide examples for `GtExample` instances that have an after method.
+
+
 "
 Class {
 	#name : #GtExamplesExamplesWithAfter,

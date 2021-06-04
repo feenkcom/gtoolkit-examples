@@ -5,8 +5,10 @@ My subclasses can add different semantics for different use cases. For example, 
 
 I maintain a context that can be accessed from within the examples being processed during the execution of the processor.
 
-#value - Execute the processor. Can return a value, depending on the processor.
-#canProcess - Verifies if the processor can execute on the given example.
+1. value - Execute the processor. Can return a value, depending on the processor.
+2. canProcess - Verifies if the processor can execute on the given example.
+
+
 "
 Class {
 	#name : #GtExampleProcessor,

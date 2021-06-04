@@ -1,5 +1,7 @@
 "
 I detect if a super send is a dependency to an example.
+
+
 "
 Class {
 	#name : #GtExampleSuperDependencyResolver,

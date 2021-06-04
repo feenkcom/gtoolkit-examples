@@ -1,5 +1,7 @@
 "
 I provide example methods, both on the class and instance side, that have the same method names. I also override examples on both the class and the instance side.
+
+
 "
 Class {
 	#name : #GtDummyExamplesWithInheritanceClassSideSubclassC,

@@ -1,5 +1,7 @@
 "
-I provide examples for ${class:GtExample}$ instances that use inherited or overriden examples.
+I provide examples for {{gtClass:GtExample}} instances that use inherited or overriden examples.
+
+
 "
 Class {
 	#name : #GtExamplesExamplesWithInheritance,

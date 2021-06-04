@@ -1,5 +1,7 @@
 "
 I provide support for locationg aspects used by an example. 
+
+
 "
 Class {
 	#name : #GtExampleAspectResolver,

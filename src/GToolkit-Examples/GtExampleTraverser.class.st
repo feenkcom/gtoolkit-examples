@@ -1,5 +1,7 @@
 "
 I am an example processor that can traverse the dependencies of an example and execute an action on each of them. I only execute the given action on the actual dependencies of the given example and not on the given example itself.
+
+
 "
 Class {
 	#name : #GtExampleTraverser,
