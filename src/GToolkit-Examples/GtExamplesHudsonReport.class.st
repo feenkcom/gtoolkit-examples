@@ -61,6 +61,22 @@ GtExamplesHudsonReport >> containerNameFor: anExample [
 		, anExample providerClass name
 ]
 
+{ #category : #running }
+GtExamplesHudsonReport >> fuelOutTheError: error of: anExample [
+	| fileName className methodName |
+	[
+		className := anExample methodClass name.
+		methodName := anExample selector copyReplaceAll: ':' with: '-'.
+		fileName := className, '-', methodName, '.fuel'.
+		FLSerializer serialize: error signalerContext toFileNamed: fileName 
+	] on: Error do: [:e | 
+		GtExamplesReportExceptionSignal  new 
+			error: e; 
+			message: 'Unable to fuel out the error';
+			emit
+	]
+]
+
 { #category : #'accessing - test case' }
 GtExamplesHudsonReport >> loggingNameFor: anExample [
 	^ anExample gtDisplayString
@@ -101,6 +117,8 @@ GtExamplesHudsonReport >> runExample: anExample [
 							stack := self stackTraceString: err of: anExample ] ] ].
 	
 	error ifNotNil: [
+		self fuelOutTheError: error of: anExample.
+		
 		(error isKindOf: AssertionFailure)
 			ifTrue: [ self writeFailure: error stack: stack ]
 			ifFalse: [ self writeError: error stack: stack ] ].

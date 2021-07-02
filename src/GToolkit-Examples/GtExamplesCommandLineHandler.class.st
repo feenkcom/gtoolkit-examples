@@ -157,7 +157,11 @@ GtExamplesCommandLineHandler >> runPackages [
 	packages := self sortedPackageNamesToRun.
 	self inform: 'Running examples in ', packages size asString, ' packages'.
 	
-	runBlock := [ results := (self exampleReport runPackages: packages) select: #notNil ].
+	runBlock := [ [ results := (self exampleReport runPackages: packages) select: #notNil ]
+		on: Error
+		do: [ :ex | 
+			self inform: 'Exiting runBlock abnormally'.
+			self inform: ex printString ] ].
 
 	"we should detect places that trigger changes file flushing without synchronisation"	
 	"self installFlushChangesFileError."
