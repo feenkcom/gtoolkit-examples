@@ -161,7 +161,10 @@ GtExamplesCommandLineHandler >> runPackages [
 		on: Error
 		do: [ :ex | 
 			self inform: 'Exiting runBlock abnormally'.
-			self inform: ex printString ] ].
+			self inform: ex printString.
+			Smalltalk
+				logError: ex printString
+				inContext: ex signalerContext ] ].
 
 	"we should detect places that trigger changes file flushing without synchronisation"	
 	"self installFlushChangesFileError."
@@ -172,9 +175,10 @@ GtExamplesCommandLineHandler >> runPackages [
 				runFor: GtExamplesReportSignal
 				during: runBlock ]
 		ifFalse: runBlock.
-
-	self informResults: results.
-	^ results
+	results
+		ifNil: [ self inform: 'There was an Error running the examples' ]
+		ifNotNil: [ self informResults: results ].
+	^ results ifNil: [ #() ]
 ]
 
 { #category : #private }
