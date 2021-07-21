@@ -27,6 +27,8 @@ GtExamplesCommandLineHandler >> activate [
 		ifTrue: [  ^ self ].
 
 	theResults := self runPackages.
+	theResults ifNil: [
+		^ self exitFailure: 'There was an Error running examples' ].
 	
 	(self hasOption: 'save')
 		ifTrue: [ Smalltalk saveSession ].
@@ -161,7 +163,10 @@ GtExamplesCommandLineHandler >> runPackages [
 		on: Error
 		do: [ :ex | 
 			self inform: 'Exiting runBlock abnormally'.
-			self inform: ex printString ] ].
+			self inform: ex printString.
+			Smalltalk
+				logError: ex printString
+				inContext: ex signalerContext ] ].
 
 	"we should detect places that trigger changes file flushing without synchronisation"	
 	"self installFlushChangesFileError."
@@ -173,7 +178,9 @@ GtExamplesCommandLineHandler >> runPackages [
 				during: runBlock ]
 		ifFalse: runBlock.
 
-	self informResults: results.
+	results
+		ifNotNil: [ self informResults: results ].
+		
 	^ results
 ]
 
