@@ -1,18 +1,18 @@
 Class {
-	#name : #GtParametrizedExample,
-	#superclass : #GtExample,
+	#name : 'GtParametrizedExample',
+	#superclass : 'GtExample',
 	#instVars : [
 		'arguments'
 	],
-	#category : #'GToolkit-Examples-Core'
+	#category : 'GToolkit-Examples-Core'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtParametrizedExample >> arguments [
 	^ arguments
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtParametrizedExample >> arguments: anArray [
 	self 
 		assert: [ anArray isArray ] 
@@ -20,14 +20,14 @@ GtParametrizedExample >> arguments: anArray [
 	arguments := anArray
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtParametrizedExample >> canBeExecuted [
 	"Return true if example can be executed"
 	<return: #Boolean>
 	^ super canBeExecuted and: [ self hasEnoughArguments ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtParametrizedExample >> changeArguments: aCollection [
 	"Indicate whether arguments were changed"
 	<return: #Boolean>
@@ -36,7 +36,7 @@ GtParametrizedExample >> changeArguments: aCollection [
 	^ true
 ]
 
-{ #category : #'accessing-dynamic' }
+{ #category : 'accessing-dynamic' }
 GtParametrizedExample >> evaluationContext [
 	<return: #GtExampleEvaluationContext>
 	^ GtExampleEvaluationContext new 
@@ -44,7 +44,7 @@ GtParametrizedExample >> evaluationContext [
 			arguments: self arguments
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtParametrizedExample >> gtArgumentsFor: aView [ 
 	<gtView>
 	self arguments ifNil: [ ^ aView empty ].
@@ -54,18 +54,18 @@ GtParametrizedExample >> gtArgumentsFor: aView [
 		items: [ self arguments ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtParametrizedExample >> hasEnoughArguments [
 	^ self arguments size = self numberOfRequieredArguments
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtParametrizedExample >> initialize [
 	super initialize.
 	arguments := #().
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtParametrizedExample >> numberOfRequieredArguments [
 	^ self method numArgs
 ]

@@ -1,13 +1,13 @@
 Trait {
-	#name : #TGtZnServerExamples,
+	#name : 'TGtZnServerExamples',
 	#instVars : [
 		'zincServer',
 		'zincDelegate'
 	],
-	#category : #'GToolkit-Examples-Utilities'
+	#category : 'GToolkit-Examples-Utilities'
 }
 
-{ #category : #'server - authenticator' }
+{ #category : 'server - authenticator' }
 TGtZnServerExamples >> basicAuthenticator [
 	<gtExample>
 	^ ZnBasicAuthenticator
@@ -15,7 +15,7 @@ TGtZnServerExamples >> basicAuthenticator [
 		password: self joeDoePassword
 ]
 
-{ #category : #'server - basic' }
+{ #category : 'server - basic' }
 TGtZnServerExamples >> basicServer [
 	<gtExample>
 	<after: #stopServer>
@@ -25,7 +25,7 @@ TGtZnServerExamples >> basicServer [
 	^ zincServer
 ]
 
-{ #category : #'server - authenticator' }
+{ #category : 'server - authenticator' }
 TGtZnServerExamples >> cleanServerAuthenticator [
 	<gtExample>
 	| aServer |
@@ -35,7 +35,7 @@ TGtZnServerExamples >> cleanServerAuthenticator [
 	^ aServer
 ]
 
-{ #category : #'client - basic' }
+{ #category : 'client - basic' }
 TGtZnServerExamples >> client [
 	<gtExample>
 	| aServer |
@@ -45,12 +45,12 @@ TGtZnServerExamples >> client [
 		url: self serverUrl
 ]
 
-{ #category : #'server - delegate' }
+{ #category : 'server - delegate' }
 TGtZnServerExamples >> defaultDelegate [
 	^ ZnDispatcherDelegate new
 ]
 
-{ #category : #'server - delegate' }
+{ #category : 'server - delegate' }
 TGtZnServerExamples >> delegate [
 	<gtExample>
 	zincDelegate ifNotNil: [ :aDelegate | ^ aDelegate ].
@@ -59,22 +59,22 @@ TGtZnServerExamples >> delegate [
 	^ zincDelegate
 ]
 
-{ #category : #'server - delegate' }
+{ #category : 'server - delegate' }
 TGtZnServerExamples >> initializeDelegate [
 	"Classes can initialize the mapping delegate"
 ]
 
-{ #category : #'server - authenticator' }
+{ #category : 'server - authenticator' }
 TGtZnServerExamples >> joeDoePassword [
 	^ 'Joe Doe''s secret password'
 ]
 
-{ #category : #'server - authenticator' }
+{ #category : 'server - authenticator' }
 TGtZnServerExamples >> joeDoeUsername [
 	^ 'JoeDoe'
 ]
 
-{ #category : #'server - basic' }
+{ #category : 'server - basic' }
 TGtZnServerExamples >> server [
 	<gtExample>
 	| aServer |
@@ -85,7 +85,7 @@ TGtZnServerExamples >> server [
 	^ aServer
 ]
 
-{ #category : #'server - basic' }
+{ #category : 'server - basic' }
 TGtZnServerExamples >> serverPort [
 	<gtExample>
 	| aPort |
@@ -94,7 +94,7 @@ TGtZnServerExamples >> serverPort [
 	^ aPort
 ]
 
-{ #category : #'server - basic' }
+{ #category : 'server - basic' }
 TGtZnServerExamples >> serverUrl [
 	<gtExample>
 	^ ZnUrl new
@@ -104,7 +104,7 @@ TGtZnServerExamples >> serverUrl [
 		yourself.
 ]
 
-{ #category : #'server - authenticator' }
+{ #category : 'server - authenticator' }
 TGtZnServerExamples >> setServerBasicAuthenticator [
 	<gtExample>
 	| aServer anAuthenticator |
@@ -115,7 +115,7 @@ TGtZnServerExamples >> setServerBasicAuthenticator [
 	^ aServer
 ]
 
-{ #category : #'server - basic' }
+{ #category : 'server - basic' }
 TGtZnServerExamples >> stopServer [
 	^ zincServer ifNotNil: #stop
 ]

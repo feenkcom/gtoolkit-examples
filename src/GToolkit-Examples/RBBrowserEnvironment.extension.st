@@ -1,6 +1,6 @@
-Extension { #name : #RBBrowserEnvironment }
+Extension { #name : 'RBBrowserEnvironment' }
 
-{ #category : #'*GToolkit-Examples-Core' }
+{ #category : '*GToolkit-Examples-Core' }
 RBBrowserEnvironment >> gtExamplesContained [
 	| examples |
 	examples := OrderedCollection new.
@@ -12,7 +12,7 @@ RBBrowserEnvironment >> gtExamplesContained [
 	^ examples
 ]
 
-{ #category : #'*GToolkit-Examples-Core' }
+{ #category : '*GToolkit-Examples-Core' }
 RBBrowserEnvironment >> gtParametrizedExamplesContained [
 	| examples |
 	examples := OrderedCollection new.

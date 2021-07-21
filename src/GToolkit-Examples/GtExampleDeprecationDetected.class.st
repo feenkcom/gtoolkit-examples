@@ -4,7 +4,7 @@ I am an error that occurs when an example encounters a deprecation warning durin
 
 "
 Class {
-	#name : #GtExampleDeprecationDetected,
-	#superclass : #GtExamplePragmaError,
-	#category : #'GToolkit-Examples-Exceptions'
+	#name : 'GtExampleDeprecationDetected',
+	#superclass : 'GtExamplePragmaError',
+	#category : 'GToolkit-Examples-Exceptions'
 }

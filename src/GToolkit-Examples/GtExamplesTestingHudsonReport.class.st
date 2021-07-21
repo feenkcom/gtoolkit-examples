@@ -1,6 +1,6 @@
 Class {
-	#name : #GtExamplesTestingHudsonReport,
-	#superclass : #GtExamplesBasicHudsonReport,
+	#name : 'GtExamplesTestingHudsonReport',
+	#superclass : 'GtExamplesBasicHudsonReport',
 	#instVars : [
 		'reportName',
 		'testCases',
@@ -12,10 +12,10 @@ Class {
 		'failureCount',
 		'executedCount'
 	],
-	#category : #'GToolkit-Examples-Testing'
+	#category : 'GToolkit-Examples-Testing'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtExamplesTestingHudsonReport >> beginTestCase: aTestCase runBlock: aBlock [
 	| time |
 	executedCount := executedCount + 1.
@@ -43,12 +43,12 @@ GtExamplesTestingHudsonReport >> beginTestCase: aTestCase runBlock: aBlock [
 
 ]
 
-{ #category : #'accessing - test case' }
+{ #category : 'accessing - test case' }
 GtExamplesTestingHudsonReport >> containerNameFor: anExample [
 	^ self subclassResponsibility
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GtExamplesTestingHudsonReport >> end [
 	resultsStream tab; nextPutAll: '<system-out><![CDATA[]]></system-out>'; lf.
 	resultsStream tab; nextPutAll: '<system-err><![CDATA[]]></system-err>'; lf.
@@ -68,13 +68,13 @@ GtExamplesTestingHudsonReport >> end [
 		close
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExamplesTestingHudsonReport >> endTestCase [
 	resultsStream tab; nextPutAll: '</testcase>'; lf.
 	progressStream nextPutAll: 'finished' ; crlf; flush.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExamplesTestingHudsonReport >> ensureProgressFile [
 	| aFile |
 	aFile := File named: self progressFileName.
@@ -86,7 +86,7 @@ GtExamplesTestingHudsonReport >> ensureProgressFile [
 		encoding: 'utf8'.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExamplesTestingHudsonReport >> ensureResultsFile [
 	| aFile |
 	aFile := File named: self resultsFileName.
@@ -96,7 +96,7 @@ GtExamplesTestingHudsonReport >> ensureResultsFile [
 		encoding: 'utf8'.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExamplesTestingHudsonReport >> ensureStreamsClosed [
 	[ resultsStream ifNotNil: [ resultsStream close ] ] 
 		on: Error 
@@ -106,32 +106,32 @@ GtExamplesTestingHudsonReport >> ensureStreamsClosed [
 		do: [ :anError |  Stdio stderr print: anError ].
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExamplesTestingHudsonReport >> errorCount [
 	^ errorCount
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExamplesTestingHudsonReport >> executedCount [ 
 	^ executedCount
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExamplesTestingHudsonReport >> failureCount [
 	^ failureCount
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExamplesTestingHudsonReport >> hasErrors [ 
 	^ self errorCount > 0
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExamplesTestingHudsonReport >> hasFailures [ 
 	^ self failureCount > 0
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtExamplesTestingHudsonReport >> initialize [
 	super initialize.
 	executionTime := 0 asDuration.
@@ -141,27 +141,27 @@ GtExamplesTestingHudsonReport >> initialize [
 	errorCount := 0.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtExamplesTestingHudsonReport >> initializeWithTestCases: aCollection [
 	testCases := aCollection
 ]
 
-{ #category : #'accessing - test case' }
+{ #category : 'accessing - test case' }
 GtExamplesTestingHudsonReport >> loggingNameFor: anExample [
 	^ self subclassResponsibility
 ]
 
-{ #category : #'accessing - test case' }
+{ #category : 'accessing - test case' }
 GtExamplesTestingHudsonReport >> nameFor: anExample [
 	^ self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExamplesTestingHudsonReport >> passingCount [
 	^ self executedCount - self failureCount - self errorCount
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExamplesTestingHudsonReport >> progressFileName [
 	"A name of the file in which to log the progress"
 	<return: #String>
@@ -169,22 +169,22 @@ GtExamplesTestingHudsonReport >> progressFileName [
 	^ self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExamplesTestingHudsonReport >> reportName [
 	^ reportName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExamplesTestingHudsonReport >> reportName: aString [
 	reportName := aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExamplesTestingHudsonReport >> resultsFileName [
 	^ self subclassResponsibility
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GtExamplesTestingHudsonReport >> run [
 	Author uniqueInstance
 		ifUnknownAuthorUse: 'hudson'
@@ -196,19 +196,19 @@ GtExamplesTestingHudsonReport >> run [
 				self tearDown ] ]
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GtExamplesTestingHudsonReport >> runAll [
 	CurrentExecutionEnvironment runTestsBy: [ 
 		self testCasesToRun do: [ :each |  
 			self runTestCase: each ] ]
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GtExamplesTestingHudsonReport >> runTestCase: anExample [
 	self subclassResponsibility
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GtExamplesTestingHudsonReport >> setUp [
 	self ensureResultsFile.
 	self ensureProgressFile.
@@ -216,21 +216,21 @@ GtExamplesTestingHudsonReport >> setUp [
 	self startFor: self testCases.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExamplesTestingHudsonReport >> signalableExceptions [ 
 	^ ExceptionSet new ,
 		Halt ,
 		Error ,
-		TestFailure,
-		Deprecation 
+		TestFailure",
+		Deprecation "
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExamplesTestingHudsonReport >> skippedCount [
 	^ self totalCount - self executedCount
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GtExamplesTestingHudsonReport >> startFor: examplesToTest [
 
 	resultsStream nextPutAll: '<?xml version="1.0" encoding="UTF-8"?>'; lf.
@@ -245,28 +245,28 @@ GtExamplesTestingHudsonReport >> startFor: examplesToTest [
 	resultsStream nextPutAll: (String new: 100 withAll: Character space); lf.
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GtExamplesTestingHudsonReport >> tearDown [
 	self end. 
 	self ensureStreamsClosed
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExamplesTestingHudsonReport >> testCases [
 	^ testCases
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExamplesTestingHudsonReport >> testCasesToRun [
 	^ self testCases 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExamplesTestingHudsonReport >> totalCount [
 	^ self testCases size
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExamplesTestingHudsonReport >> writeError: error stack: stack [
 	errorCount := errorCount + 1.
 	resultsStream tab; tab; nextPutAll: '<error type="'.
@@ -274,7 +274,7 @@ GtExamplesTestingHudsonReport >> writeError: error stack: stack [
 	resultsStream nextPutAll: '</error>'; lf
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExamplesTestingHudsonReport >> writeException: error stack: stack [	
 	resultsStream 
 		nextPutAll: (self encode: error class name); 
@@ -283,7 +283,7 @@ GtExamplesTestingHudsonReport >> writeException: error stack: stack [
 		nextPutAll: (self encode: stack).
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExamplesTestingHudsonReport >> writeFailure: error stack: stack [
 	failureCount := failureCount + 1.
 	resultsStream tab; tab; nextPutAll: '<failure type="'.

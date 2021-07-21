@@ -4,15 +4,15 @@ I am a processor that evaluates an example as if it is a test and caches the res
 
 "
 Class {
-	#name : #GtExampleEvaluator,
-	#superclass : #GtExampleProcessor,
+	#name : 'GtExampleEvaluator',
+	#superclass : 'GtExampleProcessor',
 	#instVars : [
 		'result'
 	],
-	#category : #'GToolkit-Examples-Runtime'
+	#category : 'GToolkit-Examples-Runtime'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleEvaluator >> basicProcess: anExample [
 	<return: #GtExampleResult>
 	| currentResult anEvaluationContext dependencies |
@@ -29,7 +29,7 @@ GtExampleEvaluator >> basicProcess: anExample [
 	^ currentResult
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleEvaluator >> dependenciesFor: anExample [
 	| dependencies traversal |
 	dependencies := OrderedCollection new.
@@ -44,7 +44,7 @@ GtExampleEvaluator >> dependenciesFor: anExample [
 	^ dependencies
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleEvaluator >> do: aBlock on: anException do: anotherBlock [
 	"I give a chance to my subclass to not handle the exception is needed"
 	aBlock
@@ -52,7 +52,7 @@ GtExampleEvaluator >> do: aBlock on: anException do: anotherBlock [
 		do: anotherBlock
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleEvaluator >> handleDependencyErrorFor: anExample [
 	^ (GtExampleDependencyError new
 		example: anExample;
@@ -62,14 +62,14 @@ GtExampleEvaluator >> handleDependencyErrorFor: anExample [
 		yourself) signal
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleEvaluator >> newResultFor: anExample [
 	^ GtExampleResult new 
 		example: anExample;
 		context: self context
 ]
 
-{ #category : #primitives }
+{ #category : 'primitives' }
 GtExampleEvaluator >> primitiveProcessExample: anExample withEvaluationContext: anEvaluationContext [
 	"Perform an example using a provider context and return its result"
 	^ anEvaluationContext provider 
@@ -77,14 +77,14 @@ GtExampleEvaluator >> primitiveProcessExample: anExample withEvaluationContext: 
 		withArguments: anEvaluationContext arguments
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleEvaluator >> processAfter: anExample withDependencies: exampleDependencies andEvaluationContext: anEvaluationContext [
 	self processAfterMethodFor: anExample withEvaluationContext: anEvaluationContext.
 	exampleDependencies reversed do: [ :anotherExample |
 		self processAfterMethodFor: anotherExample withEvaluationContext: anEvaluationContext ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleEvaluator >> processAfterMethodFor: anExample withEvaluationContext: anEvaluationContext [
 	anExample after ifNil: [ ^ self ].
 	anEvaluationContext provider
@@ -92,7 +92,7 @@ GtExampleEvaluator >> processAfterMethodFor: anExample withEvaluationContext: an
 		withArguments: #()
 ]
 
-{ #category : #public }
+{ #category : 'public' }
 GtExampleEvaluator >> result [
 	<return: #GtExampleResult>
 	self do: [ result := self value ] 

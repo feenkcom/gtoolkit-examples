@@ -1,6 +1,6 @@
-Extension { #name : #RPackage }
+Extension { #name : 'RPackage' }
 
-{ #category : #'*GToolkit-Examples-Core' }
+{ #category : '*GToolkit-Examples-Core' }
 RPackage >> gtExamplesAllContained [
 	"I obtain all examples contained in this package by collecting all examples 
 	contained by the classes in this package."
@@ -12,7 +12,7 @@ RPackage >> gtExamplesAllContained [
 	^ examples asOrderedCollection
 ]
 
-{ #category : #'*GToolkit-Examples-Core' }
+{ #category : '*GToolkit-Examples-Core' }
 RPackage >> gtExamplesContained [
 	"I obtained the examples contained only in this package by collecting the examples 
 	contained by the classes in this package."
@@ -24,7 +24,7 @@ RPackage >> gtExamplesContained [
 	^ examples asOrderedCollection
 ]
 
-{ #category : #'*GToolkit-Examples-Core' }
+{ #category : '*GToolkit-Examples-Core' }
 RPackage >> gtParametrizedExamplesContained [
 	"I obtained the examples contained only in this package by collecting the examples 
 	contained by the classes in this package."

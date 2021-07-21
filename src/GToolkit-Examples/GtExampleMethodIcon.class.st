@@ -4,25 +4,25 @@ I encapsulate a metod that provides an icon for an example. I use the converter 
 
 "
 Class {
-	#name : #GtExampleMethodIcon,
-	#superclass : #GtAbstractExampleMethod,
+	#name : 'GtExampleMethodIcon',
+	#superclass : 'GtAbstractExampleMethod',
 	#instVars : [
 		'converter'
 	],
-	#category : #'GToolkit-Examples-Organization'
+	#category : 'GToolkit-Examples-Organization'
 }
 
-{ #category : #converters }
+{ #category : 'converters' }
 GtExampleMethodIcon class >> convertFromBase64String: aString [
 	^ Form fromBinaryStream: (Base64MimeConverter mimeDecodeToBytes: aString readStream)
 ]
 
-{ #category : #converters }
+{ #category : 'converters' }
 GtExampleMethodIcon class >> convertFromByteArray: aByteArray [
 	^ self convertFromByteArray: aByteArray extent: 16@16 depth: 32 offset: 0@0
 ]
 
-{ #category : #converters }
+{ #category : 'converters' }
 GtExampleMethodIcon class >> convertFromByteArray: aByteArray extent: anExtent depth: aDepth offset: anOffset [
 	^ Form
 		extent: anExtent
@@ -31,7 +31,7 @@ GtExampleMethodIcon class >> convertFromByteArray: aByteArray extent: anExtent d
 		offset: anOffset
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleMethodIcon >> basicForm [
 	"Note: Likely used for Roassal2 Example Browser.
 	We may want to remove it."
@@ -40,24 +40,24 @@ GtExampleMethodIcon >> basicForm [
 		withArguments: { self provider perform: self selector }
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleMethodIcon >> converter [
 	^ converter
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleMethodIcon >> converter: anObject [
 	converter := anObject
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleMethodIcon >> exists [
 	^ super exists
 		and: [ self converter notNil
 			and: [ self class class includesSelector: self converter ] ]
 ]
 
-{ #category : #'accessing-dynamic' }
+{ #category : 'accessing-dynamic' }
 GtExampleMethodIcon >> form [
 	"I return the icon created by the associated method."
 	^ self exists
@@ -65,7 +65,7 @@ GtExampleMethodIcon >> form [
 		ifFalse: [ nil ]
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtExampleMethodIcon >> gtInspectorFormIn: composite [ 
 	<gtInspectorPresentationOrder: 0>
 	self exists ifFalse: [ ^ self ].

@@ -5,12 +5,12 @@ In case of an error, I do not intervene, and thus I allow the user to intervene 
 
 "
 Class {
-	#name : #GtExampleDebugger,
-	#superclass : #GtExampleEvaluator,
-	#category : #'GToolkit-Examples-Runtime'
+	#name : 'GtExampleDebugger',
+	#superclass : 'GtExampleEvaluator',
+	#category : 'GToolkit-Examples-Runtime'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleDebugger >> do: aBlock on: anException do: anotherBlock [
 	aBlock value
 ]

@@ -7,18 +7,18 @@ To locate the actual method I use a `GtExampleMethodResolver`.
 
 "
 Class {
-	#name : #GtAbstractExampleMethod,
-	#superclass : #GtExampleAspect,
+	#name : 'GtAbstractExampleMethod',
+	#superclass : 'GtExampleAspect',
 	#instVars : [
 		'methodClassName',
 		'methodClass',
 		'meta',
 		'selector'
 	],
-	#category : #'GToolkit-Examples-Organization'
+	#category : 'GToolkit-Examples-Organization'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtAbstractExampleMethod class >> fromClass: aClass selector: aSelector [
 	^ self new 
 		methodClass: aClass;
@@ -28,7 +28,7 @@ GtAbstractExampleMethod class >> fromClass: aClass selector: aSelector [
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtAbstractExampleMethod class >> fromClassNamed: aString selector: aSelector [
 	^ self new 
 		methodClass: nil;
@@ -38,26 +38,26 @@ GtAbstractExampleMethod class >> fromClassNamed: aString selector: aSelector [
 		yourself
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtAbstractExampleMethod class >> isAbstract [
 	^ self == GtAbstractExampleMethod
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtAbstractExampleMethod >> = anExampleMethod [
 	^ self class = anExampleMethod class 
 		and: [ self methodClassName = anExampleMethod methodClassName 
 			and: [ self selector = anExampleMethod selector ] ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtAbstractExampleMethod >> exists [
 	^ self methodClassName notNil
 		and: [ self methodClass notNil
 			and: [ self methodClass includesSelector: self selector ] ]
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtAbstractExampleMethod >> gtDisplayOn: aStream [
 	aStream 
 		nextPutAll: self methodClassName asString; 
@@ -67,7 +67,7 @@ GtAbstractExampleMethod >> gtDisplayOn: aStream [
 	self gtDisplayValidityOn: aStream
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtAbstractExampleMethod >> gtSpotterPreviewIn: aComposite [
 	<spotterPreview: 1>
 	self exists ifFalse: [ ^ self ].
@@ -79,7 +79,7 @@ GtAbstractExampleMethod >> gtSpotterPreviewIn: aComposite [
 		entity: self
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtAbstractExampleMethod >> hasLiteralThorough: aLiteral [
 	^ self methodClassName = aLiteral 
 		or: [ self selector = aLiteral
@@ -87,52 +87,52 @@ GtAbstractExampleMethod >> hasLiteralThorough: aLiteral [
 				and: [ self method hasLiteralThorough: aLiteral ] ] ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtAbstractExampleMethod >> hash [
 	^ (self class hash 
 		bitXor: self methodClassName hash)
 			bitXor: self selector hash
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtAbstractExampleMethod >> meta [
 	^ meta ifNil: [ meta := false ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtAbstractExampleMethod >> meta: anObject [
 	meta := anObject
 ]
 
-{ #category : #'accessing-dynamic' }
+{ #category : 'accessing-dynamic' }
 GtAbstractExampleMethod >> method [
 	^ self exists 
 		ifTrue: [ self methodClass >> self selector ]
 		ifFalse: [ nil ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtAbstractExampleMethod >> methodClass [
 	^ methodClass ifNil: [ methodClass := self resolveMethodClass ]
 		
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtAbstractExampleMethod >> methodClass: anObject [
 	methodClass := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtAbstractExampleMethod >> methodClassName [
 	^ methodClassName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtAbstractExampleMethod >> methodClassName: anObject [
 	methodClassName := anObject
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtAbstractExampleMethod >> methodClassResolver [
 	^ GtExampleMethodResolver new 
 		methodClassName: self methodClassName;
@@ -141,7 +141,7 @@ GtAbstractExampleMethod >> methodClassResolver [
 		yourself
 ]
 
-{ #category : #'accessing-dynamic' }
+{ #category : 'accessing-dynamic' }
 GtAbstractExampleMethod >> provider [
 	self exists
 		ifFalse: [ ^ nil ].
@@ -150,18 +150,18 @@ GtAbstractExampleMethod >> provider [
 		ifFalse: [ self methodClass instanceSide new ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtAbstractExampleMethod >> resolveMethodClass [
 	" an aspect might reference a class not being present in the system - it has to be resolved again in this case "
 	^ self methodClassResolver methodClassDo: [ :class | class ] ifNone: [ nil ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtAbstractExampleMethod >> selector [
 	^ selector
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtAbstractExampleMethod >> selector: anObject [
 	selector := anObject
 ]

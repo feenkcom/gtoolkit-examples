@@ -2,23 +2,23 @@
 I am atrait does it's not used now, but I am still here because of comparibility with the stable version of roassal
 "
 Trait {
-	#name : #TGtExampleIcon,
-	#category : #'GToolkit-Examples-Organization'
+	#name : 'TGtExampleIcon',
+	#category : 'GToolkit-Examples-Organization'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 TGtExampleIcon >> basicForm [
 	^ self subclassResponsibility
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 TGtExampleIcon >> form [
 	^ self exists
 		ifTrue: [ self basicForm ]
 		ifFalse: [ nil ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 TGtExampleIcon >> gtInspectorFormIn: composite [
 	<gtInspectorPresentationOrder: 0>
 	self exists ifFalse: [ ^ self ].

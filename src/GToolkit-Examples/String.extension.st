@@ -1,6 +1,6 @@
-Extension { #name : #String }
+Extension { #name : 'String' }
 
-{ #category : #'*GToolkit-Examples-Core' }
+{ #category : '*GToolkit-Examples-Core' }
 String >> gtExampleSubstrings [
 	^ ((self substrings: ' .,;') 
 		collect: [ :each | each trimBoth ])
