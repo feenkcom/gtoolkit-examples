@@ -25,7 +25,7 @@ Class {
 		'returnValue',
 		'exception'
 	],
-	#category : #'GToolkit-Examples-Core'
+	#category : 'GToolkit-Examples-Core'
 }
 
 { #category : #exceptions }
@@ -39,8 +39,8 @@ GtExampleResult class >> signalableExceptions [
 	^ ExceptionSet new ,
 		Halt ,
 		Error ,
-		TestFailure,
-		Deprecation
+		TestFailure",
+		Deprecation"
 ]
 
 { #category : #ui }

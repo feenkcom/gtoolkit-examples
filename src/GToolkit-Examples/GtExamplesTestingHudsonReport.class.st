@@ -12,7 +12,7 @@ Class {
 		'failureCount',
 		'executedCount'
 	],
-	#category : #'GToolkit-Examples-Testing'
+	#category : 'GToolkit-Examples-Testing'
 }
 
 { #category : #private }
@@ -221,8 +221,8 @@ GtExamplesTestingHudsonReport >> signalableExceptions [
 	^ ExceptionSet new ,
 		Halt ,
 		Error ,
-		TestFailure,
-		Deprecation 
+		TestFailure",
+		Deprecation "
 ]
 
 { #category : #accessing }
