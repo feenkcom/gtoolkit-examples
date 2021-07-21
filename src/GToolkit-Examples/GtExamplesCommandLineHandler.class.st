@@ -27,6 +27,8 @@ GtExamplesCommandLineHandler >> activate [
 		ifTrue: [  ^ self ].
 
 	theResults := self runPackages.
+	theResults ifNil: [
+		^ self exitFailure: 'There was an Error running examples' ].
 	
 	(self hasOption: 'save')
 		ifTrue: [ Smalltalk saveSession ].
@@ -175,10 +177,11 @@ GtExamplesCommandLineHandler >> runPackages [
 				runFor: GtExamplesReportSignal
 				during: runBlock ]
 		ifFalse: runBlock.
+
 	results
-		ifNil: [ self inform: 'There was an Error running the examples' ]
 		ifNotNil: [ self informResults: results ].
-	^ results ifNil: [ #() ]
+		
+	^ results
 ]
 
 { #category : #private }

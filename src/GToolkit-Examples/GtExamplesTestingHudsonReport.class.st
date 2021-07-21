@@ -267,26 +267,26 @@ GtExamplesTestingHudsonReport >> totalCount [
 ]
 
 { #category : #private }
-GtExamplesTestingHudsonReport >> writeError: error stack: stack [
+GtExamplesTestingHudsonReport >> writeError: errorDetails stack: stack [
 	errorCount := errorCount + 1.
 	resultsStream tab; tab; nextPutAll: '<error type="'.
-	self writeException: error stack: stack.
+	self writeException: errorDetails stack: stack.
 	resultsStream nextPutAll: '</error>'; lf
 ]
 
 { #category : #private }
-GtExamplesTestingHudsonReport >> writeException: error stack: stack [	
+GtExamplesTestingHudsonReport >> writeException: errorDetails stack: stack [
 	resultsStream 
-		nextPutAll: (self encode: error class name); 
-		nextPutAll: '" message="'; nextPutAll: (self encode: (error messageText ifNil: [ error description ])); 
+		nextPutAll: (self encode: (errorDetails at: #errorClass) name); 
+		nextPutAll: '" message="'; nextPutAll: (self encode: (errorDetails at: #errorMessage)); 
 		nextPutAll: '">'; 
 		nextPutAll: (self encode: stack).
 ]
 
 { #category : #private }
-GtExamplesTestingHudsonReport >> writeFailure: error stack: stack [
+GtExamplesTestingHudsonReport >> writeFailure: errorDetails stack: stack [
 	failureCount := failureCount + 1.
 	resultsStream tab; tab; nextPutAll: '<failure type="'.
-	self writeException: error stack: stack.  
+	self writeException: errorDetails stack: stack.  
 	resultsStream	nextPutAll: '</failure>'; lf
 ]
