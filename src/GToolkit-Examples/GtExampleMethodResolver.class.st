@@ -4,8 +4,8 @@ I create a method aspect based on the name of the selector and the name of its c
 
 "
 Class {
-	#name : 'GtExampleMethodResolver',
-	#superclass : 'GtExampleAspectResolver',
+	#name : #GtExampleMethodResolver,
+	#superclass : #GtExampleAspectResolver,
 	#instVars : [
 		'methodClassName',
 		'selector'
@@ -13,7 +13,7 @@ Class {
 	#category : 'GToolkit-Examples-Organization'
 }
 
-{ #category : 'actions' }
+{ #category : #actions }
 GtExampleMethodResolver class >> resolve: anAspectClass example: anExample className: aClassOrString meta: meta selector: aStringOrSelector [
 	^ (self new 
 		aspectClass: anAspectClass;
@@ -24,7 +24,7 @@ GtExampleMethodResolver class >> resolve: anAspectClass example: anExample class
 		yourself) resolve
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 GtExampleMethodResolver class >> resolve: anAspectClass example: anExample selector: aStringOrSelector [
 	^ (self new 
 		aspectClass: anAspectClass;
@@ -35,14 +35,14 @@ GtExampleMethodResolver class >> resolve: anAspectClass example: anExample selec
 		yourself) resolve
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GtExampleMethodResolver >> methodClass [
 	^ self methodClassName isClass 
 		ifTrue: [ self methodClassName ]
 		ifFalse: [ Smalltalk classNamed: self methodClassName asString ]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GtExampleMethodResolver >> methodClassDo: aBlock [
 	^ self methodClassDo: aBlock ifNone: [ 
 		(GtExampleDeclaredClassMissing new
@@ -52,7 +52,7 @@ GtExampleMethodResolver >> methodClassDo: aBlock [
 			yourself) signal ]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GtExampleMethodResolver >> methodClassDo: aBlock1 ifNone: aBlock2 [
 	^ self methodClass
 		ifNotNil: [ :class | aBlock1 value: (self ensureClass: class) ]
@@ -60,23 +60,23 @@ GtExampleMethodResolver >> methodClassDo: aBlock1 ifNone: aBlock2 [
 	
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleMethodResolver >> methodClassName [
 	^ methodClassName
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleMethodResolver >> methodClassName: anObject [
 	methodClassName := anObject
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 GtExampleMethodResolver >> resolve [
 	^ self methodClassDo: [ :class | self resolveByClass: class ] 
 		ifNone: [ self resolveByName ]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GtExampleMethodResolver >> resolveByClass: aClass [
 	^ self aspectClass new
 		methodClass: aClass;
@@ -86,7 +86,7 @@ GtExampleMethodResolver >> resolveByClass: aClass [
 		yourself
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GtExampleMethodResolver >> resolveByName [
 	^ self aspectClass new
 		methodClass: nil;
@@ -96,12 +96,12 @@ GtExampleMethodResolver >> resolveByName [
 		yourself
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleMethodResolver >> selector [
 	^ selector
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleMethodResolver >> selector: anObject [
 	selector := anObject
 ]

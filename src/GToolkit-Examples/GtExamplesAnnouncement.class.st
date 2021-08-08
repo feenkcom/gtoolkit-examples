@@ -1,19 +1,19 @@
 Class {
-	#name : 'GtExamplesAnnouncement',
-	#superclass : 'Announcement',
+	#name : #GtExamplesAnnouncement,
+	#superclass : #Announcement,
 	#instVars : [
 		'group'
 	],
 	#category : 'GToolkit-Examples-Announcements'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExamplesAnnouncement >> group [
 	<return: #GtExampleGroup>
 	^ group
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExamplesAnnouncement >> group: aGtExampleGroup [
 	self 
 		assert: [ aGtExampleGroup isNotNil ]

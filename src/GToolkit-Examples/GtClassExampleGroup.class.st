@@ -1,6 +1,6 @@
 Class {
-	#name : 'GtClassExampleGroup',
-	#superclass : 'GtDynamicExampleGroup',
+	#name : #GtClassExampleGroup,
+	#superclass : #GtDynamicExampleGroup,
 	#instVars : [
 		'exampleClass',
 		'examples'
@@ -8,23 +8,23 @@ Class {
 	#category : 'GToolkit-Examples-Core'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtClassExampleGroup >> exampleClass [
 	^ exampleClass
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtClassExampleGroup >> exampleClass: aClass [
 	exampleClass := aClass.
 	examples := exampleClass gtExamplesContained collect: [ :each | each asExampleWithResult ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtClassExampleGroup >> examples [
 	^ examples
 ]
 
-{ #category : 'subscription' }
+{ #category : #subscription }
 GtClassExampleGroup >> methodAdded: aMethodAnnouncement [
 	aMethodAnnouncement methodAdded methodClass = self exampleClass
 		ifTrue: [ 
@@ -32,7 +32,7 @@ GtClassExampleGroup >> methodAdded: aMethodAnnouncement [
 			self announcer announce: GtExamplesUpdatedAnnouncement new ]
 ]
 
-{ #category : 'subscription' }
+{ #category : #subscription }
 GtClassExampleGroup >> methodRemoved: aMethodAnnouncement [
 	aMethodAnnouncement methodRemoved methodClass = self exampleClass
 		ifTrue: [ 
@@ -43,7 +43,7 @@ GtClassExampleGroup >> methodRemoved: aMethodAnnouncement [
 					self announcer announce: GtExamplesUpdatedAnnouncement new ] ]
 ]
 
-{ #category : 'subscription' }
+{ #category : #subscription }
 GtClassExampleGroup >> subscribe [
 	SystemAnnouncer uniqueInstance weak
 		when: MethodAdded send: #methodAdded: to: self;

@@ -1,23 +1,23 @@
 Class {
-	#name : 'GtExamplesReportRunExampleSignal',
-	#superclass : 'GtExamplesReportSignal',
+	#name : #GtExamplesReportRunExampleSignal,
+	#superclass : #GtExamplesReportSignal,
 	#instVars : [
 		'example'
 	],
 	#category : 'GToolkit-Examples-Testing'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExamplesReportRunExampleSignal >> example [
 	^ example
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExamplesReportRunExampleSignal >> example: anObject [
 	example := anObject
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 GtExamplesReportRunExampleSignal >> printOneLineOn: aStream [		
 	aStream
 		tab;
