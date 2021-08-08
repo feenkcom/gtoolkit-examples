@@ -163,7 +163,12 @@ GtExamplesCommandLineHandler >> packagesToSkip [
 	
 	packagesToSkip := Set new.
 	self commandLine optionAt: 'skip-packages' ifPresent: [ :aListOfPackages |
-		(aListOfPackages splitOn: ',') do: [ :eachPackageName |
+		| unquotedListOfPackages |
+		
+		unquotedListOfPackages := aListOfPackages
+			trimBoth: [ :char | #($' $") includes: char ].
+		
+		(unquotedListOfPackages splitOn: ',') do: [ :eachPackageName |
 			self addPackagesMatching: eachPackageName trimBoth to: packagesToSkip ] ].
 
 	^ packagesToSkip
