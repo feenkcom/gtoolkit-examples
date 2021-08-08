@@ -26,6 +26,9 @@ GtExamplesCommandLineHandler >> activate [
 	self activateHelp
 		ifTrue: [  ^ self ].
 
+	(self hasOption: 'disable-deprecation-rewrites')
+		ifTrue: [ Deprecation activateTransformations: false ].
+
 	theResults := self runPackages.
 	theResults ifNil: [
 		^ self exitFailure: 'There was an Error running examples' ].
