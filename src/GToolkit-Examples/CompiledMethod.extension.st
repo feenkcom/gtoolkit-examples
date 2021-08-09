@@ -53,12 +53,12 @@ CompiledMethod >> isGTExampleMethod [
 
 	"Spy2 changes the AST of the method and removes pragmas.
 	Therefore we need to ask an original method instead"
-	((self respondsTo: #isSpy)
-		and: [ self isSpy ])
-			ifTrue: [ ^ self originalMethod isGTExampleMethod ].
-
-	^ (self pragmas anySatisfy: [ :each | each isGTExamplePragma ])
-		and: [ self numArgs = 0 ]
+	((self respondsTo: #isSpy) and: [ self isSpy ])
+		ifTrue: [ ^ self originalMethod isGTExampleMethod ].
+	
+	^ self methodClass isClass
+		and: [ (self pragmas anySatisfy: [ :each | each isGTExamplePragma ])
+				and: [ self numArgs = 0 ] ]
 ]
 
 { #category : #'*GToolkit-Examples-Core' }
@@ -70,6 +70,7 @@ CompiledMethod >> isGTParametrizedExampleMethod [
 		and: [ self isSpy ])
 			ifTrue: [ ^ self originalMethod isGTParametrizedExampleMethod ].
 
-	^ (self pragmas anySatisfy: [ :each | each isGTExamplePragma ])
-		and: [ self numArgs > 0 ]
+	^ self methodClass isClass
+		and: [ (self pragmas anySatisfy: [ :each | each isGTParametrizedExampleMethod ])
+		and: [ self numArgs > 0 ] ]
 ]
