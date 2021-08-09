@@ -1,6 +1,6 @@
-Extension { #name : 'SmalltalkImage' }
+Extension { #name : #SmalltalkImage }
 
-{ #category : '*GToolkit-Examples-Core' }
+{ #category : #'*GToolkit-Examples-Core' }
 SmalltalkImage >> gtExamplesAllContained [
 	| examples |
 	examples := OrderedCollection new.
@@ -11,7 +11,7 @@ SmalltalkImage >> gtExamplesAllContained [
 	^ examples
 ]
 
-{ #category : '*GToolkit-Examples-Core' }
+{ #category : #'*GToolkit-Examples-Core' }
 SmalltalkImage >> gtExamplesContained [
 	| examples |
 	examples := OrderedCollection new.
@@ -22,7 +22,7 @@ SmalltalkImage >> gtExamplesContained [
 	^ examples
 ]
 
-{ #category : '*GToolkit-Examples-Core' }
+{ #category : #'*GToolkit-Examples-Core' }
 SmalltalkImage >> gtParametrizedExamplesContained [
 	| examples |
 	examples := OrderedCollection new.

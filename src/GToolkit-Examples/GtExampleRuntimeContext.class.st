@@ -4,20 +4,20 @@ I am a utility that holds custom contextual information about the current exampl
 
 "
 Class {
-	#name : 'GtExampleRuntimeContext',
-	#superclass : 'IdentityDictionary',
+	#name : #GtExampleRuntimeContext,
+	#superclass : #IdentityDictionary,
 	#instVars : [
 		'example'
 	],
 	#category : 'GToolkit-Examples-Runtime'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleRuntimeContext >> example [
 	^ example
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleRuntimeContext >> example: anObject [
 	example := anObject
 ]

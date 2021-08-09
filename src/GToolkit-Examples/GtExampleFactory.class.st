@@ -9,8 +9,8 @@ To initialize various properties of an example I detect all pragmas from the exa
 
 "
 Class {
-	#name : 'GtExampleFactory',
-	#superclass : 'Object',
+	#name : #GtExampleFactory,
+	#superclass : #Object,
 	#instVars : [
 		'cache',
 		'sourceClass',
@@ -19,29 +19,29 @@ Class {
 	#category : 'GToolkit-Examples-Organization'
 }
 
-{ #category : 'subjects' }
+{ #category : #subjects }
 GtExampleFactory class >> classSubjectFrom: aClass [
 	^ GtExampleClassSubject fromClass: aClass
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleFactory class >> gtExampleRuntimeContext [
 	^ GtCurrentExampleContext value 
 ]
 
-{ #category : 'subjects' }
+{ #category : #subjects }
 GtExampleFactory class >> instanceSubjectFromObject: anObject [
 	^ GtExampleInstanceSubject fromObject: anObject
 ]
 
-{ #category : 'subjects' }
+{ #category : #subjects }
 GtExampleFactory class >> subjectFrom: anObject [
 	^ anObject isClass
 		ifTrue: [ self classSubjectFrom: anObject] 
 		ifFalse: [ self instanceSubjectFromObject: anObject ]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GtExampleFactory >> allExampleMethodsInClass: currentSourceClass doInstanceSide: aInstanceSideBlock doClassSide: aClassSideBlock [
 	"Return all example methods explicitly defined in the given source class and in its superclasses up to, 
 	but not including, Object and ProtoObject.
@@ -56,7 +56,7 @@ GtExampleFactory >> allExampleMethodsInClass: currentSourceClass doInstanceSide:
 		currentClass := currentClass superclass ]
 ]
 
-{ #category : 'public' }
+{ #category : #public }
 GtExampleFactory >> allExamplesDo: aBloc [
 	"Traverse all examples defined in the source class and in its superclasses up to, 
 	but not including, Object and ProtoObject. If an example method is overriden in one or more classes 
@@ -90,7 +90,7 @@ GtExampleFactory >> allExamplesDo: aBloc [
 						aBloc value: example ] ] ]
 ]
 
-{ #category : 'private-utils' }
+{ #category : #'private-utils' }
 GtExampleFactory >> createExample: aCompiledMethod [
 	"Create a new example assuming that the provider is the class containing the example method."
 	^ self 
@@ -98,7 +98,7 @@ GtExampleFactory >> createExample: aCompiledMethod [
 		withProviderClass: aCompiledMethod methodClass
 ]
 
-{ #category : 'private-utils' }
+{ #category : #'private-utils' }
 GtExampleFactory >> createExampleForMethod: aCompiledMethod withProviderClass: aProviderClass [
 	"Create a new example where the provider class is different than the class 
 	containing the example method. The method class should however be a direct
@@ -129,34 +129,34 @@ GtExampleFactory >> createExampleForMethod: aCompiledMethod withProviderClass: a
 	^ newExample
 ]
 
-{ #category : 'accessing-defaults' }
+{ #category : #'accessing-defaults' }
 GtExampleFactory >> defaultExampleClass [
 	^ GtExample
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GtExampleFactory >> exampleAt: aCompiledMethod ifAbsentPut: aBlock [
 	^ aBlock value
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleFactory >> exampleClass [
 	^ exampleClass ifNil: [ exampleClass := self defaultExampleClass ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleFactory >> exampleClass: anObject [
 	exampleClass := anObject
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GtExampleFactory >> exampleFromMethod: aCompiledMethod withProviderClass: aProviderClass do: aBlock [
 	aBlock value: (self 
 		createExampleForMethod: aCompiledMethod 
 		withProviderClass: aProviderClass)
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GtExampleFactory >> exampleMethod: aCompiledMethod do: aBlock [
 	"I am an utility method used to create an example from a compiled method"
 	(self isExampleMethod: aCompiledMethod) ifFalse: [ ^ self ].
@@ -166,12 +166,12 @@ GtExampleFactory >> exampleMethod: aCompiledMethod do: aBlock [
 		do: aBlock
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GtExampleFactory >> exampleMethodsInClass: aSourceClass do: aBlock [
 	self exampleMethodsInClass: aSourceClass doInstanceSide: aBlock doClassSide: aBlock
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GtExampleFactory >> exampleMethodsInClass: aSourceClass doInstanceSide: aInstanceSideBlock doClassSide: aClassSideBlock [
 	aSourceClass instanceSide methods
 		select: [ :aCompiledMethod | self isExampleMethod: aCompiledMethod ]
@@ -181,7 +181,7 @@ GtExampleFactory >> exampleMethodsInClass: aSourceClass doInstanceSide: aInstanc
 		thenDo: aClassSideBlock.
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GtExampleFactory >> examplesDo: aBlock [
 	"Return examples explicitly defined only in the source class."
 	self 
@@ -198,7 +198,7 @@ GtExampleFactory >> examplesDo: aBlock [
 				do: aBlock ]
 ]
 
-{ #category : 'public' }
+{ #category : #public }
 GtExampleFactory >> gtExamplesAllContained [
 	"Return examples defined in the source class and its superclasses."
 	| examples |
@@ -207,7 +207,7 @@ GtExampleFactory >> gtExamplesAllContained [
 	^ examples
 ]
 
-{ #category : 'public' }
+{ #category : #public }
 GtExampleFactory >> gtExamplesContained [
 	"Return examples explicitly defined only in the source class."
 	| examples |
@@ -216,7 +216,7 @@ GtExampleFactory >> gtExamplesContained [
 	^ examples
 ]
 
-{ #category : 'public' }
+{ #category : #public }
 GtExampleFactory >> gtParametrizedExamplesContained [
 	"Return examples explicitly defined only in the source class."
 	| examples |
@@ -225,14 +225,14 @@ GtExampleFactory >> gtParametrizedExamplesContained [
 	^ examples
 ]
 
-{ #category : 'private - creating examples' }
+{ #category : #'private - creating examples' }
 GtExampleFactory >> initializeExample: aGTExample fromMethod: aCompiledMethod [
 	self initializeSubjectsForExample: aGTExample.
 	self initializePragmasFromMethod: aCompiledMethod forExample: aGTExample.
 
 ]
 
-{ #category : 'private-init' }
+{ #category : #'private-init' }
 GtExampleFactory >> initializePragmas: aCollection forExample: aGTExample [
 	aCollection do: [ :pragma | 
 		(aGTExample class canPerform: pragma selector) ifTrue: [
@@ -246,12 +246,12 @@ GtExampleFactory >> initializePragmas: aCollection forExample: aGTExample [
 						yourself) ] ] ]
 ]
 
-{ #category : 'private-init' }
+{ #category : #'private-init' }
 GtExampleFactory >> initializePragmasFromMethod: aCompiledMethod forExample: aGTExample [
 	self initializePragmas: aCompiledMethod pragmas forExample: aGTExample
 ]
 
-{ #category : 'private-init' }
+{ #category : #'private-init' }
 GtExampleFactory >> initializeSubject: anExampleSubject forExample: aGTExample [
 	[ aGTExample addSubject: (self class subjectFrom: anExampleSubject) ]
 		on:Error
@@ -263,7 +263,7 @@ GtExampleFactory >> initializeSubject: anExampleSubject forExample: aGTExample [
 				yourself) ] 
 ]
 
-{ #category : 'private-init' }
+{ #category : #'private-init' }
 GtExampleFactory >> initializeSubjectsForExample: aGTExample [
 	[ self subjectsFor: aGTExample do: [ :anExampleSubject | 
 			self initializeSubject: anExampleSubject forExample: aGTExample ] ]
@@ -275,28 +275,28 @@ GtExampleFactory >> initializeSubjectsForExample: aGTExample [
 				yourself) ]
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GtExampleFactory >> isExampleMethod: aCompiledMethod [
 	^ self isGTExampleMethod: aCompiledMethod 
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GtExampleFactory >> isGTExampleMethod: aCompiledMethod [
 	^ aCompiledMethod isGTExampleMethod
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleFactory >> sourceClass [
 	^ sourceClass
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleFactory >> sourceClass: anObject [
 	"The class used to locate example methods."
 	sourceClass := anObject
 ]
 
-{ #category : 'private-utils' }
+{ #category : #'private-utils' }
 GtExampleFactory >> subjectsFor: anExample do: aBlock [
 	"I execute the given action with each subject for this example.
 	I use the provider class instead of the method class to take into account inherited examples."

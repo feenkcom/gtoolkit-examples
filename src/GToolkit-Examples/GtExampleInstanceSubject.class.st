@@ -4,39 +4,39 @@ I indicate that the subject of an example is an object. I am the default subject
 
 "
 Class {
-	#name : 'GtExampleInstanceSubject',
-	#superclass : 'GtExampleSubject',
+	#name : #GtExampleInstanceSubject,
+	#superclass : #GtExampleSubject,
 	#instVars : [
 		'instance'
 	],
 	#category : 'GToolkit-Examples-Subjects'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GtExampleInstanceSubject class >> fromObject: anObject [
 	^ self new 
 		instance: anObject;
 		yourself
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GtExampleInstanceSubject >> = anExampleSubject [
 	^ self class = anExampleSubject class
 		and: [ self instance = anExampleSubject instance ]
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GtExampleInstanceSubject >> exists [
 	^ self theClass notNil
 ]
 
-{ #category : 'ui' }
+{ #category : #ui }
 GtExampleInstanceSubject >> gtDisplayOn: aStream [
 	self instance gtDisplayOn: aStream.
 	self gtDisplayValidityOn: aStream
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GtExampleInstanceSubject >> hasLiteralThorough: aLiteral [
 	^ self exists
 		and: [ self theClass methods anySatisfy: [ :method | 
@@ -44,23 +44,23 @@ GtExampleInstanceSubject >> hasLiteralThorough: aLiteral [
 				or: [ 	method hasLiteralThorough: aLiteral ] ] ]
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GtExampleInstanceSubject >> hash [
 	^ self class hash
 		bitXor: self instance hash
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleInstanceSubject >> instance [
 	^ instance
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleInstanceSubject >> instance: anObject [
 	instance := anObject
 ]
 
-{ #category : 'accessing-dynamic' }
+{ #category : #'accessing-dynamic' }
 GtExampleInstanceSubject >> theClass [
 	^ self instance class
 ]
