@@ -52,13 +52,13 @@ CompiledMethod >> gtValueWithReceiver: aReceiver possibleArguments: anArray [
 CompiledMethod >> isGTExampleMethod [
 
 	"Spy2 changes the AST of the method and removes pragmas.
-	Therefore we need to ask an original method instead"
-	((self respondsTo: #isSpy)
-		and: [ self isSpy ])
-			ifTrue: [ ^ self originalMethod isGTExampleMethod ].
+ 	Therefore we need to ask an original method instead"
+ 	((self respondsTo: #isSpy)
+ 		and: [ self isSpy ])
+ 			ifTrue: [ ^ self originalMethod isGTExampleMethod ].
 
-	^ (self pragmas anySatisfy: [ :each | each isGTExamplePragma ])
-		and: [ self numArgs = 0 ]
+ 	^ (self pragmas anySatisfy: [ :each | each isGTExamplePragma ])
+ 		and: [ self numArgs = 0 ]
 ]
 
 { #category : #'*GToolkit-Examples-Core' }
@@ -68,8 +68,8 @@ CompiledMethod >> isGTParametrizedExampleMethod [
 	Therefore we need to ask an original method instead"
 	((self respondsTo: #isSpy)
 		and: [ self isSpy ])
-			ifTrue: [ ^ self originalMethod isGTParametrizedExampleMethod ].
+ 			ifTrue: [ ^ self originalMethod isGTParametrizedExampleMethod ].
 
-	^ (self pragmas anySatisfy: [ :each | each isGTExamplePragma ])
-		and: [ self numArgs > 0 ]
+ 	^ (self pragmas anySatisfy: [ :each | each isGTExamplePragma ])
+ 		and: [ self numArgs > 0 ]
 ]

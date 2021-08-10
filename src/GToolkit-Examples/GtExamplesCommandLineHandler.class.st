@@ -26,6 +26,9 @@ GtExamplesCommandLineHandler >> activate [
 	self activateHelp
 		ifTrue: [  ^ self ].
 
+	(self hasOption: 'disable-deprecation-rewrites')
+		ifTrue: [ Deprecation activateTransformations: false ].
+
 	theResults := self runPackages.
 	theResults ifNil: [
 		^ self exitFailure: 'There was an Error running examples' ].
@@ -145,11 +148,30 @@ GtExamplesCommandLineHandler >> installFlushChangesFileReporter [
 { #category : #accessing }
 GtExamplesCommandLineHandler >> packages [
 	| packages |
+	
 	packages := Set new.
 	self arguments 
 		reject: [ :arg| arg beginsWith: '-']
 		thenDo: [ :arg| self addPackagesMatching: arg to: packages ].
-	^ packages
+				
+	^ packages difference: self packagesToSkip
+]
+
+{ #category : #accessing }
+GtExamplesCommandLineHandler >> packagesToSkip [
+	| packagesToSkip |
+	
+	packagesToSkip := Set new.
+	self commandLine optionAt: 'skip-packages' ifPresent: [ :aListOfPackages |
+		| unquotedListOfPackages |
+		
+		unquotedListOfPackages := aListOfPackages
+			trimBoth: [ :char | #($' $") includes: char ].
+		
+		(unquotedListOfPackages splitOn: ',') do: [ :eachPackageName |
+			self addPackagesMatching: eachPackageName trimBoth to: packagesToSkip ] ].
+
+	^ packagesToSkip
 ]
 
 { #category : #private }
