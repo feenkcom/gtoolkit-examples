@@ -11,6 +11,6 @@ To load the latest version separately, use the following snippet.
 ```Smalltalk
 Metacello new
    baseline: 'GToolkitExamples';
-   repository: 'github://feenkcom/gtoolkit-examples/src';
+   repository: 'github://feenkcom/gtoolkit-examples:main/src';
    load.
 ```
