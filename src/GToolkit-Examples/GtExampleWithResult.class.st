@@ -4,8 +4,8 @@ I am example that further stores the result of evaluating the example.
 
 "
 Class {
-	#name : #GtExampleWithResult,
-	#superclass : #Object,
+	#name : 'GtExampleWithResult',
+	#superclass : 'Object',
 	#instVars : [
 		'example',
 		'result',
@@ -14,19 +14,19 @@ Class {
 	#category : 'GToolkit-Examples-Runtime'
 }
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 GtExampleWithResult >> = anExample [
 	^ self class = anExample class and: [ 
 		self example = anExample example ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleWithResult >> announcer [
 	<return: #Announcer>
 	^ announcer ifNil: [ announcer := Announcer new ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleWithResult >> announcer: anAnnouncer [
 	self 
 		assert: [ anAnnouncer isNotNil ]
@@ -34,26 +34,26 @@ GtExampleWithResult >> announcer: anAnnouncer [
 	announcer := anAnnouncer
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleWithResult >> asExampleWithResult [
 	^ self
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleWithResult >> canBeExecuted [
 	"Return true if example can be executed"
 	<return: #Boolean>
 	^ self example canBeExecuted
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleWithResult >> changeArguments: aCollection [
 	(self example changeArguments: aCollection) ifFalse: [ ^ self ].
 	self notifyArgumentsChanged. 
 	
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtExampleWithResult >> color [
 	<return: #Color>
 	^ self result 
@@ -61,76 +61,76 @@ GtExampleWithResult >> color [
 			ifNil: [ Color fromHexString: #'f0f0f0' ]
 ]
 
-{ #category : #public }
+{ #category : 'public' }
 GtExampleWithResult >> debug [
 	self result: self example debug
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleWithResult >> directDependencies [
 	^ self example directDependencies collect: #asExampleWithResult
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleWithResult >> example [
 	^ example
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleWithResult >> example: anObject [
 	example := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleWithResult >> gtConnectionsFor: aView [
 	<gtView>
 	^ self example gtConnectionsFor: aView
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleWithResult >> gtDependenciesGraphFor: aView [
 	<gtView>
 	^ self example gtDependenciesGraphFor: aView
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GtExampleWithResult >> gtDisplayOn: stream [
 	self example gtDisplayOn: stream
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtExampleWithResult >> gtInspectorActions [
 	^ super gtInspectorActions addAll: self example gtInspectorActions; yourself
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtExampleWithResult >> gtInspectorPresentationsIn: composite inContext: aGTInspector [
 	"we collect all presentations from the wrapped example"
 	super gtInspectorPresentationsIn: composite inContext: aGTInspector.
 	self example gtInspectorPresentationsIn: composite inContext: aGTInspector
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleWithResult >> hasAnnouncer [
 	^ announcer isNotNil
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleWithResult >> hasNoTestPragma [
 	^ self example hasNoTestPragma
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleWithResult >> hasResult [
 	^ result notNil
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 GtExampleWithResult >> hash [
 	^ self class hash bitXor: self example hash
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtExampleWithResult >> icon [
 	<return: #Form>
 	^ self result 
@@ -138,53 +138,53 @@ GtExampleWithResult >> icon [
 			ifNil: [ ThemeIcons current iconNamed: #testNotRun ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleWithResult >> ignoreTest [
 	^ self example ignoreTest
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleWithResult >> isError [
 	^ self hasResult and: [ self result isError ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleWithResult >> isFailure [
 	^ self hasResult and: [ self result isFailure ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleWithResult >> isMethodDefined [
 	^ self example isMethodDefined
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleWithResult >> isSuccess [
 	^ self hasResult and: [ self result isSuccess ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleWithResult >> method [
 	^ self example method
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleWithResult >> methodClass [
 	^ self example methodClass
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleWithResult >> methodPackage [
 	<return: #RPackage>
 	^ self example methodPackage
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleWithResult >> noTest [
 	^ self example noTest
 ]
 
-{ #category : #notifying }
+{ #category : 'notifying' }
 GtExampleWithResult >> notifyArgumentsChanged [
 	| anAnnouncement |
 	self hasAnnouncer ifFalse: [ ^ self ].
@@ -192,7 +192,7 @@ GtExampleWithResult >> notifyArgumentsChanged [
 	self announcer announce: anAnnouncement.
 ]
 
-{ #category : #notifying }
+{ #category : 'notifying' }
 GtExampleWithResult >> notifyExampleExecuted [
 	| anAnnouncement |
 	self hasAnnouncer ifFalse: [ ^ self ].
@@ -200,38 +200,38 @@ GtExampleWithResult >> notifyExampleExecuted [
 	self announcer announce: anAnnouncement.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleWithResult >> numberOfRequieredArguments [
 	<return: #Integer>
 	^ self example numberOfRequieredArguments
 ]
 
-{ #category : #public }
+{ #category : 'public' }
 GtExampleWithResult >> openDebugger [
 	self result: self example openDebugger
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleWithResult >> openingDebugger [
 	<return: #GtExampleOpenDebugger>
 	^ self example openingDebugger
 		callback: [ :anExampleResult | self result: anExampleResult ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleWithResult >> result [
 	<return: #GtExampleResult>
 	^ result
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleWithResult >> result: aGtExampleResult [
 	result == aGtExampleResult ifTrue: [ ^ self ].
 	result := aGtExampleResult.
 	self notifyExampleExecuted
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GtExampleWithResult >> resultOrErrorName [
 	^ self hasResult
 		ifTrue: [ self isSuccess
@@ -242,30 +242,30 @@ GtExampleWithResult >> resultOrErrorName [
 		ifFalse: [ 'N/A' ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleWithResult >> returnValue [
 	^ self result returnValue
 ]
 
-{ #category : #public }
+{ #category : 'public' }
 GtExampleWithResult >> run [
 	<return: #GtExampleResult>
 	self result: self example run.
 	^ self result.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleWithResult >> selector [
 	^ self example selector
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleWithResult >> sourceCode [
 	<return: #String>
 	^ self example sourceCode
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GtExampleWithResult >> statusText [
 	self hasResult
 		ifTrue: [ self isSuccess
@@ -277,7 +277,7 @@ GtExampleWithResult >> statusText [
 		ifFalse: [ ^ 'N/A' ]
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GtExampleWithResult >> statusTextWithResultValueClassName [
 	| status resultOrErrorClassName |
 	status := self statusText.

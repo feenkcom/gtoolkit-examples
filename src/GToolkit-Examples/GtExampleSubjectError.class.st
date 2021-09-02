@@ -4,20 +4,20 @@ I am an error that occurs when an example declares a subject that does not exist
 
 "
 Class {
-	#name : #GtExampleSubjectError,
-	#superclass : #GtExamplePragmaError,
+	#name : 'GtExampleSubjectError',
+	#superclass : 'GtExamplePragmaError',
 	#instVars : [
 		'subject'
 	],
 	#category : 'GToolkit-Examples-Exceptions'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleSubjectError >> subject [
 	^ subject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleSubjectError >> subject: anObject [
 	subject := anObject
 ]

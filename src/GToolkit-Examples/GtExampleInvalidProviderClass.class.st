@@ -4,7 +4,7 @@ I am an error indicating that within an example there isn't an inheritance relat
 
 "
 Class {
-	#name : #GtExampleInvalidProviderClass,
-	#superclass : #GtExampleError,
+	#name : 'GtExampleInvalidProviderClass',
+	#superclass : 'GtExampleError',
 	#category : 'GToolkit-Examples-Exceptions'
 }

@@ -1,24 +1,24 @@
 Class {
-	#name : #GtExplicitExampleGroup,
-	#superclass : #GtExampleGroup,
+	#name : 'GtExplicitExampleGroup',
+	#superclass : 'GtExampleGroup',
 	#instVars : [
 		'examples'
 	],
 	#category : 'GToolkit-Examples-Core'
 }
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtExplicitExampleGroup class >> gtExampleExplicitEmptyGroup [
 	<gtExample>
 	^ self new examples: #()
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExplicitExampleGroup >> examples [
 	^ examples
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExplicitExampleGroup >> examples: aCollection [
 	self unsubscribeFromExamples.
 	examples := aCollection collect: [ :each | each asExampleWithResult ].
@@ -26,25 +26,25 @@ GtExplicitExampleGroup >> examples: aCollection [
 	
 ]
 
-{ #category : #'announcement handling' }
+{ #category : 'announcement handling' }
 GtExplicitExampleGroup >> handleExampleAnnouncement: aGtExampleAnnouncement [
 	self ignoreAnnouncements ifTrue: [ ^ self ].
 	self hasAnnouncer ifFalse: [ ^ self ].
 	self announcer announce: aGtExampleAnnouncement.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtExplicitExampleGroup >> initialize [
 	super initialize.
 	examples := #().
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExplicitExampleGroup >> size [
 	^ examples size
 ]
 
-{ #category : #subscriptions }
+{ #category : 'subscriptions' }
 GtExplicitExampleGroup >> subscribeToExamples [
 	self examples ifNil: [ ^ self ].
 	self examples
@@ -55,7 +55,7 @@ GtExplicitExampleGroup >> subscribeToExamples [
 				to: self ]
 ]
 
-{ #category : #subscriptions }
+{ #category : 'subscriptions' }
 GtExplicitExampleGroup >> unsubscribeFromExamples [
 	self examples ifNil: [ ^ self ].
 	self examples do: [ :eachExample | eachExample unsubscribe: self ].

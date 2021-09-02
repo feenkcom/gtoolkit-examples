@@ -4,22 +4,22 @@ I am a command line handler for executing examples as tests. I take as input a l
 
 "
 Class {
-	#name : #GtExamplesCommandLineHandler,
-	#superclass : #CommandLineHandler,
-	#category : #'GToolkit-Examples-Testing'
+	#name : 'GtExamplesCommandLineHandler',
+	#superclass : 'CommandLineHandler',
+	#category : 'GToolkit-Examples-Testing'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExamplesCommandLineHandler class >> commandName [
 	^ 'examples'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExamplesCommandLineHandler class >> description [
 	^ 'A command line example runner'
 ]
 
-{ #category : #activation }
+{ #category : 'activation' }
 GtExamplesCommandLineHandler >> activate [
 	| theResults |
 
@@ -48,7 +48,7 @@ GtExamplesCommandLineHandler >> activate [
 		ifFalse: [ self quit ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExamplesCommandLineHandler >> addPackagesMatching: aString to: aSet [
 	| regex |
 	
@@ -66,34 +66,34 @@ GtExamplesCommandLineHandler >> addPackagesMatching: aString to: aSet [
 		ifTrue: [ aSet add: aString ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExamplesCommandLineHandler >> addPackagesMatchingGlob: aGlobString to: aSet [
 	RPackage organizer packageNames do: [ :packageName|
 		(aGlobString match: packageName)
 			ifTrue: [ aSet add: packageName ]]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExamplesCommandLineHandler >> addPackagesMatchingRegex: aRegex to: aSet [
 	RPackage organizer packageNames do: [ :packageName|
 		(aRegex matches: packageName)
 			ifTrue: [ aSet add: packageName ]]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExamplesCommandLineHandler >> exampleReport [
 	(self hasOption: 'junit-xml-output') ifTrue: [ ^ GtExamplesHudsonReport ].
 	^ self error: 'only works for now for junit for now'
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExamplesCommandLineHandler >> inform: aString [
 	self stdout 
 		<< aString
 		<< OSPlatform current lineEnding
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExamplesCommandLineHandler >> informResults: results [
 	self stdout 
 		<< ('{1} examples, {2} executed, {3} passes, {4} failures, {5} errors, {6} skipped.'
@@ -107,7 +107,7 @@ GtExamplesCommandLineHandler >> informResults: results [
 		<< OSPlatform current lineEnding
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExamplesCommandLineHandler >> installFlushChangesFileError [
 	| aLink |
 
@@ -135,7 +135,7 @@ GtExamplesCommandLineHandler >> installFlushChangesFileError [
 	(BinaryFileStream>>#close) ast link: aLink
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExamplesCommandLineHandler >> installFlushChangesFileReporter [
 	| aLink |
 	aLink := MetaLink new 
@@ -145,7 +145,7 @@ GtExamplesCommandLineHandler >> installFlushChangesFileReporter [
 	(SourceFileArray>>#flushChangesFile) ast link: aLink
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExamplesCommandLineHandler >> packages [
 	| packages |
 	
@@ -157,7 +157,7 @@ GtExamplesCommandLineHandler >> packages [
 	^ packages difference: self packagesToSkip
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExamplesCommandLineHandler >> packagesToSkip [
 	| packagesToSkip |
 	
@@ -174,7 +174,7 @@ GtExamplesCommandLineHandler >> packagesToSkip [
 	^ packagesToSkip
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExamplesCommandLineHandler >> runPackages [
 	| packages results runBlock |
 	
@@ -206,7 +206,7 @@ GtExamplesCommandLineHandler >> runPackages [
 	^ results
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExamplesCommandLineHandler >> runPackagesInUI [
 	| packages results |
 	packages := self sortedPackageNamesToRun.
@@ -214,7 +214,7 @@ GtExamplesCommandLineHandler >> runPackagesInUI [
 	^ results
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExamplesCommandLineHandler >> sortedPackageNamesToRun [
 	^ self packages sorted: [ :a :b | a < b ]
 ]

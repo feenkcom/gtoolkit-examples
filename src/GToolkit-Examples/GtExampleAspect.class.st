@@ -4,22 +4,22 @@ I encapsulate an object that provides functionality for an example. Aspects are 
 
 "
 Class {
-	#name : #GtExampleAspect,
-	#superclass : #Object,
+	#name : 'GtExampleAspect',
+	#superclass : 'Object',
 	#category : 'GToolkit-Examples-Organization'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleAspect class >> isAbstract [
 	^ self == GtExampleAspect
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleAspect >> exists [
 	^ false
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtExampleAspect >> gtDisplayValidityOn: aStream [
 	self isValid ifTrue: [ ^ self ].
 	
@@ -27,17 +27,17 @@ GtExampleAspect >> gtDisplayValidityOn: aStream [
 	aStream nextPutAll: ' [invalid]'
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleAspect >> hasLiteralThorough: aLiteral [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleAspect >> isAbstract [
 	^ self class isAbstract
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleAspect >> isValid [
 	^ self exists
 ]

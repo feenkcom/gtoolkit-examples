@@ -4,20 +4,20 @@ I am an error that occurs when an example declares a dependency to a method belo
 
 "
 Class {
-	#name : #GtExampleDeclaredClassMissing,
-	#superclass : #GtExamplePragmaError,
+	#name : 'GtExampleDeclaredClassMissing',
+	#superclass : 'GtExamplePragmaError',
 	#instVars : [
 		'classNamed'
 	],
 	#category : 'GToolkit-Examples-Exceptions'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleDeclaredClassMissing >> classNamed [
 	^ classNamed
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleDeclaredClassMissing >> classNamed: anObject [
 	classNamed := anObject
 ]

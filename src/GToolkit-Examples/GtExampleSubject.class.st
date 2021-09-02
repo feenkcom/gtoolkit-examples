@@ -8,44 +8,44 @@ The subject information is useful both when understanding the goal of an example
 
 "
 Class {
-	#name : #GtExampleSubject,
-	#superclass : #GtExampleAspect,
+	#name : 'GtExampleSubject',
+	#superclass : 'GtExampleAspect',
 	#category : 'GToolkit-Examples-Subjects'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleSubject class >> isAbstract [
 	^ self == GtExampleSubject
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleSubject >> = anExampleSubject [
 	^ self subclassResponsibility
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtExampleSubject >> asGTExampleSubject [
 	^ self
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtExampleSubject >> gtDisplayOn: aStream [
 	super gtDisplayOn: aStream.
 	self gtDisplayValidityOn: aStream
 ]
 
-{ #category : #'accessing-dynamic' }
+{ #category : 'accessing-dynamic' }
 GtExampleSubject >> gtExamplesContained [
 	^ Smalltalk gtExamplesContained select: [ :each | each hasSubject: self ]
 ]
 
-{ #category : #'accessing-dynamic' }
+{ #category : 'accessing-dynamic' }
 GtExampleSubject >> gtParametrizedExamplesContained [
 	^ Smalltalk gtParametrizedExamplesContained 
 			select: [ :each | each hasSubject: self ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleSubject >> hash [
 	^ self subclassResponsibility
 ]

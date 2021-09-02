@@ -1,6 +1,6 @@
 Class {
-	#name : #GtFileSystemExamples,
-	#superclass : #Object,
+	#name : 'GtFileSystemExamples',
+	#superclass : 'Object',
 	#instVars : [
 		'rootDirectoryName',
 		'fileSystem',
@@ -9,7 +9,7 @@ Class {
 	#category : 'GToolkit-Examples-Utilities'
 }
 
-{ #category : #'utility - basic' }
+{ #category : 'utility - basic' }
 GtFileSystemExamples >> addFileNamed: fileNameString toDirectory: rootDirectory withContent: aContent [
 	| rootDocument |
 	aContent isString 
@@ -28,7 +28,7 @@ GtFileSystemExamples >> addFileNamed: fileNameString toDirectory: rootDirectory 
 	^ rootDocument
 ]
 
-{ #category : #'utility - basic' }
+{ #category : 'utility - basic' }
 GtFileSystemExamples >> addFileNamed: fileNameString withContent: aString [
 	^ self 
 		addFileNamed: fileNameString 
@@ -36,7 +36,7 @@ GtFileSystemExamples >> addFileNamed: fileNameString withContent: aString [
 		withContent: aString
 ]
 
-{ #category : #'utility - pillar file' }
+{ #category : 'utility - pillar file' }
 GtFileSystemExamples >> addPillarFileWithContent: aString [
 	^ self 
 		addFileNamed: self pillarFileName 
@@ -44,7 +44,7 @@ GtFileSystemExamples >> addPillarFileWithContent: aString [
 		withContent: aString
 ]
 
-{ #category : #'file system' }
+{ #category : 'file system' }
 GtFileSystemExamples >> basicMemorySystem [
 	<gtExample>
 	<label: 'Basic Memory File System'>
@@ -55,7 +55,7 @@ GtFileSystemExamples >> basicMemorySystem [
 	^ fileSystem
 ]
 
-{ #category : #'file system' }
+{ #category : 'file system' }
 GtFileSystemExamples >> fileSystemRootDirectory [
 	<gtExample>
 	fileSystemRootDirectory ifNil: [ 
@@ -64,27 +64,27 @@ GtFileSystemExamples >> fileSystemRootDirectory [
 	^ fileSystemRootDirectory
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtFileSystemExamples >> initializeUsingPhysicalDisk [
 	fileSystem := FileSystem disk.
 	fileSystemRootDirectory := FileReference newTempFilePrefix: self className suffix: 'Directory'.
 ]
 
-{ #category : #'utility - pillar file' }
+{ #category : 'utility - pillar file' }
 GtFileSystemExamples >> pillarFileName [
 	<gtExample>
 	<label: 'Pillar filename'>
 	^ 'index.pillar'
 ]
 
-{ #category : #'utility - pillar file' }
+{ #category : 'utility - pillar file' }
 GtFileSystemExamples >> pillarFileReference [
 	<gtExample>
 	<label: 'FileReference with a Pillar content'>
 	^ (self rootDirectory / self pillarFileName)
 ]
 
-{ #category : #'file system' }
+{ #category : 'file system' }
 GtFileSystemExamples >> rootDirectory [
 	<gtExample>
 	<label: 'Working directory of a memory file system'>
@@ -94,13 +94,13 @@ GtFileSystemExamples >> rootDirectory [
 			ensureCreateDirectory ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtFileSystemExamples >> rootDirectoryName [
 	<return: #String or: nil>
 	^ rootDirectoryName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtFileSystemExamples >> rootDirectoryName: aString [
 	self assert: aString isString description: 'The directory name has to be a string'.
 	self 

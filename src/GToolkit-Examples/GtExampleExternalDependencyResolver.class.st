@@ -4,12 +4,12 @@ I detect if a message send having the form  'ClassName new message'  is a depend
 
 "
 Class {
-	#name : #GtExampleExternalDependencyResolver,
-	#superclass : #GtExampleDependencyResolver,
+	#name : 'GtExampleExternalDependencyResolver',
+	#superclass : 'GtExampleDependencyResolver',
 	#category : 'GToolkit-Examples-Organization'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleExternalDependencyResolver >> appliesTo: anASTNode [
 	
 	((anASTNode isKindOf: RBVariableNode) and: [ 
@@ -23,7 +23,7 @@ GtExampleExternalDependencyResolver >> appliesTo: anASTNode [
 					anASTNode parent parent isMessage ] ] ] ]
 ]
 
-{ #category : #action }
+{ #category : 'action' }
 GtExampleExternalDependencyResolver >> posibleExampleForNode: aGlobalNode fromMethod: aCompiledMethod [
 	| possibleExampleMethod |
 	possibleExampleMethod := (Smalltalk classNamed: aGlobalNode name) 

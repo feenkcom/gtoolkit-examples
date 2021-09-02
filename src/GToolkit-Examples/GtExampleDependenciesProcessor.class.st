@@ -7,8 +7,8 @@ I provide the basic logic for traversing over the dependencies of an example.  B
 
 "
 Class {
-	#name : #GtExampleDependenciesProcessor,
-	#superclass : #GtExampleProcessor,
+	#name : 'GtExampleDependenciesProcessor',
+	#superclass : 'GtExampleProcessor',
 	#instVars : [
 		'processing',
 		'onProcess'
@@ -16,7 +16,7 @@ Class {
 	#category : 'GToolkit-Examples-Runtime'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleDependenciesProcessor >> handleRecursionErrorFor: anExample [
 	^ (GtExampleRecursionDetected new 
 		example: self example;
@@ -25,7 +25,7 @@ GtExampleDependenciesProcessor >> handleRecursionErrorFor: anExample [
 		yourself) signal
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtExampleDependenciesProcessor >> initialize [
 	super initialize.
 	
@@ -33,23 +33,23 @@ GtExampleDependenciesProcessor >> initialize [
 	processing := IdentitySet new.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleDependenciesProcessor >> onProcess [
 	^ onProcess
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleDependenciesProcessor >> onProcess: anObject [
 	onProcess := anObject
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleDependenciesProcessor >> process: anExample [
 	^ self process: anExample withoutLoopsDo: [ 
 		self onProcess value: self value: anExample ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleDependenciesProcessor >> process: anExample withoutLoopsDo: aBlock [
 	"I check whether we already scheduled the given example for processing to prevent recursion."
 	| value |
@@ -64,19 +64,19 @@ GtExampleDependenciesProcessor >> process: anExample withoutLoopsDo: aBlock [
 	^ value
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtExampleDependenciesProcessor >> processDependenciesFirst [
 	self onProcess: [ :aProcessor :anExample | 
 		aProcessor processDependenciesFor: anExample.
 		aProcessor basicProcess: anExample ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleDependenciesProcessor >> processDependenciesFor: anExample [
 	anExample directDependencies do: [ :each | self process: each ]
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtExampleDependenciesProcessor >> processExampleFirst [
 	self onProcess: [ :aProcessor :anExample | 
 		aProcessor basicProcess: anExample.

@@ -4,15 +4,15 @@ I create a class aspect based on the name of a class. I am used by an example wh
 
 "
 Class {
-	#name : #GtExampleClassResolver,
-	#superclass : #GtExampleAspectResolver,
+	#name : 'GtExampleClassResolver',
+	#superclass : 'GtExampleAspectResolver',
 	#instVars : [
 		'theClassName'
 	],
 	#category : 'GToolkit-Examples-Organization'
 }
 
-{ #category : #actions }
+{ #category : 'actions' }
 GtExampleClassResolver class >> resolve: anAspectClass example: anExample className: aClassOrString meta: meta [
 	^ (self new 
 		aspectClass: anAspectClass;
@@ -22,13 +22,13 @@ GtExampleClassResolver class >> resolve: anAspectClass example: anExample classN
 		yourself) resolve
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 GtExampleClassResolver >> resolve [
 	^ self theClassDo: [ :class | self resolveByClass: class ]
 		ifNone: [ self resolveByName ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleClassResolver >> resolveByClass: aClass [
 	^ self aspectClass new
 		theClass: aClass;
@@ -37,7 +37,7 @@ GtExampleClassResolver >> resolveByClass: aClass [
 		yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleClassResolver >> resolveByName [
 	^ self aspectClass new
 		theClass: nil;
@@ -46,14 +46,14 @@ GtExampleClassResolver >> resolveByName [
 		yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleClassResolver >> theClass [
 	^ self theClassName isClass 
 		ifTrue: [ self theClassName ]
 		ifFalse: [ Smalltalk classNamed: self theClassName asString ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleClassResolver >> theClassDo: aBlock [
 	^ self theClassDo: aBlock ifNone: [ 
 		(GtExampleDeclaredClassMissing new
@@ -63,7 +63,7 @@ GtExampleClassResolver >> theClassDo: aBlock [
 			yourself) signal ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleClassResolver >> theClassDo: aBlock1 ifNone: aBlock2 [
 	^ self theClass
 		ifNotNil: [ :class | aBlock1 value: (self ensureClass: class) ]
@@ -71,12 +71,12 @@ GtExampleClassResolver >> theClassDo: aBlock1 ifNone: aBlock2 [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleClassResolver >> theClassName [
 	^ theClassName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleClassResolver >> theClassName: anObject [
 	theClassName := anObject
 ]

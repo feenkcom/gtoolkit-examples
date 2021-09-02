@@ -14,8 +14,8 @@ I also know how to handle possible exceptions, which makes me a great candidate 
 
 "
 Class {
-	#name : #GtExample,
-	#superclass : #Object,
+	#name : 'GtExample',
+	#superclass : 'Object',
 	#instVars : [
 		'providerClass',
 		'methodClass',
@@ -33,7 +33,7 @@ Class {
 	#category : 'GToolkit-Examples-Core'
 }
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 GtExample >> = anExample [
 	^ self class = anExample class and: [ 
 		self providerClass = anExample providerClass and: [ 
@@ -41,22 +41,22 @@ GtExample >> = anExample [
 				self selector = anExample selector ] ] ]
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 GtExample >> addProblem: aProblem [
 	problems add: aProblem
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 GtExample >> addSubject: aGTExampleSubject [
 	subjects add: aGTExampleSubject asGTExampleSubject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExample >> after [
 	^ after
 ]
 
-{ #category : #'PRAGMA-SELECTORS' }
+{ #category : 'PRAGMA-SELECTORS' }
 GtExample >> after: aSelector [
 	<gtExamplePragma>
 	<description: 'A method, implemented by the given selector, to be performed after this example has run ~ similar but not identical to teardown of sunit'>
@@ -64,7 +64,7 @@ GtExample >> after: aSelector [
 	after := self methodResolverClass resolve: GtExampleMethodAfter example: self selector: aSelector
 ]
 
-{ #category : #dependencies }
+{ #category : 'dependencies' }
 GtExample >> allDependencies [
 	| examples |
 	examples := Set new.
@@ -74,58 +74,58 @@ GtExample >> allDependencies [
 	^ examples
 ]
 
-{ #category : #'accessing-dynamic' }
+{ #category : 'accessing-dynamic' }
 GtExample >> asExampleWithResult [
 	^ GtExampleWithResult new example: self
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExample >> canBeExecuted [
 	"Return true if example can be executed"
 	<return: #Boolean>
 	^ self exists and: [ self hasProblems not ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExample >> changeArguments: aCollection [
 	"Indicate that no arguments were changed"
 	^ false
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GtExample >> classLabel [
 	^ String streamContents: [ :aStream |
 		self printClassLabelOn: aStream ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExample >> classResolverClass [
 	^ GtExampleClassResolver
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 GtExample >> debug [
 	^ self debugger result
 ]
 
-{ #category : #'accessing-dynamic' }
+{ #category : 'accessing-dynamic' }
 GtExample >> debugger [
 	^ GtExampleDebugger new 
 		example: self;
 		yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExample >> dependencyResolverClass [
 	^ GtExampleDependenciesResolver
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExample >> description [
 	^ description
 ]
 
-{ #category : #'PRAGMA-SELECTORS' }
+{ #category : 'PRAGMA-SELECTORS' }
 GtExample >> description: aString [
 	<gtExamplePragma>
 	<description: 'A full description of this example'>
@@ -133,7 +133,7 @@ GtExample >> description: aString [
 	description := aString
 ]
 
-{ #category : #'accessing-dynamic' }
+{ #category : 'accessing-dynamic' }
 GtExample >> directDependencies [
 	"I return the list of examples directly used within this example. The returned order is the one in which 
 	method calls denoting a dependency are present within the method defining this example. If an example is
@@ -141,12 +141,12 @@ GtExample >> directDependencies [
 	^ self dependencyResolverClass resolveDependenciesForExample: self
 ]
 
-{ #category : #TODO }
+{ #category : 'TODO' }
 GtExample >> directDependents [
 	^ #()
 ]
 
-{ #category : #'accessing-dynamic' }
+{ #category : 'accessing-dynamic' }
 GtExample >> evaluationContext [
 	<return: #GtExampleEvaluationContext>
 	^ GtExampleEvaluationContext new 
@@ -154,34 +154,34 @@ GtExample >> evaluationContext [
 			arguments: #()
 ]
 
-{ #category : #'accessing-dynamic' }
+{ #category : 'accessing-dynamic' }
 GtExample >> evaluator [
 	^ GtExampleEvaluator new 
 		example: self;
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExample >> exceptions [
 	^ exceptions
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExample >> exists [
 	^ self methodClass includesSelector: self selector
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExample >> form [
 	form
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExample >> form: anIcon [
 	form := anIcon
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GtExample >> gtDisplayOn: aStream [
 	
 	self printClassLabelOn: aStream.
@@ -192,14 +192,14 @@ GtExample >> gtDisplayOn: aStream [
 	self gtDisplayValidityOn: aStream
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GtExample >> gtDisplayValidityOn: aStream [
 	self isValid ifTrue: [ ^ self ].
 	
 	aStream nextPutAll: ' [invalid]'
 ]
 
-{ #category : #'PRAGMA-SELECTORS' }
+{ #category : 'PRAGMA-SELECTORS' }
 GtExample >> gtExample [
 	<gtExamplePragma>
 	<description: 'This method is turned into a gtExample if provided'>
@@ -207,22 +207,22 @@ GtExample >> gtExample [
 	^ self
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExample >> hasAfter [
 	^ after notNil
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExample >> hasDependencies [
 	^ self directDependencies notEmpty
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExample >> hasInternalProblems [
 	^ problems notEmpty
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExample >> hasLiteralThorough: aLiteral [
 	^ self methodClass = aLiteral
 		or: [ self selector = aLiteral
@@ -232,37 +232,37 @@ GtExample >> hasLiteralThorough: aLiteral [
 						or: [ self exists and: [ self method hasLiteralThorough: aLiteral asSymbol ] ] ] ] ] ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExample >> hasNoTestPragma [
 	^ self method hasPragmaNamed: #noTest
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExample >> hasProblems [
 	^ problems notEmpty
 			or: [  self hasValidAfter not
 				or: [ self hasValidDependencies not ] ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExample >> hasSubject: aSubject [
 	^ self subjects anySatisfy: [ :each | 
 		each == aSubject 
 			or: [ each = aSubject ] ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExample >> hasSubjects [
 	^ self subjects notEmpty
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExample >> hasValidAfter [
 	^ self hasAfter not
 		or: [ self after isValid ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExample >> hasValidDependencies [
 	| currentDependencies |
 	currentDependencies := self directDependencies.
@@ -270,12 +270,12 @@ GtExample >> hasValidDependencies [
 			or: [ currentDependencies allSatisfy: #exists ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExample >> hasValidProviderClass [
 	^ self providerClass includesBehavior: self methodClass
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 GtExample >> hash [
 	^ ((self class hash * 3
 		bitXor: self providerClass hash * 5)
@@ -283,12 +283,12 @@ GtExample >> hash [
 				bitXor: self selector hash * 13
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExample >> icon [
 	^ form ifNotNil: [ form form ]
 ]
 
-{ #category : #'PRAGMA-SELECTORS' }
+{ #category : 'PRAGMA-SELECTORS' }
 GtExample >> icon: aSelector [
 	<gtExamplePragma>
 	<description: 'Attach an icon to this example. The selector must be implemented by the currently active theme'>
@@ -296,7 +296,7 @@ GtExample >> icon: aSelector [
 	self iconThemeSelector: aSelector
 ]
 
-{ #category : #'PRAGMA-SELECTORS' }
+{ #category : 'PRAGMA-SELECTORS' }
 GtExample >> iconBase64: aString [
 	<gtExamplePragma>
 	<description: 'Attach an icon to this example. The icon form is described by the given base64-encoded string'>
@@ -304,7 +304,7 @@ GtExample >> iconBase64: aString [
 	form := GtExampleFormIcon fromBase64String: aString
 ]
 
-{ #category : #'PRAGMA-SELECTORS' }
+{ #category : 'PRAGMA-SELECTORS' }
 GtExample >> iconBytes: aByteArray [
 	<gtExamplePragma>
 	<description: 'Attach an icon to this example. The icon form is described by the given byte-array'>
@@ -312,7 +312,7 @@ GtExample >> iconBytes: aByteArray [
 	form := GtExampleFormIcon fromByteArray: aByteArray
 ]
 
-{ #category : #'PRAGMA-SELECTORS' }
+{ #category : 'PRAGMA-SELECTORS' }
 GtExample >> iconClass: aClassOrClassName selector: aSelector [
 	<gtExamplePragma>
 	<description: 'Attach an icon to this example. The method described by the given class and selector must return an icon form'>
@@ -320,7 +320,7 @@ GtExample >> iconClass: aClassOrClassName selector: aSelector [
 	form := self methodResolverClass resolve: GtExampleMethodIcon example: self className: aClassOrClassName meta: false selector: aSelector
 ]
 
-{ #category : #'PRAGMA-SELECTORS' }
+{ #category : 'PRAGMA-SELECTORS' }
 GtExample >> iconMetaClass: aClassOrClassName selector: aSelector [
 	<gtExamplePragma>
 	<description: 'Attach an icon to this example. The method described by the given meta-class and selector must return an icon form'>
@@ -328,7 +328,7 @@ GtExample >> iconMetaClass: aClassOrClassName selector: aSelector [
 	form := self methodResolverClass resolve: GtExampleMethodIcon example: self className: aClassOrClassName meta: true selector: aSelector
 ]
 
-{ #category : #'PRAGMA-SELECTORS' }
+{ #category : 'PRAGMA-SELECTORS' }
 GtExample >> iconSelector: aSelector [
 	<gtExamplePragma>
 	<description: 'Attach an icon to this example. The selector must return an icon form'>
@@ -338,7 +338,7 @@ GtExample >> iconSelector: aSelector [
 		yourself
 ]
 
-{ #category : #'PRAGMA-SELECTORS' }
+{ #category : 'PRAGMA-SELECTORS' }
 GtExample >> iconSelectorBase64: aSelector [
 	<gtExamplePragma>
 	<description: 'Attach an icon to this example. The icon form is described by the base64 string returned by the given selector'>
@@ -348,7 +348,7 @@ GtExample >> iconSelectorBase64: aSelector [
 		yourself
 ]
 
-{ #category : #'PRAGMA-SELECTORS' }
+{ #category : 'PRAGMA-SELECTORS' }
 GtExample >> iconThemeSelector: aSelector [
 	<gtExamplePragma>
 	<description: 'Attach an icon to this example. The selector must be implemented by the currently active theme'>
@@ -356,17 +356,17 @@ GtExample >> iconThemeSelector: aSelector [
 	form := GtExampleThemeIcon fromSelector: aSelector
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExample >> ignoreTest [
 	^ self propertyAt: #noTest ifAbsent: [ false ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExample >> ignoreTestReport [
 	^ self propertyAt: #noTestReport ifAbsent: [ false ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtExample >> initialize [
 	super initialize.
 	
@@ -377,7 +377,7 @@ GtExample >> initialize [
 	properties := IdentityDictionary new.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtExample >> initializeFromMethod: aCompiledMethod withProviderClass: aProviderClass usingFactory: aGTExampleFactory [
 	methodClass := aCompiledMethod methodClass.
 	selector := aCompiledMethod selector.
@@ -385,22 +385,22 @@ GtExample >> initializeFromMethod: aCompiledMethod withProviderClass: aProviderC
 	aGTExampleFactory initializeExample: self fromMethod: aCompiledMethod
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExample >> isGTExample [
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExample >> isInherited [
 	^ self methodClass ~~ self providerClass
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExample >> isMethodDefined [
 	^ self methodClass includesSelector: self selector
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExample >> isValid [
 	^ self isMethodDefined and: [
 		self hasProblems not
@@ -408,12 +408,12 @@ GtExample >> isValid [
 				and: [ self traverser canProcess ] ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExample >> label [
 	^ label
 ]
 
-{ #category : #'PRAGMA-SELECTORS' }
+{ #category : 'PRAGMA-SELECTORS' }
 GtExample >> label: aString [
 	<gtExamplePragma>
 	<description: 'A short identifier = name of this example'>
@@ -421,48 +421,48 @@ GtExample >> label: aString [
 	label := aString
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExample >> matchesMethod: aCompiledMethod [
 	^ aCompiledMethod class = CompiledMethod
 		and: [ self methodClass = aCompiledMethod methodClass
 			and: [ self selector = aCompiledMethod selector ] ]
 ]
 
-{ #category : #'accessing-dynamic' }
+{ #category : 'accessing-dynamic' }
 GtExample >> method [
 	^ self methodClass >> self selector
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExample >> methodClass [
 	^ methodClass
 ]
 
-{ #category : #'accessing-dynamic' }
+{ #category : 'accessing-dynamic' }
 GtExample >> methodDo: aBlockClosure [ 
 	self isMethodDefined ifFalse: [ ^ self ].
 	aBlockClosure cull: self method
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExample >> methodPackage [
 	<return: #RPackage>
 	^ self method package
 ]
 
-{ #category : #'accessing-dynamic' }
+{ #category : 'accessing-dynamic' }
 GtExample >> methodProtocol [
 	"Return method protocol"
 	<return: #Symbol>
 	^ self method protocol   
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExample >> methodResolverClass [
 	^ GtExampleMethodResolver
 ]
 
-{ #category : #'PRAGMA-SELECTORS' }
+{ #category : 'PRAGMA-SELECTORS' }
 GtExample >> noTest [
 	<gtExamplePragma>
 	<description: 'Do not run this example while running SUnit tests'>
@@ -470,7 +470,7 @@ GtExample >> noTest [
 	self propertyAt: #noTest put: true
 ]
 
-{ #category : #'PRAGMA-SELECTORS' }
+{ #category : 'PRAGMA-SELECTORS' }
 GtExample >> noTestReport [
 	<gtExamplePragma>
 	<description: 'Do not run this example while running HDTestReport (not yet implemented)'>
@@ -478,24 +478,24 @@ GtExample >> noTestReport [
 	self propertyAt: #noTestReport put: true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExample >> numberOfRequieredArguments [
 	^ 0
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 GtExample >> openDebugger [
 	^ self openingDebugger result
 ]
 
-{ #category : #'accessing-dynamic' }
+{ #category : 'accessing-dynamic' }
 GtExample >> openingDebugger [
 	^ GtExampleOpenDebugger new 
 		example: self;
 		yourself
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GtExample >> printClassLabelOn: aStream [
 	aStream print: self providerClass.
 	(self providerClass ~= self methodClass) ifTrue: [
@@ -505,51 +505,51 @@ GtExample >> printClassLabelOn: aStream [
 			nextPutAll: ')' ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExample >> problems [
 	^ problems
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExample >> propertyAt: aKey ifAbsent: aBlock [
 	^ properties at: aKey ifAbsent: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExample >> propertyAt: aKey put: aValue [
 	^ properties at: aKey put: aValue
 ]
 
-{ #category : #'accessing-dynamic' }
+{ #category : 'accessing-dynamic' }
 GtExample >> provider [
 	^ self providerClass isMeta
 		ifTrue: [ self providerClass instanceSide ]
 		ifFalse: [ self providerClass instanceSide new ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExample >> providerClass [
 	^ providerClass
 ]
 
-{ #category : #'accessing-dynamic' }
+{ #category : 'accessing-dynamic' }
 GtExample >> result [
 	<return: #GtExampleResult>
 	^ self run
 ]
 
-{ #category : #'accessing-dynamic' }
+{ #category : 'accessing-dynamic' }
 GtExample >> returnValue [
 	^ self result returnValue
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 GtExample >> run [
 	<return: #GtExampleResult>
 	^ self evaluator result
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 GtExample >> runThenDo: aBlock1 onErrorDo: aBlock2 [
 	| result |
 	^ (result := self run) isSuccess 
@@ -557,17 +557,17 @@ GtExample >> runThenDo: aBlock1 onErrorDo: aBlock2 [
 		ifFalse: [ aBlock2 value: result ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExample >> selector [
 	^ selector
 ]
 
-{ #category : #'accessing-dynamic' }
+{ #category : 'accessing-dynamic' }
 GtExample >> sourceCode [
 	^ self method sourceCode
 ]
 
-{ #category : #'PRAGMA-SELECTORS' }
+{ #category : 'PRAGMA-SELECTORS' }
 GtExample >> subject: aClassOrClassName [
 	<gtExamplePragma>
 	<description: 'Add a class-subject to the example'>
@@ -575,7 +575,7 @@ GtExample >> subject: aClassOrClassName [
 	self subjectClass: aClassOrClassName
 ]
 
-{ #category : #'PRAGMA-SELECTORS' }
+{ #category : 'PRAGMA-SELECTORS' }
 GtExample >> subjectClass: aClassOrClassName [
 	<gtExamplePragma>
 	<description: 'Add a class-subject to the example'>
@@ -583,7 +583,7 @@ GtExample >> subjectClass: aClassOrClassName [
 	self addSubject: (self classResolverClass resolve: GtExampleClassSubject example: self className: aClassOrClassName meta: false)
 ]
 
-{ #category : #'PRAGMA-SELECTORS' }
+{ #category : 'PRAGMA-SELECTORS' }
 GtExample >> subjectMetaClass: aClassOrClassName [
 	<gtExamplePragma>
 	<description: 'Add a meta-class-subject to the example'>
@@ -591,12 +591,12 @@ GtExample >> subjectMetaClass: aClassOrClassName [
 	self addSubject: (self classResolverClass resolve: GtExampleClassSubject example: self className: aClassOrClassName meta: true)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExample >> subjects [
 	^ subjects asArray
 ]
 
-{ #category : #'accessing-dynamic' }
+{ #category : 'accessing-dynamic' }
 GtExample >> traverser [
 	^ GtExampleTraverser new 
 		example: self;

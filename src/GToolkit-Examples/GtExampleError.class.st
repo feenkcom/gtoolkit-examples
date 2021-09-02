@@ -6,8 +6,8 @@ My subclasses define the specific error.
 
 "
 Class {
-	#name : #GtExampleError,
-	#superclass : #Error,
+	#name : 'GtExampleError',
+	#superclass : 'Error',
 	#instVars : [
 		'example',
 		'signaledException'
@@ -15,17 +15,17 @@ Class {
 	#category : 'GToolkit-Examples-Exceptions'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleError >> example [
 	^ example
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleError >> example: anObject [
 	example := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleError >> gtDisplayOn: aStream [
 	super gtDisplayOn: aStream.
 	self signaledException ifNotNil: [
@@ -34,17 +34,17 @@ GtExampleError >> gtDisplayOn: aStream [
 		aStream nextPutAll: ')' ].
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleError >> isGTExampleError [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleError >> signaledException [
 	^ signaledException
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleError >> signaledException: anObject [
 	signaledException := anObject
 ]

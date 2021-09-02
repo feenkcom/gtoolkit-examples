@@ -2,18 +2,18 @@
 I am a trait that provides assertions that can used within examples.
 "
 Trait {
-	#name : #TGtExampleAssertable,
+	#name : 'TGtExampleAssertable',
 	#category : 'GToolkit-Examples-Core'
 }
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 TGtExampleAssertable >> assert: aBoolean [
 	"We check for true explicitly to make the assertion fail for non booleans"
 	aBoolean == true ifFalse: [self signalFailure: 'Assertion failed']
 			
 ]
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 TGtExampleAssertable >> assert: aBooleanOrBlock description: aStringOrBlock [
 	aBooleanOrBlock value ifFalse: [
 		| message |
@@ -22,14 +22,14 @@ TGtExampleAssertable >> assert: aBooleanOrBlock description: aStringOrBlock [
 			
 ]
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 TGtExampleAssertable >> assert: actual equals: expected [
 	^ self
 		assert: expected = actual
 		description: [self comparingStringBetween: actual and: expected]
 ]
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 TGtExampleAssertable >> assertCollection: actual hasSameElements: expected [
 	"Assert that a collection contains the same elements as the given collection. Order is not checked, only the presence/absence of elements."
 	| missingElements additionalElements |
@@ -46,13 +46,13 @@ TGtExampleAssertable >> assertCollection: actual hasSameElements: expected [
 				tab; nextPutAll: 'missing: '; print: missingElements asArray; lf ])
 ]
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 TGtExampleAssertable >> classForTestResult [
 	"Returns the class of the test result"
 	^ GtExampleResult
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 TGtExampleAssertable >> comparingStringBetween: actual and: expected [
 
 	^ String streamContents: [:stream |
@@ -64,33 +64,33 @@ TGtExampleAssertable >> comparingStringBetween: actual and: expected [
 				nextPutAll: '.']
 ]
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 TGtExampleAssertable >> executeShould: aBlock inScopeOf: anExceptionalEvent [ 
 	^[aBlock value.
  	false] on: anExceptionalEvent
 		do: [:ex | ex return: true]
 ]
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 TGtExampleAssertable >> should: aBlock raise: anExceptionalEvent [ 
 	^self assert: (self executeShould: aBlock inScopeOf: anExceptionalEvent)
 ]
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 TGtExampleAssertable >> should: aBlock raise: anExceptionalEvent description: aString [ 
 	^self assert: (self executeShould: aBlock inScopeOf: anExceptionalEvent)
 		description: aString
 			
 ]
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 TGtExampleAssertable >> shouldnt: aBlock raise: anExceptionalEvent [  
 	 
 	^self assert: (self executeShould: aBlock inScopeOf: anExceptionalEvent) not
 			
 ]
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 TGtExampleAssertable >> shouldnt: aBlock raise: anExceptionalEvent description: aString [  
  
 	^self
@@ -98,7 +98,7 @@ TGtExampleAssertable >> shouldnt: aBlock raise: anExceptionalEvent description: 
 		description: aString
 ]
 
-{ #category : #signalling }
+{ #category : 'signalling' }
 TGtExampleAssertable >> signalFailure: aString [
 	self classForTestResult failure signal: aString
 ]

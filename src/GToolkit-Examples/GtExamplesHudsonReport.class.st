@@ -4,12 +4,12 @@ I create a Hudson report by running examples from a given list of packages. Apar
 
 "
 Class {
-	#name : #GtExamplesHudsonReport,
-	#superclass : #GtExamplesTestingHudsonReport,
+	#name : 'GtExamplesHudsonReport',
+	#superclass : 'GtExamplesTestingHudsonReport',
 	#category : 'GToolkit-Examples-Testing'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 GtExamplesHudsonReport class >> runPackage: aString [
 	| theExamples theExamplesGroupedByClass |
 	
@@ -47,12 +47,12 @@ GtExamplesHudsonReport class >> runPackage: aString [
 			run ]
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GtExamplesHudsonReport class >> runPackages: aCollectionOfStrings [
 	^ aCollectionOfStrings flatCollect: [ :each | self runPackage: each ]
 ]
 
-{ #category : #'accessing - test case' }
+{ #category : 'accessing - test case' }
 GtExamplesHudsonReport >> containerNameFor: anExample [
 	| categoryName |
 	categoryName := anExample providerClass category copyReplaceAll: '-' with: '.'.
@@ -61,7 +61,7 @@ GtExamplesHudsonReport >> containerNameFor: anExample [
 		, anExample providerClass name
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GtExamplesHudsonReport >> fuelOutTheError: error of: anExample [
 	| fileName className methodName |
 	[
@@ -77,27 +77,27 @@ GtExamplesHudsonReport >> fuelOutTheError: error of: anExample [
 	]
 ]
 
-{ #category : #'accessing - test case' }
+{ #category : 'accessing - test case' }
 GtExamplesHudsonReport >> loggingNameFor: anExample [
 	^ anExample gtDisplayString
 ]
 
-{ #category : #'accessing - test case' }
+{ #category : 'accessing - test case' }
 GtExamplesHudsonReport >> nameFor: anExample [
 	^ anExample selector
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExamplesHudsonReport >> progressFileName [
 	^ 'progress-examples.log'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExamplesHudsonReport >> resultsFileName [
 	^ self reportName , '-Examples.xml'
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GtExamplesHudsonReport >> runExample: anExample [
 	| errorDetails stack |
 	
@@ -131,12 +131,12 @@ GtExamplesHudsonReport >> runExample: anExample [
 	self endTestCase
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GtExamplesHudsonReport >> runTestCase: anExample [
 	^ self runExample: anExample
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExamplesHudsonReport >> stackTraceString: err of: anExample [
 	^ String streamContents: [ :str | 
 		| context |
@@ -164,7 +164,7 @@ GtExamplesHudsonReport >> stackTraceString: err of: anExample [
 			context := context sender ] ] 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExamplesHudsonReport >> testCasesToRun [
 	^ self testCases reject: [ :anExample | 
 		anExample ignoreTest ]

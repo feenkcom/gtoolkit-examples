@@ -6,8 +6,8 @@ I am particularly useful for manipulating multiple examples at the same time, ty
 
 "
 Class {
-	#name : #GtExampleGroup,
-	#superclass : #Object,
+	#name : 'GtExampleGroup',
+	#superclass : 'Object',
 	#instVars : [
 		'announcer',
 		'ignoreAnnouncements'
@@ -15,18 +15,18 @@ Class {
 	#category : 'GToolkit-Examples-Core'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtExampleGroup class >> withAll: aCollection [
 	^ GtExplicitExampleGroup new examples: aCollection
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleGroup >> announcer [
 	<return: #Announcer>
 	^ announcer ifNil: [ announcer := Announcer new ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleGroup >> announcer: anAnnouncer [
 	self 
 		assert: [ anAnnouncer isNotNil ]
@@ -34,22 +34,22 @@ GtExampleGroup >> announcer: anAnnouncer [
 	announcer := anAnnouncer
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GtExampleGroup >> collect: aBlockClosure [ 
 	^ self examples collect: aBlockClosure
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GtExampleGroup >> count: aBlockClosure [ 
 	^ self examples count: aBlockClosure
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GtExampleGroup >> detect: aBlockClosure [ 
 	^ self examples detect: aBlockClosure 
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GtExampleGroup >> directDependenciesFor: aGtExampleWithResult [
 	| dependencies |
 	dependencies := aGtExampleWithResult directDependencies.
@@ -62,37 +62,37 @@ GtExampleGroup >> directDependenciesFor: aGtExampleWithResult [
 			ifNone: [ eachGtExample asExampleWithResult ] ].
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GtExampleGroup >> do: aBlock [ 
 	^ self examples do: aBlock
 ]
 
-{ #category : #'accessing - dynamic' }
+{ #category : 'accessing - dynamic' }
 GtExampleGroup >> erroredExamples [
 	^ self examples select: [ :eachExample | eachExample isError ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleGroup >> examples [
 	^ self subclassResponsibility
 ]
 
-{ #category : #'accessing - dynamic' }
+{ #category : 'accessing - dynamic' }
 GtExampleGroup >> executedExamples [
 	^ self examples select: [ :eachExample | eachExample hasResult ]
 ]
 
-{ #category : #'accessing - dynamic' }
+{ #category : 'accessing - dynamic' }
 GtExampleGroup >> failedExamples [
 	^ self examples select: [ :eachExample | eachExample isFailure ]
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GtExampleGroup >> flatCollect: aBlock [
 	^ self examples flatCollect: aBlock
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GtExampleGroup >> groupedBy: aBlock [ 
 	"we are reimplementing this method here and not reuse the one in collection
 	because we want the keys to be groups, not simple collections"
@@ -108,7 +108,7 @@ GtExampleGroup >> groupedBy: aBlock [
 	^ result
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleGroup >> gtClassesFor: aView [ 
 	<gtView>
 	self examples ifEmpty: [ ^ aView empty ].
@@ -117,12 +117,12 @@ GtExampleGroup >> gtClassesFor: aView [
 		items: [ (self examples groupedBy: [ :eachExample | 
 			eachExample methodClass instanceSide ]) associations
 				sorted: [ :a :b | a key name < b key name ] ];
-		column: 'Class' item: [ :anAssoc | anAssoc key ];
-		column: 'Number of examples' item: [ :anAssoc | anAssoc value size ];
+		column: 'Class' text: [ :anAssoc | anAssoc key ];
+		column: 'Number of examples' text: [ :anAssoc | anAssoc value size ];
 		send: [ :anAssoc | anAssoc ifNotNil: [ anAssoc key ] ]
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtExampleGroup >> gtInspectorExamplesIn: composite [
 	<gtInspectorPresentationOrder: 1>
 
@@ -176,7 +176,7 @@ GtExampleGroup >> gtInspectorExamplesIn: composite [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleGroup >> gtPackagesFor: aView [ 
 	<gtView>
 	self examples ifEmpty: [ ^ aView empty ].
@@ -184,91 +184,91 @@ GtExampleGroup >> gtPackagesFor: aView [
 		title: 'By package';
 		items: [ (self examples groupedBy: [ :eachExample | 
 			eachExample methodPackage ]) associations ];
-		column: 'Package' item: [ :anAssoc | anAssoc key ];
-		column: 'Number of examples' item: [ :anAssoc | anAssoc value size ];
+		column: 'Package' text: [ :anAssoc | anAssoc key ];
+		column: 'Number of examples' text: [ :anAssoc | anAssoc value size ];
 		send: [ :anAssoc | anAssoc ifNotNil: [ anAssoc key ] ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleGroup >> hasAnnouncer [
 	^ announcer isNotNil
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleGroup >> ifEmpty: aBlockClosure [ 
 	^ self examples ifEmpty: aBlockClosure 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleGroup >> ignoreAnnouncements [
 	<return: #Boolean>
 	^ ignoreAnnouncements
 ]
 
-{ #category : #'announcement handling' }
+{ #category : 'announcement handling' }
 GtExampleGroup >> ignoreAnnouncementsDuring: aBlock [
 	ignoreAnnouncements := true.
 	aBlock ensure: [ ignoreAnnouncements := false ].
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtExampleGroup >> initialize [
 	super initialize.
 	ignoreAnnouncements := false.
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleGroup >> isCollection [
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleGroup >> matchesExampleWithResult: aGtExampleWithResult withPattern: patternString [ 
 	^ aGtExampleWithResult example selector 
 			includesSubstring: patternString caseSensitive: false 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleGroup >> numberOfErrors [
 	^ self count: #isError
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleGroup >> numberOfExamples [
 	^ self examples size
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleGroup >> numberOfFailures [
 	^ self count: #isFailure
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleGroup >> numberOfFailuresAndErrors [
 	^ self count: [ :eachExample | eachExample isFailure or: [ eachExample isError ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleGroup >> numberOfResults [
 	^ self count: [ :eachExample | eachExample hasResult ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleGroup >> numberOfSuccesses [
 	^ self count: [ :eachExample | eachExample isSuccess ]
 ]
 
-{ #category : #'accessing - dynamic' }
+{ #category : 'accessing - dynamic' }
 GtExampleGroup >> results [
 	^ self collect:  [ :example | example run ]
 ]
 
-{ #category : #'accessing - dynamic' }
+{ #category : 'accessing - dynamic' }
 GtExampleGroup >> returnValues [
 	^ self results collect: [ :result | result returnValue ]
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 GtExampleGroup >> runAll [
 	self examples 
 		do: [ :eachExampleWithResult | 
@@ -279,7 +279,7 @@ GtExampleGroup >> runAll [
 	self announcer announce: (GtExamplesExecuted new group: self).
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 GtExampleGroup >> runNotYetExecuted [
 	self examples 
 		do: [ :each | 
@@ -288,17 +288,17 @@ GtExampleGroup >> runNotYetExecuted [
 		displayingProgress: 'Running examples ...'.
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GtExampleGroup >> select: aBlock [
 	^ self class withAll: (self examples select: aBlock)
 ]
 
-{ #category : #'accessing - dynamic' }
+{ #category : 'accessing - dynamic' }
 GtExampleGroup >> skippedExamples [
 	^ self examples reject: [ :eachExample | eachExample hasResult ]
 ]
 
-{ #category : #'accessing - dynamic' }
+{ #category : 'accessing - dynamic' }
 GtExampleGroup >> successfulExamples [
 	^ self examples select: [ :eachExample | eachExample isSuccess ]
 ]

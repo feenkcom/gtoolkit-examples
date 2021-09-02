@@ -1,6 +1,6 @@
 Class {
-	#name : #GtExampleEvaluationContext,
-	#superclass : #Object,
+	#name : 'GtExampleEvaluationContext',
+	#superclass : 'Object',
 	#instVars : [
 		'arguments',
 		'provider'
@@ -8,22 +8,22 @@ Class {
 	#category : 'GToolkit-Examples-Core'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleEvaluationContext >> arguments [
 	^ arguments
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleEvaluationContext >> arguments: anObject [
 	arguments := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleEvaluationContext >> provider [
 	^ provider
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleEvaluationContext >> provider: anObject [
 	provider := anObject
 ]

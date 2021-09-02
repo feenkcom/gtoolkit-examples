@@ -4,22 +4,22 @@ I encapsulate an icon for an example. My subclasses should decide how the icon i
 
 "
 Class {
-	#name : #GtExampleIcon,
-	#superclass : #GtExampleAspect,
+	#name : 'GtExampleIcon',
+	#superclass : 'GtExampleAspect',
 	#category : 'GToolkit-Examples-Organization'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleIcon class >> isAbstract [
 	^ self == GtExampleIcon
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleIcon >> basicForm [ 
 	^ self subclassResponsibility
 ]
 
-{ #category : #'accessing-dynamic' }
+{ #category : 'accessing-dynamic' }
 GtExampleIcon >> form [ 
 	"I return the icon created by the associated method."
 	^ self exists
@@ -27,7 +27,7 @@ GtExampleIcon >> form [
 		ifFalse: [ nil ]
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtExampleIcon >> gtInspectorFormIn: composite [
 	<gtInspectorPresentationOrder: 0>
 	self exists ifFalse: [ ^ self ].

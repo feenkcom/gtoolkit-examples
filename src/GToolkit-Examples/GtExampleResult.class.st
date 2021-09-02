@@ -17,8 +17,8 @@ I keep track of the
 
 "
 Class {
-	#name : #GtExampleResult,
-	#superclass : #Object,
+	#name : 'GtExampleResult',
+	#superclass : 'Object',
 	#instVars : [
 		'example',
 		'context',
@@ -28,12 +28,12 @@ Class {
 	#category : 'GToolkit-Examples-Core'
 }
 
-{ #category : #exceptions }
+{ #category : 'exceptions' }
 GtExampleResult class >> failure [
 	^ AssertionFailure
 ]
 
-{ #category : #exceptions }
+{ #category : 'exceptions' }
 GtExampleResult class >> signalableExceptions [
 	"I return the set of exceptions that are captured by the evaluator and cause an example to fail."
 	^ ExceptionSet new ,
@@ -43,7 +43,7 @@ GtExampleResult class >> signalableExceptions [
 		Deprecation"
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtExampleResult >> color [
 	<return: #Color>
 	self isSuccess ifTrue: [ ^ Color fromHexString: #'95de64' ].
@@ -52,43 +52,43 @@ GtExampleResult >> color [
 	^ Color fromHexString: #'f0f0f0'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleResult >> context [
 	^ context
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleResult >> context: anObject [
 	context := anObject
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 GtExampleResult >> debug [
 	self isSuccess ifTrue: [ ^ self ].
 	^ self example debug
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleResult >> example [
 	^ example
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleResult >> example: anObject [
 	example := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleResult >> exampleException [
 	^ exception
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleResult >> exampleException: anException [
 	exception := anException
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtExampleResult >> gtDisplayOn: aStream [
 	self example gtDisplayOn: aStream. 
 	
@@ -98,7 +98,7 @@ GtExampleResult >> gtDisplayOn: aStream [
 		aStream nextPutAll: ']' ]
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtExampleResult >> gtDisplayValidityOn: aStream [
 	self isSuccess ifTrue: [ ^ self ].
 	
@@ -107,18 +107,18 @@ GtExampleResult >> gtDisplayValidityOn: aStream [
 	aStream nextPutAll: ']'
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleResult >> hasException [
 	^ self exampleException notNil
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleResult >> hasProblems [
 	^ self example hasProblems
 		or: [ self hasException ]
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtExampleResult >> icon [
 	<return: #Form>
 	self isSuccess ifTrue: [ ^ ThemeIcons current iconNamed: #testGreen ].
@@ -126,49 +126,49 @@ GtExampleResult >> icon [
 	^ ThemeIcons current iconNamed: #testNotRun
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleResult >> isError [
 	^ self isSuccess not
 		and: [ self hasException
 			and: [ (self exampleException isKindOf: self class failure) not ] ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleResult >> isFailure [
 	^ self isSuccess not
 		and: [ self hasException
 			and: [ self exampleException isKindOf: self class failure ] ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleResult >> isSuccess [
 	^ self exampleException isNil
 		and: [ self example hasProblems not ]
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 GtExampleResult >> openDebugger [
 	^ self example openDebugger
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleResult >> returnValue [
 	^ returnValue
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleResult >> returnValue: anObject [
 	returnValue := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleResult >> returnValueOrExampleException [
 	^ self hasException 
 		ifTrue: [ self exampleException ] 
 		ifFalse: [ self returnValue ]
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 GtExampleResult >> run [
 	^ self example run
 ]

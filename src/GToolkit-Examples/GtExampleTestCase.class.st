@@ -6,20 +6,20 @@ Subclasses can specify the packages from which I should collect the examples and
 
 "
 Class {
-	#name : #GtExampleTestCase,
-	#superclass : #TestCase,
+	#name : 'GtExampleTestCase',
+	#superclass : 'TestCase',
 	#instVars : [
 		'result'
 	],
 	#category : 'GToolkit-Examples-Testing'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleTestCase class >> isAbstract [
 	^ self name = #GTExampleTestCase
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleTestCase >> package: package matchesPackagePattern: packageName [
 	^ package packageName = packageName
 		or: [ (packageName match: package packageName) 
@@ -28,12 +28,12 @@ GtExampleTestCase >> package: package matchesPackagePattern: packageName [
 						do: [ false ] ] ]
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 GtExampleTestCase >> packageNames [
 	^ {  }
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleTestCase >> packages: aCollection [
 	| packages |
 	packages := OrderedCollection new.
@@ -44,19 +44,19 @@ GtExampleTestCase >> packages: aCollection [
 	^ packages
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleTestCase >> run: aResult [
 	result := aResult.
 	[ super run: aResult ] ensure: [ result := nil ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleTestCase >> runCase [
 	result ifNil: [ result := self classForTestResult new " fake for debug runner " ].
 	super runCase. 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleTestCase >> runExample: example [
 	" this is not the testing tool we have in mind, but a temporary solution to integrate examples into the currently existing testing tools "
 	| exampleResult |
@@ -69,7 +69,7 @@ GtExampleTestCase >> runExample: example [
 	^ exampleResult
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleTestCase >> runExampleContainers: aCollection [
 	| allExamples |
 	(allExamples := aCollection gather: [ :container | container gtExamplesContained ])
@@ -77,7 +77,7 @@ GtExampleTestCase >> runExampleContainers: aCollection [
 		displayingProgress: 'Running ' , allExamples size asString , ' Examples'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtExampleTestCase >> testExamples [
 	" default testcase "
 	self runExampleContainers: (self packages: self packageNames)

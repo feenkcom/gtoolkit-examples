@@ -4,19 +4,19 @@ I encalsulate a method that needs to be executed after an example was run. I pro
 
 "
 Class {
-	#name : #GtExampleMethodAfter,
-	#superclass : #GtAbstractExampleMethod,
+	#name : 'GtExampleMethodAfter',
+	#superclass : 'GtAbstractExampleMethod',
 	#category : 'GToolkit-Examples-Organization'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleMethodAfter >> exists [
 	^ self methodClassName notNil
 		and: [ self methodClass notNil
 			and: [ (self methodClass whichClassIncludesSelector: self selector) notNil ] ]
 ]
 
-{ #category : #'accessing-dynamic' }
+{ #category : 'accessing-dynamic' }
 GtExampleMethodAfter >> method [
 	^ self exists 
 		ifTrue: [

@@ -6,8 +6,8 @@ To determine if a message send represents a dependency to a method containing an
 
 "
 Class {
-	#name : #GtExampleDependenciesResolver,
-	#superclass : #Object,
+	#name : 'GtExampleDependenciesResolver',
+	#superclass : 'Object',
 	#instVars : [
 		'resolvers'
 	],
@@ -17,33 +17,33 @@ Class {
 	#category : 'GToolkit-Examples-Organization'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleDependenciesResolver class >> default [
 	^ instance ifNil: [ instance := self new ]
 ]
 
-{ #category : #cleanup }
+{ #category : 'cleanup' }
 GtExampleDependenciesResolver class >> reset [
 	instance := nil
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 GtExampleDependenciesResolver class >> resolveDependenciesForExample: anExample [
 	^ self default resolveDependenciesForExample: anExample
 ]
 
-{ #category : #'system startup' }
+{ #category : 'system startup' }
 GtExampleDependenciesResolver class >> startUp [
 
 	self reset
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleDependenciesResolver >> dependencyResolvers [
 	^ resolvers
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtExampleDependenciesResolver >> initialize [
 	super initialize.
 	resolvers := { 
@@ -52,7 +52,7 @@ GtExampleDependenciesResolver >> initialize [
 		GtExampleExternalDependencyResolver new }
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 GtExampleDependenciesResolver >> resolveDependenciesForExample: anExample [
 	| exampleDependencies |
 	
@@ -69,7 +69,7 @@ GtExampleDependenciesResolver >> resolveDependenciesForExample: anExample [
 	^ exampleDependencies
 ]
 
-{ #category : #'private - iterating' }
+{ #category : 'private - iterating' }
 GtExampleDependenciesResolver >> withExampleFrom: anASTNode fromMethod: aCompiledMethod ifPresentDo: anActionBlock [
 	self dependencyResolvers 
 		detect: [ :aResolver | aResolver appliesTo: anASTNode ]
