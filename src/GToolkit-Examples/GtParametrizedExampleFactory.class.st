@@ -1,20 +1,20 @@
 Class {
-	#name : #GtParametrizedExampleFactory,
-	#superclass : #GtExampleFactory,
-	#category : #'GToolkit-Examples-Organization'
+	#name : 'GtParametrizedExampleFactory',
+	#superclass : 'GtExampleFactory',
+	#category : 'GToolkit-Examples-Organization'
 }
 
-{ #category : #'accessing-defaults' }
+{ #category : 'accessing-defaults' }
 GtParametrizedExampleFactory >> defaultExampleClass [
 	^ GtParametrizedExample
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtParametrizedExampleFactory >> isExampleMethod: aCompiledMethod [
 	^ self isGtParametrizedExampleMethod: aCompiledMethod 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtParametrizedExampleFactory >> isGtParametrizedExampleMethod: aCompiledMethod [ 
 	^ aCompiledMethod isGTParametrizedExampleMethod
 ]

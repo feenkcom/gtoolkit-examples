@@ -11,21 +11,21 @@ I maintain a context that can be accessed from within the examples being process
 
 "
 Class {
-	#name : #GtExampleProcessor,
-	#superclass : #Object,
+	#name : 'GtExampleProcessor',
+	#superclass : 'Object',
 	#instVars : [
 		'example',
 		'context'
 	],
-	#category : #'GToolkit-Examples-Runtime'
+	#category : 'GToolkit-Examples-Runtime'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleProcessor >> basicProcess: anExample [ 
 	^ self subclassResponsibility
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtExampleProcessor >> canProcess [
 	"I verify if this processor can execute on the given example. I do this by running the processor
 	and checking if any example-specific specific is raised. Such exceptions indicate a problem with
@@ -37,45 +37,45 @@ GtExampleProcessor >> canProcess [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleProcessor >> context [
 	^ context
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleProcessor >> context: anObject [
 	^ context := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleProcessor >> example [
 	^ example
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleProcessor >> example: anObject [
 	example := anObject
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtExampleProcessor >> initialize [
 	super initialize.
 	context := GtExampleRuntimeContext new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleProcessor >> process: anExample [
 	<return: #GtExampleResult>
 	^ self basicProcess: anExample
 ]
 
-{ #category : #public }
+{ #category : 'public' }
 GtExampleProcessor >> value [ 
 	<return: #GtExampleResult>
 	^ self withContextDo: [ self process: self example ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleProcessor >> withContextDo: aBlock [
 	^ GtCurrentExampleContext use: context during: aBlock
 ]

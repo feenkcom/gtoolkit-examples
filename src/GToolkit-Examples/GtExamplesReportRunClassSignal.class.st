@@ -1,34 +1,34 @@
 Class {
-	#name : #GtExamplesReportRunClassSignal,
-	#superclass : #GtExamplesReportSignal,
+	#name : 'GtExamplesReportRunClassSignal',
+	#superclass : 'GtExamplesReportSignal',
 	#instVars : [
 		'exampleClass',
 		'amountOfExamples'
 	],
-	#category : #'GToolkit-Examples-Testing'
+	#category : 'GToolkit-Examples-Testing'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExamplesReportRunClassSignal >> amountOfExamples [
 	^ amountOfExamples
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExamplesReportRunClassSignal >> amountOfExamples: anObject [
 	amountOfExamples := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExamplesReportRunClassSignal >> exampleClass [
 	^ exampleClass
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExamplesReportRunClassSignal >> exampleClass: anObject [
 	exampleClass := anObject
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GtExamplesReportRunClassSignal >> printOneLineOn: aStream [		
 	aStream
 		nextPutAll: 'Run ';

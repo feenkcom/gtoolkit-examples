@@ -1,23 +1,23 @@
 Class {
-	#name : #GtExampleOpenDebugger,
-	#superclass : #GtExampleEvaluator,
+	#name : 'GtExampleOpenDebugger',
+	#superclass : 'GtExampleEvaluator',
 	#instVars : [
 		'callback'
 	],
-	#category : #'GToolkit-Examples-Runtime'
+	#category : 'GToolkit-Examples-Runtime'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleOpenDebugger >> callback [
 	^ callback
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtExampleOpenDebugger >> callback: aValuable [
 	callback := aValuable
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleOpenDebugger >> callbackWithExample: anExample result: anObject [
 	| anExampleResult |
 	anExampleResult := self newResultFor: self example.
@@ -25,18 +25,18 @@ GtExampleOpenDebugger >> callbackWithExample: anExample result: anObject [
 	self callback cull: anExampleResult
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtExampleOpenDebugger >> do: aBlock on: anException do: anotherBlock [
 	aBlock value
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtExampleOpenDebugger >> initialize [
 	super initialize.
 	callback := [ :anExampleResult | "do nothing" ]
 ]
 
-{ #category : #primitives }
+{ #category : 'primitives' }
 GtExampleOpenDebugger >> primitiveProcessExample: anExample withEvaluationContext: anEvaluationContext [
 	| aCompiledMethod aProcess aContext aDebugSession |
 	aCompiledMethod := anExample method.
