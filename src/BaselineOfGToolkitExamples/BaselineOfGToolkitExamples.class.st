@@ -9,24 +9,24 @@ Learn about example-driven development by following the introductory tutorial:
 
 "
 Class {
-	#name : 'BaselineOfGToolkitExamples',
-	#superclass : 'BaselineOf',
-	#category : 'BaselineOfGToolkitExamples'
+	#name : #BaselineOfGToolkitExamples,
+	#superclass : #BaselineOf,
+	#category : #BaselineOfGToolkitExamples
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 BaselineOfGToolkitExamples class >> itself [
 	<gtExample>
 	^ self
 ]
 
-{ #category : 'baseline' }
+{ #category : #baseline }
 BaselineOfGToolkitExamples >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
 		spec
 			baseline: 'GToolkitExamplesEngine' with: [
-				spec repository: 'github://feenkcom/gtoolkit-examples:v0.8.33/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-examples:v0.8.34/src' ].
 
 		spec package: 'GToolkit-Examples-Dummies' with: [
 			spec requires: #('GToolkitExamplesEngine') ].
