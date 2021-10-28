@@ -4,20 +4,20 @@ I am an abstract error related to the way the pragmas are used within an example
 
 "
 Class {
-	#name : 'GtExamplePragmaError',
-	#superclass : 'GtExampleError',
+	#name : #GtExamplePragmaError,
+	#superclass : #GtExampleError,
 	#instVars : [
 		'pragma'
 	],
 	#category : 'GToolkit-Examples-Exceptions'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExamplePragmaError >> pragma [
 	^ pragma
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExamplePragmaError >> pragma: anObject [
 	pragma := anObject
 ]

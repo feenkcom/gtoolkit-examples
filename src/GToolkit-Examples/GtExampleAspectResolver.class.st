@@ -4,8 +4,8 @@ I provide support for locationg aspects used by an example.
 
 "
 Class {
-	#name : 'GtExampleAspectResolver',
-	#superclass : 'Object',
+	#name : #GtExampleAspectResolver,
+	#superclass : #Object,
 	#instVars : [
 		'example',
 		'meta',
@@ -14,17 +14,17 @@ Class {
 	#category : 'GToolkit-Examples-Organization'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleAspectResolver >> aspectClass [
 	^ aspectClass
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleAspectResolver >> aspectClass: anObject [
 	aspectClass := anObject
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GtExampleAspectResolver >> ensureClass: aClass [
 	(aClass isMeta not and: [ self meta ]) 
 		ifTrue: [ ^ aClass class " be nice " ].
@@ -34,22 +34,22 @@ GtExampleAspectResolver >> ensureClass: aClass [
 	^ aClass
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleAspectResolver >> example [
 	^ example
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleAspectResolver >> example: anObject [
 	example := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleAspectResolver >> meta [
 	^ meta
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleAspectResolver >> meta: anObject [
 	meta := anObject
 ]

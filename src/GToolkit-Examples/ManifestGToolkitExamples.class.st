@@ -4,11 +4,11 @@ I store metadata for this package. These meta data are used by other tools such 
 
 "
 Class {
-	#name : 'ManifestGToolkitExamples',
-	#superclass : 'PackageManifest',
+	#name : #ManifestGToolkitExamples,
+	#superclass : #PackageManifest,
 	#category : 'GToolkit-Examples-Manifest'
 }
 
-{ #category : 'meta-data' }
+{ #category : #'meta-data' }
 ManifestGToolkitExamples class >> description [ ^ 'I contain the code implementation of the Gtoolkit Examples engine.'
 ]

@@ -1,6 +1,6 @@
-Extension { #name : 'CompiledBlock' }
+Extension { #name : #CompiledBlock }
 
-{ #category : '*GToolkit-Examples-Core' }
+{ #category : #'*GToolkit-Examples-Core' }
 CompiledBlock >> gtExample [
 	^ nil
 ]

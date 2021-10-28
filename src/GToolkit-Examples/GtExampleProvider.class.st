@@ -8,8 +8,8 @@ NOTE: Use {{gtClass:TGtExampleAssertable}} instead.
 
 "
 Class {
-	#name : 'GtExampleProvider',
-	#superclass : 'Object',
+	#name : #GtExampleProvider,
+	#superclass : #Object,
 	#traits : 'TGtExampleAssertable',
 	#classTraits : 'TGtExampleAssertable classTrait',
 	#category : 'GToolkit-Examples-Core'

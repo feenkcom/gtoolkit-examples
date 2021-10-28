@@ -5,8 +5,8 @@ I represent an error that occurs when we have cycles in static example dependenc
 
 "
 Class {
-	#name : 'GtExampleRecursionDetected',
-	#superclass : 'GtExampleError',
+	#name : #GtExampleRecursionDetected,
+	#superclass : #GtExampleError,
 	#instVars : [
 		'resolved',
 		'next'
@@ -14,22 +14,22 @@ Class {
 	#category : 'GToolkit-Examples-Exceptions'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleRecursionDetected >> next [
 	^ next
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleRecursionDetected >> next: anObject [
 	next := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleRecursionDetected >> resolved [
 	^ resolved
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleRecursionDetected >> resolved: anObject [
 	resolved := anObject
 ]

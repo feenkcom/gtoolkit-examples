@@ -1,10 +1,10 @@
 Class {
-	#name : 'GtExampleExecuted',
-	#superclass : 'GtExampleAnnouncement',
+	#name : #GtExampleExecuted,
+	#superclass : #GtExampleAnnouncement,
 	#category : 'GToolkit-Examples-Announcements'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleExecuted >> result [
 	<return: #GtExampleResult>
 	^ self example result
