@@ -1,6 +1,6 @@
 Class {
-	#name : 'GtExamplesReportExceptionSignal',
-	#superclass : 'GtExamplesReportSignal',
+	#name : #GtExamplesReportExceptionSignal,
+	#superclass : #GtExamplesReportSignal,
 	#instVars : [
 		'error',
 		'message'
@@ -8,17 +8,17 @@ Class {
 	#category : 'GToolkit-Examples-Testing'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExamplesReportExceptionSignal >> error: theError [
 	error := theError
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExamplesReportExceptionSignal >> message: aMessage [
 	message := aMessage
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExamplesReportExceptionSignal >> printOneLineOn: aStream [		
 	aStream
 		nextPutAll: 'Error ';

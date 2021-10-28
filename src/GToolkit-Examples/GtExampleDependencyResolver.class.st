@@ -4,17 +4,17 @@ I define a heuristic for determining if a given AST node represents a dependency
 
 "
 Class {
-	#name : 'GtExampleDependencyResolver',
-	#superclass : 'Object',
+	#name : #GtExampleDependencyResolver,
+	#superclass : #Object,
 	#category : 'GToolkit-Examples-Organization'
 }
 
-{ #category : 'testing' }
+{ #category : #testing }
 GtExampleDependencyResolver >> appliesTo: anASTNode [
 	self subclassResponsibility
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GtExampleDependencyResolver >> exampleFromMethod: aMethod [
 	self flag: 'figure out how to remove the if statements'.
 	^ aMethod isGTExampleMethod 
@@ -24,7 +24,7 @@ GtExampleDependencyResolver >> exampleFromMethod: aMethod [
 			ifFalse: [ nil ] ]
 ]
 
-{ #category : 'action' }
+{ #category : #action }
 GtExampleDependencyResolver >> posibleExampleForNode: aMessageNode fromMethod: aCompiledMethod [
 	self subclassResponsibility
 ]

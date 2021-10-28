@@ -1,19 +1,19 @@
 Class {
-	#name : 'GtExampleAnnouncement',
-	#superclass : 'Announcement',
+	#name : #GtExampleAnnouncement,
+	#superclass : #Announcement,
 	#instVars : [
 		'example'
 	],
 	#category : 'GToolkit-Examples-Announcements'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleAnnouncement >> example [
 	<return: #GtExampleWithResult>
 	^ example
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleAnnouncement >> example: aGtExampleWithResult [
 	self 
 		assert: [ aGtExampleWithResult isNotNil ] 
@@ -21,13 +21,13 @@ GtExampleAnnouncement >> example: aGtExampleWithResult [
 	example := aGtExampleWithResult
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GtExampleAnnouncement >> hasResult [
 	<return: #Boolean>
 	^ self example hasResult
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleAnnouncement >> returnValue [
 	^ self example returnValue
 ]

@@ -1,6 +1,6 @@
-Extension { #name : 'MemoryFileWriteStream' }
+Extension { #name : #MemoryFileWriteStream }
 
-{ #category : '*GToolkit-Examples' }
+{ #category : #'*GToolkit-Examples' }
 MemoryFileWriteStream >> position: anInteger [ 
 	self stream position: anInteger
 ]

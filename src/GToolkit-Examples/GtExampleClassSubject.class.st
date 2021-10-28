@@ -4,8 +4,8 @@ I describe a class subject of an example.
 
 "
 Class {
-	#name : 'GtExampleClassSubject',
-	#superclass : 'GtExampleSubject',
+	#name : #GtExampleClassSubject,
+	#superclass : #GtExampleSubject,
 	#instVars : [
 		'theClassName',
 		'theClass',
@@ -14,7 +14,7 @@ Class {
 	#category : 'GToolkit-Examples-Subjects'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GtExampleClassSubject class >> fromClass: aClass [
 	^ self new 
 		theClass: aClass;
@@ -23,7 +23,7 @@ GtExampleClassSubject class >> fromClass: aClass [
 		yourself
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GtExampleClassSubject class >> fromClassNamed: aString [
 	^ self new 
 		theClass: nil;
@@ -32,7 +32,7 @@ GtExampleClassSubject class >> fromClassNamed: aString [
 		yourself
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GtExampleClassSubject class >> fromMetaClassNamed: aString [
 	^ self new 
 		theClass: nil;
@@ -41,13 +41,13 @@ GtExampleClassSubject class >> fromMetaClassNamed: aString [
 		yourself
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GtExampleClassSubject >> = anExampleSubject [
 	^ self class = anExampleSubject class
 		and: [ self theClassName = anExampleSubject theClassName ]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GtExampleClassSubject >> classResolverClass [
 	^ GtExampleClassResolver new 
 		theClassName: self theClassName;
@@ -55,65 +55,65 @@ GtExampleClassSubject >> classResolverClass [
 		yourself
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GtExampleClassSubject >> exists [
 	^ self theClass notNil
 ]
 
-{ #category : 'ui' }
+{ #category : #ui }
 GtExampleClassSubject >> gtDisplayOn: aStream [
 	self theClassName gtDisplayOn: aStream.
 	self gtDisplayValidityOn: aStream
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GtExampleClassSubject >> hasLiteralThorough: aLiteral [
 	^ self theClassName = aLiteral
 		or: [ self exists 
 			and: [ self theClass = aLiteral ] ]
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GtExampleClassSubject >> hash [
 	^ self class hash
 		bitXor: self theClassName hash
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleClassSubject >> meta [
 	^ meta
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleClassSubject >> meta: anObject [
 	meta := anObject
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GtExampleClassSubject >> resolveClass [
 	" an aspect might reference a class not being present in the system - it has to be resolved again in this case "
 	^ self classResolverClass theClassDo: [ :class | class ] ifNone: [ nil ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleClassSubject >> theClass [
 	^ theClass ifNil: [ theClass := self resolveClass ]
 		
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleClassSubject >> theClass: anObject [
 	anObject ifNotNil: [ self theClassName: anObject name ].
 	theClass := anObject.
 	
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleClassSubject >> theClassName [
 	^ theClassName
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtExampleClassSubject >> theClassName: anObject [
 	theClassName := anObject
 ]
