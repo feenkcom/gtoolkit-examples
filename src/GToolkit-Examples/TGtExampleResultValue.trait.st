@@ -9,9 +9,10 @@ Trait {
 }
 
 { #category : #'api - converting' }
-TGtExampleResultValue >> asGtExampleResultValue [
+TGtExampleResultValue >> asGtExampleResultPreviewElement [
 
-	^ self
+	^ ((GtInspector forObject: self value) exact: 400 @ 400)
+		  asScalableElement size: 200 @ 200
 ]
 
 { #category : #'api - accessing' }

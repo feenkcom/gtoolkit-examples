@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'callback'
 	],
-	#category : 'GToolkit-Examples-Runtime'
+	#category : #'GToolkit-Examples-Runtime'
 }
 
 { #category : #accessing }
@@ -21,7 +21,7 @@ GtExampleOpenDebugger >> callback: aValuable [
 GtExampleOpenDebugger >> callbackWithExample: anExample result: anObject [
 	| anExampleResult |
 	anExampleResult := self newResultFor: self example.
-	anExampleResult returnValue: anObject.
+	anExampleResult successValue: anObject.
 	self callback cull: anExampleResult
 ]
 

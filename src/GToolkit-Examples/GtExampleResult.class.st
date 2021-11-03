@@ -43,6 +43,12 @@ GtExampleResult class >> signalableExceptions [
 ]
 
 { #category : #ui }
+GtExampleResult >> asGtExampleResultPreviewElement [
+
+	^ returnValue asGtExampleResultPreviewElement
+]
+
+{ #category : #ui }
 GtExampleResult >> color [
 
 	<return: #Color>
@@ -176,7 +182,7 @@ GtExampleResult >> returnValue [
 { #category : #accessing }
 GtExampleResult >> returnValue: aGtExampleResultValue [
 
-	returnValue := aGtExampleResultValue asGtExampleResultValue
+	returnValue := aGtExampleResultValue
 ]
 
 { #category : #accessing }
@@ -194,4 +200,10 @@ GtExampleResult >> returnValueOrExampleException [
 { #category : #actions }
 GtExampleResult >> run [
 	^ self example run
+]
+
+{ #category : #accessing }
+GtExampleResult >> successValue: anObject [
+
+	self returnValue: (GtExampleResultSuccessValue new value: anObject)
 ]
