@@ -5,6 +5,12 @@ Object >> asGTExampleSubject [
 	^ self class gtExamplesFactoryClass instanceSubjectFromObject: self
 ]
 
+{ #category : #'*GToolkit-Examples' }
+Object >> asGtExampleResultValue [
+
+	^ GtExampleResultSuccessValue new value: self
+]
+
 { #category : #'*GToolkit-Examples-Core' }
 Object >> assert: actual equals: expected [
 	self

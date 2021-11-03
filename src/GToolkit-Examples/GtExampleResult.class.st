@@ -22,10 +22,9 @@ Class {
 	#instVars : [
 		'example',
 		'context',
-		'returnValue',
-		'exception'
+		'returnValue'
 	],
-	#category : 'GToolkit-Examples-Core'
+	#category : #'GToolkit-Examples-Core'
 }
 
 { #category : #exceptions }
@@ -45,11 +44,9 @@ GtExampleResult class >> signalableExceptions [
 
 { #category : #ui }
 GtExampleResult >> color [
+
 	<return: #Color>
-	self isSuccess ifTrue: [ ^ Color fromHexString: #'95de64' ].
-	self isFailure ifTrue: [ ^ Color fromHexString: #ffd666 ].
-	self isError ifTrue: [ ^ Color fromHexString: #ff7875 ].
-	^ Color fromHexString: #'f0f0f0'
+	^ returnValue color
 ]
 
 { #category : #accessing }
@@ -79,37 +76,42 @@ GtExampleResult >> example: anObject [
 ]
 
 { #category : #accessing }
-GtExampleResult >> exampleException [
-	^ exception
-]
-
-{ #category : #accessing }
 GtExampleResult >> exampleException: anException [
-	exception := anException
+
+	(anException isKindOf: self class failure)
+		ifTrue: [ 
+			self returnValue:
+				(GtExampleResultFailureValue new failure: anException) ]
+		ifFalse: [ 
+			self returnValue:
+				(GtExampleResultErrorValue new exception: anException) ]
 ]
 
 { #category : #ui }
 GtExampleResult >> gtDisplayOn: aStream [
-	self example gtDisplayOn: aStream. 
-	
-	self exampleException ifNotNil: [ 
+
+	self example gtDisplayOn: aStream.
+
+	returnValue ifNotNil: [ 
 		aStream nextPutAll: ' ['.
-		self exampleException gtDisplayOn: aStream.
+		self returnValue gtDisplayOn: aStream.
 		aStream nextPutAll: ']' ]
 ]
 
 { #category : #ui }
 GtExampleResult >> gtDisplayValidityOn: aStream [
+
 	self isSuccess ifTrue: [ ^ self ].
-	
+
 	aStream nextPutAll: ' ['.
-	self exampleException gtDisplayOn: aStream.
+	self returnValue gtDisplayOn: aStream.
 	aStream nextPutAll: ']'
 ]
 
 { #category : #testing }
 GtExampleResult >> hasException [
-	^ self exampleException notNil
+
+	^ self isFailure or: [ self isError ]
 ]
 
 { #category : #testing }
@@ -120,30 +122,35 @@ GtExampleResult >> hasProblems [
 
 { #category : #ui }
 GtExampleResult >> icon [
+
 	<return: #Form>
-	self isSuccess ifTrue: [ ^ ThemeIcons current iconNamed: #testGreen ].
-	(self isError or: [ self isFailure ]) ifTrue: [ ^ ThemeIcons current iconNamed: #testRed ].
-	^ ThemeIcons current iconNamed: #testNotRun
+	^ returnValue iconForm
+]
+
+{ #category : #initialization }
+GtExampleResult >> initialize [
+
+	super initialize.
+
+	returnValue := GtExampleResultNoValue uniqueInstance
 ]
 
 { #category : #testing }
 GtExampleResult >> isError [
-	^ self isSuccess not
-		and: [ self hasException
-			and: [ (self exampleException isKindOf: self class failure) not ] ]
+
+	^ returnValue isError
 ]
 
 { #category : #testing }
 GtExampleResult >> isFailure [
-	^ self isSuccess not
-		and: [ self hasException
-			and: [ self exampleException isKindOf: self class failure ] ]
+
+	^ returnValue isFailure
 ]
 
 { #category : #testing }
 GtExampleResult >> isSuccess [
-	^ self exampleException isNil
-		and: [ self example hasProblems not ]
+
+	^ returnValue isSuccess and: [ self example hasProblems not ]
 ]
 
 { #category : #actions }
@@ -152,20 +159,36 @@ GtExampleResult >> openDebugger [
 ]
 
 { #category : #accessing }
-GtExampleResult >> returnValue [
+GtExampleResult >> returnInstance [
+
+	<return: #TGtExampleResultValue>
 	^ returnValue
 ]
 
 { #category : #accessing }
-GtExampleResult >> returnValue: anObject [
-	returnValue := anObject
+GtExampleResult >> returnValue [
+
+	"Return an example execution result value, e.g., success value or exception"
+
+	^ returnValue value
+]
+
+{ #category : #accessing }
+GtExampleResult >> returnValue: aGtExampleResultValue [
+
+	returnValue := aGtExampleResultValue asGtExampleResultValue
 ]
 
 { #category : #accessing }
 GtExampleResult >> returnValueOrExampleException [
-	^ self hasException 
-		ifTrue: [ self exampleException ] 
-		ifFalse: [ self returnValue ]
+
+	self
+		deprecated: 'Please use #returnValue instead.'
+		transformWith:
+		'`@receiver returnValueOrExampleException'
+		-> '`@receiver returnValue'.
+
+	^ self returnValue
 ]
 
 { #category : #actions }

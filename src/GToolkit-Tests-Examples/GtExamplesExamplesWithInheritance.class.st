@@ -712,7 +712,7 @@ GtExamplesExamplesWithInheritance >> resultOfInvalidExampleWithInvalidSuperclass
 	self assert: result isError.
 	self assert: result isFailure not.
 	self assert: result isSuccess not.
-	self assert: result exampleException class equals: MessageNotUnderstood.
+	self assert: result returnValue class equals: MessageNotUnderstood.
 	^ result
 	
 ]

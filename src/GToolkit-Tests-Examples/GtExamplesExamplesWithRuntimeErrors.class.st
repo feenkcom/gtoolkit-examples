@@ -42,11 +42,10 @@ GtExamplesExamplesWithRuntimeErrors >> assertExpectedExceltionFor: anExampleResu
 	self assert: anExampleResult hasProblems description: 'A result with an exception has problems'.
 	self assert: anExampleResult hasException.
 	self assert: anExampleResult isSuccess not.
-	self assert: anExampleResult returnValue isNil.
+	self assert: anExampleResult returnValue notNil.
 	
-	self assert: anExampleResult exampleException notNil.
-	self assert: anExampleResult exampleException messageText equals: anErrorMessage.
-	self assert: anExampleResult exampleException class equals: anErrorClass.
+	self assert: anExampleResult returnValue messageText equals: anErrorMessage.
+	self assert: anExampleResult returnValue class equals: anErrorClass.
 ]
 
 { #category : #asserting }

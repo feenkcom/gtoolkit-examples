@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'result'
 	],
-	#category : 'GToolkit-Examples-Runtime'
+	#category : #'GToolkit-Examples-Runtime'
 }
 
 { #category : #private }
@@ -100,7 +100,6 @@ GtExampleEvaluator >> result [
 		do: [ :anException |
 			anException freeze. 
 			result := (self newResultFor: self example) 
-				returnValue: nil;
 				exampleException: anException ].
 	^ result
 ]
