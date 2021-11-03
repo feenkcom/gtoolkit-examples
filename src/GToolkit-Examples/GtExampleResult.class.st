@@ -43,12 +43,6 @@ GtExampleResult class >> signalableExceptions [
 ]
 
 { #category : #ui }
-GtExampleResult >> asGtExampleResultPreviewElement [
-
-	^ returnValue asGtExampleResultPreviewElement
-]
-
-{ #category : #ui }
 GtExampleResult >> color [
 
 	<return: #Color>

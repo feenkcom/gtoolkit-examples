@@ -8,13 +8,6 @@ Trait {
 	#category : #'GToolkit-Examples-Core'
 }
 
-{ #category : #'api - converting' }
-TGtExampleResultValue >> asGtExampleResultPreviewElement [
-
-	^ ((GtInspector forObject: self value) exact: 400 @ 400)
-		  asScalableElement size: 200 @ 200
-]
-
 { #category : #'api - accessing' }
 TGtExampleResultValue >> color [
 
