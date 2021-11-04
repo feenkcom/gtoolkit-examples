@@ -706,13 +706,13 @@ GtExamplesExamplesWithInheritance >> resultOfInvalidExampleWithInvalidSuperclass
 	<gtExample>
 	| result |
 	result := self invalidExampleWithInvalidSuperclassProvider result.
-	self assert: result returnValue equals: nil.
+	self assert: result returnValue isNotNil.
 	self assert: result hasException.
 	self assert: result hasProblems.
 	self assert: result isError.
 	self assert: result isFailure not.
 	self assert: result isSuccess not.
-	self assert: result exampleException class equals: MessageNotUnderstood.
+	self assert: result returnValue class equals: MessageNotUnderstood.
 	^ result
 	
 ]

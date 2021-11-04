@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'result'
 	],
-	#category : 'GToolkit-Examples-Runtime'
+	#category : #'GToolkit-Examples-Runtime'
 }
 
 { #category : #private }
@@ -22,7 +22,7 @@ GtExampleEvaluator >> basicProcess: anExample [
 	currentResult := self newResultFor: anExample.
 	anEvaluationContext := anExample evaluationContext.
 	
-	[ currentResult returnValue: (self primitiveProcessExample: anExample withEvaluationContext: anEvaluationContext) ] 
+	[ currentResult successValue: (self primitiveProcessExample: anExample withEvaluationContext: anEvaluationContext) ] 
 		ensure: [ 
 			self processAfter: anExample withDependencies: dependencies andEvaluationContext: anEvaluationContext ].
 	
@@ -100,7 +100,6 @@ GtExampleEvaluator >> result [
 		do: [ :anException |
 			anException freeze. 
 			result := (self newResultFor: self example) 
-				returnValue: nil;
 				exampleException: anException ].
 	^ result
 ]
