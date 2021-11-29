@@ -35,6 +35,10 @@ GtExamplesCommandLineHandler >> activate [
 	
 	(self hasOption: 'save')
 		ifTrue: [ Smalltalk saveSession ].
+		
+	((self hasOption: 'fail-on-no-tests-executed') 
+		and: [ theResults allSatisfy: #hasNoExecutedTestCases ])
+		ifTrue: [ ^ self exitFailure: 'No tests were executed!' ].
 	
 	((self hasOption: 'fail-on-failure') 
 		and: [ theResults anySatisfy: #hasFailuresOrErrors ])

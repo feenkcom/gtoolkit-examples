@@ -12,7 +12,7 @@ Class {
 		'failureCount',
 		'executedCount'
 	],
-	#category : 'GToolkit-Examples-Testing'
+	#category : #'GToolkit-Examples-Testing'
 }
 
 { #category : #private }
@@ -129,6 +129,16 @@ GtExamplesTestingHudsonReport >> hasErrors [
 { #category : #testing }
 GtExamplesTestingHudsonReport >> hasFailures [ 
 	^ self failureCount > 0
+]
+
+{ #category : #testing }
+GtExamplesTestingHudsonReport >> hasFailuresOrErrors [ 
+	^ self hasFailures or: [ self hasErrors ]
+]
+
+{ #category : #testing }
+GtExamplesTestingHudsonReport >> hasNoExecutedTestCases [
+	^ self executedCount isZero 
 ]
 
 { #category : #initialization }
