@@ -6,7 +6,7 @@ I create a Hudson report by running examples from a given list of packages. Apar
 Class {
 	#name : #GtExamplesHudsonReport,
 	#superclass : #GtExamplesTestingHudsonReport,
-	#category : 'GToolkit-Examples-Testing'
+	#category : #'GToolkit-Examples-Testing'
 }
 
 { #category : #running }
@@ -124,7 +124,7 @@ GtExamplesHudsonReport >> runExample: anExample [
 							stack := self stackTraceString: err of: anExample ] ] ].
 	
 	errorDetails ifNotNil: [
-		((errorDetails at: #errorClass) isKindOf: AssertionFailure)
+		((errorDetails at: #errorClass) includesBehavior: AssertionFailure)
 			ifTrue: [ self writeFailure: errorDetails stack: stack ]
 			ifFalse: [ self writeError: errorDetails stack: stack ] ].
 	
