@@ -77,6 +77,17 @@ GtExamplesHudsonReport >> fuelOutTheError: error of: anExample [
 	]
 ]
 
+{ #category : #running }
+GtExamplesHudsonReport >> initializeErrorDetails: errorDetails  forError: anError [
+	| errorMessage |
+	errorDetails at: #errorClass put: anError class.
+
+	errorMessage := anError messageText.
+	(errorMessage isNil or: [ errorMessage isEmpty ]) ifTrue: [ 
+		errorMessage := anError description ].
+	errorDetails at: #errorMessage put: errorMessage
+]
+
 { #category : #'accessing - test case' }
 GtExamplesHudsonReport >> loggingNameFor: anExample [
 	^ anExample gtDisplayString
@@ -99,35 +110,28 @@ GtExamplesHudsonReport >> resultsFileName [
 
 { #category : #running }
 GtExamplesHudsonReport >> runExample: anExample [
+
 	| errorDetails stack |
-	
 	GtExamplesReportRunExampleSignal new
 		example: anExample;
 		emit.
 
-	errorDetails := nil.	
-		
-	self
-		beginTestCase: anExample
-		runBlock: [
-			[ anExample debug ]
-				on: self signalableExceptions
-				do: [ :err | 
-					errorDetails := Dictionary new.
-					errorDetails at: #errorClass put: err class.
-					errorDetails
-						at: #errorMessage
-						put: (err messageText ifNil: [ err description ]).
-					
-					(anExample exceptions handles: err)
-						ifFalse: [ 
-							stack := self stackTraceString: err of: anExample ] ] ].
-	
-	errorDetails ifNotNil: [
+	errorDetails := nil.
+
+	self beginTestCase: anExample runBlock: [ 
+		[ anExample debug ]
+			on: self signalableExceptions
+			do: [ :err | 
+				errorDetails := Dictionary new.
+				self initializeErrorDetails: errorDetails forError: err.
+				(anExample exceptions handles: err) ifFalse: [ 
+					stack := self stackTraceString: err of: anExample ] ] ].
+
+	errorDetails ifNotNil: [ 
 		((errorDetails at: #errorClass) includesBehavior: AssertionFailure)
 			ifTrue: [ self writeFailure: errorDetails stack: stack ]
 			ifFalse: [ self writeError: errorDetails stack: stack ] ].
-	
+
 	self endTestCase
 ]
 
