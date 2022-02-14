@@ -32,6 +32,22 @@ GtExampleResult class >> failure [
 	^ AssertionFailure
 ]
 
+{ #category : #accessing }
+GtExampleResult class >> leJsonV4AttributeMapping [ 
+
+	^ { 
+		#exampleSton -> #example.
+		#context -> #context.
+		#basicReturnValue -> #returnValue.
+		}
+]
+
+{ #category : #accessing }
+GtExampleResult class >> leJsonV4Name [
+
+	^ #gtExampleResult
+]
+
 { #category : #exceptions }
 GtExampleResult class >> signalableExceptions [
 	"I return the set of exceptions that are captured by the evaluator and cause an example to fail."
@@ -40,6 +56,20 @@ GtExampleResult class >> signalableExceptions [
 		Error ,
 		TestFailure",
 		Deprecation"
+]
+
+{ #category : #'private - serialization' }
+GtExampleResult >> basicReturnValue [
+	"Answer the returnValue object for serialization"
+
+	^ returnValue
+]
+
+{ #category : #'private - serialization' }
+GtExampleResult >> basicReturnValue: aReturnValue [
+	"Set the returnValue object for serialization"
+
+	returnValue := aReturnValue
 ]
 
 { #category : #ui }
@@ -85,6 +115,19 @@ GtExampleResult >> exampleException: anException [
 		ifFalse: [ 
 			self returnValue:
 				(GtExampleResultErrorValue new exception: anException) ]
+]
+
+{ #category : #'private - serialization' }
+GtExampleResult >> exampleSton [
+
+	^ STON toString: example
+]
+
+{ #category : #'private - serialization' }
+GtExampleResult >> exampleSton: aString [
+
+	example := STON fromString: aString.
+
 ]
 
 { #category : #ui }

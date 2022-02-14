@@ -12,8 +12,22 @@ Class {
 		'announcer',
 		'ignoreAnnouncements'
 	],
-	#category : 'GToolkit-Examples-Core'
+	#category : #'GToolkit-Examples-Core'
 }
+
+{ #category : #jsonV3 }
+GtExampleGroup class >> leJsonV4AttributeMapping [ 
+
+	^ OrderedCollection new
+		add: #ignoreAnnouncements -> #ignoreAnnouncements;
+		yourself.
+]
+
+{ #category : #accessing }
+GtExampleGroup class >> leJsonV4Name [
+
+	^ #gtExampleGroup
+]
 
 { #category : #'instance creation' }
 GtExampleGroup class >> withAll: aCollection [
@@ -176,6 +190,17 @@ GtExampleGroup >> gtInspectorExamplesIn: composite [
 
 ]
 
+{ #category : #ui }
+GtExampleGroup >> gtItemsFor: aView [
+	"GtExampleGroup marks itself as a collection (see #isCollection), so needs to be able to display its items for other objects that want to forward the view"
+
+	^ aView forward
+		title: 'Examples';
+		priority: 50;
+		object: [ self examples ];
+		view: #gtItemsFor:
+]
+
 { #category : #accessing }
 GtExampleGroup >> gtPackagesFor: aView [ 
 	<gtView>
@@ -203,6 +228,12 @@ GtExampleGroup >> ifEmpty: aBlockClosure [
 GtExampleGroup >> ignoreAnnouncements [
 	<return: #Boolean>
 	^ ignoreAnnouncements
+]
+
+{ #category : #'private - serialization' }
+GtExampleGroup >> ignoreAnnouncements: anObject [
+
+	^ ignoreAnnouncements := anObject
 ]
 
 { #category : #'announcement handling' }

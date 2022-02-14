@@ -5,8 +5,23 @@ Class {
 		'exampleClass',
 		'examples'
 	],
-	#category : 'GToolkit-Examples-Core'
+	#category : #'GToolkit-Examples-Core'
 }
+
+{ #category : #jsonV3 }
+GtClassExampleGroup class >> leJsonV4AttributeMapping [
+
+	^ super leJsonV4AttributeMapping
+		add: #exampleClassName -> #exampleClassName;
+		add: #examples -> #examples;
+		yourself.
+]
+
+{ #category : #accessing }
+GtClassExampleGroup class >> leJsonV4Name [
+
+	^ #gtClassExampleGroup
+]
 
 { #category : #accessing }
 GtClassExampleGroup >> exampleClass [
@@ -19,9 +34,27 @@ GtClassExampleGroup >> exampleClass: aClass [
 	examples := exampleClass gtExamplesContained collect: [ :each | each asExampleWithResult ]
 ]
 
+{ #category : #'private - serialization' }
+GtClassExampleGroup >> exampleClassName [
+
+	^ exampleClass name
+]
+
+{ #category : #'private - serialization' }
+GtClassExampleGroup >> exampleClassName: aSymbol [
+
+	self exampleClass: aSymbol asSymbol asClass.
+]
+
 { #category : #accessing }
 GtClassExampleGroup >> examples [
 	^ examples
+]
+
+{ #category : #'private - serialization' }
+GtClassExampleGroup >> examples: aCollection [
+
+	examples := aCollection.
 ]
 
 { #category : #subscription }
