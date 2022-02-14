@@ -14,6 +14,20 @@ Class {
 	#category : #'GToolkit-Examples-Runtime'
 }
 
+{ #category : #jsonV3 }
+GtExampleWithResult class >> leJsonV4AttributeMapping [ 
+
+	^ { 
+		#simplifiedResult -> #result.
+	}
+]
+
+{ #category : #accessing }
+GtExampleWithResult class >> leJsonV4Name [ 
+
+	^ #gtExampleWithResult
+]
+
 { #category : #comparing }
 GtExampleWithResult >> = anExample [
 	^ self class = anExample class and: [ 
@@ -79,6 +93,19 @@ GtExampleWithResult >> example [
 { #category : #accessing }
 GtExampleWithResult >> example: anObject [
 	example := anObject
+]
+
+{ #category : #'private - serialization' }
+GtExampleWithResult >> exampleSton [
+
+	^ STON toString: example
+]
+
+{ #category : #'private - serialization' }
+GtExampleWithResult >> exampleSton: aString [
+
+	example := STON fromString: aString.
+
 ]
 
 { #category : #accessing }
@@ -254,6 +281,20 @@ GtExampleWithResult >> run [
 { #category : #accessing }
 GtExampleWithResult >> selector [
 	^ self example selector
+]
+
+{ #category : #'private - serialization' }
+GtExampleWithResult >> simplifiedResult [
+
+	result beSimplifiedExampleResultValue.
+	^ result
+]
+
+{ #category : #'private - serialization' }
+GtExampleWithResult >> simplifiedResult: aResultValue [
+
+	result := aResultValue.
+	example := aResultValue example.
 ]
 
 { #category : #accessing }

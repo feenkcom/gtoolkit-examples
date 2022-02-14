@@ -13,6 +13,20 @@ GtExplicitExampleGroup class >> gtExampleExplicitEmptyGroup [
 	^ self new examples: #()
 ]
 
+{ #category : #jsonV3 }
+GtExplicitExampleGroup class >> leJsonV4AttributeMapping [
+
+	^ super leJsonV4AttributeMapping
+		add: #examples -> #examples;
+		yourself.
+]
+
+{ #category : #accessing }
+GtExplicitExampleGroup class >> leJsonV4Name [
+
+	^ #gtExplicitExampleGroup
+]
+
 { #category : #accessing }
 GtExplicitExampleGroup >> examples [
 	^ examples
