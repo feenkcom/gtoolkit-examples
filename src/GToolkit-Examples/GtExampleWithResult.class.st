@@ -126,6 +126,17 @@ GtExampleWithResult >> gtDisplayOn: stream [
 ]
 
 { #category : #ui }
+GtExampleWithResult >> gtExampleFor: aView [
+	<gtView>
+	
+	^ aView forward
+		title: 'Example';
+		priority: 10;
+		object: [ example ];
+		view: #gtLiveFor:
+]
+
+{ #category : #ui }
 GtExampleWithResult >> gtInspectorActions [
 	^ super gtInspectorActions addAll: self example gtInspectorActions; yourself
 ]
@@ -135,6 +146,17 @@ GtExampleWithResult >> gtInspectorPresentationsIn: composite inContext: aGTInspe
 	"we collect all presentations from the wrapped example"
 	super gtInspectorPresentationsIn: composite inContext: aGTInspector.
 	self example gtInspectorPresentationsIn: composite inContext: aGTInspector
+]
+
+{ #category : #ui }
+GtExampleWithResult >> gtLiveFor: aView [
+	<gtView>
+	
+	^ aView forward
+		title: 'Result';
+		priority: 15;
+		object: [ result ];
+		view: #gtLiveFor:
 ]
 
 { #category : #testing }
@@ -286,7 +308,7 @@ GtExampleWithResult >> selector [
 { #category : #'private - serialization' }
 GtExampleWithResult >> simplifiedResult [
 
-	result beSimplifiedExampleResultValue.
+	result ifNotNil: [ result beSafeSimplifiedExampleResultValue ].
 	^ result
 ]
 
