@@ -37,7 +37,7 @@ GtExampleResult class >> leJsonV4AttributeMapping [
 
 	^ { 
 		#exampleSton -> #example.
-		#context -> #context.
+		"#context -> #context."
 		#basicReturnValue -> #returnValue.
 		}
 ]
@@ -149,6 +149,17 @@ GtExampleResult >> gtDisplayValidityOn: aStream [
 	aStream nextPutAll: ' ['.
 	self returnValue gtDisplayOn: aStream.
 	aStream nextPutAll: ']'
+]
+
+{ #category : #ui }
+GtExampleResult >> gtLiveFor: aView [
+	<gtView>
+	
+	^ aView forward
+		title: 'Return Value';
+		priority: 10;
+		object: [ returnValue ];
+		view: #gtLiveFor:
 ]
 
 { #category : #testing }

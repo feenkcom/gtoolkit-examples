@@ -42,8 +42,12 @@ GtClassExampleGroup >> exampleClassName [
 
 { #category : #'private - serialization' }
 GtClassExampleGroup >> exampleClassName: aSymbol [
+	| cls |
 
-	self exampleClass: aSymbol asSymbol asClass.
+	cls := (aSymbol endsWith: ' class')
+		ifTrue: [ (aSymbol copyFrom: 1 to: aSymbol size - 6) asSymbol asClass class ]
+		ifFalse: [ aSymbol asSymbol asClass ].
+	self exampleClass: cls.
 ]
 
 { #category : #accessing }

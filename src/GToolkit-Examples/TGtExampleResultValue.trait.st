@@ -16,6 +16,17 @@ TGtExampleResultValue >> color [
 	^ Color fromHexString: #f0f0f0
 ]
 
+{ #category : #ui }
+TGtExampleResultValue >> gtLiveFor: aView [
+	<gtView>
+
+	^ aView forward
+		title: 'Value';
+		priority: 10;
+		object: [ self value ];
+		view: #gtLiveFor:
+]
+
 { #category : #'api - accessing' }
 TGtExampleResultValue >> iconForm [
 
