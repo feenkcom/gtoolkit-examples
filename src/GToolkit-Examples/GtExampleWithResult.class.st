@@ -18,6 +18,7 @@ Class {
 GtExampleWithResult class >> leJsonV4AttributeMapping [ 
 
 	^ { 
+		#exampleSton -> #example.
 		#simplifiedResult -> #result.
 	}
 ]
@@ -316,6 +317,8 @@ GtExampleWithResult >> simplifiedResult [
 GtExampleWithResult >> simplifiedResult: aResultValue [
 
 	result := aResultValue.
+	"The example is encoded separately, but if a result is present, has its own copy.
+	Same memory and use just one instance."
 	example := aResultValue example.
 ]
 

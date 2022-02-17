@@ -50,3 +50,9 @@ GtPackageExampleGroup >> examplePackageName: aString [
 GtPackageExampleGroup >> examples [
 	^ examples
 ]
+
+{ #category : #'private - serialization' }
+GtPackageExampleGroup >> examples: aCollection [
+
+	examples := aCollection.
+]
