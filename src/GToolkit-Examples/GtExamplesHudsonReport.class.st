@@ -110,12 +110,7 @@ GtExamplesHudsonReport >> resultsFileName [
 
 { #category : #running }
 GtExamplesHudsonReport >> runExample: anExample [
-
-	| errorDetails stack |
-	GtExamplesReportRunExampleSignal new
-		example: anExample;
-		emit.
-
+	| errorDetails stack runStatus |
 	errorDetails := nil.
 
 	self beginTestCase: anExample runBlock: [ 
@@ -127,12 +122,24 @@ GtExamplesHudsonReport >> runExample: anExample [
 				(anExample exceptions handles: err) ifFalse: [ 
 					stack := self stackTraceString: err of: anExample ] ] ].
 
-	errorDetails ifNotNil: [ 
-		((errorDetails at: #errorClass) includesBehavior: AssertionFailure)
-			ifTrue: [ self writeFailure: errorDetails stack: stack ]
-			ifFalse: [ self writeError: errorDetails stack: stack ] ].
 
-	self endTestCase
+	errorDetails 
+		ifNil: [ runStatus := #success ]
+		ifNotNil: [ 
+			((errorDetails at: #errorClass) includesBehavior: AssertionFailure)
+				ifTrue: [ 
+					 runStatus := #failure.
+					self writeFailure: errorDetails stack: stack ]
+				ifFalse: [
+					runStatus := #error.
+					self writeError: errorDetails stack: stack ] ].
+
+	self endTestCase.
+	
+	GtExamplesReportRunExampleSignal new
+		example: anExample;
+		runStatus: runStatus;
+		emit.
 ]
 
 { #category : #running }
