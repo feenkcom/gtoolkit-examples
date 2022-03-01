@@ -2,7 +2,8 @@ Class {
 	#name : #GtExamplesReportRunExampleSignal,
 	#superclass : #GtExamplesReportSignal,
 	#instVars : [
-		'example'
+		'example',
+		'runStatus'
 	],
 	#category : #'GToolkit-Examples-Testing'
 }
@@ -23,5 +24,19 @@ GtExamplesReportRunExampleSignal >> printOneLineOn: aStream [
 	self example printClassLabelOn: aStream.
 	aStream
 		nextPutAll: ' >> ';
-		print: self example selector
+		print: self example selector;
+		nextPutAll: ' -- ';
+		nextPutAll: self runStatus
+]
+
+{ #category : #accessing }
+GtExamplesReportRunExampleSignal >> runStatus [
+
+	^ runStatus
+]
+
+{ #category : #accessing }
+GtExamplesReportRunExampleSignal >> runStatus: aSymbol [
+
+	runStatus := aSymbol
 ]
