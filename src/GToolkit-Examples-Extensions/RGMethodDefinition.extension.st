@@ -5,5 +5,5 @@ RGMethodDefinition class >> gtExampleMethod [
 	<gtExample>
 	<label: 'RMethodDefinition'>
 	
-	^ (GTInspector class >> #gtInspectorExtensionsIn:) asRingDefinition
+	^ (GtInspector class >> #gtExtensionsFor:) asRingDefinition
 ]

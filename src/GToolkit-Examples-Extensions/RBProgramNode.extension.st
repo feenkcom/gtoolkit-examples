@@ -5,5 +5,5 @@ RBProgramNode class >> gtExampleRBProgramNode [
 	<gtExample>
 	<label: 'RBProgramNode'>
 	
-	^ (GTInspector class >> #gtInspectorExtensionsIn:) parseTree
+	^ (GtInspector class >> #gtExtensionsFor:) parseTree
 ]
