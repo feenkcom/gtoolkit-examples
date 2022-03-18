@@ -324,6 +324,11 @@ GtExampleGroup >> select: aBlock [
 	^ self class withAll: (self examples select: aBlock)
 ]
 
+{ #category : #accessing }
+GtExampleGroup >> size [
+	^ self numberOfExamples
+]
+
 { #category : #'accessing - dynamic' }
 GtExampleGroup >> skippedExamples [
 	^ self examples reject: [ :eachExample | eachExample hasResult ]
