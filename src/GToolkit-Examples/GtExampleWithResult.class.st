@@ -99,13 +99,17 @@ GtExampleWithResult >> example: anObject [
 { #category : #'private - serialization' }
 GtExampleWithResult >> exampleSton [
 
-	^ STON toString: example
+	^ [ STON toString: example ]
+		on: Error 
+		do: [ :ex | 'Unable to encode: ', example printString, String lf, ex printString. ]
 ]
 
 { #category : #'private - serialization' }
 GtExampleWithResult >> exampleSton: aString [
 
-	example := STON fromString: aString.
+	example := [ STON fromString: aString ]
+		on: Error
+		do: [ :ex | aString ].
 
 ]
 
