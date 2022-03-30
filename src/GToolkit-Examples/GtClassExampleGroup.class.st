@@ -80,6 +80,15 @@ GtClassExampleGroup >> methodRemoved: aMethodAnnouncement [
 					self announcer announce: GtExamplesUpdatedAnnouncement new ] ]
 ]
 
+{ #category : #printing }
+GtClassExampleGroup >> printOn: aStream [
+	super printOn: aStream.
+	aStream 
+		<< '(';
+		<< self exampleClassName;
+		<< ')'
+]
+
 { #category : #subscription }
 GtClassExampleGroup >> subscribe [
 	SystemAnnouncer uniqueInstance weak
