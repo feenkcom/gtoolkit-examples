@@ -35,10 +35,11 @@ GtExampleInspectClassCommand class >> menuItemOrder [
 
 { #category : #execution }
 GtExampleInspectClassCommand >> execute [
-	selectedItems do: [ :eachDataSourceItem | 
-		(eachDataSourceItem actualObject respondsTo: #gtBrowse)
-			ifTrue: [ eachDataSourceItem actualObject gtBrowse ]
-			ifFalse: [ eachDataSourceItem actualObject inspect ] ]
+	selectedItems
+		do: [ :eachDataSourceItem | 
+			[ eachDataSourceItem actualObject gtBrowse ]
+				onDNU: #gtBrowse
+				do: [ :ex | eachDataSourceItem actualObject inspect ] ]
 ]
 
 { #category : #execution }
