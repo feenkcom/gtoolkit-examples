@@ -118,9 +118,7 @@ GtExamplesExamplesWithRuntimeErrors >> exampleResultWithMessageNotUnderstoodExce
 	self 
 		assertExpectedErrorFor: result 
 		ofClass: MessageNotUnderstood 
-		withMessage: (SystemVersion current major = 10
-			ifTrue: [ 'Message not understood: GtDummyExamplesInvalidDependencies class >> #a1' ]  
-			ifFalse: [ 'GtDummyExamplesInvalidDependencies class>> #a1' ]).
+		withMessage: 'Message not understood: GtDummyExamplesInvalidDependencies class >> #a1'.
 	
 	^ result
 ]
