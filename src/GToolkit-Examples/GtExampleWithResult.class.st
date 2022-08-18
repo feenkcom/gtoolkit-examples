@@ -207,9 +207,21 @@ GtExampleWithResult >> isFailure [
 	^ self hasResult and: [ self result isFailure ]
 ]
 
+{ #category : #testing }
+GtExampleWithResult >> isGtExample [
+
+	^ true
+]
+
 { #category : #accessing }
 GtExampleWithResult >> isMethodDefined [
 	^ self example isMethodDefined
+]
+
+{ #category : #testing }
+GtExampleWithResult >> isSUnitTestCase [
+
+	^ false
 ]
 
 { #category : #testing }
