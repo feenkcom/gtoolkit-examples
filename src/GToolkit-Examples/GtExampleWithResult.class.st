@@ -130,6 +130,14 @@ GtExampleWithResult >> gtDisplayOn: stream [
 	self example gtDisplayOn: stream
 ]
 
+{ #category : #'as yet unclassified' }
+GtExampleWithResult >> gtExample [
+	<gtExamplePragma>
+	<description: 'This method is turned into a gtExample if provided'>
+	
+	^ self
+]
+
 { #category : #ui }
 GtExampleWithResult >> gtExampleFor: aView [
 	<gtView>
@@ -227,6 +235,11 @@ GtExampleWithResult >> isSUnitTestCase [
 { #category : #testing }
 GtExampleWithResult >> isSuccess [
 	^ self hasResult and: [ self result isSuccess ]
+]
+
+{ #category : #accessing }
+GtExampleWithResult >> isValid [
+	^ self example isValid
 ]
 
 { #category : #accessing }
