@@ -12,6 +12,27 @@ CompiledMethod >> gtExampleValue [
 ]
 
 { #category : #'*GToolkit-Examples-Core' }
+CompiledMethod >> gtExampleWithResult [
+	| aWeak anExample |
+	aWeak := self propertyAt: #gtExampleWithResultWeakReference ifAbsent: [ nil ].
+	aWeak
+		ifNotNil: [ :theWeak | 
+			(theWeak at: 1 ifAbsent: [ nil ])
+				ifNotNil: [ :anExampleWithResult | ^ anExampleWithResult ] ].
+
+	anExample := self gtExample.
+	anExample
+		ifNotNil: [ | anExampleWithResult |
+			anExampleWithResult := anExample asExampleWithResult.
+			self
+				propertyAt: #gtExampleWithResultWeakReference
+				put: anExampleWithResult asWeakReference.
+			^ anExampleWithResult ].
+
+	^ nil
+]
+
+{ #category : #'*GToolkit-Examples-Core' }
 CompiledMethod >> gtExamples [
 	^ self gtExample 
 		ifNotNil: [ :example | { example } ]
