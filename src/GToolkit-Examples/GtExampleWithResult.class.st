@@ -253,6 +253,11 @@ GtExampleWithResult >> methodClass [
 ]
 
 { #category : #accessing }
+GtExampleWithResult >> methodDo: aBlockClosure [
+	self example methodDo: aBlockClosure
+]
+
+{ #category : #accessing }
 GtExampleWithResult >> methodPackage [
 	<return: #RPackage>
 	^ self example methodPackage
