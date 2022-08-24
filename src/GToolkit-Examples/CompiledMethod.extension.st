@@ -1,5 +1,12 @@
 Extension { #name : #CompiledMethod }
 
+{ #category : #'*GToolkit-Examples' }
+CompiledMethod >> clearExampleAndTestCaches [
+	self removeProperty: #gtExampleWithResultWeakReference.
+	self removeProperty: #gtExampleWithResultForSubclassesWeakReference.
+	self removeProperty: #gtPharoMethodTestCaseWeakReference.
+]
+
 { #category : #'*GToolkit-Examples-Core' }
 CompiledMethod >> gtExample [
 	self gtExamplesFactory exampleMethod: self do: [ :example | ^ example ].
