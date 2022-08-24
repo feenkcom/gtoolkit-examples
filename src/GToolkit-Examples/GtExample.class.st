@@ -30,7 +30,7 @@ Class {
 		'after',
 		'problems'
 	],
-	#category : 'GToolkit-Examples-Core'
+	#category : #'GToolkit-Examples-Core'
 }
 
 { #category : #comparing }
@@ -72,6 +72,18 @@ GtExample >> allDependencies [
 		action: [ :example | examples add: example ];
 		yourself) value.
 	^ examples
+]
+
+{ #category : #'accessing-dynamic' }
+GtExample >> asCachedExampleWithResult [
+	| aMethod |
+	self exists ifFalse: [ ^ self asExampleWithResult ].
+
+	aMethod := self method.
+
+	self providerClass = self methodClass ifTrue: [ ^ aMethod gtExampleWithResult ].
+
+	^ aMethod gtExampleWithResultForExample: self
 ]
 
 { #category : #'accessing-dynamic' }
