@@ -45,6 +45,7 @@ GtExamplesProvidingExampleWithResultExamples >> intermediateClassAllExamples [
 { #category : #accessing }
 GtExamplesProvidingExampleWithResultExamples >> intermediateClassExampleOneWithResult [
 	<gtExample>
+	<noTest>
 	| anExample anExampleWithResultOne anExampleWithResultTwo |
 	anExample := self intermediateClassAllExamples
 			detect: [ :eachExample | eachExample selector = self exampleOneSelector ].
@@ -73,6 +74,7 @@ GtExamplesProvidingExampleWithResultExamples >> leafClassOneAllExamples [
 { #category : #accessing }
 GtExamplesProvidingExampleWithResultExamples >> leafClassOneExampleOneWithResult [
 	<gtExample>
+	<noTest>
 	| anExample anExampleWithResultOne anExampleWithResultTwo |
 	anExample := self leafClassOneAllExamples
 			detect: [ :eachExample | eachExample selector = self exampleOneSelector ].
@@ -101,6 +103,7 @@ GtExamplesProvidingExampleWithResultExamples >> leafClassTwoAllExamples [
 { #category : #accessing }
 GtExamplesProvidingExampleWithResultExamples >> leafClassTwoExampleOneWithResult [
 	<gtExample>
+	<noTest>
 	| anExample anExampleWithResultOne anExampleWithResultTwo |
 	anExample := self leafClassTwoAllExamples
 			detect: [ :eachExample | eachExample selector = self exampleOneSelector ].
