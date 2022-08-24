@@ -32,6 +32,39 @@ CompiledMethod >> gtExampleWithResult [
 	^ nil
 ]
 
+{ #category : #'*GToolkit-Examples' }
+CompiledMethod >> gtExampleWithResultForExample: anExample [
+	| aWeak aDictionary aClass aCachedExampleWithResult anExampleWithResult |
+	self
+		assert: [ anExample providerClass ~= anExample methodClass ]
+		description: [ 'Example provider and method classes must be different. Call anExample asCachedExampleWithResult instead' ].
+	self
+		assert: [ anExample exists and: [ anExample method = self ] ]
+		description: [ 'I can be called only with examples that represents me. Call anExample asCachedExampleWithResult instead' ].
+
+	aClass := anExample providerClass.
+
+	aDictionary := self
+			propertyAt: #gtExampleWithResultForSubclassesWeakReference
+			ifAbsentPut: [ WeakKeyDictionary new ].
+
+	aWeak := aDictionary at: aClass ifAbsent: [ nil ].
+
+	aCachedExampleWithResult := aWeak
+			ifNotNil: [ :theWeak | theWeak at: 1 ifAbsent: [ nil ] ].
+
+	aCachedExampleWithResult
+		ifNotNil: [ aCachedExampleWithResult example methodClass = anExample methodClass
+				ifTrue: [ ^ aCachedExampleWithResult ]
+				ifFalse: [ ^ aCachedExampleWithResult
+						example: anExample;
+						result: nil ] ].
+
+	anExampleWithResult := anExample asExampleWithResult.
+	aDictionary at: aClass put: anExampleWithResult asWeakReference.
+	^ anExampleWithResult
+]
+
 { #category : #'*GToolkit-Examples-Core' }
 CompiledMethod >> gtExamples [
 	^ self gtExample 
