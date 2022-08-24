@@ -104,6 +104,7 @@ GtExamplesProvidingExampleWithResultExamples >> leafClassTwoExampleOneWithResult
 	| anExample anExampleWithResultOne anExampleWithResultTwo |
 	anExample := self leafClassTwoAllExamples
 			detect: [ :eachExample | eachExample selector = self exampleOneSelector ].
+	anExample method clearExampleAndTestCaches.
 
 	anExampleWithResultOne := anExample asCachedExampleWithResult.
 	anExampleWithResultTwo := anExample asCachedExampleWithResult.
