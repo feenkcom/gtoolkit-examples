@@ -338,3 +338,8 @@ GtExampleGroup >> skippedExamples [
 GtExampleGroup >> successfulExamples [
 	^ self examples select: [ :eachExample | eachExample isSuccess ]
 ]
+
+{ #category : #'accessing - dynamic' }
+GtExampleGroup >> successfulExamplesCount [
+	^ self examples count: [ :eachExample | eachExample isSuccess ]
+]
