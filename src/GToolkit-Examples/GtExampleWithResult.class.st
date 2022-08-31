@@ -233,6 +233,11 @@ GtExampleWithResult >> isSUnitTestCase [
 ]
 
 { #category : #testing }
+GtExampleWithResult >> isSkipped [
+	^ self hasResult not
+]
+
+{ #category : #testing }
 GtExampleWithResult >> isSuccess [
 	^ self hasResult and: [ self result isSuccess ]
 ]
