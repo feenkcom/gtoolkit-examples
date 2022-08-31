@@ -120,6 +120,11 @@ GtExamplesProvidingExampleWithResultExamples >> leafClassTwoExampleOneWithResult
 ]
 
 { #category : #accessing }
+GtExamplesProvidingExampleWithResultExamples >> numberOfRootClassPackageAllContainedExamples [
+	^ 6
+]
+
+{ #category : #accessing }
 GtExamplesProvidingExampleWithResultExamples >> rootClass [
 	<gtExample>
 	^ GtDummyAbstractClassWithExamples
@@ -157,4 +162,78 @@ GtExamplesProvidingExampleWithResultExamples >> rootClassExampleOneWithResult [
 	self assert: anExampleWithResultOne == anExampleWithResultTwo.
 
 	^ anExampleWithResultOne
+]
+
+{ #category : #accessing }
+GtExamplesProvidingExampleWithResultExamples >> rootClassPackage [
+	<gtExample>
+	| aClass aPackage |
+	aClass := self rootClass.
+	aPackage := aClass package.
+
+	self assert: aPackage isNotNil.
+
+	^ aPackage
+]
+
+{ #category : #accessing }
+GtExamplesProvidingExampleWithResultExamples >> rootClassPackageAllExamplesContained [
+	<gtExample>
+	| aPackage allExamples |
+	aPackage := self rootClassPackage.
+	allExamples := aPackage gtExamplesAllContained.
+
+	self
+		assert: allExamples isNotNil
+		description: [ 'All examples must be non-nil' ].
+	self
+		assert: allExamples isNotEmpty
+		description: [ 'All examples must be non-empty' ].
+	self
+		assert: allExamples size
+		equals: self numberOfRootClassPackageAllContainedExamples.
+
+	allExamples
+		do: [ :anExampleOne | 
+			allExamples
+				do: [ :anExampleTwo | 
+					anExampleOne == anExampleTwo
+						ifFalse: [ self
+								assert: anExampleOne ~= anExampleTwo
+								description: [ 'Examples must be non-equal, currently {1} = {2}'
+										format: {anExampleOne gtDisplayString.
+												anExampleTwo gtDisplayString} ] ] ] ].
+
+	^ allExamples
+]
+
+{ #category : #accessing }
+GtExamplesProvidingExampleWithResultExamples >> rootClassPackageAllExamplesContained_AsExampleWithResult [
+	<gtExample>
+	| allExamples |
+	allExamples := self rootClassPackageAllExamplesContained
+			collect: [ :eachExample | eachExample asExampleWithResult ].
+
+	self
+		assert: allExamples isNotNil
+		description: [ 'All examples must be non-nil' ].
+	self
+		assert: allExamples isNotEmpty
+		description: [ 'All examples must be non-empty' ].
+	self
+		assert: allExamples size
+		equals: self numberOfRootClassPackageAllContainedExamples.
+
+	allExamples
+		do: [ :anExampleOne | 
+			allExamples
+				do: [ :anExampleTwo | 
+					anExampleOne == anExampleTwo
+						ifFalse: [ self
+								assert: anExampleOne ~= anExampleTwo
+								description: [ 'Examples must be non-equal, currently {1} = {2}'
+										format: {anExampleOne gtDisplayString.
+												anExampleTwo gtDisplayString} ] ] ] ].
+
+	^ allExamples
 ]

@@ -303,6 +303,11 @@ GtExampleWithResult >> openingDebugger [
 ]
 
 { #category : #accessing }
+GtExampleWithResult >> providerClass [
+	^ self example providerClass
+]
+
+{ #category : #accessing }
 GtExampleWithResult >> result [
 	<return: #GtExampleResult>
 	^ result
