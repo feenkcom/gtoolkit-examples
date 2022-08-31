@@ -86,6 +86,11 @@ GtExampleGroup >> erroredExamples [
 	^ self examples select: [ :eachExample | eachExample isError ]
 ]
 
+{ #category : #'accessing - dynamic' }
+GtExampleGroup >> erroredExamplesCount [
+	^ self examples count: [ :eachExample | eachExample isError ]
+]
+
 { #category : #accessing }
 GtExampleGroup >> examples [
 	^ self subclassResponsibility
@@ -99,6 +104,11 @@ GtExampleGroup >> executedExamples [
 { #category : #'accessing - dynamic' }
 GtExampleGroup >> failedExamples [
 	^ self examples select: [ :eachExample | eachExample isFailure ]
+]
+
+{ #category : #'accessing - dynamic' }
+GtExampleGroup >> failedExamplesCount [
+	^ self examples count: [ :eachExample | eachExample isFailure ]
 ]
 
 { #category : #enumerating }
@@ -332,6 +342,12 @@ GtExampleGroup >> size [
 { #category : #'accessing - dynamic' }
 GtExampleGroup >> skippedExamples [
 	^ self examples reject: [ :eachExample | eachExample hasResult ]
+]
+
+{ #category : #'accessing - dynamic' }
+GtExampleGroup >> skippedExamplesCount [
+	^ self examples count: [ :eachExample | 
+		eachExample hasResult not ]
 ]
 
 { #category : #'accessing - dynamic' }
