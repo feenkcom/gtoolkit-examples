@@ -86,11 +86,6 @@ GtExampleGroup >> erroredExamples [
 	^ self examples select: [ :eachExample | eachExample isError ]
 ]
 
-{ #category : #'accessing - dynamic' }
-GtExampleGroup >> erroredExamplesCount [
-	^ self examples count: [ :eachExample | eachExample isError ]
-]
-
 { #category : #accessing }
 GtExampleGroup >> examples [
 	^ self subclassResponsibility
@@ -104,11 +99,6 @@ GtExampleGroup >> executedExamples [
 { #category : #'accessing - dynamic' }
 GtExampleGroup >> failedExamples [
 	^ self examples select: [ :eachExample | eachExample isFailure ]
-]
-
-{ #category : #'accessing - dynamic' }
-GtExampleGroup >> failedExamplesCount [
-	^ self examples count: [ :eachExample | eachExample isFailure ]
 ]
 
 { #category : #enumerating }
@@ -271,7 +261,7 @@ GtExampleGroup >> matchesExampleWithResult: aGtExampleWithResult withPattern: pa
 
 { #category : #accessing }
 GtExampleGroup >> numberOfErrors [
-	^ self count: #isError
+	^ self count: [ :eachExample | eachExample isError ]
 ]
 
 { #category : #accessing }
@@ -281,7 +271,7 @@ GtExampleGroup >> numberOfExamples [
 
 { #category : #accessing }
 GtExampleGroup >> numberOfFailures [
-	^ self count: #isFailure
+	^ self count: [ :eachExample | eachExample isFailure ]
 ]
 
 { #category : #accessing }
@@ -292,6 +282,11 @@ GtExampleGroup >> numberOfFailuresAndErrors [
 { #category : #accessing }
 GtExampleGroup >> numberOfResults [
 	^ self count: [ :eachExample | eachExample hasResult ]
+]
+
+{ #category : #accessing }
+GtExampleGroup >> numberOfSkipps [
+	^ self count: [ :eachExample | eachExample isSkipped ]
 ]
 
 { #category : #accessing }
@@ -345,17 +340,6 @@ GtExampleGroup >> skippedExamples [
 ]
 
 { #category : #'accessing - dynamic' }
-GtExampleGroup >> skippedExamplesCount [
-	^ self examples count: [ :eachExample | 
-		eachExample isSkipped ]
-]
-
-{ #category : #'accessing - dynamic' }
 GtExampleGroup >> successfulExamples [
 	^ self examples select: [ :eachExample | eachExample isSuccess ]
-]
-
-{ #category : #'accessing - dynamic' }
-GtExampleGroup >> successfulExamplesCount [
-	^ self examples count: [ :eachExample | eachExample isSuccess ]
 ]
