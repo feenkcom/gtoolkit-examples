@@ -233,6 +233,11 @@ GtExampleWithResult >> isSUnitTestCase [
 ]
 
 { #category : #testing }
+GtExampleWithResult >> isSkipped [
+	^ self hasResult not
+]
+
+{ #category : #testing }
 GtExampleWithResult >> isSuccess [
 	^ self hasResult and: [ self result isSuccess ]
 ]
@@ -240,6 +245,13 @@ GtExampleWithResult >> isSuccess [
 { #category : #accessing }
 GtExampleWithResult >> isValid [
 	^ self example isValid
+]
+
+{ #category : #testing }
+GtExampleWithResult >> isWarning [
+	"Examples do not handle warnings. This exists so that examples with results are polymorphic with test results."
+	
+	^ false
 ]
 
 { #category : #accessing }

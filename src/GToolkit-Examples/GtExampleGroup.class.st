@@ -347,7 +347,7 @@ GtExampleGroup >> skippedExamples [
 { #category : #'accessing - dynamic' }
 GtExampleGroup >> skippedExamplesCount [
 	^ self examples count: [ :eachExample | 
-		eachExample hasResult not ]
+		eachExample isSkipped ]
 ]
 
 { #category : #'accessing - dynamic' }
