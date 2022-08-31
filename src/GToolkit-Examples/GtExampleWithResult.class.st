@@ -247,6 +247,13 @@ GtExampleWithResult >> isValid [
 	^ self example isValid
 ]
 
+{ #category : #testing }
+GtExampleWithResult >> isWarning [
+	"Examples do not handle warnings. This exists so that examples with results are polymorphic with test results."
+	
+	^ false
+]
+
 { #category : #accessing }
 GtExampleWithResult >> method [
 	^ self example method
