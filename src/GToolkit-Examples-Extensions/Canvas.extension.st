@@ -1,14 +1,6 @@
 Extension { #name : #Canvas }
 
 { #category : #'*GToolkit-Examples-Extensions' }
-Canvas class >> gtExampleNullCanvas [
-	<gtExample>
-	<label: 'Canvas: Null'>
-	
-	^ NullCanvas new
-]
-
-{ #category : #'*GToolkit-Examples-Extensions' }
 Canvas class >> gtExampleWorldCanvas [
 	<gtExample>
 	<label: 'Canvas: World'>
