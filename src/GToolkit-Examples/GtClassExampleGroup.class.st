@@ -37,13 +37,14 @@ GtClassExampleGroup >> exampleClass: aClass [
 { #category : #'private - serialization' }
 GtClassExampleGroup >> exampleClassName [
 
-	^ exampleClass name
+	^ exampleClass ifNotNil: #name
 ]
 
 { #category : #'private - serialization' }
 GtClassExampleGroup >> exampleClassName: aSymbol [
 	| cls |
 
+	aSymbol ifNil: [ ^ self ].
 	cls := (aSymbol endsWith: ' class')
 		ifTrue: [ (aSymbol copyFrom: 1 to: aSymbol size - 6) asSymbol asClass class ]
 		ifFalse: [ aSymbol asSymbol asClass ].
