@@ -285,7 +285,7 @@ GtExampleGroup >> numberOfResults [
 ]
 
 { #category : #accessing }
-GtExampleGroup >> numberOfSkipps [
+GtExampleGroup >> numberOfSkips [
 	^ self count: [ :eachExample | eachExample isSkipped ]
 ]
 
