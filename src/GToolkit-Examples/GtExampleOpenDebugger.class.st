@@ -8,6 +8,21 @@ Class {
 }
 
 { #category : #accessing }
+GtExampleOpenDebugger >> basicProcess: anExample [
+	<return: #GtExampleResult>
+	| currentResult anEvaluationContext |
+
+	context example: anExample.
+
+	currentResult := self newResultFor: anExample.
+	anEvaluationContext := anExample evaluationContext.
+	
+	currentResult successValue: (self primitiveProcessExample: anExample withEvaluationContext: anEvaluationContext).
+	
+	^ currentResult
+]
+
+{ #category : #accessing }
 GtExampleOpenDebugger >> callback [
 	^ callback
 ]
@@ -42,9 +57,12 @@ GtExampleOpenDebugger >> primitiveProcessExample: anExample withEvaluationContex
 	aCompiledMethod := anExample method.
 	aProcess := [ 
 		| aValue |
-		aValue := anEvaluationContext provider 
+		[ aValue := anEvaluationContext provider 
 			perform: anExample method selector 
-			withArguments: anEvaluationContext arguments.
+			withArguments: anEvaluationContext arguments ] ensure: 
+					[ self processAfter: anExample 
+						withDependencies: (self dependenciesFor:  anExample)
+						andEvaluationContext: anEvaluationContext ].
 		self callbackWithExample: anExample result: aValue ]
 		newProcess.
 	aContext := aProcess suspendedContext.
