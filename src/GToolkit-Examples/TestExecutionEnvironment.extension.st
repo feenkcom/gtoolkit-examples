@@ -16,3 +16,19 @@ TestExecutionEnvironment >> runExampleEvaluator: anExampleEvaluator [
 		
 	^ exampleResult
 ]
+
+{ #category : #'*GToolkit-Examples-Core' }
+TestExecutionEnvironment >> runExampleUnderWatchdogUsingEvaluator: anEvaluator [
+	| exampleResult |
+	exampleResult := nil.
+	[
+		[ exampleResult := anEvaluator runUnmanaged ] ensure: [
+			"Terminated test is not considered as completed (user just closed a debugger for example)"
+			mainTestProcess isTerminating ifFalse: [ 
+				self handleCompletedTest ]]
+	] on: Exception do: [ :err | 
+			self handleException: err 
+	].
+	
+	^ exampleResult
+]
