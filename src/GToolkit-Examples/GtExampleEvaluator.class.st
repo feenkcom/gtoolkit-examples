@@ -95,11 +95,28 @@ GtExampleEvaluator >> processAfterMethodFor: anExample withEvaluationContext: an
 { #category : #public }
 GtExampleEvaluator >> result [
 	<return: #GtExampleResult>
-	self do: [ result := self value ] 
+	self do: [ result := self runUnmanaged ] 
 		on: GtExampleResult signalableExceptions
 		do: [ :anException |
 			anException freeze. 
 			result := (self newResultFor: self example) 
 				exampleException: anException ].
 	^ result
+]
+
+{ #category : #public }
+GtExampleEvaluator >> runManaged [
+	<return: #GtExampleResult>
+	^ CurrentExecutionEnvironment runExampleEvaluator: self
+]
+
+{ #category : #public }
+GtExampleEvaluator >> runUnmanaged [
+	<return: #GtExampleResult>
+	^ self value
+]
+
+{ #category : #accessing }
+GtExampleEvaluator >> timeLimit [
+	^  example timeLimit
 ]
