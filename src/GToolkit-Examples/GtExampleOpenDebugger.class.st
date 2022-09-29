@@ -52,19 +52,14 @@ GtExampleOpenDebugger >> initialize [
 ]
 
 { #category : #primitives }
-GtExampleOpenDebugger >> primitiveProcessExample: anExample withEvaluationContext: anEvaluationContext [
+GtExampleOpenDebugger >> result [
 	| aCompiledMethod aProcess aContext aDebugSession |
-	aCompiledMethod := anExample method.
+	aCompiledMethod := self example method.
+	
 	aProcess := [ 
 		| aValue |
-		[ aValue := anEvaluationContext provider 
-			perform: anExample method selector 
-			withArguments: anEvaluationContext arguments ] ensure: 
-					[ self processAfter: anExample 
-						withDependencies: (self dependenciesFor:  anExample)
-						andEvaluationContext: anEvaluationContext ].
-		self callbackWithExample: anExample result: aValue ]
-		newProcess.
+		aValue := super result.
+		self callbackWithExample: self example result: aValue ] newProcess.
 	aContext := aProcess suspendedContext.
 	
 	aDebugSession := aProcess newDebugSessionNamed: 'debug it' startedAt: aContext.
@@ -72,4 +67,6 @@ GtExampleOpenDebugger >> primitiveProcessExample: anExample withEvaluationContex
 		currentContext method == aCompiledMethod ].
 	
 	Smalltalk tools debugger openOn: aDebugSession withFullView: true.
+	
+	^ self newResultFor: self example.
 ]
