@@ -36,10 +36,20 @@ GtExamplesForExecutionEnvironment >> exampleWithOneSecondTimeout [
 	self assert: true.
 ]
 
+{ #category : #'examples - setup' }
+GtExamplesForExecutionEnvironment >> exampleWithTwoFailingBackgroundProcess [
+	<gtExample>
+	<noTest>
+	
+	[ 1/0 ] fork.
+	[ 2/0 ] fork.
+	
+	self assert: true.
+]
+
 { #category : #'examples - execution' }
 GtExamplesForExecutionEnvironment >> runExampleWithFailingBackgroundProcess [
 	<gtExample>
-	<noTest>
 	| targetExample result |	
 	
 	targetExample := (self class >> #exampleWithFailingBackgroundProcess) gtExample.
@@ -56,7 +66,6 @@ GtExamplesForExecutionEnvironment >> runExampleWithFailingBackgroundProcess [
 { #category : #'examples - execution' }
 GtExamplesForExecutionEnvironment >> runExampleWithFailingBackgroundProcessInNestedProcess [
 	<gtExample>
-	<noTest>
 	| targetExample result |	
 	
 	targetExample := (self class >> #exampleWithFailingBackgroundProcessInNestedProcess) gtExample.
@@ -73,7 +82,6 @@ GtExamplesForExecutionEnvironment >> runExampleWithFailingBackgroundProcessInNes
 { #category : #'examples - execution' }
 GtExamplesForExecutionEnvironment >> runExampleWithOneSecondTimeout [
 	<gtExample>
-	<noTest>
 	| targetExample result |	
 	
 	targetExample := (self class >> #exampleWithOneSecondTimeout) gtExample.
@@ -83,6 +91,24 @@ GtExamplesForExecutionEnvironment >> runExampleWithOneSecondTimeout [
 	self 
 		assert: result returnValue class 
 		equals: TestTookTooMuchTime.
+	
+	^ result
+]
+
+{ #category : #'examples - execution' }
+GtExamplesForExecutionEnvironment >> runExampleWithTwoFailingBackgroundProcess [
+	<gtExample>
+	| targetExample result exception |	
+	
+	targetExample := (self class >> #exampleWithTwoFailingBackgroundProcess) gtExample.
+	result := targetExample run.
+	
+	self assert: result isError.
+	
+	exception := result returnValue.
+	self 
+		assert: exception class 
+		equals: TestFailedByForkedProcess.
 	
 	^ result
 ]
