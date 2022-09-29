@@ -28,7 +28,8 @@ Class {
 		'children',
 		'properties',
 		'after',
-		'problems'
+		'problems',
+		'timeLimit'
 	],
 	#category : #'GToolkit-Examples-Core'
 }
@@ -125,6 +126,11 @@ GtExample >> debugger [
 	^ GtExampleDebugger new 
 		example: self;
 		yourself
+]
+
+{ #category : #accessing }
+GtExample >> defaultTimeLimit [
+	^ 1 minute
 ]
 
 { #category : #private }
@@ -606,6 +612,19 @@ GtExample >> subjectMetaClass: aClassOrClassName [
 { #category : #accessing }
 GtExample >> subjects [
 	^ subjects asArray
+]
+
+{ #category : #accessing }
+GtExample >> timeLimit [
+	^ timeLimit ifNil: [ ^ self defaultTimeLimit ]
+]
+
+{ #category : #'PRAGMA-SELECTORS' }
+GtExample >> timeLimit: milliSecondsValue [
+	<gtExamplePragma>
+	<description: 'The timeout for the example in milliseconds'>
+	
+	timeLimit :=  milliSecondsValue milliSeconds
 ]
 
 { #category : #'accessing-dynamic' }
