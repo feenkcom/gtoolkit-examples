@@ -96,7 +96,7 @@ GtExampleEvaluator >> processAfterMethodFor: anExample withEvaluationContext: an
 GtExampleEvaluator >> result [
 	<return: #GtExampleResult>
 	self 
-		do: [ result := self runManaged ] 
+		do: [ result := self runUnmanaged ] 
 		on: GtExampleResult signalableExceptions
 		do: [ :anException |
 			anException freeze. 

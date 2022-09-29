@@ -6,6 +6,7 @@ Class {
 
 { #category : #'examples - setup' }
 GtExamplesForExecutionEnvironment >> exampleWithFailingBackgroundProcess [
+	"This example is a noTest as it is designed to fail"
 	<gtExample>
 	<noTest>
 	
@@ -16,6 +17,7 @@ GtExamplesForExecutionEnvironment >> exampleWithFailingBackgroundProcess [
 
 { #category : #'examples - setup' }
 GtExamplesForExecutionEnvironment >> exampleWithFailingBackgroundProcessInNestedProcess [
+	"This example is a noTest as it is designed to fail"
 	<gtExample>
 	<noTest>
 	
@@ -28,6 +30,7 @@ GtExamplesForExecutionEnvironment >> exampleWithFailingBackgroundProcessInNested
 
 { #category : #'examples - setup' }
 GtExamplesForExecutionEnvironment >> exampleWithOneSecondTimeout [
+	"This example is a noTest as it is designed to fail"
 	<gtExample>
 	<timeLimit: 1000>
 	<noTest>
@@ -38,6 +41,7 @@ GtExamplesForExecutionEnvironment >> exampleWithOneSecondTimeout [
 
 { #category : #'examples - setup' }
 GtExamplesForExecutionEnvironment >> exampleWithTwoFailingBackgroundProcess [
+	"This example is a noTest as it is designed to fail"
 	<gtExample>
 	<noTest>
 	
@@ -50,6 +54,7 @@ GtExamplesForExecutionEnvironment >> exampleWithTwoFailingBackgroundProcess [
 { #category : #'examples - execution' }
 GtExamplesForExecutionEnvironment >> runExampleWithFailingBackgroundProcess [
 	<gtExample>
+	<noTest>
 	| targetExample result |	
 	
 	targetExample := (self class >> #exampleWithFailingBackgroundProcess) gtExample.
@@ -64,8 +69,27 @@ GtExamplesForExecutionEnvironment >> runExampleWithFailingBackgroundProcess [
 ]
 
 { #category : #'examples - execution' }
+GtExamplesForExecutionEnvironment >> runExampleWithFailingBackgroundProcessInDebugMode [
+	<gtExample>
+	<noTest>
+	| targetExample result failures |	
+	
+	targetExample := (self class >> #exampleWithFailingBackgroundProcess) gtExample.
+	[ result := targetExample debug ] 
+	 	on: TestFailedByForkedProcess 
+	 	do: [ :ex |
+	 		failures := ex executionEnvironment failures copy ].
+	
+	self assert: failures size equals: 1.
+	self assert: failures values first exception class equals: ZeroDivide.
+	
+	^ failures
+]
+
+{ #category : #'examples - execution' }
 GtExamplesForExecutionEnvironment >> runExampleWithFailingBackgroundProcessInNestedProcess [
 	<gtExample>
+	<noTest>
 	| targetExample result |	
 	
 	targetExample := (self class >> #exampleWithFailingBackgroundProcessInNestedProcess) gtExample.
@@ -82,6 +106,7 @@ GtExamplesForExecutionEnvironment >> runExampleWithFailingBackgroundProcessInNes
 { #category : #'examples - execution' }
 GtExamplesForExecutionEnvironment >> runExampleWithOneSecondTimeout [
 	<gtExample>
+	<noTest>
 	| targetExample result |	
 	
 	targetExample := (self class >> #exampleWithOneSecondTimeout) gtExample.
@@ -98,6 +123,7 @@ GtExamplesForExecutionEnvironment >> runExampleWithOneSecondTimeout [
 { #category : #'examples - execution' }
 GtExamplesForExecutionEnvironment >> runExampleWithTwoFailingBackgroundProcess [
 	<gtExample>
+	<noTest>
 	| targetExample result exception |	
 	
 	targetExample := (self class >> #exampleWithTwoFailingBackgroundProcess) gtExample.
@@ -111,4 +137,23 @@ GtExamplesForExecutionEnvironment >> runExampleWithTwoFailingBackgroundProcess [
 		equals: TestFailedByForkedProcess.
 	
 	^ result
+]
+
+{ #category : #'examples - execution' }
+GtExamplesForExecutionEnvironment >> runExampleWithTwoFailingBackgroundProcessInDebugMode [
+	<gtExample>
+	<noTest>
+	| targetExample result failures |	
+	
+	targetExample := (self class >> #exampleWithTwoFailingBackgroundProcess) gtExample.
+	[ result := targetExample debug ] 
+	 	on: TestFailedByForkedProcess 
+	 	do: [ :ex |
+	 		failures := ex executionEnvironment failures copy ].
+	
+	self assert: failures size equals: 2.
+	self assert: failures values first exception class equals: ZeroDivide.
+	self assert: failures values second exception class equals: ZeroDivide.
+	
+	^ failures
 ]
