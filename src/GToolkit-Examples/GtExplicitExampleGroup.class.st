@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'examples'
 	],
-	#category : 'GToolkit-Examples-Core'
+	#category : #'GToolkit-Examples-Core'
 }
 
 { #category : #examples }
@@ -63,7 +63,7 @@ GtExplicitExampleGroup >> subscribeToExamples [
 	self examples ifNil: [ ^ self ].
 	self examples
 		do: [ :eachExample | 
-			eachExample announcer
+			eachExample announcer weak
 				when: GtExampleAnnouncement
 				send: #handleExampleAnnouncement:
 				to: self ]
