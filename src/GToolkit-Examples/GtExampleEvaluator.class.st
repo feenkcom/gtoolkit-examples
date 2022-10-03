@@ -95,7 +95,7 @@ GtExampleEvaluator >> processAfterMethodFor: anExample withEvaluationContext: an
 { #category : #public }
 GtExampleEvaluator >> result [
 	<return: #GtExampleResult>
-	self 
+	self  
 		do: [ result := self runUnmanaged ] 
 		on: GtExampleResult signalableExceptions
 		do: [ :anException |
