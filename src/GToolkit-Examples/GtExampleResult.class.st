@@ -212,6 +212,17 @@ GtExampleResult >> openDebugger [
 	^ self example openDebugger
 ]
 
+{ #category : #ui }
+GtExampleResult >> printOn: aStream [
+
+	self example printOn: aStream.
+
+	returnValue ifNotNil: [ 
+		aStream nextPutAll: ' ['.
+		self returnValue printOn: aStream.
+		aStream nextPutAll: ']' ]
+]
+
 { #category : #accessing }
 GtExampleResult >> returnInstance [
 
