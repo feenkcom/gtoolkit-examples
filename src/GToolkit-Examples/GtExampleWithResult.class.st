@@ -173,6 +173,11 @@ GtExampleWithResult >> gtLiveFor: aView [
 ]
 
 { #category : #testing }
+GtExampleWithResult >> hasAfterInDependencies [
+	^ example hasAfterInDependencies
+]
+
+{ #category : #testing }
 GtExampleWithResult >> hasAnnouncer [
 	^ announcer isNotNil
 ]

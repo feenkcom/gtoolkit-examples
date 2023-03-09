@@ -230,6 +230,11 @@ GtExample >> hasAfter [
 	^ after notNil
 ]
 
+{ #category : #accessing }
+GtExample >> hasAfterInDependencies [
+	^ self hasAfter or: [ self allDependencies anySatisfy: #hasAfter ]
+]
+
 { #category : #testing }
 GtExample >> hasDependencies [
 	^ self directDependencies notEmpty
