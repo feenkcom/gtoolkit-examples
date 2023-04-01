@@ -9,7 +9,8 @@ Class {
 	#instVars : [
 		'example',
 		'result',
-		'announcer'
+		'announcer',
+		'mutex'
 	],
 	#category : #'GToolkit-Examples-Runtime'
 }
@@ -49,7 +50,16 @@ GtExampleWithResult >> announcer: anAnnouncer [
 	announcer := anAnnouncer
 ]
 
-{ #category : #accessing }
+{ #category : #converting }
+GtExampleWithResult >> asCachedExampleWithResult [
+	"I do not ensure that I am really a cached instance.
+	{{gtClass:GtExample}} instances ensure cached instances.
+	On other hand, it is likely that I am already cached."
+
+	^ self
+]
+
+{ #category : #converting }
 GtExampleWithResult >> asExampleWithResult [
 	^ self
 ]
@@ -84,6 +94,13 @@ GtExampleWithResult >> debug [
 { #category : #accessing }
 GtExampleWithResult >> directDependencies [
 	^ self example directDependencies collect: #asExampleWithResult
+]
+
+{ #category : #public }
+GtExampleWithResult >> ensureResult [
+	<return: #GtExampleResult>
+	mutex critical: [ self hasResult ifFalse: [ self run ] ].
+	^ self result
 ]
 
 { #category : #accessing }
@@ -208,6 +225,13 @@ GtExampleWithResult >> icon [
 { #category : #testing }
 GtExampleWithResult >> ignoreTest [
 	^ self example ignoreTest
+]
+
+{ #category : #initialization }
+GtExampleWithResult >> initialize [
+	super initialize.
+
+	mutex := Mutex new
 ]
 
 { #category : #testing }
@@ -347,14 +371,14 @@ GtExampleWithResult >> resultOrErrorName [
 
 { #category : #accessing }
 GtExampleWithResult >> returnValue [
-	^ self result returnValue
+	^ self ensureResult returnValue
 ]
 
 { #category : #public }
 GtExampleWithResult >> run [
 	<return: #GtExampleResult>
-	self result: self example run.
-	^ self result.
+	mutex critical: [ self result: self example run ].
+	^ self result
 ]
 
 { #category : #accessing }
