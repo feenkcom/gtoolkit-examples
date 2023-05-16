@@ -156,7 +156,7 @@ GtExampleResult >> gtLiveFor: aView [
 	<gtView>
 	
 	^ aView forward
-		title: 'Return Value';
+		title: 'Return value';
 		priority: 10;
 		object: [ returnValue ];
 		view: #gtLiveFor:
