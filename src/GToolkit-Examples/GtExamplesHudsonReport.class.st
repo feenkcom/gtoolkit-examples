@@ -10,6 +10,44 @@ Class {
 }
 
 { #category : #running }
+GtExamplesHudsonReport class >> runClass: aClass [
+	| theExamples theExamplesGroupedByClass |
+	
+	"Running all examples in the image may create a lot of objects,
+	to make it a bit more predictable we request gargabe collection manually."
+	Smalltalk garbageCollect.
+
+	theExamples := aClass gtExamples.
+	theExamplesGroupedByClass := theExamples groupedBy: [ :each | each methodClass ].
+
+	GtExamplesReportRunPackageSignal new
+		packageName: aClass package name;
+		amountOfExampleClasses: theExamplesGroupedByClass size;
+		amountOfExamples: theExamples size;
+		emit.
+
+	^ theExamplesGroupedByClass associations collect: [ :eachAssoc |
+		| eachClass classExamples sortFunction |
+		
+		eachClass := eachAssoc key.
+		classExamples := eachAssoc value.
+		
+		sortFunction := GtMethodsSortFunction new.
+		classExamples := classExamples sorted: [ :a :b |
+			(sortFunction collate: a method with: b method) <= 0 ].
+
+		GtExamplesReportRunClassSignal new
+			exampleClass: eachClass;
+			amountOfExamples: classExamples size;
+			emit.
+
+		self new 
+			initializeWithTestCases: classExamples;
+			reportName: aClass package name, '-', eachClass name;
+			run ]
+]
+
+{ #category : #running }
 GtExamplesHudsonReport class >> runPackage: aString [
 	| theExamples theExamplesGroupedByClass |
 	
@@ -110,17 +148,29 @@ GtExamplesHudsonReport >> resultsFileName [
 
 { #category : #running }
 GtExamplesHudsonReport >> runExample: anExample [
-	| errorDetails stack runStatus |
+	| errorDetails stack runStatus retryCount |
+
 	errorDetails := nil.
+	retryCount := 3.
 
 	self beginTestCase: anExample runBlock: [ 
 		[ anExample debug ]
 			on: self signalableExceptions
 			do: [ :err | 
-				errorDetails := Dictionary new.
-				self initializeErrorDetails: errorDetails forError: err.
-				(anExample exceptions handles: err) ifFalse: [ 
-					stack := self stackTraceString: err of: anExample ] ] ].
+				retryCount := retryCount - 1.
+				GtExamplesReportRetrySignal new
+					example: anExample;
+					retryCount: retryCount;
+					emit.
+				retryCount > 0 ifTrue:
+					[ 3 timesRepeat: [ Smalltalk garbageCollect ].
+					3 seconds wait.
+					err retry ]
+				ifFalse:
+					[ errorDetails := Dictionary new.
+					self initializeErrorDetails: errorDetails forError: err.
+					(anExample exceptions handles: err) ifFalse: [ 
+						stack := self stackTraceString: err of: anExample ] ] ] ].
 
 
 	errorDetails 
