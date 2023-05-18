@@ -19,6 +19,15 @@ GtExamplesReportRetrySignal >> example: anObject [
 ]
 
 { #category : #accessing }
+GtExamplesReportRetrySignal >> printOneLineContentsOn: stream [
+
+	stream
+		print: example;
+		<< ': ';
+		print: retryCount.
+]
+
+{ #category : #accessing }
 GtExamplesReportRetrySignal >> retryCount [
 	^ retryCount
 ]
