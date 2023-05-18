@@ -22,7 +22,7 @@ GtExamplesReportRetrySignal >> example: anObject [
 GtExamplesReportRetrySignal >> printOneLineContentsOn: stream [
 
 	stream
-		print: example;
+		<< example gtDisplayString;
 		<< ': ';
 		print: retryCount.
 ]
