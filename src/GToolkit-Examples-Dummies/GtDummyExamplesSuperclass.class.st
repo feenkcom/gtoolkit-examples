@@ -22,3 +22,44 @@ GtDummyExamplesSuperclass >> dCallSuper [
 	<gtExample>
 	^ 1
 ]
+
+{ #category : #examples }
+GtDummyExamplesSuperclass >> iCallToSelfJ [
+	<gtExample>
+	
+	^ self jMethodInBothWithAfterInSubclass
+]
+
+{ #category : #examples }
+GtDummyExamplesSuperclass >> iSuperCallHavingASelfCallToMethodInThisClassWithAfterOnlyInSubclass [
+	<gtExample>
+	| result dependency secondDependency |
+	
+	result := self iCallToSelfJ.
+	
+	self 
+		assert: self gtExampleRuntimeContext example directDependencies size 
+		equals: 1.
+		
+	dependency := self gtExampleRuntimeContext example directDependencies first.
+	self 
+		assert:  dependency method 
+		equals: (self class >> #iCallToSelfJ).
+		
+	self assert: dependency directDependencies size equals: 1.
+	secondDependency := dependency directDependencies first.
+	self 
+		assert: secondDependency method
+		equals: (self class >> #jMethodInBothWithAfterInSubclass).
+	self 
+		assert: secondDependency after
+		equals: nil.
+	
+	^ result
+]
+
+{ #category : #examples }
+GtDummyExamplesSuperclass >> jMethodInBothWithAfterInSubclass [
+	<gtExample>
+	^ 2
+]

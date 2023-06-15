@@ -136,7 +136,18 @@ GtExampleWithResult >> gtConnectionsFor: aView [
 	^ self example gtConnectionsFor: aView
 ]
 
-{ #category : #accessing }
+{ #category : #'gt - extensions' }
+GtExampleWithResult >> gtDependenciesFor: aView [
+	<gtView>
+	
+	^ aView forward 
+		title: 'Dependencies';
+		priority: 50;
+		object: [ self example ];
+		view: #gtDependenciesFor:
+]
+
+{ #category : #'gt - extensions' }
 GtExampleWithResult >> gtDependenciesGraphFor: aView [
 	<gtView>
 	^ self example gtDependenciesGraphFor: aView

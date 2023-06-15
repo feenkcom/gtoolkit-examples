@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'action'
 	],
-	#category : 'GToolkit-Examples-Runtime'
+	#category : #'GToolkit-Examples-Runtime'
 }
 
 { #category : #accessing }
@@ -24,7 +24,9 @@ GtExampleTraverser >> action: anObject [
 
 { #category : #private }
 GtExampleTraverser >> basicProcess: anExample [
-	self action ifNotNil: [ self example == anExample ifFalse: [ self action value: anExample ] ].
+	self action ifNotNil: [ 
+		self example == anExample ifFalse: [ 
+			self action value: anExample ] ].
 ]
 
 { #category : #initialization }

@@ -6,7 +6,7 @@ I define a heuristic for determining if a given AST node represents a dependency
 Class {
 	#name : #GtExampleDependencyResolver,
 	#superclass : #Object,
-	#category : 'GToolkit-Examples-Organization'
+	#category : #'GToolkit-Examples-Organization'
 }
 
 { #category : #testing }
@@ -15,16 +15,28 @@ GtExampleDependencyResolver >> appliesTo: anASTNode [
 ]
 
 { #category : #private }
-GtExampleDependencyResolver >> exampleFromMethod: aMethod [
+GtExampleDependencyResolver >> exampleFromMethod: aCompiledMethod [
+	^ self 
+		exampleFromMethod: aCompiledMethod 
+		withProviderClass: aCompiledMethod methodClass
+]
+
+{ #category : #private }
+GtExampleDependencyResolver >> exampleFromMethod: aCompiledMethod withProviderClass: aProviderClass [
 	self flag: 'figure out how to remove the if statements'.
-	^ aMethod isGTExampleMethod 
-		ifTrue: [ aMethod  gtExample ]
-		ifFalse: [ aMethod isGTParametrizedExampleMethod 
-			ifTrue: [ aMethod gtParametrizedExample ] 
+	
+	^ aCompiledMethod isGTExampleMethod 
+		ifTrue: [ aCompiledMethod gtExamplesFactory
+			createExampleForMethod: aCompiledMethod 
+			withProviderClass: aProviderClass ]
+		ifFalse: [ aCompiledMethod isGTParametrizedExampleMethod 
+			ifTrue: [ aCompiledMethod gtParametrizedExamplesFactory
+				createExampleForMethod: aCompiledMethod 
+				withProviderClass: aProviderClass ] 
 			ifFalse: [ nil ] ]
 ]
 
 { #category : #action }
-GtExampleDependencyResolver >> posibleExampleForNode: aMessageNode fromMethod: aCompiledMethod [
+GtExampleDependencyResolver >> posibleExampleForNode: aMessageNode fromMethod: aCompiledMethod forOriginalExample: anOriginalExample [
 	self subclassResponsibility
 ]
