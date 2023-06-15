@@ -10,3 +10,10 @@ GtDummyExamplesExternalSubclassDependencies >> iWithSelfSuperExternalDependencie
 	
 	^ self j + super j + GtDummyExamplesExternalDependencies new j
 ]
+
+{ #category : #examples }
+GtDummyExamplesExternalSubclassDependencies >> kWithSelfSuperExternalDependenciesToMethodInSubclass [
+	<gtExample>
+	
+	^ self j + super j + GtDummyExamplesExternalSubclassDependencies new j
+]

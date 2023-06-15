@@ -14,7 +14,7 @@ Class {
 	#classInstVars : [
 		'instance'
 	],
-	#category : 'GToolkit-Examples-Organization'
+	#category : #'GToolkit-Examples-Organization'
 }
 
 { #category : #accessing }
@@ -43,6 +43,16 @@ GtExampleDependenciesResolver >> dependencyResolvers [
 	^ resolvers
 ]
 
+{ #category : #accessing }
+GtExampleDependenciesResolver >> gtViewDependencyResolversFor: aView [
+	<gtView>
+	
+	^ aView forward 
+		title: 'Dependency Resolvers';
+		object: [ self dependencyResolvers ];
+		view: #gtItemsFor:
+]
+
 { #category : #initialization }
 GtExampleDependenciesResolver >> initialize [
 	super initialize.
@@ -60,22 +70,28 @@ GtExampleDependenciesResolver >> resolveDependenciesForExample: anExample [
 	anExample methodDo: [ :aMethod | 
 		aMethod ast nodesDo: [ :aNode | 
 			self 
-			withExampleFrom: aNode 
-			fromMethod: aMethod 
-			ifPresentDo: [ :possibleExampleDependency |
-				exampleDependencies 
-					detect: [ :anotherExample | anotherExample = possibleExampleDependency ]
-					ifNone: [ exampleDependencies add: possibleExampleDependency ] ] ] ].
+				withDependencyExampleFrom: aNode 
+				fromMethod: aMethod 
+				forOriginalExample: anExample 
+				ifPresentDo:  [ :possibleExampleDependency |
+					exampleDependencies 
+						detect: [ :anotherExample | 
+							anotherExample = possibleExampleDependency ]
+						ifNone: [ 
+							exampleDependencies add: possibleExampleDependency ] ] ] ].
+	
 	^ exampleDependencies
 ]
 
 { #category : #'private - iterating' }
-GtExampleDependenciesResolver >> withExampleFrom: anASTNode fromMethod: aCompiledMethod ifPresentDo: anActionBlock [
+GtExampleDependenciesResolver >> withDependencyExampleFrom: anASTNode fromMethod: aCompiledMethod forOriginalExample: anOriginalExample ifPresentDo: anActionBlock [
+
 	self dependencyResolvers 
 		detect: [ :aResolver | aResolver appliesTo: anASTNode ]
 		ifFound: [ :aResolver | 
 			(aResolver 
 				posibleExampleForNode: anASTNode 
-				fromMethod: aCompiledMethod) 
+				fromMethod: aCompiledMethod
+				forOriginalExample: anOriginalExample) 
 					ifNotNil: [ :anExample | anActionBlock value: anExample ]  ]
 ]
