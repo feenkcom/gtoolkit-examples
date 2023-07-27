@@ -43,7 +43,7 @@ GtExampleOpenClassInCoderCommand class >> menuItemOrder [
 GtExampleOpenClassInCoderCommand >> execute [
 	selectedItems
 		do: [ :eachDataSourceItem | 
-			((self class environment at: #GtCoder)
+			((self class environment at: #GtCoderElement)
 				forClass: eachDataSourceItem actualObject)
 					openInPager maximized ]
 ]
