@@ -148,10 +148,11 @@ GtExamplesHudsonReport >> resultsFileName [
 
 { #category : #running }
 GtExamplesHudsonReport >> runExample: anExample [
-	| errorDetails stack runStatus retryCount |
+	| errorDetails stacks runStatus retryCount |
 
 	errorDetails := nil.
 	retryCount := 3.
+	stacks := OrderedCollection new.
 
 	self beginTestCase: anExample runBlock: [ 
 		[ anExample debug ]
@@ -160,29 +161,49 @@ GtExamplesHudsonReport >> runExample: anExample [
 				retryCount := retryCount - 1.
 				GtExamplesReportRetrySignal new
 					example: anExample;
+					exception: err;
 					retryCount: retryCount;
 					emit.
-				retryCount > 0 ifTrue:
-					[ 3 timesRepeat: [ Smalltalk garbageCollect ].
+				retryCount > 0 ifTrue:[ 
+					stacks add: (self stackTraceString: err of: anExample).
+					3 timesRepeat: [ Smalltalk garbageCollect ].
 					3 seconds wait.
 					err retry ]
 				ifFalse:
 					[ errorDetails := Dictionary new.
 					self initializeErrorDetails: errorDetails forError: err.
 					(anExample exceptions handles: err) ifFalse: [ 
-						stack := self stackTraceString: err of: anExample ] ] ] ].
+						stacks add: (self stackTraceString: err of: anExample) ] ] ] ].
 
 
 	errorDetails 
 		ifNil: [ runStatus := #success ]
 		ifNotNil: [ 
+			| stackReport |
+			stackReport := stacks size = 1
+				ifTrue: [ stacks first ]
+				ifFalse: [
+					String streamContents: [ :aStream |
+						| stackIndex |
+						stackIndex := 1.
+						stacks 
+							do: [ :aStack | 
+								aStream 
+									<< 'Stack ';
+									print: stackIndex;
+									lf;
+									<< aStack.
+								stackIndex := stackIndex +1  ]
+							separatedBy: [
+								aStream lf; lf ] ] ].
+		
 			((errorDetails at: #errorClass) includesBehavior: AssertionFailure)
 				ifTrue: [ 
 					 runStatus := #failure.
-					self writeFailure: errorDetails stack: stack ]
+					self writeFailure: errorDetails stack: stackReport ]
 				ifFalse: [
 					runStatus := #error.
-					self writeError: errorDetails stack: stack ] ].
+					self writeError: errorDetails stack: stackReport ] ].
 
 	self endTestCase.
 	

@@ -33,10 +33,7 @@ GtExampleOpenDebugger >> callback: aValuable [
 ]
 
 { #category : #private }
-GtExampleOpenDebugger >> callbackWithExample: anExample result: anObject [
-	| anExampleResult |
-	anExampleResult := self newResultFor: self example.
-	anExampleResult successValue: anObject.
+GtExampleOpenDebugger >> callbackWithResult: anExampleResult [
 	self callback cull: anExampleResult
 ]
 
@@ -57,9 +54,9 @@ GtExampleOpenDebugger >> result [
 	aCompiledMethod := self example method.
 	
 	aProcess := [ 
-		| aValue |
-		aValue := super result.
-		self callbackWithExample: self example result: aValue ] newProcess.
+		| anExampleResult |
+		anExampleResult := super result.
+		self callbackWithResult: anExampleResult ] newProcess.
 	aContext := aProcess suspendedContext.
 	
 	aDebugSession := aProcess newDebugSessionNamed: 'debug it' startedAt: aContext.
