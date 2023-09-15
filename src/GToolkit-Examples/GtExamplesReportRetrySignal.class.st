@@ -3,7 +3,8 @@ Class {
 	#superclass : #GtExamplesReportSignal,
 	#instVars : [
 		'example',
-		'retryCount'
+		'retryCount',
+		'exception'
 	],
 	#category : #'GToolkit-Examples-Testing'
 }
@@ -18,6 +19,11 @@ GtExamplesReportRetrySignal >> example: anObject [
 	example := anObject
 ]
 
+{ #category : #running }
+GtExamplesReportRetrySignal >> exception: anException [
+	exception := anException 
+]
+
 { #category : #accessing }
 GtExamplesReportRetrySignal >> printOneLineContentsOn: stream [
 
@@ -25,6 +31,10 @@ GtExamplesReportRetrySignal >> printOneLineContentsOn: stream [
 		<< example gtDisplayString;
 		<< ': ';
 		print: retryCount.
+	exception ifNotNil: [
+		stream 
+			<< '; exception: ';
+			<< exception messageText ]
 ]
 
 { #category : #accessing }
