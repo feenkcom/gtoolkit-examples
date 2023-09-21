@@ -232,14 +232,14 @@ GtExamplesHudsonReport >> stackTraceString: err of: anExample [
 				of the equality method is sound and will not produce new errors. That is why we first make sure we deal with
 				an instance of GtExample for which we can guarantee the correctness of the `=`"
 				hasExampleOnTheStack :=
-					context methodSelector = #primitiveProcessExample:withEvaluationContext:
+					context selector = #primitiveProcessExample:withEvaluationContext:
 						and: [ (context arguments first isKindOf: anExample class)
 							and: [ context arguments first = anExample ] ].
 
 				hasExampleOnTheStack := hasExampleOnTheStack or: [
 					(context receiver isKindOf: anExample class)
 						and: [ context receiver = anExample
-							and: [ context methodSelector = #debug ] ] ].
+							and: [ context selector = #debug ] ] ].
 				hasExampleOnTheStack ]
 		] whileFalse: [
 			str print: context; lf.
