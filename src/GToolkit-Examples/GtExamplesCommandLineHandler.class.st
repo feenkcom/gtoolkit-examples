@@ -10,6 +10,11 @@ Class {
 }
 
 { #category : #accessing }
+GtExamplesCommandLineHandler class >> checksLabel [
+	^ 'Example'
+]
+
+{ #category : #accessing }
 GtExamplesCommandLineHandler class >> commandName [
 	^ 'examples'
 ]
@@ -96,6 +101,7 @@ GtExamplesCommandLineHandler >> basicRunExamplesInPackages: aCollectionOfPackage
 	diffReport recordTargetReport.
 	
 	^ GtExamplesReportResult new 
+		label: self class checksLabel capitalized pluralize, ' Report';
 		exampleResults: (exampleResults select: #notNil);
 		runtimeStatisticsDiffReport: diffReport
 ]
@@ -129,13 +135,18 @@ GtExamplesCommandLineHandler >> informResults: anExamplesReportResult [
 				results sum: #skippedCount });
 		<< OSPlatform current lineEnding.
 		
-		
-	NonInteractiveTranscript stdout cr;cr.
-		anExamplesReportResult runtimeStatisticsDiffReport fullTextualContent linesDo: [ :aLine |
-			NonInteractiveTranscript stdout 
-				<< aLine;
-				cr ].
-
+	anExamplesReportResult runtimeStatisticsDiffReport ifNotNil: [
+		NonInteractiveTranscript stdout 
+			<< OSPlatform current lineEnding;
+			<< self class checksLabel capitalized pluralize;
+			<< ' - Virtual Machine Statistics';
+			<< OSPlatform current lineEnding.
+			anExamplesReportResult runtimeStatisticsDiffReport fullTextualContent 
+				linesDo: [ :aLine |
+					NonInteractiveTranscript stdout 
+						tab;
+						<< aLine;
+						<< OSPlatform current lineEnding ] ].
 ]
 
 { #category : #private }
