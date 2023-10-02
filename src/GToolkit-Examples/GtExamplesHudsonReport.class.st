@@ -12,10 +12,6 @@ Class {
 { #category : #running }
 GtExamplesHudsonReport class >> runClass: aClass [
 	| theExamples theExamplesGroupedByClass |
-	
-	"Running all examples in the image may create a lot of objects,
-	to make it a bit more predictable we request gargabe collection manually."
-	Smalltalk garbageCollect.
 
 	theExamples := aClass gtExamples.
 	theExamplesGroupedByClass := theExamples groupedBy: [ :each | each methodClass ].
@@ -50,10 +46,6 @@ GtExamplesHudsonReport class >> runClass: aClass [
 { #category : #running }
 GtExamplesHudsonReport class >> runPackage: aString [
 	| theExamples theExamplesGroupedByClass |
-	
-	"Running all examples in the image may create a lot of objects,
-	to make it a bit more predictable we request gargabe collection manually."
-	Smalltalk garbageCollect.
 
 	theExamples := (RPackage organizer packageNamed: aString) gtExamplesAllContained.
 	theExamplesGroupedByClass := theExamples groupedBy: [ :each | each methodClass ].
