@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'exampleResults',
-		'runtimeStatisticsDiffReport'
+		'runtimeStatisticsDiffReport',
+		'label'
 	],
 	#category : #'GToolkit-Examples-Testing'
 }
@@ -16,6 +17,16 @@ GtExamplesReportResult >> exampleResults [
 { #category : #accessing }
 GtExamplesReportResult >> exampleResults: aCollection [
 	exampleResults := aCollection
+]
+
+{ #category : #accessing }
+GtExamplesReportResult >> label [
+	^ label
+]
+
+{ #category : #accessing }
+GtExamplesReportResult >> label: anObject [
+	label := anObject
 ]
 
 { #category : #accessing }
