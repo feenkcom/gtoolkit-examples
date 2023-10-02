@@ -94,14 +94,15 @@ GtExamplesCommandLineHandler >> basicRunExamplesInPackages: aCollectionOfPackage
 	| diffReport exampleResults |
 	
 	diffReport := GtVmRuntimeStatisticsDiffReport new.
+	diffReport label: self class checksLabel capitalized pluralize, ' Report'.
 	diffReport recordSourceReport.
 
 	exampleResults := self exampleReport runPackages: aCollectionOfPackages.
 	
 	diffReport recordTargetReport.
 	
+	
 	^ GtExamplesReportResult new 
-		label: self class checksLabel capitalized pluralize, ' Report';
 		exampleResults: (exampleResults select: #notNil);
 		runtimeStatisticsDiffReport: diffReport
 ]
