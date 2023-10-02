@@ -85,6 +85,22 @@ GtExamplesCommandLineHandler >> addPackagesMatchingRegex: aRegex to: aSet [
 ]
 
 { #category : #private }
+GtExamplesCommandLineHandler >> basicRunExamplesInPackages: aCollectionOfPackages [
+	| diffReport exampleResults |
+	
+	diffReport := GtVmRuntimeStatisticsDiffReport new.
+	diffReport recordSourceReport.
+
+	exampleResults := self exampleReport runPackages: aCollectionOfPackages.
+	
+	diffReport recordTargetReport.
+	
+	^ GtExamplesReportResult new 
+		exampleResults: (exampleResults select: #notNil);
+		runtimeStatisticsDiffReport: diffReport
+]
+
+{ #category : #private }
 GtExamplesCommandLineHandler >> exampleReport [
 	(self hasOption: 'junit-xml-output') ifTrue: [ ^ GtExamplesHudsonReport ].
 	^ self error: 'only works for now for junit for now'
@@ -98,7 +114,9 @@ GtExamplesCommandLineHandler >> inform: aString [
 ]
 
 { #category : #private }
-GtExamplesCommandLineHandler >> informResults: results [
+GtExamplesCommandLineHandler >> informResults: anExamplesReportResult [
+	| results |
+	results := anExamplesReportResult exampleResults.
 	self stdout 
 		<< OSPlatform current lineEnding
 		<< ('{1} examples, {2} executed, {3} passes, {4} failures, {5} errors, {6} skipped.'
@@ -109,7 +127,15 @@ GtExamplesCommandLineHandler >> informResults: results [
 				results sum: #failureCount.
 				results sum: #errorCount.
 				results sum: #skippedCount });
-		<< OSPlatform current lineEnding
+		<< OSPlatform current lineEnding.
+		
+		
+	NonInteractiveTranscript stdout cr;cr.
+		anExamplesReportResult runtimeStatisticsDiffReport fullTextualContent linesDo: [ :aLine |
+			NonInteractiveTranscript stdout 
+				<< aLine;
+				cr ].
+
 ]
 
 { #category : #private }
@@ -181,12 +207,12 @@ GtExamplesCommandLineHandler >> packagesToSkip [
 
 { #category : #private }
 GtExamplesCommandLineHandler >> runPackages [
-	| packages results runBlock |
+	| packages examplesReportResult runBlock |
 	
 	packages := self sortedPackageNamesToRun.
 	self inform: 'Running examples in ', packages size asString, ' packages'.
 	
-	runBlock := [ [ results := (self exampleReport runPackages: packages) select: #notNil ]
+	runBlock := [ [ examplesReportResult := (self basicRunExamplesInPackages: packages) ]
 		on: Error
 		do: [ :ex | 
 			self inform: 'Exiting runBlock abnormally'.
@@ -205,10 +231,10 @@ GtExamplesCommandLineHandler >> runPackages [
 				during: runBlock ]
 		ifFalse: runBlock.
 
-	results
-		ifNotNil: [ self informResults: results ].
+	examplesReportResult exampleResults
+		ifNotNil: [ self informResults: examplesReportResult ].
 		
-	^ results
+	^ examplesReportResult exampleResults
 ]
 
 { #category : #private }
