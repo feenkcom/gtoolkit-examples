@@ -91,20 +91,9 @@ GtExamplesCommandLineHandler >> addPackagesMatchingRegex: aRegex to: aSet [
 
 { #category : #private }
 GtExamplesCommandLineHandler >> basicRunExamplesInPackages: aCollectionOfPackages [
-	| diffReport exampleResults |
-	
-	diffReport := GtVmRuntimeStatisticsDiffReport new.
-	diffReport label: self class checksLabel capitalized pluralize, ' Report'.
-	diffReport recordSourceReport.
-
-	exampleResults := self exampleReport runPackages: aCollectionOfPackages.
-	
-	diffReport recordTargetReport.
-	
-	
-	^ GtExamplesReportResult new 
-		exampleResults: (exampleResults select: #notNil);
-		runtimeStatisticsDiffReport: diffReport
+	^ self runWithVmStatistics: [
+		self runWithMessageTally: [
+			self exampleReport runPackages: aCollectionOfPackages ] ]
 ]
 
 { #category : #private }
@@ -229,6 +218,7 @@ GtExamplesCommandLineHandler >> runPackages [
 		do: [ :ex | 
 			self inform: 'Exiting runBlock abnormally'.
 			self inform: ex printString.
+			
 			Smalltalk
 				logError: ex printString
 				inContext: ex signalerContext ] ].
@@ -255,6 +245,55 @@ GtExamplesCommandLineHandler >> runPackagesInUI [
 	packages := self sortedPackageNamesToRun.
 	results := (GtExamplesHudsonReport runPackages: packages) select: #notNil.				
 	^ results
+]
+
+{ #category : #private }
+GtExamplesCommandLineHandler >> runWithMessageTally: aBlock [
+	| result messageTally |
+	
+	(self hasOption: 'enable-message-tally') ifFalse: [
+		^ aBlock value ].
+	
+	messageTally := MessageTally new.
+	messageTally reportOtherProcesses: true.
+	messageTally 
+		spyAllEvery: MessageTally defaultPollPeriod
+		on: [
+			result := aBlock value ].
+	
+	('messageTally-{1}-full.txt' 
+		format: {self class checksLabel}) asFileReference 
+			writeStreamDo: [ :aStream |
+				messageTally report: aStream ].
+	('messageTally-{1}-filtered.txt' 
+		format: {self class checksLabel}) asFileReference 
+			writeStreamDo: [ :aStream |
+				(messageTally applyFilter: GtRecursionSummaryFilter  new) 
+					report: aStream ].
+	
+	^ result
+]
+
+{ #category : #private }
+GtExamplesCommandLineHandler >> runWithVmStatistics: aBlock [
+	| diffReport exampleResults |
+	
+	(self hasOption: 'verbose') ifFalse: [
+		exampleResults := aBlock value.
+		^ GtExamplesReportResult new 
+			exampleResults: (exampleResults select: #notNil) ].
+	
+	diffReport := GtVmRuntimeStatisticsDiffReport new.
+	diffReport label: self class checksLabel capitalized pluralize, ' Report'.
+	diffReport recordSourceReport.
+
+	exampleResults := aBlock value.
+	
+	diffReport recordTargetReport.
+	
+	^ GtExamplesReportResult new 
+		exampleResults: (exampleResults select: #notNil);
+		runtimeStatisticsDiffReport: diffReport
 ]
 
 { #category : #accessing }
