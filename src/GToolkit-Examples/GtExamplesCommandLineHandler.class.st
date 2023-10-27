@@ -233,6 +233,10 @@ GtExamplesCommandLineHandler >> runPackages [
 				during: runBlock ]
 		ifFalse: runBlock.
 
+	examplesReportResult ifNil:
+		[ self inform: 'No report result - should have Exiting runBlock abnormally'.
+		^ nil ].
+
 	examplesReportResult exampleResults
 		ifNotNil: [ self informResults: examplesReportResult ].
 		
