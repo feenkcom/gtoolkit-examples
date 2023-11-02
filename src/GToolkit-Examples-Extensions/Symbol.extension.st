@@ -1,7 +1,7 @@
 Extension { #name : #Symbol }
 
 { #category : #'*GToolkit-Examples-Extensions' }
-Symbol class >> gtExampleFourtyTwo [
+Symbol class >> gtExampleFortyTwo [
 	<gtExample>
-	^ #fourtyTwo
+	^ #fortyTwo
 ]

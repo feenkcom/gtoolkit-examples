@@ -1,7 +1,7 @@
 Extension { #name : #String }
 
 { #category : #'*GToolkit-Examples-Extensions' }
-String class >> gtInspectorFourtyTwo [
+String class >> gtInspectorFortyTwo [
 	<gtExample>
 	^ '42'
 ]
