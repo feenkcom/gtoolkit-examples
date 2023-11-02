@@ -1,7 +1,7 @@
 Extension { #name : #Number }
 
 { #category : #'*GToolkit-Examples-Extensions' }
-Number class >> gtExampleFourtyTwo [
+Number class >> gtExampleFortyTwo [
 	<gtExample>
 	<label: '42'>
 	
