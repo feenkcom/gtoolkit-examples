@@ -201,6 +201,11 @@ GtExampleWithResult >> gtLiveFor: aView [
 ]
 
 { #category : #testing }
+GtExampleWithResult >> hasAfter [
+	^ self example hasAfter 
+]
+
+{ #category : #testing }
 GtExampleWithResult >> hasAfterInDependencies [
 	^ example hasAfterInDependencies
 ]
