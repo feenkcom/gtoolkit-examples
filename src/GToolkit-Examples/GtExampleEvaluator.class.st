@@ -21,10 +21,11 @@ GtExampleEvaluator >> basicProcess: anExample [
 	dependencies := self dependenciesFor: anExample.
 	currentResult := self newResultFor: anExample.
 	anEvaluationContext := anExample evaluationContext.
-	
-	[ currentResult successValue: (self primitiveProcessExample: anExample withEvaluationContext: anEvaluationContext) ] 
-		ensure: [ 
-			self processAfter: anExample withDependencies: dependencies andEvaluationContext: anEvaluationContext ].
+
+	GtProcessStackOverflowChecker currentCheckerClass checkDuring:
+		[ [ currentResult successValue: (self primitiveProcessExample: anExample withEvaluationContext: anEvaluationContext) ] 
+			ensure: [ 
+				self processAfter: anExample withDependencies: dependencies andEvaluationContext: anEvaluationContext ] ].
 	
 	^ currentResult
 ]

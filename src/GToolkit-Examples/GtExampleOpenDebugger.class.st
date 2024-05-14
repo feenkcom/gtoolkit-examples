@@ -2,34 +2,20 @@ Class {
 	#name : #GtExampleOpenDebugger,
 	#superclass : #GtExampleEvaluator,
 	#instVars : [
-		'callback'
+		'resultCallback',
+		'openDebuggerCallback'
 	],
 	#category : #'GToolkit-Examples-Runtime'
 }
 
 { #category : #accessing }
-GtExampleOpenDebugger >> basicProcess: anExample [
-	<return: #GtExampleResult>
-	| currentResult anEvaluationContext |
-
-	context example: anExample.
-
-	currentResult := self newResultFor: anExample.
-	anEvaluationContext := anExample evaluationContext.
-	
-	currentResult successValue: (self primitiveProcessExample: anExample withEvaluationContext: anEvaluationContext).
-	
-	^ currentResult
-]
-
-{ #category : #accessing }
 GtExampleOpenDebugger >> callback [
-	^ callback
+	^ resultCallback
 ]
 
 { #category : #accessing }
 GtExampleOpenDebugger >> callback: aValuable [
-	callback := aValuable
+	resultCallback := aValuable
 ]
 
 { #category : #private }
@@ -45,7 +31,22 @@ GtExampleOpenDebugger >> do: aBlock on: anException do: anotherBlock [
 { #category : #initialization }
 GtExampleOpenDebugger >> initialize [
 	super initialize.
-	callback := [ :anExampleResult | "do nothing" ]
+	resultCallback := [ :anExampleResult | "do nothing" ].
+	
+	openDebuggerCallback := [ :aDebugSession | 
+		 Smalltalk tools debugger 
+			openOn: aDebugSession 
+			withFullView: true. ]
+]
+
+{ #category : #'as yet unclassified' }
+GtExampleOpenDebugger >> openDebuggerCallback: aBlockClosure [ 
+	openDebuggerCallback := aBlockClosure
+]
+
+{ #category : #primitives }
+GtExampleOpenDebugger >> openDebuggerOnSession: aDebugSession [ 
+	^ openDebuggerCallback cull: aDebugSession
 ]
 
 { #category : #primitives }
@@ -63,7 +64,7 @@ GtExampleOpenDebugger >> result [
 	aDebugSession stepIntoUntil: [ :currentContext | 
 		currentContext method == aCompiledMethod ].
 	
-	Smalltalk tools debugger openOn: aDebugSession withFullView: true.
+	self openDebuggerOnSession: aDebugSession.
 	
 	^ self newResultFor: self example.
 ]

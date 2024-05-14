@@ -37,6 +37,11 @@ GtExampleWithResult >> = anExample [
 ]
 
 { #category : #accessing }
+GtExampleWithResult >> after [
+	^ self example after
+]
+
+{ #category : #accessing }
 GtExampleWithResult >> announcer [
 	<return: #Announcer>
 	^ announcer ifNil: [ announcer := Announcer new ]
