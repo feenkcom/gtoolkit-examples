@@ -39,7 +39,7 @@ GtExamplesExamplesWithAfter >> exampleClassSideWithAfterAndNoDependency [
 { #category : #'examples - class side' }
 GtExamplesExamplesWithAfter >> exampleClassSideWithAfterAndNoDependency_openDebuggerAndProceed [
 	"I am an example checking that after is called if we resume from the debugger."
-	<gtExample>
+	"<gtExample>"
 	| example debuggerOpened returnedContext  fullDebugger scripter |
 	
 	example := (GtDummyExamplesWithAfterClassSide class >> #c) gtExampleWithResult.
