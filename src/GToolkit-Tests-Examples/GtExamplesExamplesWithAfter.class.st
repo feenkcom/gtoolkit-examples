@@ -37,6 +37,51 @@ GtExamplesExamplesWithAfter >> exampleClassSideWithAfterAndNoDependency [
 ]
 
 { #category : #'examples - class side' }
+GtExamplesExamplesWithAfter >> exampleClassSideWithAfterAndNoDependency_openDebuggerAndProceed [
+	"I am an example checking that after is called if we resume from the debugger."
+	<gtExample>
+	| example debuggerOpened returnedContext  fullDebugger scripter |
+	
+	example := (GtDummyExamplesWithAfterClassSide class >> #c) gtExample.
+	self assertExample: example hasAfterMethod: (GtDummyExamplesWithAfterClassSide class >> #afterC).
+	
+	returnedContext := nil.
+	debuggerOpened := example openingDebugger.
+	debuggerOpened
+		callback: [ :aResult | returnedContext := aResult returnValue ];
+		openDebuggerCallback: [ :aDebugSession | 
+			fullDebugger := GtMoldableDebugger on: aDebugSession ].
+	
+	debuggerOpened result returnValue.
+	
+	scripter := BlScripter new.
+	scripter element:  fullDebugger.
+	
+	"fullDebugger  currentDebugger  session stepOverUntil: [ :currentContext | 
+		currentContext selector = #result and: [ 
+			currentContext methodClass = GtExampleOpenDebugger ] ].
+	fullDebugger  currentDebugger  session
+		stepOver;
+		stepOver. "
+		
+	scripter
+		doStep: [ :s | 
+			s
+				label: 'Close Debugger';
+				action: [ :aDebugger | 
+					aDebugger currentDebugger resumeAndCloseDebugger ] ].
+	
+	self assert: returnedContext notNil.
+	self assert: (returnedContext includesKey: #c) not.
+	self assert: (returnedContext includesKey: #c2).
+	self 
+		assert: (returnedContext at: #execution) 
+		equals: { #afterC } asOrderedCollection.
+	
+	^ example
+]
+
+{ #category : #'examples - class side' }
 GtExamplesExamplesWithAfter >> exampleClassSideWithMultipleDependenciesWithAfter [
 	<gtExample>
 	| example returnedContext |
