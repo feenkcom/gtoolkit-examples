@@ -42,34 +42,32 @@ GtExamplesExamplesWithAfter >> exampleClassSideWithAfterAndNoDependency_openDebu
 	<gtExample>
 	| example debuggerOpened returnedContext  fullDebugger scripter |
 	
-	example := (GtDummyExamplesWithAfterClassSide class >> #c) gtExample.
+	example := (GtDummyExamplesWithAfterClassSide class >> #c) gtExampleWithResult.
 	self assertExample: example hasAfterMethod: (GtDummyExamplesWithAfterClassSide class >> #afterC).
 	
 	returnedContext := nil.
 	debuggerOpened := example openingDebugger.
 	debuggerOpened
-		callback: [ :aResult | returnedContext := aResult returnValue ];
+		callback: [ :anExampleResult |
+			example result:  anExampleResult ];
 		openDebuggerCallback: [ :aDebugSession | 
 			fullDebugger := GtMoldableDebugger on: aDebugSession ].
 	
+	"This executed the example opening the debugger and setting the returned value in the example"
 	debuggerOpened result returnValue.
+	"We can get the returned value from the example"
+	returnedContext := example returnValue.
 	
 	scripter := BlScripter new.
 	scripter element:  fullDebugger.
 	
-	"fullDebugger  currentDebugger  session stepOverUntil: [ :currentContext | 
-		currentContext selector = #result and: [ 
-			currentContext methodClass = GtExampleOpenDebugger ] ].
-	fullDebugger  currentDebugger  session
-		stepOver;
-		stepOver. "
+	self stepOverContextSettingResultInDebugger: fullDebugger.
 		
-	scripter
-		doStep: [ :s | 
-			s
-				label: 'Close Debugger';
-				action: [ :aDebugger | 
-					aDebugger currentDebugger resumeAndCloseDebugger ] ].
+	scripter doStep: [ :aStep | 
+		aStep
+			label: 'Close Debugger';
+			action: [ :aDebugger | 
+				aDebugger currentDebugger resumeAndCloseDebugger ] ].
 	
 	self assert: returnedContext notNil.
 	self assert: (returnedContext includesKey: #c) not.
@@ -137,4 +135,16 @@ GtExamplesExamplesWithAfter >> exampleInstanceSideWithMultipleDependenciesWithAf
 	self assert: (returnedContext at: #self) afterExecution equals: { #afterA. #afterB. #afterC } asOrderedCollection.
 	
 	^ example
+]
+
+{ #category : #utils }
+GtExamplesExamplesWithAfter >> stepOverContextSettingResultInDebugger: aFullDebugger [ 
+	
+	aFullDebugger currentDebugger  session stepOverUntil: [ :currentContext | 
+		currentContext selector = #result and: [ 
+			currentContext methodClass = GtExampleOpenDebugger ] ].
+		
+	aFullDebugger  currentDebugger  session
+		stepOver;
+		stepOver.
 ]
