@@ -102,6 +102,11 @@ GtExampleGroup >> failedExamples [
 ]
 
 { #category : #enumerating }
+GtExampleGroup >> first: aNumber [
+	^ self species withAll: (self examples first: aNumber)
+]
+
+{ #category : #enumerating }
 GtExampleGroup >> flatCollect: aBlock [
 	^ self examples flatCollect: aBlock
 ]
