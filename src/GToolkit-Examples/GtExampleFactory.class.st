@@ -16,7 +16,7 @@ Class {
 		'sourceClass',
 		'exampleClass'
 	],
-	#category : 'GToolkit-Examples-Organization'
+	#category : #'GToolkit-Examples-Organization'
 }
 
 { #category : #subjects }
@@ -151,6 +151,8 @@ GtExampleFactory >> exampleClass: anObject [
 
 { #category : #private }
 GtExampleFactory >> exampleFromMethod: aCompiledMethod withProviderClass: aProviderClass do: aBlock [
+	(self isExampleMethod: aCompiledMethod) ifFalse: [ ^ self ].
+
 	aBlock value: (self 
 		createExampleForMethod: aCompiledMethod 
 		withProviderClass: aProviderClass)
