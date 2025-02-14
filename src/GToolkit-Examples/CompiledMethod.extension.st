@@ -19,6 +19,15 @@ CompiledMethod >> gtExampleValue [
 ]
 
 { #category : #'*GToolkit-Examples-Core' }
+CompiledMethod >> gtExampleWithProviderClass: aProviderClass [
+	self gtExamplesFactory
+		exampleFromMethod: self
+		withProviderClass: aProviderClass
+		do: [ :example | ^ example ].
+	^ nil
+]
+
+{ #category : #'*GToolkit-Examples-Core' }
 CompiledMethod >> gtExampleWithResult [
 	| aWeak anExample |
 	aWeak := self propertyAt: #gtExampleWithResultWeakReference ifAbsent: [ nil ].
