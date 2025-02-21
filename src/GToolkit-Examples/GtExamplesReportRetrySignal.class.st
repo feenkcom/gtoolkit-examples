@@ -34,7 +34,7 @@ GtExamplesReportRetrySignal >> printOneLineContentsOn: stream [
 	exception ifNotNil: [
 		stream 
 			<< '; exception: ';
-			<< exception messageText ]
+			<< (exception messageText ifNil: [ '<no message>' ]) ]
 ]
 
 { #category : #accessing }
