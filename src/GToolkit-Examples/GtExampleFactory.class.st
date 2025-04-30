@@ -218,6 +218,18 @@ GtExampleFactory >> gtExamplesContained [
 	^ examples
 ]
 
+{ #category : #views }
+GtExampleFactory >> gtExamplesFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'Examples';
+		items: [ self gtExamplesContained ];
+		column: 'Index'
+			text: [ :eachItem :eachIndex | eachIndex asRopedText foreground: Color gray ]
+			width: 45;
+		column: 'Example' text: [ :each | each gtDisplayString ]
+]
+
 { #category : #public }
 GtExampleFactory >> gtParametrizedExamplesContained [
 	"Return examples explicitly defined only in the source class."
