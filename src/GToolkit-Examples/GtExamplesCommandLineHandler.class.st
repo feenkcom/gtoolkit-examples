@@ -104,8 +104,11 @@ GtExamplesCommandLineHandler >> exampleReport [
 
 { #category : #private }
 GtExamplesCommandLineHandler >> inform: aString [
+
 	self stdout 
-		<< aString
+		<< DateAndTime now printString;
+		<< ': ';
+		<< aString;
 		<< OSPlatform current lineEnding
 ]
 
@@ -228,7 +231,7 @@ GtExamplesCommandLineHandler >> runPackages [
 
 	(self hasOption: 'verbose')
 		ifTrue: [
-			NonInteractiveTranscriptLogger instance
+			(CustomStreamLogger with: (ZnNewLineWriterStream on: Stdio stdout))
 				runFor: GtExamplesReportSignal
 				during: runBlock ]
 		ifFalse: runBlock.

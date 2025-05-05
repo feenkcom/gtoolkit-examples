@@ -6,7 +6,7 @@ Class {
 		'amountOfExampleClasses',
 		'amountOfExamples'
 	],
-	#category : 'GToolkit-Examples-Testing'
+	#category : #'GToolkit-Examples-Testing'
 }
 
 { #category : #accessing }
@@ -40,7 +40,7 @@ GtExamplesReportRunPackageSignal >> packageName: anObject [
 ]
 
 { #category : #printing }
-GtExamplesReportRunPackageSignal >> printOneLineOn: aStream [		
+GtExamplesReportRunPackageSignal >> printOneLineContentsOn: aStream [		
 	aStream
 		nextPutAll: 'Run ';
 		print: self amountOfExampleClasses;
