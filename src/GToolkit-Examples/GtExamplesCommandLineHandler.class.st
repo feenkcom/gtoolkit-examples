@@ -231,7 +231,7 @@ GtExamplesCommandLineHandler >> runPackages [
 
 	(self hasOption: 'verbose')
 		ifTrue: [
-			FlushingStreamLogger instance
+			(CustomStreamLogger with: (ZnNewLineWriterStream on: Stdio stdout))
 				runFor: GtExamplesReportSignal
 				during: runBlock ]
 		ifFalse: runBlock.
