@@ -7,5 +7,6 @@ Class {
 { #category : #examples }
 GtDummyExamplesClassBPackage1 >> exampleClassBPackage1 [
 	<gtExample>
-	^ 40+2
+	<return: #SmallInteger>
+	^ 40 + 2
 ]

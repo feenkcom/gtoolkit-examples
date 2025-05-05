@@ -9,5 +9,6 @@ Class {
 { #category : #examples }
 GtDummyExamplesInPackage1Root >> exampleRootClassPackage1 [
 	<gtExample>
+	<return: #SmallInteger>
 	^ 42
 ]

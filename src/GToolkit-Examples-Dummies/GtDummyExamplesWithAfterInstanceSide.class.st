@@ -9,22 +9,23 @@ Class {
 
 { #category : #examples }
 GtDummyExamplesWithAfterInstanceSide >> a [
+	" START -> C B A -> afterA -> afterB -> afterC -> END "
+
 	<gtExample>
 	<after: #afterA>
-	" START -> C B A -> afterA -> afterB -> afterC -> END "
-	
+	<return: #GtExampleRuntimeContext>
 	self b.
-	
+
 	self assert: (self gtExampleRuntimeContext includesKey: #c).
 	self assert: (self gtExampleRuntimeContext includesKey: #c2).
 	self assert: (self gtExampleRuntimeContext includesKey: #b).
 	self assert: (self gtExampleRuntimeContext includesKey: #b2).
-	
+
 	self gtExampleRuntimeContext at: #a put: #a.
 	self gtExampleRuntimeContext at: #a2 put: #a2.
-	
-	self gtExampleRuntimeContext at: #self ifAbsentPut: [self].
-	
+
+	self gtExampleRuntimeContext at: #self ifAbsentPut: [ self ].
+
 	^ self gtExampleRuntimeContext
 ]
 
@@ -113,40 +114,42 @@ GtDummyExamplesWithAfterInstanceSide >> afterExecution [
 
 { #category : #examples }
 GtDummyExamplesWithAfterInstanceSide >> b [
+	" START -> C B -> afterB -> afterC -> END "
+
 	<gtExample>
 	<after: #afterB>
-	" START -> C B -> afterB -> afterC -> END "
-	
+	<return: #GtExampleRuntimeContext>
 	self c.
-	
+
 	self assert: (self gtExampleRuntimeContext includesKey: #c).
 	self assert: (self gtExampleRuntimeContext includesKey: #c2).
-	
+
 	self gtExampleRuntimeContext at: #b put: #b.
 	self gtExampleRuntimeContext at: #b2 put: #b2.
-	
-	self assert: ((self gtExampleRuntimeContext at: #b) = #b).
-	self assert: ((self gtExampleRuntimeContext at: #b2) = #b2).
-	
-	self gtExampleRuntimeContext at: #self ifAbsentPut: [self].
-	
+
+	self assert: (self gtExampleRuntimeContext at: #b) = #b.
+	self assert: (self gtExampleRuntimeContext at: #b2) = #b2.
+
+	self gtExampleRuntimeContext at: #self ifAbsentPut: [ self ].
+
 	^ self gtExampleRuntimeContext
 ]
 
 { #category : #examples }
 GtDummyExamplesWithAfterInstanceSide >> c [
+	" START -> C -> afterC -> END "
+
 	<gtExample>
 	<after: #afterC>
-	" START -> C -> afterC -> END "
-	
+	<return: #GtExampleRuntimeContext>
 	self gtExampleRuntimeContext at: #c put: #c.
 	self gtExampleRuntimeContext at: #c2 put: #c2.
-	
-	self assert: ((self gtExampleRuntimeContext at: #c) = #c).
-	self assert: ((self gtExampleRuntimeContext at: #c2) = #c2).
-	
-	self gtExampleRuntimeContext at: #self ifAbsentPut: [self].
-	
+
+	self assert: (self gtExampleRuntimeContext at: #c) = #c.
+	self assert: (self gtExampleRuntimeContext at: #c2) = #c2.
+
+	self gtExampleRuntimeContext at: #self ifAbsentPut: [ self ].
+
 	^ self gtExampleRuntimeContext
 ]
 

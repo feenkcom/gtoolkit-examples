@@ -8,7 +8,7 @@ Class {
 GtDummyExamplesWithSubjects >> classSubject [
 	<gtExample>
 	<subjectClass: 'GtExample'>
-
+	<return: #SmallInteger>
 	self
 		assert: self gtExampleRuntimeContext example subjects first class
 				= GtExampleClassSubject.

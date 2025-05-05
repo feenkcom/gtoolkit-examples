@@ -64,11 +64,11 @@ GtExamplesExamplesWithRuntimeErrors >> assertExpectedFailureFor: anExampleResult
 GtExamplesExamplesWithRuntimeErrors >> exampleRaisingAssertionFailedException [
 	<gtExample>
 	<subjectClass: #GtExample>
+	<return: #GtExample>
 	| example |
-	
 	example := (GtDummyExamplesWithExceptions class >> #e) gtExample.
 	self assertDebuggingExample: example raises: AssertionFailure.
-	
+
 	^ example
 ]
 
@@ -76,11 +76,11 @@ GtExamplesExamplesWithRuntimeErrors >> exampleRaisingAssertionFailedException [
 GtExamplesExamplesWithRuntimeErrors >> exampleRaisingMessageNotUnderstoodException [
 	<gtExample>
 	<subjectClass: #GtExample>
+	<return: #GtExample>
 	| example |
-	
 	example := (GtDummyExamplesInvalidDependencies class >> #a) gtExample.
 	self assertDebuggingExample: example raises: MessageNotUnderstood.
-	
+
 	^ example
 ]
 
@@ -88,11 +88,11 @@ GtExamplesExamplesWithRuntimeErrors >> exampleRaisingMessageNotUnderstoodExcepti
 GtExamplesExamplesWithRuntimeErrors >> exampleRaisingZeroDivideException [
 	<gtExample>
 	<subjectClass: #GtExample>
+	<return: #GtExample>
 	| example |
-	
 	example := (GtDummyExamplesWithExceptions class >> #j) gtExample.
 	self assertDebuggingExample: example raises: ZeroDivide.
-	
+
 	^ example
 ]
 
@@ -100,11 +100,11 @@ GtExamplesExamplesWithRuntimeErrors >> exampleRaisingZeroDivideException [
 GtExamplesExamplesWithRuntimeErrors >> exampleResultWithAssertionFailedException [
 	<gtExample>
 	<subjectClass: #GtExampleResult>
+	<return: #GtExampleResult>
 	| result |
-	
 	result := self exampleRaisingAssertionFailedException run.
 	self assertExpectedFailureFor: result.
-	
+
 	^ result
 ]
 
@@ -112,14 +112,14 @@ GtExamplesExamplesWithRuntimeErrors >> exampleResultWithAssertionFailedException
 GtExamplesExamplesWithRuntimeErrors >> exampleResultWithMessageNotUnderstoodException [
 	<gtExample>
 	<subjectClass: #GtExampleResult>
+	<return: #GtExampleResult>
 	| result |
-	
 	result := self exampleRaisingMessageNotUnderstoodException run.
-	self 
-		assertExpectedErrorFor: result 
-		ofClass: MessageNotUnderstood 
+	self
+		assertExpectedErrorFor: result
+		ofClass: MessageNotUnderstood
 		withMessage: 'Message not understood: GtDummyExamplesInvalidDependencies class >> #a1'.
-	
+
 	^ result
 ]
 
@@ -127,13 +127,13 @@ GtExamplesExamplesWithRuntimeErrors >> exampleResultWithMessageNotUnderstoodExce
 GtExamplesExamplesWithRuntimeErrors >> exampleResultWithZeroDivideException [
 	<gtExample>
 	<subjectClass: #GtExampleResult>
+	<return: #GtExampleResult>
 	| result |
-	
 	result := self exampleRaisingZeroDivideException run.
-	self 
-		assertExpectedErrorFor: result 
-		ofClass: ZeroDivide 
+	self
+		assertExpectedErrorFor: result
+		ofClass: ZeroDivide
 		withMessage: ''.
-	
+
 	^ result
 ]

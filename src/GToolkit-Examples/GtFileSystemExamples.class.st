@@ -6,7 +6,7 @@ Class {
 		'fileSystem',
 		'fileSystemRootDirectory'
 	],
-	#category : 'GToolkit-Examples-Utilities'
+	#category : #'GToolkit-Examples-Utilities'
 }
 
 { #category : #'utility - basic' }
@@ -48,19 +48,20 @@ GtFileSystemExamples >> addPillarFileWithContent: aString [
 GtFileSystemExamples >> basicMemorySystem [
 	<gtExample>
 	<label: 'Basic Memory File System'>
-	fileSystem ifNil: [
-		 fileSystem := FileSystem memory.
-		"Only root '/' should be present"
-		self assert: fileSystem root allChildren size equals: 1 ].
+	<return: #FileSystem>
+	fileSystem
+		ifNil: [ fileSystem := FileSystem memory.	"Only root '/' should be present"
+			self assert: fileSystem root allChildren size equals: 1 ].
 	^ fileSystem
 ]
 
 { #category : #'file system' }
 GtFileSystemExamples >> fileSystemRootDirectory [
 	<gtExample>
-	fileSystemRootDirectory ifNil: [ 
-		fileSystemRootDirectory := self basicMemorySystem workingDirectory.
-		self assert: fileSystemRootDirectory exists ].
+	<return: #FileReference>
+	fileSystemRootDirectory
+		ifNil: [ fileSystemRootDirectory := self basicMemorySystem workingDirectory.
+			self assert: fileSystemRootDirectory exists ].
 	^ fileSystemRootDirectory
 ]
 
@@ -74,6 +75,7 @@ GtFileSystemExamples >> initializeUsingPhysicalDisk [
 GtFileSystemExamples >> pillarFileName [
 	<gtExample>
 	<label: 'Pillar filename'>
+	<return: #ByteString>
 	^ 'index.pillar'
 ]
 
@@ -81,17 +83,18 @@ GtFileSystemExamples >> pillarFileName [
 GtFileSystemExamples >> pillarFileReference [
 	<gtExample>
 	<label: 'FileReference with a Pillar content'>
-	^ (self rootDirectory / self pillarFileName)
+	<return: #FileReference>
+	^ self rootDirectory / self pillarFileName
 ]
 
 { #category : #'file system' }
 GtFileSystemExamples >> rootDirectory [
 	<gtExample>
 	<label: 'Working directory of a memory file system'>
-	^ rootDirectoryName 
+	<return: #FileReference>
+	^ rootDirectoryName
 		ifNil: [ self fileSystemRootDirectory ]
-		ifNotNil: [ (self fileSystemRootDirectory / rootDirectoryName)
-			ensureCreateDirectory ]
+		ifNotNil: [ (self fileSystemRootDirectory / rootDirectoryName) ensureCreateDirectory ]
 ]
 
 { #category : #accessing }

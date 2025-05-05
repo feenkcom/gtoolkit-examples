@@ -14,17 +14,20 @@ Class {
 { #category : #examples }
 GtDummyExamplesWithInheritanceRoot >> exampleA [
 	<gtExample>
+	<return: #ByteString>
 	^ 'a'
 ]
 
 { #category : #examples }
 GtDummyExamplesWithInheritanceRoot >> exampleB [
 	<gtExample>
+	<return: #ByteString>
 	^ 'b'
 ]
 
 { #category : #examples }
 GtDummyExamplesWithInheritanceRoot >> exampleC [
 	<gtExample>
-	^ 'c-', self class name
+	<return: #ByteString>
+	^ 'c-' , self class name
 ]

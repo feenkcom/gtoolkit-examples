@@ -23,16 +23,20 @@ GtExamplesExamplesWithAfter >> assertExample: anExample hasAfterMethod: aCompile
 { #category : #'examples - class side' }
 GtExamplesExamplesWithAfter >> exampleClassSideWithAfterAndNoDependency [
 	<gtExample>
+	<return: #GtExample>
 	| example returnedContext |
-	
 	example := (GtDummyExamplesWithAfterClassSide class >> #c) gtExample.
-	self assertExample: example hasAfterMethod: (GtDummyExamplesWithAfterClassSide class >> #afterC).
-	
+	self
+		assertExample: example
+		hasAfterMethod: GtDummyExamplesWithAfterClassSide class >> #afterC.
+
 	returnedContext := example run returnValue.
 	self assert: (returnedContext includesKey: #c) not.
 	self assert: (returnedContext includesKey: #c2).
-	self assert: (returnedContext at: #execution) equals: { #afterC } asOrderedCollection.
-	
+	self
+		assert: (returnedContext at: #execution)
+		equals: {#afterC} asOrderedCollection.
+
 	^ example
 ]
 
@@ -82,11 +86,13 @@ GtExamplesExamplesWithAfter >> exampleClassSideWithAfterAndNoDependency_openDebu
 { #category : #'examples - class side' }
 GtExamplesExamplesWithAfter >> exampleClassSideWithMultipleDependenciesWithAfter [
 	<gtExample>
+	<return: #GtExample>
 	| example returnedContext |
-	
 	example := (GtDummyExamplesWithAfterClassSide class >> #a) gtExample.
-	self assertExample: example hasAfterMethod: (GtDummyExamplesWithAfterClassSide class >> #afterA).
-	
+	self
+		assertExample: example
+		hasAfterMethod: GtDummyExamplesWithAfterClassSide class >> #afterA.
+
 	returnedContext := example run returnValue.
 	self assert: (returnedContext includesKey: #a) not.
 	self assert: (returnedContext includesKey: #a2).
@@ -94,36 +100,48 @@ GtExamplesExamplesWithAfter >> exampleClassSideWithMultipleDependenciesWithAfter
 	self assert: (returnedContext includesKey: #b2).
 	self assert: (returnedContext includesKey: #c) not.
 	self assert: (returnedContext includesKey: #c2).
-	self assert: (returnedContext at: #execution) equals: { #afterA. #afterB. #afterC } asOrderedCollection.
-	
+	self
+		assert: (returnedContext at: #execution)
+		equals: {#afterA.
+				#afterB.
+				#afterC} asOrderedCollection.
+
 	^ example
 ]
 
 { #category : #'examples - instance side' }
 GtExamplesExamplesWithAfter >> exampleInstanceSideWithAfterAndNoDependency [
 	<gtExample>
+	<return: #GtExample>
 	| example returnedContext |
-	
 	example := (GtDummyExamplesWithAfterInstanceSide >> #c) gtExample.
-	self assertExample: example hasAfterMethod: (GtDummyExamplesWithAfterInstanceSide >> #afterC).
-	
+	self
+		assertExample: example
+		hasAfterMethod: GtDummyExamplesWithAfterInstanceSide >> #afterC.
+
 	returnedContext := example run returnValue.
 	self assert: (returnedContext includesKey: #c) not.
 	self assert: (returnedContext includesKey: #c2).
-	self assert: (returnedContext at: #execution) equals: { #afterC } asOrderedCollection.
-	self assert: (returnedContext at: #self) afterExecution equals: { #afterC } asOrderedCollection.
-	
+	self
+		assert: (returnedContext at: #execution)
+		equals: {#afterC} asOrderedCollection.
+	self
+		assert: (returnedContext at: #self) afterExecution
+		equals: {#afterC} asOrderedCollection.
+
 	^ example
 ]
 
 { #category : #'examples - instance side' }
 GtExamplesExamplesWithAfter >> exampleInstanceSideWithMultipleDependenciesWithAfter [
 	<gtExample>
+	<return: #GtExample>
 	| example returnedContext |
-	
 	example := (GtDummyExamplesWithAfterInstanceSide >> #a) gtExample.
-	self assertExample: example hasAfterMethod: (GtDummyExamplesWithAfterInstanceSide >> #afterA).
-	
+	self
+		assertExample: example
+		hasAfterMethod: GtDummyExamplesWithAfterInstanceSide >> #afterA.
+
 	returnedContext := example run returnValue.
 	self assert: (returnedContext includesKey: #a) not.
 	self assert: (returnedContext includesKey: #a2).
@@ -131,9 +149,17 @@ GtExamplesExamplesWithAfter >> exampleInstanceSideWithMultipleDependenciesWithAf
 	self assert: (returnedContext includesKey: #b2).
 	self assert: (returnedContext includesKey: #c) not.
 	self assert: (returnedContext includesKey: #c2).
-	self assert: (returnedContext at: #execution) equals: { #afterA. #afterB. #afterC } asOrderedCollection.
-	self assert: (returnedContext at: #self) afterExecution equals: { #afterA. #afterB. #afterC } asOrderedCollection.
-	
+	self
+		assert: (returnedContext at: #execution)
+		equals: {#afterA.
+				#afterB.
+				#afterC} asOrderedCollection.
+	self
+		assert: (returnedContext at: #self) afterExecution
+		equals: {#afterA.
+				#afterB.
+				#afterC} asOrderedCollection.
+
 	^ example
 ]
 

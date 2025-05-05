@@ -7,5 +7,6 @@ Class {
 { #category : #examples }
 GtDummyIntermediateClassWithExamples >> basicValue [
 	<gtExample>
+	<return: #SmallInteger>
 	^ 12
 ]

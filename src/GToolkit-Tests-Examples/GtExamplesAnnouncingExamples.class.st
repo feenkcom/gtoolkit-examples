@@ -7,6 +7,7 @@ Class {
 { #category : #'examples - results' }
 GtExamplesAnnouncingExamples >> allAtOnceExampleExecutionFromClassA [
 	<gtExample>
+	<return: #GtExplicitExampleGroup>
 	| anExampleGroup theAnnouncements theExamples |
 	theAnnouncements := OrderedCollection new.
 	theExamples := self examplesFromClassA.
@@ -16,8 +17,8 @@ GtExamplesAnnouncingExamples >> allAtOnceExampleExecutionFromClassA [
 	self assert: theAnnouncements size equals: 1.
 	self assert: theAnnouncements first class equals: GtExamplesExecuted.
 	self assert: theAnnouncements first group equals: anExampleGroup.
-	anExampleGroup examples do: [ :eachExampleWithResult | 
-		self assert: eachExampleWithResult hasResult ].
+	anExampleGroup examples
+		do: [ :eachExampleWithResult | self assert: eachExampleWithResult hasResult ].
 	^ anExampleGroup
 ]
 
@@ -38,39 +39,39 @@ GtExamplesAnnouncingExamples >> assertExamples: currentExamples withSelectors: e
 { #category : #'examples - factories' }
 GtExamplesAnnouncingExamples >> exampleFactoryForClassA [
 	<gtExample>
-	| anExampleFactory | 
+	<return: #GtExampleFactory>
+	| anExampleFactory |
 	anExampleFactory := GtDummyAnnouncingExamplesA gtExamplesFactory.
-	self assertExampleFactory: anExampleFactory forClass: GtDummyAnnouncingExamplesA.
+	self
+		assertExampleFactory: anExampleFactory
+		forClass: GtDummyAnnouncingExamplesA.
 	^ anExampleFactory
 ]
 
 { #category : #'examples - groups' }
 GtExamplesAnnouncingExamples >> exampleFromMethodNumberExample [
 	<gtExample>
-	| theExamples | 
-	theExamples := (GtDummyAnnouncingExamplesA>>#numberExample) gtExamples.
-	self 
-		assertExamples: theExamples 
-		withSelectors: #( #numberExample ).
+	<return: #GtExample>
+	| theExamples |
+	theExamples := (GtDummyAnnouncingExamplesA >> #numberExample) gtExamples.
+	self assertExamples: theExamples withSelectors: #(#numberExample).
 	^ theExamples first
-	
 ]
 
 { #category : #'examples - groups' }
 GtExamplesAnnouncingExamples >> examplesFromClassA [
 	<gtExample>
-	| anExamples | 
+	<return: #OrderedCollection>
+	| anExamples |
 	anExamples := self exampleFactoryForClassA gtExamplesContained.
-	self 
-		assertExamples: anExamples 
-		withSelectors: #( #numberExample #stringExample ).
+	self assertExamples: anExamples withSelectors: #(#numberExample #stringExample).
 	^ anExamples
-	
 ]
 
 { #category : #'examples - results' }
 GtExamplesAnnouncingExamples >> individualExampleExecutionFromClassA [
 	<gtExample>
+	<return: #GtExplicitExampleGroup>
 	| anExampleGroup theAnnouncements theExamples |
 	theAnnouncements := OrderedCollection new.
 	theExamples := self examplesFromClassA.
@@ -78,8 +79,8 @@ GtExamplesAnnouncingExamples >> individualExampleExecutionFromClassA [
 	self registerExampleAnnouncementsFrom: anExampleGroup to: theAnnouncements.
 	anExampleGroup examples do: #run.
 	self assert: theAnnouncements size equals: theExamples size.
-	anExampleGroup examples do: [ :eachExampleWithResult | 
-		self assert: eachExampleWithResult hasResult ].
+	anExampleGroup examples
+		do: [ :eachExampleWithResult | self assert: eachExampleWithResult hasResult ].
 	^ anExampleGroup
 ]
 
@@ -93,6 +94,7 @@ GtExamplesAnnouncingExamples >> registerExampleAnnouncementsFrom: anExample to: 
 { #category : #'examples - results' }
 GtExamplesAnnouncingExamples >> resultFromMethodNumberExample [
 	<gtExample>
+	<return: #GtExampleResult>
 	| anExampleWithResult aGtExampleResult theAnnouncements |
 	theAnnouncements := OrderedCollection new.
 	anExampleWithResult := self exampleFromMethodNumberExample asExampleWithResult.

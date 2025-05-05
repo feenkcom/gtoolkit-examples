@@ -12,5 +12,6 @@ GtDummyExamplesAbstractClassFPackage4 class >> isAbstract [
 { #category : #examples }
 GtDummyExamplesAbstractClassFPackage4 >> exampleInAbstractClassFInPackage4 [
 	<gtExample>
-	^ 4+40-2
+	<return: #SmallInteger>
+	^ 4 + 40 - 2
 ]

@@ -7,6 +7,7 @@ Class {
 { #category : #accessing }
 GtDummyExamplesWithParametrizedExampleA >> normalExample [
 	<gtExample>
+	<return: #SmallInteger>
 	^ 108
 ]
 
