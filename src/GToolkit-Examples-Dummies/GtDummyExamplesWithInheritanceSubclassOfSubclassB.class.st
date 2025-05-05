@@ -12,5 +12,6 @@ Class {
 { #category : #examples }
 GtDummyExamplesWithInheritanceSubclassOfSubclassB >> exampleH [
 	<gtExample>
+	<return: #ByteString>
 	^ 'hhh'
 ]

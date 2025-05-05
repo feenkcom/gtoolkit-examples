@@ -30,5 +30,6 @@ GtDummyExamplesWithInheritanceClassSideSubclassC class >> exampleD [
 { #category : #examples }
 GtDummyExamplesWithInheritanceClassSideSubclassC >> exampleB [
 	<gtExample>
+	<return: #ByteString>
 	^ 'bb'
 ]

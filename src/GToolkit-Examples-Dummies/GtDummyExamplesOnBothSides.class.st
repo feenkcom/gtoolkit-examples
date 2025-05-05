@@ -46,12 +46,14 @@ GtDummyExamplesOnBothSides class >> classSideD [
 { #category : #examples }
 GtDummyExamplesOnBothSides >> a [
 	<gtExample>
+	<return: #SmallInteger>
 	^ 1
 ]
 
 { #category : #examples }
 GtDummyExamplesOnBothSides >> b [
 	<gtExample>
+	<return: #SmallInteger>
 	| a |
 	a := self a.
 	self assert: a = 1.
@@ -61,6 +63,7 @@ GtDummyExamplesOnBothSides >> b [
 { #category : #examples }
 GtDummyExamplesOnBothSides >> c [
 	<gtExample>
+	<return: #SmallInteger>
 	| a b |
 	a := self a.
 	b := self b.
@@ -72,6 +75,7 @@ GtDummyExamplesOnBothSides >> c [
 { #category : #examples }
 GtDummyExamplesOnBothSides >> d [
 	<gtExample>
+	<return: #SmallInteger>
 	| classSideC |
 	classSideC := self class classSideC.
 	self assert: classSideC = 3.

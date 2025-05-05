@@ -36,36 +36,49 @@ GtDummyExamplesWithGlobalSubjects class >> gtExamplesSubjects [
 { #category : #examples }
 GtDummyExamplesWithGlobalSubjects >> multipleSubjects1 [
 	<gtExample>
+	<return: #SmallInteger>
 	| example |
 	example := self gtExampleRuntimeContext example.
 	self assert: example subjects size = 3.
 	self assert: (example subjects allSatisfy: [ :each | each exists ]).
-	self class gtExamplesSubjects do: [ :each |
-		self assert: (example hasSubject: (self class gtExamplesFactoryClass subjectFrom: each)) ].
-	
+	self class gtExamplesSubjects
+		do: [ :each | 
+			self
+				assert: (example hasSubject: (self class gtExamplesFactoryClass subjectFrom: each)) ].
+
 	^ 0
 ]
 
 { #category : #examples }
 GtDummyExamplesWithGlobalSubjects >> multipleSubjects2 [
 	<gtExample>
-	
+	<return: #SmallInteger>
 	self assert: self gtExampleRuntimeContext example subjects size = 3.
-	self assert: (self gtExampleRuntimeContext example subjects allSatisfy: [ :each | each exists ]).
-	self class gtExamplesSubjects do: [ :each |
-		self assert: (self gtExampleRuntimeContext example hasSubject: (self class gtExamplesFactoryClass subjectFrom: each)) ].
-	
+	self
+		assert: (self gtExampleRuntimeContext example subjects
+				allSatisfy: [ :each | each exists ]).
+	self class gtExamplesSubjects
+		do: [ :each | 
+			self
+				assert: (self gtExampleRuntimeContext example
+						hasSubject: (self class gtExamplesFactoryClass subjectFrom: each)) ].
+
 	^ 0
 ]
 
 { #category : #examples }
 GtDummyExamplesWithGlobalSubjects >> multipleSubjects3 [
 	<gtExample>
-	
+	<return: #SmallInteger>
 	self assert: self gtExampleRuntimeContext example subjects size = 3.
-	self assert: (self gtExampleRuntimeContext example subjects allSatisfy: [ :each | each exists ]).
-	self class gtExamplesSubjects do: [ :each |
-		self assert: (self gtExampleRuntimeContext example hasSubject: (self class gtExamplesFactoryClass subjectFrom: each)) ].
-	
+	self
+		assert: (self gtExampleRuntimeContext example subjects
+				allSatisfy: [ :each | each exists ]).
+	self class gtExamplesSubjects
+		do: [ :each | 
+			self
+				assert: (self gtExampleRuntimeContext example
+						hasSubject: (self class gtExamplesFactoryClass subjectFrom: each)) ].
+
 	^ 0
 ]

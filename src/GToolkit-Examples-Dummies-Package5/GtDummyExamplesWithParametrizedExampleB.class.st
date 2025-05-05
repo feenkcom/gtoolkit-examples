@@ -13,6 +13,7 @@ GtDummyExamplesWithParametrizedExampleB >> ignoringParameterExample: aNumber [
 { #category : #accessing }
 GtDummyExamplesWithParametrizedExampleB >> normalExample [
 	<gtExample>
+	<return: #SmallInteger>
 	^ 108 * (self ignoringParameterExample: 0)
 ]
 

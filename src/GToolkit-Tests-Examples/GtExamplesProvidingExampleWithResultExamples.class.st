@@ -27,24 +27,28 @@ GtExamplesProvidingExampleWithResultExamples >> allExamplesOfClass: aClass expec
 { #category : #accessing }
 GtExamplesProvidingExampleWithResultExamples >> exampleOneSelector [
 	<gtExample>
+	<return: #ByteSymbol>
 	^ #exampleOne
 ]
 
 { #category : #accessing }
 GtExamplesProvidingExampleWithResultExamples >> intermediateClass [
 	<gtExample>
+	<return: #'GtDummyIntermediateClassWithExamples class'>
 	^ GtDummyIntermediateClassWithExamples
 ]
 
 { #category : #accessing }
 GtExamplesProvidingExampleWithResultExamples >> intermediateClassAllExamples [
 	<gtExample>
+	<return: #OrderedCollection>
 	^ self allExamplesOfClass: self intermediateClass expectedAmount: 2
 ]
 
 { #category : #accessing }
 GtExamplesProvidingExampleWithResultExamples >> intermediateClassExampleOneWithResult [
 	<gtExample>
+	<return: #GtExampleWithResult>
 	| anExample anExampleWithResultOne anExampleWithResultTwo |
 	anExample := self intermediateClassAllExamples
 			detect: [ :eachExample | eachExample selector = self exampleOneSelector ].
@@ -61,18 +65,21 @@ GtExamplesProvidingExampleWithResultExamples >> intermediateClassExampleOneWithR
 { #category : #accessing }
 GtExamplesProvidingExampleWithResultExamples >> leafClassOne [
 	<gtExample>
+	<return: #'GtDummyLeafClassOneWithExamples class'>
 	^ GtDummyLeafClassOneWithExamples
 ]
 
 { #category : #accessing }
 GtExamplesProvidingExampleWithResultExamples >> leafClassOneAllExamples [
 	<gtExample>
+	<return: #OrderedCollection>
 	^ self allExamplesOfClass: self leafClassOne expectedAmount: 2
 ]
 
 { #category : #accessing }
 GtExamplesProvidingExampleWithResultExamples >> leafClassOneExampleOneWithResult [
 	<gtExample>
+	<return: #GtExampleWithResult>
 	| anExample anExampleWithResultOne anExampleWithResultTwo |
 	anExample := self leafClassOneAllExamples
 			detect: [ :eachExample | eachExample selector = self exampleOneSelector ].
@@ -89,18 +96,21 @@ GtExamplesProvidingExampleWithResultExamples >> leafClassOneExampleOneWithResult
 { #category : #accessing }
 GtExamplesProvidingExampleWithResultExamples >> leafClassTwo [
 	<gtExample>
+	<return: #'GtDummyLeafClassTwoWithExamples class'>
 	^ GtDummyLeafClassTwoWithExamples
 ]
 
 { #category : #accessing }
 GtExamplesProvidingExampleWithResultExamples >> leafClassTwoAllExamples [
 	<gtExample>
+	<return: #OrderedCollection>
 	^ self allExamplesOfClass: self leafClassTwo expectedAmount: 2
 ]
 
 { #category : #accessing }
 GtExamplesProvidingExampleWithResultExamples >> leafClassTwoExampleOneWithResult [
 	<gtExample>
+	<return: #GtExampleWithResult>
 	| anExample anExampleWithResultOne anExampleWithResultTwo |
 	anExample := self leafClassTwoAllExamples
 			detect: [ :eachExample | eachExample selector = self exampleOneSelector ].
@@ -127,18 +137,21 @@ GtExamplesProvidingExampleWithResultExamples >> numberOfRootClassPackageAllConta
 { #category : #accessing }
 GtExamplesProvidingExampleWithResultExamples >> rootClass [
 	<gtExample>
+	<return: #'GtDummyAbstractClassWithExamples class'>
 	^ GtDummyAbstractClassWithExamples
 ]
 
 { #category : #accessing }
 GtExamplesProvidingExampleWithResultExamples >> rootClassAllExamples [
 	<gtExample>
+	<return: #OrderedCollection>
 	^ self allExamplesOfClass: self rootClass expectedAmount: 2
 ]
 
 { #category : #accessing }
 GtExamplesProvidingExampleWithResultExamples >> rootClassExampleOne [
 	<gtExample>
+	<return: #OrderedCollection>
 	| aClass allExamples |
 	aClass := self rootClass.
 	allExamples := aClass gtExamplesAll.
@@ -151,6 +164,7 @@ GtExamplesProvidingExampleWithResultExamples >> rootClassExampleOne [
 { #category : #accessing }
 GtExamplesProvidingExampleWithResultExamples >> rootClassExampleOneWithResult [
 	<gtExample>
+	<return: #GtExampleWithResult>
 	| anExample anExampleWithResultOne anExampleWithResultTwo |
 	anExample := self rootClassAllExamples
 			detect: [ :eachExample | eachExample selector = self exampleOneSelector ].
@@ -167,6 +181,7 @@ GtExamplesProvidingExampleWithResultExamples >> rootClassExampleOneWithResult [
 { #category : #accessing }
 GtExamplesProvidingExampleWithResultExamples >> rootClassPackage [
 	<gtExample>
+	<return: #RPackage>
 	| aClass aPackage |
 	aClass := self rootClass.
 	aPackage := aClass package.
@@ -179,6 +194,7 @@ GtExamplesProvidingExampleWithResultExamples >> rootClassPackage [
 { #category : #accessing }
 GtExamplesProvidingExampleWithResultExamples >> rootClassPackageAllExamplesContained [
 	<gtExample>
+	<return: #OrderedCollection>
 	| aPackage allExamples |
 	aPackage := self rootClassPackage.
 	allExamples := aPackage gtExamplesAllContained.
@@ -210,6 +226,7 @@ GtExamplesProvidingExampleWithResultExamples >> rootClassPackageAllExamplesConta
 { #category : #accessing }
 GtExamplesProvidingExampleWithResultExamples >> rootClassPackageAllExamplesContained_AsExampleWithResult [
 	<gtExample>
+	<return: #OrderedCollection>
 	| allExamples |
 	allExamples := self rootClassPackageAllExamplesContained
 			collect: [ :eachExample | eachExample asExampleWithResult ].

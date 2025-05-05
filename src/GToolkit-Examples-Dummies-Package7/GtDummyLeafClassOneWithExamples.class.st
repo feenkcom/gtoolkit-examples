@@ -7,5 +7,6 @@ Class {
 { #category : #examples }
 GtDummyLeafClassOneWithExamples >> basicValue [
 	<gtExample>
+	<return: #SmallInteger>
 	^ 108
 ]

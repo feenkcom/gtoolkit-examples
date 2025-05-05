@@ -4,12 +4,14 @@ Trait {
 		'zincServer',
 		'zincDelegate'
 	],
-	#category : 'GToolkit-Examples-Utilities'
+	#category : #'GToolkit-Examples-Utilities'
 }
 
 { #category : #'server - authenticator' }
 TGtZnServerExamples >> basicAuthenticator [
 	<gtExample>
+	<return: #ZnBasicAuthenticator>
+	<return: #Error>
 	^ ZnBasicAuthenticator
 		username: self joeDoeUsername
 		password: self joeDoePassword
@@ -19,8 +21,10 @@ TGtZnServerExamples >> basicAuthenticator [
 TGtZnServerExamples >> basicServer [
 	<gtExample>
 	<after: #stopServer>
+	<return: #ZnManagingMultiThreadedServer>
+	<return: #Error>
 	zincServer ifNotNil: [ :aServer | ^ aServer ].
-	zincServer := (ZnServer startOn: 0).
+	zincServer := ZnServer startOn: 0.
 	self assert: zincServer port isZero not.
 	^ zincServer
 ]
@@ -28,6 +32,8 @@ TGtZnServerExamples >> basicServer [
 { #category : #'server - authenticator' }
 TGtZnServerExamples >> cleanServerAuthenticator [
 	<gtExample>
+	<return: #ZnManagingMultiThreadedServer>
+	<return: #MessageNotUnderstood>
 	| aServer |
 	aServer := self server.
 	aServer authenticator: nil.
@@ -38,11 +44,12 @@ TGtZnServerExamples >> cleanServerAuthenticator [
 { #category : #'client - basic' }
 TGtZnServerExamples >> client [
 	<gtExample>
+	<return: #ZnClient>
+	<return: #MessageNotUnderstood>
 	| aServer |
 	aServer := self basicServer.
 	self assert: aServer isListening.
-	^ ZnClient new
-		url: self serverUrl
+	^ ZnClient new url: self serverUrl
 ]
 
 { #category : #'server - delegate' }
@@ -53,6 +60,8 @@ TGtZnServerExamples >> defaultDelegate [
 { #category : #'server - delegate' }
 TGtZnServerExamples >> delegate [
 	<gtExample>
+	<return: #ZnDispatcherDelegate>
+	<return: #Error>
 	zincDelegate ifNotNil: [ :aDelegate | ^ aDelegate ].
 	zincDelegate := self defaultDelegate.
 	self initializeDelegate.
@@ -77,10 +86,11 @@ TGtZnServerExamples >> joeDoeUsername [
 { #category : #'server - basic' }
 TGtZnServerExamples >> server [
 	<gtExample>
+	<return: #ZnManagingMultiThreadedServer>
+	<return: #MessageNotUnderstood>
 	| aServer |
 	aServer := self basicServer.
-	aServer delegate = self delegate ifFalse: [ 
-		aServer delegate: self delegate ].
+	aServer delegate = self delegate ifFalse: [ aServer delegate: self delegate ].
 	self assert: aServer delegate equals: self delegate.
 	^ aServer
 ]
@@ -88,6 +98,8 @@ TGtZnServerExamples >> server [
 { #category : #'server - basic' }
 TGtZnServerExamples >> serverPort [
 	<gtExample>
+	<return: #SmallInteger>
+	<return: #MessageNotUnderstood>
 	| aPort |
 	aPort := self basicServer port.
 	self assert: aPort isZero not.
@@ -97,16 +109,20 @@ TGtZnServerExamples >> serverPort [
 { #category : #'server - basic' }
 TGtZnServerExamples >> serverUrl [
 	<gtExample>
+	<return: #ZnUrl>
+	<return: #MessageNotUnderstood>
 	^ ZnUrl new
 		scheme: #http;
 		host: NetNameResolver loopBackName;
 		port: self serverPort;
-		yourself.
+		yourself
 ]
 
 { #category : #'server - authenticator' }
 TGtZnServerExamples >> setServerBasicAuthenticator [
 	<gtExample>
+	<return: #ZnManagingMultiThreadedServer>
+	<return: #MessageNotUnderstood>
 	| aServer anAuthenticator |
 	aServer := self server.
 	anAuthenticator := self basicAuthenticator.
