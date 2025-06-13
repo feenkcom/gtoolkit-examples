@@ -585,6 +585,11 @@ GtExample >> selector [
 	^ selector
 ]
 
+{ #category : #testing }
+GtExample >> shouldLogWithEpicea [
+	^ false
+]
+
 { #category : #'accessing-dynamic' }
 GtExample >> sourceCode [
 	^ self method sourceCode
