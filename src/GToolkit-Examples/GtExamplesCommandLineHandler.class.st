@@ -70,21 +70,21 @@ GtExamplesCommandLineHandler >> addPackagesMatching: aString to: aSet [
 	
 	"exact match, and just those who actually have classes inside (to avoid 
 	 super-package duplications)"
-	((RPackage organizer includesPackageNamed: aString) 
-		and: [ (RPackage organizer packageNamed: aString) definedClasses notEmpty ])
+	((self packageOrganizer includesPackageNamed: aString) 
+		and: [ (self packageOrganizer packageNamed: aString) definedClasses notEmpty ])
 		ifTrue: [ aSet add: aString ]
 ]
 
 { #category : #accessing }
 GtExamplesCommandLineHandler >> addPackagesMatchingGlob: aGlobString to: aSet [
-	RPackage organizer packageNames do: [ :packageName|
+	self packageOrganizer packageNames do: [ :packageName|
 		(aGlobString match: packageName)
 			ifTrue: [ aSet add: packageName ]]
 ]
 
 { #category : #accessing }
 GtExamplesCommandLineHandler >> addPackagesMatchingRegex: aRegex to: aSet [
-	RPackage organizer packageNames do: [ :packageName|
+	self packageOrganizer packageNames do: [ :packageName|
 		(aRegex matches: packageName)
 			ifTrue: [ aSet add: packageName ]]
 ]

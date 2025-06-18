@@ -47,7 +47,7 @@ GtExamplesHudsonReport class >> runClass: aClass [
 GtExamplesHudsonReport class >> runPackage: aString [
 	| theExamples theExamplesGroupedByClass |
 
-	theExamples := (RPackage organizer packageNamed: aString) gtExamplesAllContained.
+	theExamples := (self packageOrganizer packageNamed: aString) gtExamplesAllContained.
 	theExamplesGroupedByClass := theExamples groupedBy: [ :each | each methodClass ].
 
 	GtExamplesReportRunPackageSignal new
