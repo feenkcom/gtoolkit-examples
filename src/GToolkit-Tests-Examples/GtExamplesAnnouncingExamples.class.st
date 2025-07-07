@@ -89,6 +89,7 @@ GtExamplesAnnouncingExamples >> registerExampleAnnouncementsFrom: anExample to: 
 	anExample announcer
 		when: Announcement
 		do: [ :anAnnouncement | theAnnouncements addLast: anAnnouncement ]
+		for: self
 ]
 
 { #category : #'examples - results' }
