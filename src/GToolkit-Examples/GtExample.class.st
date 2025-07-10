@@ -469,7 +469,7 @@ GtExample >> methodDo: aBlockClosure [
 
 { #category : #accessing }
 GtExample >> methodPackage [
-	<return: #RPackage>
+	<return: #Package>
 	^ self method package
 ]
 

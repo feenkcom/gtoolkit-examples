@@ -321,7 +321,7 @@ GtExampleWithResult >> methodDo: aBlockClosure [
 
 { #category : #accessing }
 GtExampleWithResult >> methodPackage [
-	<return: #RPackage>
+	<return: #Package>
 	^ self example methodPackage
 ]
 

@@ -181,7 +181,7 @@ GtExamplesProvidingExampleWithResultExamples >> rootClassExampleOneWithResult [
 { #category : #accessing }
 GtExamplesProvidingExampleWithResultExamples >> rootClassPackage [
 	<gtExample>
-	<return: #RPackage>
+	<return: #Package>
 	| aClass aPackage |
 	aClass := self rootClass.
 	aPackage := aClass package.
