@@ -5,6 +5,6 @@ MCWorkingCopy class >> gtExampleWorkingCopy [
 	<gtExample>
 	<label: 'Metacello working-copy'>
 	
-	^ (RPackageOrganizer default packageOf: GtExample) mcPackage 
+	^ (self packageOrganizer packageOf: GtExample) mcPackage 
 		ifNotNil: [ :mcp | mcp workingCopy ]
 ]
