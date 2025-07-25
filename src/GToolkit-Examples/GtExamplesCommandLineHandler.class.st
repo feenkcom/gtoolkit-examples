@@ -120,12 +120,12 @@ GtExamplesCommandLineHandler >> informResults: anExamplesReportResult [
 		<< OSPlatform current lineEnding
 		<< ('{1} examples, {2} executed, {3} passes, {4} failures, {5} errors, {6} skipped.'
 			format: {
-				results sum: #totalCount.
-				results sum: #executedCount.
-				results sum: #passingCount.
-				results sum: #failureCount.
-				results sum: #errorCount.
-				results sum: #skippedCount });
+				results sumNumbers: #totalCount.
+				results sumNumbers: #executedCount.
+				results sumNumbers: #passingCount.
+				results sumNumbers: #failureCount.
+				results sumNumbers: #errorCount.
+				results sumNumbers: #skippedCount });
 		<< OSPlatform current lineEnding.
 		
 	anExamplesReportResult runtimeStatisticsDiffReport ifNotNil: [
