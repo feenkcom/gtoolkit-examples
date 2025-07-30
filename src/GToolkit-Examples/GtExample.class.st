@@ -587,7 +587,7 @@ GtExample >> selector [
 
 { #category : #testing }
 GtExample >> shouldLogWithEpicea [
-	^ false
+	^ self method isNotNil and: [ self method hasPragmaNamed: #shouldLogWithEpicea ]
 ]
 
 { #category : #'accessing-dynamic' }

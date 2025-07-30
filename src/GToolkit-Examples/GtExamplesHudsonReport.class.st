@@ -143,7 +143,7 @@ GtExamplesHudsonReport >> runExample: anExample [
 	| errorDetails stacks runStatus retryCount |
 
 	errorDetails := nil.
-	retryCount := 5.
+	retryCount := 3.
 	stacks := OrderedCollection new.
 
 	self beginTestCase: anExample runBlock: [ 
