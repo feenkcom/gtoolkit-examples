@@ -3,5 +3,5 @@ Class {
 	#superclass : #Object,
 	#traits : 'TGtZnServerExamples',
 	#classTraits : 'TGtZnServerExamples classTrait',
-	#category : 'GToolkit-Examples-Utilities'
+	#category : #'GToolkit-Examples-Utilities'
 }

@@ -121,6 +121,18 @@ GtExamplesTestingHudsonReport >> failureCount [
 	^ failureCount
 ]
 
+{ #category : #ui }
+GtExamplesTestingHudsonReport >> gtReportFor: aView [
+	<gtView>
+
+	self resultsFileName asFileReference exists ifFalse: [ ^ aView empty ].
+	
+	^ aView text
+		title: 'Report';
+		priority: 10;
+		text: [ self resultsFileName asFileReference contents ].
+]
+
 { #category : #testing }
 GtExamplesTestingHudsonReport >> hasErrors [ 
 	^ self errorCount > 0
@@ -169,6 +181,17 @@ GtExamplesTestingHudsonReport >> nameFor: anExample [
 { #category : #accessing }
 GtExamplesTestingHudsonReport >> passingCount [
 	^ self executedCount - self failureCount - self errorCount
+]
+
+{ #category : #printing }
+GtExamplesTestingHudsonReport >> printOn: aStream [
+
+	super printOn: aStream.
+	aStream parenthesize:
+		[ aStream << reportName asString.
+		executedCount > 0 ifTrue:
+			[ (errorCount + failureCount > 0) ifTrue:
+				[ aStream << ', unsuccessful' ] ] ]
 ]
 
 { #category : #private }

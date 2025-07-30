@@ -1,5 +1,5 @@
 Class {
 	#name : #GtExamplesReportSignal,
 	#superclass : #BeaconSignal,
-	#category : 'GToolkit-Examples-Testing'
+	#category : #'GToolkit-Examples-Testing'
 }

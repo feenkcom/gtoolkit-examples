@@ -5,7 +5,7 @@ Class {
 		'arguments',
 		'provider'
 	],
-	#category : 'GToolkit-Examples-Core'
+	#category : #'GToolkit-Examples-Core'
 }
 
 { #category : #accessing }

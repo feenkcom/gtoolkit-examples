@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'instance'
 	],
-	#category : 'GToolkit-Examples-Subjects'
+	#category : #'GToolkit-Examples-Subjects'
 }
 
 { #category : #'instance creation' }
