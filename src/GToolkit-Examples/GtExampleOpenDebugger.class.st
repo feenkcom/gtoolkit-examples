@@ -63,7 +63,7 @@ GtExampleOpenDebugger >> result [
 	aDebugSession := aProcess newDebugSessionNamed: 'debug it' startedAt: aContext.
 	
 	self 
-		forPharo12: [ 
+		forPharo12AndNewer: [ 
 			"Unclear why this is needed. Currently in Pharo 12 doing stepInto
 			through GtExampleEvaluator>>#dependenciesFor: seems to kill the UI process"
 			aDebugSession stepIntoUntil: [ :currentContext | 
@@ -72,7 +72,7 @@ GtExampleOpenDebugger >> result [
 			aDebugSession stepOver.
 			aDebugSession stepOver.
 			aDebugSession stepOver] 
-	forPharo11AndPharo10: [].
+	forPharo11: [].
 	
 	aDebugSession stepIntoUntil: [ :currentContext | 
 		currentContext method == aCompiledMethod ].
