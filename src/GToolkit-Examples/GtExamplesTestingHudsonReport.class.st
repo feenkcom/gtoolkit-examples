@@ -219,8 +219,8 @@ GtExamplesTestingHudsonReport >> resultsFileName [
 
 { #category : #running }
 GtExamplesTestingHudsonReport >> run [
-	Author uniqueInstance
-		ifUnknownAuthorUse: 'hudson'
+	Author 
+		useAuthor: 'hudson'
 		during: [ 
 			[ 
 				self setUp.
