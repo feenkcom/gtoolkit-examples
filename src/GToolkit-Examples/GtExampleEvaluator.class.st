@@ -117,10 +117,7 @@ GtExampleEvaluator >> runUnmanaged [
 	<return: #GtExampleResult>
 	
 	"The ideal case would be to updade the example runner to use runManaged"
-	CurrentExecutionEnvironment value isTest 
-		ifTrue: [ CurrentExecutionEnvironment value testCase: self example ].
-		
-	^ self value
+	^ CurrentExecutionEnvironment runUnmanagedExampleEvaluator: self
 ]
 
 { #category : #accessing }

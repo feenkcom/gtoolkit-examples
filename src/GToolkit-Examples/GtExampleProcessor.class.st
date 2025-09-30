@@ -17,7 +17,7 @@ Class {
 		'example',
 		'context'
 	],
-	#category : 'GToolkit-Examples-Runtime'
+	#category : #'GToolkit-Examples-Runtime'
 }
 
 { #category : #private }
@@ -67,6 +67,11 @@ GtExampleProcessor >> initialize [
 GtExampleProcessor >> process: anExample [
 	<return: #GtExampleResult>
 	^ self basicProcess: anExample
+]
+
+{ #category : #testing }
+GtExampleProcessor >> shouldLogWithEpicea [
+	^ example shouldLogWithEpicea
 ]
 
 { #category : #public }
