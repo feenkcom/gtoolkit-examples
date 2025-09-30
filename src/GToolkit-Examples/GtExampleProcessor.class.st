@@ -69,6 +69,11 @@ GtExampleProcessor >> process: anExample [
 	^ self basicProcess: anExample
 ]
 
+{ #category : #testing }
+GtExampleProcessor >> shouldLogWithEpicea [
+	^ example shouldLogWithEpicea
+]
+
 { #category : #public }
 GtExampleProcessor >> value [ 
 	<return: #GtExampleResult>

@@ -32,3 +32,9 @@ TestExecutionEnvironment >> runExampleUnderWatchdogUsingEvaluator: anEvaluator [
 	
 	^ exampleResult
 ]
+
+{ #category : #'*GToolkit-Examples-Core' }
+TestExecutionEnvironment >> runUnmanagedExampleEvaluator: anExampleEvaluator [
+	testCase := anExampleEvaluator.
+	^ anExampleEvaluator value
+]
