@@ -1,6 +1,11 @@
 Extension { #name : #TestExecutionEnvironment }
 
 { #category : #'*GToolkit-Examples-Core' }
+TestExecutionEnvironment >> hasCompletedTest [
+	^ testCompleted
+]
+
+{ #category : #'*GToolkit-Examples-Core' }
 TestExecutionEnvironment >> runExampleEvaluator: anExampleEvaluator [
 	
 	| exampleResult |
@@ -35,6 +40,9 @@ TestExecutionEnvironment >> runExampleUnderWatchdogUsingEvaluator: anEvaluator [
 
 { #category : #'*GToolkit-Examples-Core' }
 TestExecutionEnvironment >> runUnmanagedExampleEvaluator: anExampleEvaluator [
+	| exampleResult |
 	testCase := anExampleEvaluator.
-	^ anExampleEvaluator value
+	[ exampleResult := anExampleEvaluator value ] ensure: [ 
+		testCompleted := true ].
+	^ exampleResult
 ]
