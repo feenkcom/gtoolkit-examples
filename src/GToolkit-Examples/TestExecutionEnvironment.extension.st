@@ -42,6 +42,7 @@ TestExecutionEnvironment >> runExampleUnderWatchdogUsingEvaluator: anEvaluator [
 TestExecutionEnvironment >> runUnmanagedExampleEvaluator: anExampleEvaluator [
 	| exampleResult |
 	testCase := anExampleEvaluator.
+	testCompleted := false.
 	[ exampleResult := anExampleEvaluator value ] ensure: [ 
 		testCompleted := true ].
 	^ exampleResult
