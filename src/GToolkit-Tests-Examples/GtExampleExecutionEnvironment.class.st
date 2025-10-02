@@ -25,7 +25,25 @@ GtExampleExecutionEnvironment >> testExecutionEnvironmentIsActive [
 ]
 
 { #category : #testing }
-GtExampleExecutionEnvironment >> testExplicitlyRunningTestSetsTheExecutionEnvironment [
+GtExampleExecutionEnvironment >> testExplicitlyRunningTestSetsTheExecutionEnvironment_newEnvironment [
+	<gtExample>
+	| targetExample result|
+	
+	targetExample :=(self class >> #testExecutionEnvironmentIsActive) gtExample.
+	
+	"Run the examples from within the exampke in its own testing environment"
+	TestExecutionEnvironment new beActiveDuring: [
+		result := targetExample run ]. 
+	
+	
+	self assert: result isSuccess.
+	self assert: result returnValue hasCompletedTest.
+	
+	^ result
+]
+
+{ #category : #testing }
+GtExampleExecutionEnvironment >> testExplicitlyRunningTestSetsTheExecutionEnvironment_sameEnvironment [
 	<gtExample>
 	| targetExample result|
 	
