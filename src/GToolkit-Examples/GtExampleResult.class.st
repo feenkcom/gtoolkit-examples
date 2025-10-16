@@ -108,7 +108,7 @@ GtExampleResult >> example: anObject [
 { #category : #accessing }
 GtExampleResult >> exampleException: anException [
 
-	(anException isKindOf: self class failure)
+	anException isGtExampleFailure
 		ifTrue: [ 
 			self returnValue:
 				(GtExampleResultFailureValue new failure: anException) ]
