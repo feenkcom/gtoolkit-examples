@@ -7,13 +7,43 @@ Class {
 	#name : #GtExampleReturnPragmaBrowser,
 	#superclass : #Object,
 	#instVars : [
-		'packagesMissingReturnPragmas'
+		'packagesMissingReturnPragmas',
+		'packages'
 	],
 	#category : #'GToolkit-Examples-Utilities'
 }
 
+{ #category : #'instance creation' }
+GtExampleReturnPragmaBrowser class >> for: aPackageCollection [
+	^ self new
+		packages: aPackageCollection;
+		yourself
+]
+
+{ #category : #accessing }
+GtExampleReturnPragmaBrowser >> allGtExamplesWithoutReturnPragmas [
+	^ self packages flatCollect: #gtExamplesWithoutReturnPragmas
+]
+
 { #category : #views }
-GtExampleReturnPragmaBrowser >> gtPackagesWIthExamplesFor: aView [
+GtExampleReturnPragmaBrowser >> gtExamplesMissingReturnPragmaFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'Examples missing return:';
+		items: [ self allGtExamplesWithoutReturnPragmas ];
+		column: 'Index' 
+			text: [ :eachItem :eachIndex | 
+				eachIndex asRopedText foreground: Color gray ]
+			width: 45;
+		column: 'Value' text: [ :each | each gtDisplayString ];
+		actionButtonIcon: BrGlamorousVectorIcons repair
+			tooltip: 'Add return: pragmas'
+			action: [ :aButton :aTab | "aButton phlow spawnObject: self children" ];
+		actionUpdateButton
+]
+
+{ #category : #views }
+GtExampleReturnPragmaBrowser >> gtPackagesWithExamplesFor: aView [
 	<gtView>
 	^ aView columnedList
 		title: 'Example Packages';
@@ -44,19 +74,28 @@ GtExampleReturnPragmaBrowser >> gtViewFor: aView [
 		column: '# missing'
 			text: [ :each | each value size ]
 			width: 300;
-		send: [ :each | each value ];
 		actionUpdateButton
+]
+
+{ #category : #accessing }
+GtExampleReturnPragmaBrowser >> packages [
+	^ packages ifNil: [ packages := Smalltalk packages sorted ]
+]
+
+{ #category : #accessing }
+GtExampleReturnPragmaBrowser >> packages: aPackageCollection [
+	packages := aPackageCollection
 ]
 
 { #category : #accessing }
 GtExampleReturnPragmaBrowser >> packagesMissingReturnPragmas [
 	^ packagesMissingReturnPragmas
-		ifNil: [ packagesMissingReturnPragmas := Smalltalk packages sorted
+		ifNil: [ packagesMissingReturnPragmas := self packages
 					collect: [ :p | p -> p gtExamplesWithoutReturnPragmas ]
 					thenSelect: [ :kv | kv value notEmpty ] ]
 ]
 
 { #category : #accessing }
 GtExampleReturnPragmaBrowser >> packagesWithExamples [
-	^ (Smalltalk packages select: #hasGtExamples) sorted
+	^ (self packages select: #hasGtExamples) sorted
 ]
