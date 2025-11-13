@@ -1,3 +1,8 @@
+"
+I am a browser for exploring which packages containing examples that are missing `<return:>` pragmas, and repairing them.
+
+NB: Work in progress
+"
 Class {
 	#name : #GtExampleReturnPragmaBrowser,
 	#superclass : #Object,
@@ -46,7 +51,7 @@ GtExampleReturnPragmaBrowser >> gtViewFor: aView [
 { #category : #accessing }
 GtExampleReturnPragmaBrowser >> packagesMissingReturnPragmas [
 	^ packagesMissingReturnPragmas
-		ifNil: [ packagesMissingReturnPragmas := Smalltalk packages
+		ifNil: [ packagesMissingReturnPragmas := Smalltalk packages sorted
 					collect: [ :p | p -> p gtExamplesWithoutReturnPragmas ]
 					thenSelect: [ :kv | kv value notEmpty ] ]
 ]
