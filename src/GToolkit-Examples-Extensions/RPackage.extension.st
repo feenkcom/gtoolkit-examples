@@ -5,18 +5,7 @@ RPackage >> addReturnPragmasRefactoring [
 	| namespace |
 	namespace := RBNamespace new.
 	self gtExamplesWithoutReturnPragmas
-		do: [ :m | 
-			| returnClass returnValue |
-			returnValue := m gtExample result returnValue.
-			(returnValue isKindOf: Exception)
-				ifTrue: [ ReturnPragmasRefactoringError signal: 'An  example failed' failingExample: m ].
-			returnClass := returnValue class.
-			returnClass isAnonymous
-				ifFalse: [ (RBAddPragmaTransformation
-						model: namespace
-						pragma: '<return: #''' , returnClass name , '''>'
-						inMethod: m selector
-						inClass: m methodClass name) primitiveExecute ] ].
+		do: [ :m | m addReturnPragmasRefactoring: namespace ].
 	^ namespace
 ]
 
@@ -27,30 +16,7 @@ RPackage >> checkReturnPragmasRefactoring [
 	| namespace |
 	namespace := RBNamespace new.
 	self gtExamplesWithReturnPragmas
-		do: [ :m | 
-			| returnClass returnValue returnPragmas |
-			returnPragmas := m pragmas select: [ :p | p selector == #return: ].
-			returnPragmas size = 1
-				ifFalse: [ ReturnPragmasRefactoringError
-						signal: 'An example has multiple return: pragmas!'
-						failingExample: m ].
-			returnValue := m gtExample result returnValue.
-			(returnValue isKindOf: Exception)
-				ifTrue: [ ReturnPragmasRefactoringError signal: 'An  example failed!' failingExample: m ].
-			returnClass := returnValue class.
-
-			(returnClass ~= returnPragmas first arguments first asClass
-				and: [ returnClass isAnonymous not ])
-				ifTrue: [ (RBRemovePragmaTransformation
-						model: namespace
-						pragma: returnPragmas first printString
-						inMethod: m selector
-						inClass: m methodClass name) primitiveExecute.
-					(RBAddPragmaTransformation
-						model: namespace
-						pragma: '<return: #''' , returnClass name , '''>'
-						inMethod: m selector
-						inClass: m methodClass name) primitiveExecute ] ].
+		do: [ :m | m checkReturnPragmasRefactoring: namespace ].
 	^ namespace
 ]
 

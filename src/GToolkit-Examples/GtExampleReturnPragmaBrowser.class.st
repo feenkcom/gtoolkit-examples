@@ -20,9 +20,32 @@ GtExampleReturnPragmaBrowser class >> for: aPackageCollection [
 		yourself
 ]
 
+{ #category : #updating }
+GtExampleReturnPragmaBrowser >> addReturnPragmasRefactoring [
+	| namespace |
+	namespace := RBNamespace new.
+	self allGtExamplesWithoutReturnPragmas
+		do: [ :m | m addReturnPragmasRefactoring: namespace ].
+	^ namespace
+]
+
+{ #category : #accessing }
+GtExampleReturnPragmaBrowser >> allGtExamplesWithReturnPragmas [
+	^ self packages flatCollect: #gtExamplesWithReturnPragmas
+]
+
 { #category : #accessing }
 GtExampleReturnPragmaBrowser >> allGtExamplesWithoutReturnPragmas [
 	^ self packages flatCollect: #gtExamplesWithoutReturnPragmas
+]
+
+{ #category : #updating }
+GtExampleReturnPragmaBrowser >> checkReturnPragmasRefactoring [
+	| namespace |
+	namespace := RBNamespace new.
+	self allGtExamplesWithReturnPragmas
+		do: [ :m | m checkReturnPragmasRefactoring: namespace ].
+	^ namespace
 ]
 
 { #category : #views }
@@ -30,15 +53,32 @@ GtExampleReturnPragmaBrowser >> gtExamplesMissingReturnPragmaFor: aView [
 	<gtView>
 	^ aView columnedList
 		title: 'Examples missing return:';
+		priority: 30;
 		items: [ self allGtExamplesWithoutReturnPragmas ];
-		column: 'Index' 
-			text: [ :eachItem :eachIndex | 
-				eachIndex asRopedText foreground: Color gray ]
+		column: 'Index'
+			text: [ :eachItem :eachIndex | eachIndex asRopedText foreground: Color gray ]
 			width: 45;
 		column: 'Value' text: [ :each | each gtDisplayString ];
 		actionButtonIcon: BrGlamorousVectorIcons repair
 			tooltip: 'Add return: pragmas'
-			action: [ :aButton :aTab | "aButton phlow spawnObject: self children" ];
+			action: [ :aButton :aTab | aButton phlow spawnObject: self addReturnPragmasRefactoring ];
+		actionUpdateButton
+]
+
+{ #category : #views }
+GtExampleReturnPragmaBrowser >> gtExamplesWithReturnPragmaFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'Examples with return:';
+		priority: 35;
+		items: [ self allGtExamplesWithReturnPragmas ];
+		column: 'Index'
+			text: [ :eachItem :eachIndex | eachIndex asRopedText foreground: Color gray ]
+			width: 45;
+		column: 'Value' text: [ :each | each gtDisplayString ];
+		actionButtonIcon: BrGlamorousVectorIcons repair
+			tooltip: 'Add return: pragmas'
+			action: [ :aButton :aTab | aButton phlow spawnObject: self checkReturnPragmasRefactoring ];
 		actionUpdateButton
 ]
 
