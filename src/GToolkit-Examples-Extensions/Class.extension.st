@@ -7,7 +7,7 @@ Class >> gtAddReturnPragmasFor: anAction [
 	<gtAction>
 	self gtExamplesWithoutReturnPragmas ifEmpty: [ ^ anAction empty ].
 	^ anAction button
-		priority: 7;
+		priority: 10;
 		target: GtCoderClassTarget;
 		icon: BrGlamorousVectorIcons empty;
 		label: 'Add missing return: pragmas';
@@ -23,7 +23,7 @@ Class >> gtCheckReturnPragmasFor: anAction [
 	<gtAction>
 	self gtExamplesWithReturnPragmas ifEmpty: [ ^ anAction empty ].
 	^ anAction button
-		priority: 7;
+		priority: 11;
 		target: GtCoderClassTarget;
 		icon: BrGlamorousVectorIcons empty;
 		label: 'Check return: pragmas';
