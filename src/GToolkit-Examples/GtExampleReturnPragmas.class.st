@@ -144,7 +144,7 @@ GtExampleReturnPragmas >> gtClassesWithExamplesFor: aView [
 			text: [ :each | each gtExamplesWithoutReturnPragmas size ]
 			width: 200;
 		actionUpdateButton;
-		send: [ :each | GtExampleReturnPragmas for: {each} ]
+		send: [ :each | GtExampleReturnPragmas forClasses: {each} ]
 ]
 
 { #category : #querying }
@@ -219,7 +219,7 @@ GtExampleReturnPragmas >> gtPackagesMissingReturnPragmasFor: aView [
 			text: [ :each | each gtExamplesWithoutReturnPragmas size ]
 			width: 200;
 		actionUpdateButton;
-		send: [ :each | GtExampleReturnPragmas for: {each} ]
+		send: [ :each | GtExampleReturnPragmas forPackages: {each} ]
 ]
 
 { #category : #views }
@@ -246,7 +246,7 @@ GtExampleReturnPragmas >> gtPackagesWithExamplesFor: aView [
 			text: [ :each | each gtExamplesWithoutReturnPragmas size ]
 			width: 200;
 		actionUpdateButton;
-		send: [ :each | GtExampleReturnPragmas for: {each} ]
+		send: [ :each | GtExampleReturnPragmas forPackages: {each} ]
 ]
 
 { #category : #testing }

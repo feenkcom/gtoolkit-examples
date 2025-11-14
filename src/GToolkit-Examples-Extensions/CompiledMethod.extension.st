@@ -15,14 +15,14 @@ CompiledMethod >> addReturnPragmasRefactoring: aNamespace [
 
 { #category : #'*GToolkit-Examples-Extensions' }
 CompiledMethod >> checkReturnPragmasRefactoring: aNamespace [
-	| returnClass returnPragmaClass |
-	returnPragmaClass := self returnPragmaClass.
+	| returnClass returnPragma returnPragmaClass |
+	returnPragma := self returnPragma.
+	returnPragmaClass := returnPragma arguments first asClass.
 	returnClass := self gtExampleReturnValueClass.
-	(returnClass ~= returnPragmaClass
-		and: [ returnClass isAnonymous not ])
+	(returnClass ~= returnPragmaClass and: [ returnClass isAnonymous not ])
 		ifTrue: [ (RBRemovePragmaTransformation
 				model: aNamespace
-				pragma: returnPragmaClass printString
+				pragma: self returnPragma printString
 				inMethod: self selector
 				inClass: self methodClass name) primitiveExecute.
 			(RBAddPragmaTransformation
@@ -67,12 +67,18 @@ CompiledMethod >> isGtExampleWithoutReturnPragma [
 ]
 
 { #category : #'*GToolkit-Examples-Extensions' }
-CompiledMethod >> returnPragmaClass [
+CompiledMethod >> returnPragma [
 	| returnPragmas  |
 	returnPragmas := self pragmas select: [ :p | p selector == #return: ].
+	self assert: returnPragmas notEmpty description: 'Missing a return: pragma!'.
 	returnPragmas size = 1
 		ifFalse: [ ReturnPragmasRefactoringError
 				signal: 'Example has multiple return: pragmas!'
 				failingExample: self ].
-	^ returnPragmas first arguments first asClass
+	^ returnPragmas first
+]
+
+{ #category : #'*GToolkit-Examples-Extensions' }
+CompiledMethod >> returnPragmaClass [
+	^ self returnPragma arguments first asClass
 ]
