@@ -4,7 +4,7 @@ I am a browser for exploring which packages containing examples that are missing
 NB: Work in progress
 "
 Class {
-	#name : #GtExampleReturnPragmaBrowser,
+	#name : #GtExampleReturnPragmas,
 	#superclass : #Object,
 	#instVars : [
 		'packagesMissingReturnPragmas',
@@ -14,14 +14,24 @@ Class {
 }
 
 { #category : #'instance creation' }
-GtExampleReturnPragmaBrowser class >> for: aPackageCollection [
+GtExampleReturnPragmas class >> for: aPackageCollection [
 	^ self new
 		packages: aPackageCollection;
 		yourself
 ]
 
+{ #category : #action }
+GtExampleReturnPragmas class >> gtInstanceButtonFor: anAction [
+	<gtClassAction>
+	^ anAction button
+		tooltip: 'Inspect return pragmas';
+		priority: 10;
+		icon: BrGlamorousVectorIcons playinspect;
+		action: [ :aButton | aButton phlow spawnObject: self new]
+]
+
 { #category : #updating }
-GtExampleReturnPragmaBrowser >> addReturnPragmasRefactoring [
+GtExampleReturnPragmas >> addReturnPragmasRefactoring [
 	| namespace |
 	namespace := RBNamespace new.
 	self allGtExamplesWithoutReturnPragmas
@@ -30,17 +40,17 @@ GtExampleReturnPragmaBrowser >> addReturnPragmasRefactoring [
 ]
 
 { #category : #accessing }
-GtExampleReturnPragmaBrowser >> allGtExamplesWithReturnPragmas [
+GtExampleReturnPragmas >> allGtExamplesWithReturnPragmas [
 	^ self packages flatCollect: #gtExamplesWithReturnPragmas
 ]
 
 { #category : #accessing }
-GtExampleReturnPragmaBrowser >> allGtExamplesWithoutReturnPragmas [
+GtExampleReturnPragmas >> allGtExamplesWithoutReturnPragmas [
 	^ self packages flatCollect: #gtExamplesWithoutReturnPragmas
 ]
 
 { #category : #updating }
-GtExampleReturnPragmaBrowser >> checkReturnPragmasRefactoring [
+GtExampleReturnPragmas >> checkReturnPragmasRefactoring [
 	| namespace |
 	namespace := RBNamespace new.
 	self allGtExamplesWithReturnPragmas
@@ -48,8 +58,23 @@ GtExampleReturnPragmaBrowser >> checkReturnPragmasRefactoring [
 	^ namespace
 ]
 
+{ #category : #initialization }
+GtExampleReturnPragmas >> defaultPackages [
+	"We only want by default packages that are actually in loaded repos that we can commit to."
+
+	| defaultPackages |
+	defaultPackages := (IceRepository registry flatCollect: #packages)
+			select: #isLoaded.
+
+	self
+		assert: defaultPackages notEmpty
+		description: 'There are no packages in loaded repos.'.
+
+	^ defaultPackages collect: [ :p | p package asPackage ]
+]
+
 { #category : #views }
-GtExampleReturnPragmaBrowser >> gtExamplesMissingReturnPragmaFor: aView [
+GtExampleReturnPragmas >> gtExamplesMissingReturnPragmaFor: aView [
 	<gtView>
 	^ aView columnedList
 		title: 'Examples missing return:';
@@ -66,7 +91,7 @@ GtExampleReturnPragmaBrowser >> gtExamplesMissingReturnPragmaFor: aView [
 ]
 
 { #category : #views }
-GtExampleReturnPragmaBrowser >> gtExamplesWithReturnPragmaFor: aView [
+GtExampleReturnPragmas >> gtExamplesWithReturnPragmaFor: aView [
 	<gtView>
 	^ aView columnedList
 		title: 'Examples with return:';
@@ -83,7 +108,7 @@ GtExampleReturnPragmaBrowser >> gtExamplesWithReturnPragmaFor: aView [
 ]
 
 { #category : #views }
-GtExampleReturnPragmaBrowser >> gtPackagesWithExamplesFor: aView [
+GtExampleReturnPragmas >> gtPackagesWithExamplesFor: aView [
 	<gtView>
 	^ aView columnedList
 		title: 'Example Packages';
@@ -92,14 +117,16 @@ GtExampleReturnPragmaBrowser >> gtPackagesWithExamplesFor: aView [
 		column: 'Index'
 			text: [ :eachItem :eachIndex | eachIndex asRopedText foreground: Color gray ]
 			width: 45;
-		column: 'Class' text: [ :each | each gtDisplayString ]
-		width: 300;
+		column: 'Class'
+			text: [ :each | each gtDisplayString ]
+			width: 300;
 		column: '# Examples' text: [ :each | each gtExamplesContained size ];
+		send: [ :each | GtExampleReturnPragmas for: {each} ];
 		actionUpdateButton
 ]
 
 { #category : #views }
-GtExampleReturnPragmaBrowser >> gtViewFor: aView [
+GtExampleReturnPragmas >> gtViewFor: aView [
 	<gtView>
 	^ aView columnedList
 		title: 'Packages missing return:';
@@ -114,21 +141,22 @@ GtExampleReturnPragmaBrowser >> gtViewFor: aView [
 		column: '# missing'
 			text: [ :each | each value size ]
 			width: 300;
+		send: [ :each | GtExampleReturnPragmas for: {each key} ];
 		actionUpdateButton
 ]
 
 { #category : #accessing }
-GtExampleReturnPragmaBrowser >> packages [
-	^ packages ifNil: [ packages := Smalltalk packages sorted ]
+GtExampleReturnPragmas >> packages [
+	^ packages ifNil: [ packages := self defaultPackages ]
 ]
 
 { #category : #accessing }
-GtExampleReturnPragmaBrowser >> packages: aPackageCollection [
+GtExampleReturnPragmas >> packages: aPackageCollection [
 	packages := aPackageCollection
 ]
 
 { #category : #accessing }
-GtExampleReturnPragmaBrowser >> packagesMissingReturnPragmas [
+GtExampleReturnPragmas >> packagesMissingReturnPragmas [
 	^ packagesMissingReturnPragmas
 		ifNil: [ packagesMissingReturnPragmas := self packages
 					collect: [ :p | p -> p gtExamplesWithoutReturnPragmas ]
@@ -136,6 +164,6 @@ GtExampleReturnPragmaBrowser >> packagesMissingReturnPragmas [
 ]
 
 { #category : #accessing }
-GtExampleReturnPragmaBrowser >> packagesWithExamples [
+GtExampleReturnPragmas >> packagesWithExamples [
 	^ (self packages select: #hasGtExamples) sorted
 ]
