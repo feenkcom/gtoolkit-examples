@@ -51,6 +51,22 @@ CompiledMethod class >> gtExampleSimple [
 ]
 
 { #category : #'*GToolkit-Examples-Extensions' }
+CompiledMethod >> isGtExampleWithReturnPragma [
+	^ (self hasPragmaNamed: #gtExample)
+		and: [ (self hasPragmaNamed: #noTest) not
+				and: [ (self hasPragmaNamed: #return:)
+						and: [ self selector isUnary and: [ self isClassSide not ] ] ] ]
+]
+
+{ #category : #'*GToolkit-Examples-Extensions' }
+CompiledMethod >> isGtExampleWithoutReturnPragma [
+	^ (self hasPragmaNamed: #gtExample)
+		and: [ (self hasPragmaNamed: #noTest) not
+				and: [ (self hasPragmaNamed: #return:) not
+						and: [ self selector isUnary and: [ self isClassSide not ] ] ] ]
+]
+
+{ #category : #'*GToolkit-Examples-Extensions' }
 CompiledMethod >> returnPragmaClass [
 	| returnPragmas  |
 	returnPragmas := self pragmas select: [ :p | p selector == #return: ].

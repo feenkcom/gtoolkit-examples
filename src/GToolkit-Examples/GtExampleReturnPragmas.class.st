@@ -8,13 +8,29 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'packagesMissingReturnPragmas',
-		'packages'
+		'packages',
+		'classes',
+		'examples'
 	],
 	#category : #'GToolkit-Examples-Utilities'
 }
 
 { #category : #'instance creation' }
-GtExampleReturnPragmas class >> for: aPackageCollection [
+GtExampleReturnPragmas class >> forClasses: aClassCollection [
+	^ self new
+		classes: aClassCollection;
+		yourself
+]
+
+{ #category : #'instance creation' }
+GtExampleReturnPragmas class >> forExamples: aGtExampleCollection [
+	^ self new
+		examples: aGtExampleCollection;
+		yourself
+]
+
+{ #category : #'instance creation' }
+GtExampleReturnPragmas class >> forPackages: aPackageCollection [
 	^ self new
 		packages: aPackageCollection;
 		yourself
@@ -39,14 +55,14 @@ GtExampleReturnPragmas >> addReturnPragmasRefactoring [
 	^ namespace
 ]
 
-{ #category : #accessing }
+{ #category : #querying }
 GtExampleReturnPragmas >> allGtExamplesWithReturnPragmas [
-	^ self packages flatCollect: #gtExamplesWithReturnPragmas
+	^ self gtExampleMethods select: #isGtExampleWithReturnPragma
 ]
 
-{ #category : #accessing }
+{ #category : #querying }
 GtExampleReturnPragmas >> allGtExamplesWithoutReturnPragmas [
-	^ self packages flatCollect: #gtExamplesWithoutReturnPragmas
+	^ self gtExampleMethods select: #isGtExampleWithoutReturnPragma
 ]
 
 { #category : #updating }
@@ -56,6 +72,27 @@ GtExampleReturnPragmas >> checkReturnPragmasRefactoring [
 	self allGtExamplesWithReturnPragmas
 		do: [ :m | m checkReturnPragmasRefactoring: namespace ].
 	^ namespace
+]
+
+{ #category : #accessing }
+GtExampleReturnPragmas >> classes [
+	^ classes
+]
+
+{ #category : #accessing }
+GtExampleReturnPragmas >> classes: anObject [
+	classes := anObject
+]
+
+{ #category : #querying }
+GtExampleReturnPragmas >> classesMissingReturnPragmas [
+	^  self classes
+					select: [ :c | c gtExamplesWithoutReturnPragmas notEmpty ] 
+]
+
+{ #category : #querying }
+GtExampleReturnPragmas >> classesWithExamples [
+	^ (self classes select: #hasGtExamples) sorted
 ]
 
 { #category : #initialization }
@@ -71,6 +108,53 @@ GtExampleReturnPragmas >> defaultPackages [
 		description: 'There are no packages in loaded repos.'.
 
 	^ defaultPackages collect: [ :p | p package asPackage ]
+]
+
+{ #category : #accessing }
+GtExampleReturnPragmas >> examples [
+	^ examples
+]
+
+{ #category : #accessing }
+GtExampleReturnPragmas >> examples: anObject [
+	examples := anObject
+]
+
+{ #category : #views }
+GtExampleReturnPragmas >> gtClassesWithExamplesFor: aView [
+	<gtView>
+	self isForClasses ifFalse: [^ aView empty].
+	^ aView columnedList
+		title: 'Example Classes';
+		priority: 10;
+		items: [ self classes ];
+		column: 'Index'
+			text: [ :eachItem :eachIndex | eachIndex asRopedText foreground: Color gray ]
+			width: 45;
+		column: 'Class'
+			text: [ :each | each gtDisplayString ]
+			width: 300;
+		column: '# Examples (including noTest)'
+			text: [ :each | each gtExamplesContained size ]
+			width: 200;
+		column: '# Examples with return: pragmas'
+			text: [ :each | each gtExamplesWithReturnPragmas size ]
+			width: 200;
+		column: '# Examples  without return: pragmas'
+			text: [ :each | each gtExamplesWithoutReturnPragmas size ]
+			width: 200;
+		actionUpdateButton;
+		send: [ :each | GtExampleReturnPragmas for: {each} ]
+]
+
+{ #category : #querying }
+GtExampleReturnPragmas >> gtExampleMethods [
+	self isForPackages
+		ifTrue: [ ^ (self packages flatCollect: #gtExamplesContained) collect: #method ].
+	self isForClasses
+		ifTrue: [ ^ (self classes flatCollect: #gtExamples) collect: #method ].
+	self assert: self isForExamples.
+	^ self examples select: #isGTExampleMethod
 ]
 
 { #category : #views }
@@ -111,34 +195,9 @@ GtExampleReturnPragmas >> gtExamplesWithReturnPragmaFor: aView [
 ]
 
 { #category : #views }
-GtExampleReturnPragmas >> gtPackagesWithExamplesFor: aView [
+GtExampleReturnPragmas >> gtPackagesMissingReturnPragmasFor: aView [
 	<gtView>
-	^ aView columnedList
-		title: 'Example Packages';
-		priority: 10;
-		items: [ self packagesWithExamples ];
-		column: 'Index'
-			text: [ :eachItem :eachIndex | eachIndex asRopedText foreground: Color gray ]
-			width: 45;
-		column: 'Package'
-			text: [ :each | each gtDisplayString ]
-			width: 300;
-		column: '# Examples (inluding noTest)'
-			text: [ :each | each gtExamplesContained size ]
-			width: 200;
-		column: '# Examples with return: pragmas'
-			text: [ :each | each gtExamplesWithReturnPragmas size ]
-			width: 200;
-		column: '# Examples  without return: pragmas'
-			text: [ :each | each gtExamplesWithoutReturnPragmas size ]
-			width: 200;
-		actionUpdateButton;
-		send: [ :each | GtExampleReturnPragmas for: {each} ]
-]
-
-{ #category : #views }
-GtExampleReturnPragmas >> gtViewFor: aView [
-	<gtView>
+	self isForPackages ifFalse: [^ aView empty].
 	self packagesMissingReturnPragmas ifEmpty: [ ^ aView empty ].
 	^ aView columnedList
 		title: 'Packages missing return:';
@@ -163,6 +222,50 @@ GtExampleReturnPragmas >> gtViewFor: aView [
 		send: [ :each | GtExampleReturnPragmas for: {each} ]
 ]
 
+{ #category : #views }
+GtExampleReturnPragmas >> gtPackagesWithExamplesFor: aView [
+	<gtView>
+	self isForPackages ifFalse: [^ aView empty].
+	^ aView columnedList
+		title: 'Example Packages';
+		priority: 10;
+		items: [ self packagesWithExamples ];
+		column: 'Index'
+			text: [ :eachItem :eachIndex | eachIndex asRopedText foreground: Color gray ]
+			width: 45;
+		column: 'Package'
+			text: [ :each | each gtDisplayString ]
+			width: 300;
+		column: '# Examples (including noTest)'
+			text: [ :each | each gtExamplesContained size ]
+			width: 200;
+		column: '# Examples with return: pragmas'
+			text: [ :each | each gtExamplesWithReturnPragmas size ]
+			width: 200;
+		column: '# Examples  without return: pragmas'
+			text: [ :each | each gtExamplesWithoutReturnPragmas size ]
+			width: 200;
+		actionUpdateButton;
+		send: [ :each | GtExampleReturnPragmas for: {each} ]
+]
+
+{ #category : #testing }
+GtExampleReturnPragmas >> isForClasses [
+	^ self classes isNotNil
+]
+
+{ #category : #testing }
+GtExampleReturnPragmas >> isForExamples [
+	^ self examples isNotNil
+]
+
+{ #category : #testing }
+GtExampleReturnPragmas >> isForPackages [
+	"Default case"
+
+	^ self classes isNil and: [ self examples isNil ]
+]
+
 { #category : #accessing }
 GtExampleReturnPragmas >> packages [
 	^ packages ifNil: [ packages := self defaultPackages ]
@@ -173,14 +276,14 @@ GtExampleReturnPragmas >> packages: aPackageCollection [
 	packages := aPackageCollection
 ]
 
-{ #category : #accessing }
+{ #category : #querying }
 GtExampleReturnPragmas >> packagesMissingReturnPragmas [
 	^ packagesMissingReturnPragmas
 		ifNil: [ packagesMissingReturnPragmas := self packages
 					select: [ :p | p gtExamplesWithoutReturnPragmas notEmpty ] ]
 ]
 
-{ #category : #accessing }
+{ #category : #querying }
 GtExampleReturnPragmas >> packagesWithExamples [
 	^ (self packages select: #hasGtExamples) sorted
 ]
