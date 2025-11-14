@@ -1,6 +1,26 @@
 Extension { #name : #Package }
 
 { #category : #'*GToolkit-Examples-Extensions' }
+Package >> addReturnPragmasRefactoring [
+	| namespace |
+	namespace := RBNamespace new.
+	self gtExamplesWithoutReturnPragmas
+		do: [ :m | m addReturnPragmasRefactoring: namespace ].
+	^ namespace
+]
+
+{ #category : #'*GToolkit-Examples-Extensions' }
+Package >> checkReturnPragmasRefactoring [
+	"NB: no changes if `namespace changes changes isEmpty`"
+
+	| namespace |
+	namespace := RBNamespace new.
+	self gtExamplesWithReturnPragmas
+		do: [ :m | m checkReturnPragmasRefactoring: namespace ].
+	^ namespace
+]
+
+{ #category : #'*GToolkit-Examples-Extensions' }
 Package class >> gtExampleEmpty [
 	<gtExample>
 	<label: 'Empty package'>
