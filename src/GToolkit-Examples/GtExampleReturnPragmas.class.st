@@ -76,6 +76,7 @@ GtExampleReturnPragmas >> defaultPackages [
 { #category : #views }
 GtExampleReturnPragmas >> gtExamplesMissingReturnPragmaFor: aView [
 	<gtView>
+	self allGtExamplesWithoutReturnPragmas ifEmpty: [ ^ aView empty ].
 	^ aView columnedList
 		title: 'Examples missing return:';
 		priority: 30;
@@ -93,6 +94,7 @@ GtExampleReturnPragmas >> gtExamplesMissingReturnPragmaFor: aView [
 { #category : #views }
 GtExampleReturnPragmas >> gtExamplesWithReturnPragmaFor: aView [
 	<gtView>
+	self allGtExamplesWithReturnPragmas ifEmpty: [ ^ aView empty ].
 	^ aView columnedList
 		title: 'Examples with return:';
 		priority: 35;
@@ -101,8 +103,9 @@ GtExampleReturnPragmas >> gtExamplesWithReturnPragmaFor: aView [
 			text: [ :eachItem :eachIndex | eachIndex asRopedText foreground: Color gray ]
 			width: 45;
 		column: 'Value' text: [ :each | each gtDisplayString ];
+		column: 'Return:' text: [ :each | each returnPragmaClass ];
 		actionButtonIcon: BrGlamorousVectorIcons repair
-			tooltip: 'Add return: pragmas'
+			tooltip: 'Check return: pragmas'
 			action: [ :aButton :aTab | aButton phlow spawnObject: self checkReturnPragmasRefactoring ];
 		actionUpdateButton
 ]
@@ -117,17 +120,26 @@ GtExampleReturnPragmas >> gtPackagesWithExamplesFor: aView [
 		column: 'Index'
 			text: [ :eachItem :eachIndex | eachIndex asRopedText foreground: Color gray ]
 			width: 45;
-		column: 'Class'
+		column: 'Package'
 			text: [ :each | each gtDisplayString ]
 			width: 300;
-		column: '# Examples' text: [ :each | each gtExamplesContained size ];
-		send: [ :each | GtExampleReturnPragmas for: {each} ];
-		actionUpdateButton
+		column: '# Examples (inluding noTest)'
+			text: [ :each | each gtExamplesContained size ]
+			width: 200;
+		column: '# Examples with return: pragmas'
+			text: [ :each | each gtExamplesWithReturnPragmas size ]
+			width: 200;
+		column: '# Examples  without return: pragmas'
+			text: [ :each | each gtExamplesWithoutReturnPragmas size ]
+			width: 200;
+		actionUpdateButton;
+		send: [ :each | GtExampleReturnPragmas for: {each} ]
 ]
 
 { #category : #views }
 GtExampleReturnPragmas >> gtViewFor: aView [
 	<gtView>
+	self packagesMissingReturnPragmas ifEmpty: [ ^ aView empty ].
 	^ aView columnedList
 		title: 'Packages missing return:';
 		priority: 20;
@@ -136,13 +148,19 @@ GtExampleReturnPragmas >> gtViewFor: aView [
 			text: [ :eachItem :eachIndex | eachIndex asRopedText foreground: Color gray ]
 			width: 45;
 		column: 'Package'
-			text: [ :each | each key ]
+			text: [ :each | each gtDisplayString ]
 			width: 300;
-		column: '# missing'
-			text: [ :each | each value size ]
-			width: 300;
-		send: [ :each | GtExampleReturnPragmas for: {each key} ];
-		actionUpdateButton
+		column: '# Examples (including noTest)'
+			text: [ :each | each gtExamplesContained size ]
+			width: 200;
+		column: '# Examples with return: pragmas'
+			text: [ :each | each gtExamplesWithReturnPragmas size ]
+			width: 200;
+		column: '# Examples  without return: pragmas'
+			text: [ :each | each gtExamplesWithoutReturnPragmas size ]
+			width: 200;
+		actionUpdateButton;
+		send: [ :each | GtExampleReturnPragmas for: {each} ]
 ]
 
 { #category : #accessing }
@@ -159,8 +177,7 @@ GtExampleReturnPragmas >> packages: aPackageCollection [
 GtExampleReturnPragmas >> packagesMissingReturnPragmas [
 	^ packagesMissingReturnPragmas
 		ifNil: [ packagesMissingReturnPragmas := self packages
-					collect: [ :p | p -> p gtExamplesWithoutReturnPragmas ]
-					thenSelect: [ :kv | kv value notEmpty ] ]
+					select: [ :p | p gtExamplesWithoutReturnPragmas notEmpty ] ]
 ]
 
 { #category : #accessing }

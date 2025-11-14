@@ -2,13 +2,8 @@ Extension { #name : #CompiledMethod }
 
 { #category : #'*GToolkit-Examples-Extensions' }
 CompiledMethod >> addReturnPragmasRefactoring: aNamespace [
-	| returnClass returnValue |
-	returnValue := self gtExample result returnValue.
-	(returnValue isKindOf: Exception)
-		ifTrue: [ ReturnPragmasRefactoringError
-				signal: 'An  example failed'
-				failingExample: self ].
-	returnClass := returnValue class.
+	| returnClass |
+	returnClass := self gtExampleReturnValueClass.
 	returnClass isAnonymous
 		ifFalse: [ (RBAddPragmaTransformation
 				model: aNamespace
@@ -20,21 +15,14 @@ CompiledMethod >> addReturnPragmasRefactoring: aNamespace [
 
 { #category : #'*GToolkit-Examples-Extensions' }
 CompiledMethod >> checkReturnPragmasRefactoring: aNamespace [
-	| returnClass returnPragmas returnValue |
-	returnPragmas := self pragmas select: [ :p | p selector == #return: ].
-	returnPragmas size = 1
-		ifFalse: [ ReturnPragmasRefactoringError
-				signal: 'Example has multiple return: pragmas!'
-				failingExample: self ].
-	returnValue := self gtExample result returnValue.
-	(returnValue isKindOf: Exception)
-		ifTrue: [ ReturnPragmasRefactoringError signal: 'Example failed!' failingExample: self ].
-	returnClass := returnValue class.
-	(returnClass ~= returnPragmas first arguments first asClass
+	| returnClass returnPragmaClass |
+	returnPragmaClass := self returnPragmaClass.
+	returnClass := self gtExampleReturnValueClass.
+	(returnClass ~= returnPragmaClass
 		and: [ returnClass isAnonymous not ])
 		ifTrue: [ (RBRemovePragmaTransformation
 				model: aNamespace
-				pragma: returnPragmas first printString
+				pragma: returnPragmaClass printString
 				inMethod: self selector
 				inClass: self methodClass name) primitiveExecute.
 			(RBAddPragmaTransformation
@@ -46,7 +34,29 @@ CompiledMethod >> checkReturnPragmasRefactoring: aNamespace [
 ]
 
 { #category : #'*GToolkit-Examples-Extensions' }
+CompiledMethod >> gtExampleReturnValueClass [
+	| returnValue |
+	returnValue := self gtExample result returnValue.
+	(returnValue isKindOf: Exception)
+		ifTrue: [ ReturnPragmasRefactoringError
+				signal: 'An  example failed'
+				failingExample: self ].
+	^ returnValue class
+]
+
+{ #category : #'*GToolkit-Examples-Extensions' }
 CompiledMethod class >> gtExampleSimple [
 	<gtExample>
 	^ self class>>#gtExampleSimple
+]
+
+{ #category : #'*GToolkit-Examples-Extensions' }
+CompiledMethod >> returnPragmaClass [
+	| returnPragmas  |
+	returnPragmas := self pragmas select: [ :p | p selector == #return: ].
+	returnPragmas size = 1
+		ifFalse: [ ReturnPragmasRefactoringError
+				signal: 'Example has multiple return: pragmas!'
+				failingExample: self ].
+	^ returnPragmas first arguments first asClass
 ]

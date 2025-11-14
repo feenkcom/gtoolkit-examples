@@ -11,7 +11,8 @@ Package class >> gtExampleEmpty [
 { #category : #'*GToolkit-Examples-Extensions' }
 Package >> gtExamplesWithReturnPragmas [
 	^ (self gtPackageMatches & #gtExample gtPragmas & #noTest gtPragmas not
-		& #return: gtPragmas) contents select: [ :m | m selector isUnary ]
+		& #return: gtPragmas) contents
+		select: [ :m | m selector isUnary and: [ m isClassSide not ] ]
 ]
 
 { #category : #'*GToolkit-Examples-Extensions' }
@@ -32,7 +33,8 @@ Package >> gtExamplesWithReturnPragmasClassified [
 { #category : #'*GToolkit-Examples-Extensions' }
 Package >> gtExamplesWithoutReturnPragmas [
 	^ (self gtPackageMatches & #gtExample gtPragmas & #noTest gtPragmas not
-		& #return: gtPragmas not) contents select: [ :m | m selector isUnary ]
+		& #return: gtPragmas not) contents
+		select: [ :m | m selector isUnary and: [ m isClassSide not ] ]
 ]
 
 { #category : #'*GToolkit-Examples-Extensions' }
