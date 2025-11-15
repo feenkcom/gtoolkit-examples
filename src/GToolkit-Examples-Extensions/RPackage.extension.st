@@ -1,6 +1,26 @@
 Extension { #name : #RPackage }
 
 { #category : #'*GToolkit-Examples-Extensions' }
+RPackage >> addReturnPragmasRefactoring [
+	| namespace |
+	namespace := RBNamespace new.
+	self gtExamplesWithoutReturnPragmas
+		do: [ :m | m addReturnPragmasRefactoring: namespace ].
+	^ namespace
+]
+
+{ #category : #'*GToolkit-Examples-Extensions' }
+RPackage >> checkReturnPragmasRefactoring [
+	"NB: no changes if `namespace changes changes isEmpty`"
+
+	| namespace |
+	namespace := RBNamespace new.
+	self gtExamplesWithReturnPragmas
+		do: [ :m | m checkReturnPragmasRefactoring: namespace ].
+	^ namespace
+]
+
+{ #category : #'*GToolkit-Examples-Extensions' }
 RPackage class >> gtExampleEmpty [
 	<gtExample>
 	<label: 'Empty package'>
@@ -11,7 +31,8 @@ RPackage class >> gtExampleEmpty [
 { #category : #'*GToolkit-Examples-Extensions' }
 RPackage >> gtExamplesWithReturnPragmas [
 	^ (self gtPackageMatches & #gtExample gtPragmas & #noTest gtPragmas not
-		& #return: gtPragmas) contents select: [ :m | m selector isUnary ]
+		& #return: gtPragmas) contents
+		select: [ :m | m selector isUnary and: [ m isClassSide not ] ]
 ]
 
 { #category : #'*GToolkit-Examples-Extensions' }
@@ -32,7 +53,8 @@ RPackage >> gtExamplesWithReturnPragmasClassified [
 { #category : #'*GToolkit-Examples-Extensions' }
 RPackage >> gtExamplesWithoutReturnPragmas [
 	^ (self gtPackageMatches & #gtExample gtPragmas & #noTest gtPragmas not
-		& #return: gtPragmas not) contents select: [ :m | m selector isUnary ]
+		& #return: gtPragmas not) contents
+		select: [ :m | m selector isUnary and: [ m isClassSide not ] ]
 ]
 
 { #category : #'*GToolkit-Examples-Extensions' }
