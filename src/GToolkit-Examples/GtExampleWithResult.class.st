@@ -297,6 +297,11 @@ GtExampleWithResult >> isSUnitTestCase [
 	^ false
 ]
 
+{ #category : #testing }
+GtExampleWithResult >> isUnableToCompleteCheckError [
+	^ false
+]
+
 { #category : #accessing }
 GtExampleWithResult >> isValid [
 	^ self example isValid
