@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'arguments'
 	],
-	#category : #'GToolkit-Examples-Core'
+	#category : 'GToolkit-Examples-Core'
 }
 
 { #category : #accessing }

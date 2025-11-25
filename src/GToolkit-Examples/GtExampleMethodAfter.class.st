@@ -6,7 +6,7 @@ I encalsulate a method that needs to be executed after an example was run. I pro
 Class {
 	#name : #GtExampleMethodAfter,
 	#superclass : #GtAbstractExampleMethod,
-	#category : #'GToolkit-Examples-Organization'
+	#category : 'GToolkit-Examples-Organization'
 }
 
 { #category : #testing }

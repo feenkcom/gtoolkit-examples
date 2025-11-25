@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'pragma'
 	],
-	#category : #'GToolkit-Examples-Exceptions'
+	#category : 'GToolkit-Examples-Exceptions'
 }
 
 { #category : #accessing }

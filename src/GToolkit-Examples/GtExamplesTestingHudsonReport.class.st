@@ -12,7 +12,7 @@ Class {
 		'failureCount',
 		'executedCount'
 	],
-	#category : #'GToolkit-Examples-Testing'
+	#category : 'GToolkit-Examples-Testing'
 }
 
 { #category : #private }

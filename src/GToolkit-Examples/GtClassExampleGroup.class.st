@@ -5,7 +5,7 @@ Class {
 		'exampleClass',
 		'examples'
 	],
-	#category : #'GToolkit-Examples-Core'
+	#category : 'GToolkit-Examples-Core'
 }
 
 { #category : #jsonV3 }

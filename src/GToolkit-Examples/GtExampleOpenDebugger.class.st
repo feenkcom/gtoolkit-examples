@@ -5,7 +5,7 @@ Class {
 		'resultCallback',
 		'openDebuggerCallback'
 	],
-	#category : #'GToolkit-Examples-Runtime'
+	#category : 'GToolkit-Examples-Runtime'
 }
 
 { #category : #accessing }

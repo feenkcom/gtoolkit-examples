@@ -6,7 +6,7 @@ I model a dynamic variable to keep track of the example that is being processed 
 Class {
 	#name : #GtCurrentExampleContext,
 	#superclass : #Notification,
-	#category : #'GToolkit-Examples-Runtime'
+	#category : 'GToolkit-Examples-Runtime'
 }
 
 { #category : #'accessing-defaults' }

@@ -15,7 +15,7 @@ Class {
 		'meta',
 		'selector'
 	],
-	#category : #'GToolkit-Examples-Organization'
+	#category : 'GToolkit-Examples-Organization'
 }
 
 { #category : #'instance creation' }
@@ -80,18 +80,18 @@ GtAbstractExampleMethod >> gtSpotterPreviewIn: aComposite [
 ]
 
 { #category : #testing }
+GtAbstractExampleMethod >> hash [
+	^ (self class hash 
+		bitXor: self methodClassName hash)
+			bitXor: self selector hash
+]
+
+{ #category : #testing }
 GtAbstractExampleMethod >> hasLiteralThorough: aLiteral [
 	^ self methodClassName = aLiteral 
 		or: [ self selector = aLiteral
 			or: [ self exists 
 				and: [ self method hasLiteralThorough: aLiteral ] ] ]
-]
-
-{ #category : #testing }
-GtAbstractExampleMethod >> hash [
-	^ (self class hash 
-		bitXor: self methodClassName hash)
-			bitXor: self selector hash
 ]
 
 { #category : #accessing }

@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'exception'
 	],
-	#category : #'GToolkit-Examples-Core'
+	#category : 'GToolkit-Examples-Core'
 }
 
 { #category : #accessing }

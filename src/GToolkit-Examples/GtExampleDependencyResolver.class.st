@@ -6,7 +6,7 @@ I define a heuristic for determining if a given AST node represents a dependency
 Class {
 	#name : #GtExampleDependencyResolver,
 	#superclass : #Object,
-	#category : #'GToolkit-Examples-Organization'
+	#category : 'GToolkit-Examples-Organization'
 }
 
 { #category : #testing }

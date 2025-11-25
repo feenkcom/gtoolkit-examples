@@ -1,7 +1,7 @@
 Class {
 	#name : #GtExamplesBasicHudsonReport,
 	#superclass : #Object,
-	#category : #'GToolkit-Examples-Testing'
+	#category : 'GToolkit-Examples-Testing'
 }
 
 { #category : #converting }

@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'instance'
 	],
-	#category : #'GToolkit-Examples-Subjects'
+	#category : 'GToolkit-Examples-Subjects'
 }
 
 { #category : #'instance creation' }
@@ -37,17 +37,17 @@ GtExampleInstanceSubject >> gtDisplayOn: aStream [
 ]
 
 { #category : #testing }
+GtExampleInstanceSubject >> hash [
+	^ self class hash
+		bitXor: self instance hash
+]
+
+{ #category : #testing }
 GtExampleInstanceSubject >> hasLiteralThorough: aLiteral [
 	^ self exists
 		and: [ self theClass methods anySatisfy: [ :method | 
 			method selector = aLiteral
 				or: [ 	method hasLiteralThorough: aLiteral ] ] ]
-]
-
-{ #category : #testing }
-GtExampleInstanceSubject >> hash [
-	^ self class hash
-		bitXor: self instance hash
 ]
 
 { #category : #accessing }

@@ -5,7 +5,7 @@ My users then implement specific behavior for success, failure, and error result
 "
 Trait {
 	#name : #TGtExampleResultValue,
-	#category : #'GToolkit-Examples-Core'
+	#category : 'GToolkit-Examples-Core'
 }
 
 { #category : #'api - accessing' }

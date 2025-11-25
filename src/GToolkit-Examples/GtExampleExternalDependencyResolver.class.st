@@ -6,7 +6,7 @@ I detect if a message send having the form  'ClassName new message'  is a depend
 Class {
 	#name : #GtExampleExternalDependencyResolver,
 	#superclass : #GtExampleDependencyResolver,
-	#category : #'GToolkit-Examples-Organization'
+	#category : 'GToolkit-Examples-Organization'
 }
 
 { #category : #testing }

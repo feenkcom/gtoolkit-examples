@@ -1,7 +1,7 @@
 Class {
 	#name : #GtDynamicExampleGroup,
 	#superclass : #GtExampleGroup,
-	#category : #'GToolkit-Examples-Core'
+	#category : 'GToolkit-Examples-Core'
 }
 
 { #category : #subscription }

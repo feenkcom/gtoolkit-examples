@@ -14,7 +14,7 @@ Class {
 	#classInstVars : [
 		'instance'
 	],
-	#category : #'GToolkit-Examples-Organization'
+	#category : 'GToolkit-Examples-Organization'
 }
 
 { #category : #accessing }

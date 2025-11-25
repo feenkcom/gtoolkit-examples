@@ -12,7 +12,7 @@ Class {
 		'announcer',
 		'mutex'
 	],
-	#category : #'GToolkit-Examples-Runtime'
+	#category : 'GToolkit-Examples-Runtime'
 }
 
 { #category : #jsonV3 }
@@ -220,6 +220,11 @@ GtExampleWithResult >> hasAnnouncer [
 	^ announcer isNotNil
 ]
 
+{ #category : #comparing }
+GtExampleWithResult >> hash [
+	^ self class hash bitXor: self example hash
+]
+
 { #category : #testing }
 GtExampleWithResult >> hasNoTestPragma [
 	^ self example hasNoTestPragma
@@ -228,11 +233,6 @@ GtExampleWithResult >> hasNoTestPragma [
 { #category : #testing }
 GtExampleWithResult >> hasResult [
 	^ result notNil
-]
-
-{ #category : #comparing }
-GtExampleWithResult >> hash [
-	^ self class hash bitXor: self example hash
 ]
 
 { #category : #ui }
@@ -261,6 +261,11 @@ GtExampleWithResult >> isError [
 ]
 
 { #category : #testing }
+GtExampleWithResult >> isErrorInCheckLogic [
+	^ self isError
+]
+
+{ #category : #testing }
 GtExampleWithResult >> isFailure [
 	^ self hasResult and: [ self result isFailure ]
 ]
@@ -277,12 +282,6 @@ GtExampleWithResult >> isMethodDefined [
 ]
 
 { #category : #testing }
-GtExampleWithResult >> isSUnitTestCase [
-
-	^ false
-]
-
-{ #category : #testing }
 GtExampleWithResult >> isSkipped [
 	^ self hasResult not
 ]
@@ -290,6 +289,12 @@ GtExampleWithResult >> isSkipped [
 { #category : #testing }
 GtExampleWithResult >> isSuccess [
 	^ self hasResult and: [ self result isSuccess ]
+]
+
+{ #category : #testing }
+GtExampleWithResult >> isSUnitTestCase [
+
+	^ false
 ]
 
 { #category : #accessing }

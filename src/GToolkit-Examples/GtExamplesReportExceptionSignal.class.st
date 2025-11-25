@@ -5,7 +5,7 @@ Class {
 		'error',
 		'message'
 	],
-	#category : #'GToolkit-Examples-Testing'
+	#category : 'GToolkit-Examples-Testing'
 }
 
 { #category : #accessing }

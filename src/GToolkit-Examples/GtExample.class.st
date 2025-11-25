@@ -31,7 +31,7 @@ Class {
 		'problems',
 		'timeLimit'
 	],
-	#category : #'GToolkit-Examples-Core'
+	#category : 'GToolkit-Examples-Core'
 }
 
 { #category : #comparing }
@@ -240,6 +240,14 @@ GtExample >> hasDependencies [
 	^ self directDependencies notEmpty
 ]
 
+{ #category : #comparing }
+GtExample >> hash [
+	^ ((self class hash * 3
+		bitXor: self providerClass hash * 5)
+			bitXor: self methodClass hash * 7)
+				bitXor: self selector hash * 13
+]
+
 { #category : #testing }
 GtExample >> hasInternalProblems [
 	^ problems notEmpty
@@ -296,14 +304,6 @@ GtExample >> hasValidDependencies [
 { #category : #testing }
 GtExample >> hasValidProviderClass [
 	^ self providerClass includesBehavior: self methodClass
-]
-
-{ #category : #comparing }
-GtExample >> hash [
-	^ ((self class hash * 3
-		bitXor: self providerClass hash * 5)
-			bitXor: self methodClass hash * 7)
-				bitXor: self selector hash * 13
 ]
 
 { #category : #accessing }

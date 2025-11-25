@@ -12,7 +12,7 @@ Class {
 		'announcer',
 		'ignoreAnnouncements'
 	],
-	#category : #'GToolkit-Examples-Core'
+	#category : 'GToolkit-Examples-Core'
 }
 
 { #category : #jsonV3 }

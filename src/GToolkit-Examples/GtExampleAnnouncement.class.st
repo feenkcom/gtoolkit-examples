@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'example'
 	],
-	#category : #'GToolkit-Examples-Announcements'
+	#category : 'GToolkit-Examples-Announcements'
 }
 
 { #category : #accessing }

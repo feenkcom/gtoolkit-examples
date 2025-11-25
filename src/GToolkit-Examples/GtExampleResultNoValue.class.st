@@ -10,7 +10,7 @@ Class {
 	#classInstVars : [
 		'uniqueInstance'
 	],
-	#category : #'GToolkit-Examples-Core'
+	#category : 'GToolkit-Examples-Core'
 }
 
 { #category : #cleanup }

@@ -10,7 +10,7 @@ The subject information is useful both when understanding the goal of an example
 Class {
 	#name : #GtExampleSubject,
 	#superclass : #GtExampleAspect,
-	#category : #'GToolkit-Examples-Subjects'
+	#category : 'GToolkit-Examples-Subjects'
 }
 
 { #category : #testing }

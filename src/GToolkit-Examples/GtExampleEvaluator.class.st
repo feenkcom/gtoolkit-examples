@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'result'
 	],
-	#category : #'GToolkit-Examples-Runtime'
+	#category : 'GToolkit-Examples-Runtime'
 }
 
 { #category : #private }

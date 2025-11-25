@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'failingExample'
 	],
-	#category : #'GToolkit-Examples-Exceptions'
+	#category : 'GToolkit-Examples-Exceptions'
 }
 
 { #category : #exceptioninstantiator }

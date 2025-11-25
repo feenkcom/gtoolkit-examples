@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'failure'
 	],
-	#category : #'GToolkit-Examples-Core'
+	#category : 'GToolkit-Examples-Core'
 }
 
 { #category : #'api - accessing' }
