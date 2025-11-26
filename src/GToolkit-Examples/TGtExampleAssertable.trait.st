@@ -3,7 +3,7 @@ I am a trait that provides assertions that can used within examples.
 "
 Trait {
 	#name : #TGtExampleAssertable,
-	#category : 'GToolkit-Examples-Core'
+	#category : #'GToolkit-Examples-Core'
 }
 
 { #category : #asserting }

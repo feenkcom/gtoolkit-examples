@@ -261,6 +261,11 @@ GtExampleWithResult >> isError [
 ]
 
 { #category : #testing }
+GtExampleWithResult >> isErrorInCheckLogic [
+	^ self isError
+]
+
+{ #category : #testing }
 GtExampleWithResult >> isFailure [
 	^ self hasResult and: [ self result isFailure ]
 ]
@@ -290,6 +295,11 @@ GtExampleWithResult >> isSkipped [
 { #category : #testing }
 GtExampleWithResult >> isSuccess [
 	^ self hasResult and: [ self result isSuccess ]
+]
+
+{ #category : #testing }
+GtExampleWithResult >> isUnableToCompleteCheckError [
+	^ false
 ]
 
 { #category : #accessing }

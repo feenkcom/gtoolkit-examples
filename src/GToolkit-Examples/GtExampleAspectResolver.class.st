@@ -11,7 +11,7 @@ Class {
 		'meta',
 		'aspectClass'
 	],
-	#category : 'GToolkit-Examples-Organization'
+	#category : #'GToolkit-Examples-Organization'
 }
 
 { #category : #accessing }
