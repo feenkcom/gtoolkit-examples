@@ -100,9 +100,8 @@ GtExampleEvaluator >> result [
 		do: [ result := self runUnmanaged ] 
 		on: GtExampleResult signalableExceptions
 		do: [ :anException |
-			anException freeze. 
 			result := (self newResultFor: self example) 
-				exampleException: anException ].
+				exampleException: (GtSystemUtility freeze: anException) ].
 	^ result
 ]
 
