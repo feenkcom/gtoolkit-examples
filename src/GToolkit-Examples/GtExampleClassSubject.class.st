@@ -11,7 +11,7 @@ Class {
 		'theClass',
 		'meta'
 	],
-	#category : 'GToolkit-Examples-Subjects'
+	#category : #'GToolkit-Examples-Subjects'
 }
 
 { #category : #'instance creation' }
@@ -67,16 +67,16 @@ GtExampleClassSubject >> gtDisplayOn: aStream [
 ]
 
 { #category : #testing }
-GtExampleClassSubject >> hash [
-	^ self class hash
-		bitXor: self theClassName hash
-]
-
-{ #category : #testing }
 GtExampleClassSubject >> hasLiteralThorough: aLiteral [
 	^ self theClassName = aLiteral
 		or: [ self exists 
 			and: [ self theClass = aLiteral ] ]
+]
+
+{ #category : #testing }
+GtExampleClassSubject >> hash [
+	^ self class hash
+		bitXor: self theClassName hash
 ]
 
 { #category : #accessing }

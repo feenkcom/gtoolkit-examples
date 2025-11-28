@@ -4,7 +4,7 @@ Trait {
 		'zincServer',
 		'zincDelegate'
 	],
-	#category : 'GToolkit-Examples-Utilities'
+	#category : #'GToolkit-Examples-Utilities'
 }
 
 { #category : #'server - authenticator' }

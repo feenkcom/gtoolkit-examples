@@ -12,7 +12,7 @@ Class {
 		'classes',
 		'examples'
 	],
-	#category : 'GToolkit-Examples-Utilities'
+	#category : #'GToolkit-Examples-Utilities'
 }
 
 { #category : #'instance creation' }
@@ -56,13 +56,13 @@ GtExampleReturnPragmas >> addReturnPragmasRefactoring [
 ]
 
 { #category : #querying }
-GtExampleReturnPragmas >> allGtExamplesWithoutReturnPragmas [
-	^ self gtExampleMethods select: #isGtExampleWithoutReturnPragma
+GtExampleReturnPragmas >> allGtExamplesWithReturnPragmas [
+	^ self gtExampleMethods select: #isGtExampleWithReturnPragma
 ]
 
 { #category : #querying }
-GtExampleReturnPragmas >> allGtExamplesWithReturnPragmas [
-	^ self gtExampleMethods select: #isGtExampleWithReturnPragma
+GtExampleReturnPragmas >> allGtExamplesWithoutReturnPragmas [
+	^ self gtExampleMethods select: #isGtExampleWithoutReturnPragma
 ]
 
 { #category : #updating }

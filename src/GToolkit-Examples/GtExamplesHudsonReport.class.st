@@ -6,7 +6,7 @@ I create a Hudson report by running examples from a given list of packages. Apar
 Class {
 	#name : #GtExamplesHudsonReport,
 	#superclass : #GtExamplesTestingHudsonReport,
-	#category : 'GToolkit-Examples-Testing'
+	#category : #'GToolkit-Examples-Testing'
 }
 
 { #category : #running }

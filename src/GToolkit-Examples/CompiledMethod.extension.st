@@ -14,18 +14,6 @@ CompiledMethod >> gtExample [
 ]
 
 { #category : #'*GToolkit-Examples-Core' }
-CompiledMethod >> gtExamples [
-	^ self gtExample 
-		ifNotNil: [ :example | { example } ]
-		ifNil: [ #( ) ]
-]
-
-{ #category : #'*GToolkit-Examples-Core' }
-CompiledMethod >> gtExamplesFactory [
-	^ self methodClass instanceSide gtExamplesFactory
-]
-
-{ #category : #'*GToolkit-Examples-Core' }
 CompiledMethod >> gtExampleValue [
 	^ self gtExample returnValue
 ]
@@ -91,6 +79,18 @@ CompiledMethod >> gtExampleWithResultForExample: anExample [
 	anExampleWithResult := anExample asExampleWithResult.
 	aDictionary at: aClass put: anExampleWithResult asWeakReference.
 	^ anExampleWithResult
+]
+
+{ #category : #'*GToolkit-Examples-Core' }
+CompiledMethod >> gtExamples [
+	^ self gtExample 
+		ifNotNil: [ :example | { example } ]
+		ifNil: [ #( ) ]
+]
+
+{ #category : #'*GToolkit-Examples-Core' }
+CompiledMethod >> gtExamplesFactory [
+	^ self methodClass instanceSide gtExamplesFactory
 ]
 
 { #category : #'*GToolkit-Examples-Core' }

@@ -10,7 +10,7 @@ Class {
 		'classNamed',
 		'meta'
 	],
-	#category : 'GToolkit-Examples-Exceptions'
+	#category : #'GToolkit-Examples-Exceptions'
 }
 
 { #category : #accessing }

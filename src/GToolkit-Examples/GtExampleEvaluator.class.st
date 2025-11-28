@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'result'
 	],
-	#category : 'GToolkit-Examples-Runtime'
+	#category : #'GToolkit-Examples-Runtime'
 }
 
 { #category : #private }
@@ -100,9 +100,8 @@ GtExampleEvaluator >> result [
 		do: [ result := self runUnmanaged ] 
 		on: GtExampleResult signalableExceptions
 		do: [ :anException |
-			anException freeze. 
 			result := (self newResultFor: self example) 
-				exampleException: anException ].
+				exampleException: (GtSystemUtility freeze: anException) ].
 	^ result
 ]
 

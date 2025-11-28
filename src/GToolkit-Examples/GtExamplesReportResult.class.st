@@ -5,7 +5,7 @@ Class {
 		'exampleResults',
 		'runtimeStatisticsDiffReport'
 	],
-	#category : 'GToolkit-Examples-Testing'
+	#category : #'GToolkit-Examples-Testing'
 }
 
 { #category : #accessing }

@@ -6,7 +6,7 @@ Class {
 		'fileSystem',
 		'fileSystemRootDirectory'
 	],
-	#category : 'GToolkit-Examples-Utilities'
+	#category : #'GToolkit-Examples-Utilities'
 }
 
 { #category : #'utility - basic' }

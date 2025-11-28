@@ -6,7 +6,7 @@ I detect if a super send is a dependency to an example.
 Class {
 	#name : #GtExampleSuperDependencyResolver,
 	#superclass : #GtExampleDependencyResolver,
-	#category : 'GToolkit-Examples-Organization'
+	#category : #'GToolkit-Examples-Organization'
 }
 
 { #category : #testing }

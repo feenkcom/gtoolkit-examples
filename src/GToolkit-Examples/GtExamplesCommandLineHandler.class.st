@@ -6,7 +6,7 @@ I am a command line handler for executing examples as tests. I take as input a l
 Class {
 	#name : #GtExamplesCommandLineHandler,
 	#superclass : #CommandLineHandler,
-	#category : 'GToolkit-Examples-Testing'
+	#category : #'GToolkit-Examples-Testing'
 }
 
 { #category : #accessing }

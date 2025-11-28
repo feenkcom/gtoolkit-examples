@@ -30,6 +30,11 @@ Object >> gtExampleRuntimeContext [
 ]
 
 { #category : #'*GToolkit-Examples-Core' }
+Object >> gtExampleSubstrings [
+	^ {  }
+]
+
+{ #category : #'*GToolkit-Examples-Core' }
 Object >> gtExamples [
 	^ self class gtExamples
 ]
@@ -52,11 +57,6 @@ Object >> gtExamplesContained [
 { #category : #'*GToolkit-Examples-Core' }
 Object >> gtExamplesFactory [
 	^ self class gtExamplesFactory
-]
-
-{ #category : #'*GToolkit-Examples-Core' }
-Object >> gtExampleSubstrings [
-	^ {  }
 ]
 
 { #category : #'*GToolkit-Examples-Core' }

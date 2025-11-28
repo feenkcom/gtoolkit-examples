@@ -6,7 +6,7 @@ Class {
 		'amountOfExampleClasses',
 		'amountOfExamples'
 	],
-	#category : 'GToolkit-Examples-Testing'
+	#category : #'GToolkit-Examples-Testing'
 }
 
 { #category : #accessing }
