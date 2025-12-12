@@ -321,6 +321,18 @@ GtExampleGroup >> runAll [
 ]
 
 { #category : #actions }
+GtExampleGroup >> runAllNoTestExamples [
+	"Sometimes we really want to run the <noTest> examples."
+	self examples 
+		do: [ :eachExampleWithResult | 
+			eachExampleWithResult ignoreTest ifTrue: [ 
+				self ignoreAnnouncementsDuring: [ eachExampleWithResult run ] ] ] 
+		displayingProgress: 'Running examples ...'.
+	self hasAnnouncer ifFalse: [ ^ self ].
+	self announcer announce: (GtExamplesExecuted new group: self).
+]
+
+{ #category : #actions }
 GtExampleGroup >> runNotYetExecuted [
 	self examples 
 		do: [ :each | 
