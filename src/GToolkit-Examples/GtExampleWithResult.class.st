@@ -202,7 +202,8 @@ GtExampleWithResult >> gtLiveFor: aView [
 		title: 'Result';
 		priority: 15;
 		object: [ result ];
-		view: #gtLiveFor:
+		view: #gtLiveFor:;
+		actionButtonIcon: BrGlamorousVectorIcons inspect action: [ :b | b phlow spawnObject: result returnValue ]
 ]
 
 { #category : #testing }
