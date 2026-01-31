@@ -197,13 +197,17 @@ GtExampleWithResult >> gtInspectorPresentationsIn: composite inContext: aGTInspe
 { #category : #ui }
 GtExampleWithResult >> gtLiveFor: aView [
 	<gtView>
-	
-	^ aView forward
+	^ aView explicit
 		title: 'Result';
 		priority: 15;
-		object: [ result ];
-		view: #gtLiveFor:;
-		actionButtonIcon: BrGlamorousVectorIcons inspect action: [ :b | b phlow spawnObject: result returnValue ]
+		stencil: [ (result returnValue gtViewsFor: GtPhlowEmptyView new)
+				asElementDo: [ :e | 
+					e
+						margin: (BlInsets all: 10);
+						background: Color white;
+						addAptitude: BrShadowAptitude new ] ];
+		actionButtonIcon: BrGlamorousVectorIcons inspect
+			action: [ :b | b phlow spawnObject: result returnValue ]
 ]
 
 { #category : #testing }
