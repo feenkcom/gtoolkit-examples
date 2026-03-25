@@ -1,7 +1,7 @@
 Extension { #name : #IRMethod }
 
 { #category : #'*GToolkit-Examples-Extensions' }
-IRMethod class >> gtExampleNewMethod [
+IRMethod classSide >> gtExampleNewMethod [
 	<gtExample>
 	^ IRBuilder new 
 		addTemps: #(a);
@@ -12,7 +12,7 @@ IRMethod class >> gtExampleNewMethod [
 ]
 
 { #category : #'*GToolkit-Examples-Extensions' }
-IRMethod class >> gtExampleThisMethod [
+IRMethod classSide >> gtExampleThisMethod [
 	<gtExample>
 	^ (self class >> #gtExampleThisMethod) ast ir
 ]

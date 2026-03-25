@@ -1,7 +1,7 @@
 Extension { #name : #IRSequence }
 
 { #category : #'*GToolkit-Examples-Extensions' }
-IRSequence class >> gtExampleSequence [
+IRSequence classSide >> gtExampleSequence [
 	<gtExample>
 	^ (self class >> #gtExampleSequence) ast ir startSequence
 ]
