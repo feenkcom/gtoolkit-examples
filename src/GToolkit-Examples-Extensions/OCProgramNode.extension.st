@@ -7,3 +7,11 @@ OCProgramNode class >> gtExampleRBProgramNode [
 	
 	^ (GtInspector class >> #gtExtensionsFor:) parseTree
 ]
+
+{ #category : #'*GToolkit-Examples-Extensions' }
+OCProgramNode >> gtExampleRBProgramNode [
+	<gtExample>
+	<label: 'RBProgramNode'>
+	
+	^ (GtInspector class >> #gtExtensionsFor:) parseTree
+]

@@ -1,6 +1,6 @@
 Extension { #name : #IRSequence }
 
-{ #category : #'*GToolkit-Examples-Extensions' }
+{ #category : #'*GToolkit-Examples-Pharo12Extensions' }
 IRSequence class >> gtExampleSequence [
 	<gtExample>
 	^ (self class >> #gtExampleSequence) ast ir startSequence

@@ -1,6 +1,6 @@
 Extension { #name : #IRMethod }
 
-{ #category : #'*GToolkit-Examples-Extensions' }
+{ #category : #'*GToolkit-Examples-Pharo12Extensions' }
 IRMethod class >> gtExampleNewMethod [
 	<gtExample>
 	^ IRBuilder new 
@@ -11,7 +11,7 @@ IRMethod class >> gtExampleNewMethod [
 		ir
 ]
 
-{ #category : #'*GToolkit-Examples-Extensions' }
+{ #category : #'*GToolkit-Examples-Pharo12Extensions' }
 IRMethod class >> gtExampleThisMethod [
 	<gtExample>
 	^ (self class >> #gtExampleThisMethod) ast ir

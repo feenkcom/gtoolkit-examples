@@ -1,6 +1,6 @@
 Extension { #name : #RBMessageNode }
 
-{ #category : #'*GToolkit-Examples-Extensions' }
+{ #category : #'*GToolkit-Examples-Pharo12Extensions' }
 RBMessageNode class >> gtExampleAddition [
 	<gtExample>
 	^ RBMessageNode 

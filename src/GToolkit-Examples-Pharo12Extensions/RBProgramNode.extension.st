@@ -1,6 +1,6 @@
 Extension { #name : #RBProgramNode }
 
-{ #category : #'*GToolkit-Examples-Extensions' }
+{ #category : #'*GToolkit-Examples-Pharo12Extensions' }
 RBProgramNode class >> gtExampleRBProgramNode [
 	<gtExample>
 	<label: 'RBProgramNode'>
