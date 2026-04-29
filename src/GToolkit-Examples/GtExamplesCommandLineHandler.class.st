@@ -153,16 +153,6 @@ GtExamplesCommandLineHandler >> installFlushChangesFileError [
 		
 	(SourceFileArray>>#flushChangesFile) ast link: aLink.
 	
-	(Categorizer>>#classify:under:suppressIfDefault:) ast link: aLink.
-	(Categorizer>>#removeCategory:) ast link: aLink.
-	(Categorizer>>#addCategory:before:) ast link: aLink.
-	(Categorizer>>#renameCategory:toBe:) ast link: aLink.
-	(Categorizer>>#removeEmptyCategories) ast link: aLink.
-	(Categorizer>>#removeElement:) ast link: aLink.
-	(Categorizer>>#changeFromCategorySpecs:) ast link: aLink.
-	(Categorizer>>#categories:) ast link: aLink.
-	(Categorizer>>#setDefaultList:) ast link: aLink.
-	
 	(SourceFileBufferedReadWriteStream>>#close) ast link: aLink.
 	(SourceFileBufferedReadWriteStream>>#flush) ast link: aLink.
 	(SourceFileBufferedReadWriteStream class>>#on:) ast link: aLink.
