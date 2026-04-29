@@ -48,6 +48,14 @@ BaselineOfGToolkitExamples >> baseline: spec [
 			package: 'GToolkit-Examples-Extensions' with: [
 				spec requires: #('GToolkitExamplesEngine' ). ];
 			package: 'GToolkit-Tests-Examples' with: [
-				spec requires: #('GToolkitExamplesEngine' 'GToolkit-Examples-Extensions' 'GToolkit-Examples-Dummies' ). ]. ].
+				spec requires: #('GToolkitExamplesEngine' 'GToolkit-Examples-Extensions' 'GToolkit-Examples-Dummies' ). ].
+			
+			self 
+				forPharo13AndNewer: [] 
+				forOlder: [
+					spec package: 'GToolkit-Examples-Pharo12Extensions' with: [ 
+						spec requires: #('GToolkitExamplesEngine') ] ] 
+				
+	].
 
 ]

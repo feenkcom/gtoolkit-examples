@@ -8,3 +8,12 @@ OCMessageNode class >> gtExampleAddition [
 				selector: #+
 				arguments: (Array with: (RBLiteralNode value: 0))
 ]
+
+{ #category : #'*GToolkit-Examples-Extensions' }
+OCMessageNode >> gtExampleAddition [
+	<gtExample>
+	^ RBMessageNode 
+				receiver: (RBVariableNode named: 'self')
+				selector: #+
+				arguments: (Array with: (RBLiteralNode value: 0))
+]
