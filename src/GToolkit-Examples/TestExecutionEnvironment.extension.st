@@ -41,6 +41,11 @@ TestExecutionEnvironment >> runExampleUnderWatchdogUsingEvaluator: anEvaluator [
 { #category : #'*GToolkit-Examples-Core' }
 TestExecutionEnvironment >> runUnmanagedExampleEvaluator: anExampleEvaluator [
 	| exampleResult |
+	
+	"We make sure the monitor service is disabled to not track 
+	worker processes and stop them when the test ends."
+	self disableService: ProcessMonitorTestService.
+		
 	testCase := anExampleEvaluator.
 	testCompleted := false.
 	[ exampleResult := anExampleEvaluator value ] ensure: [ 
