@@ -21,6 +21,10 @@ DefaultExecutionEnvironment >> runUnmanagedExampleEvaluator: anExampleEvaluator 
 	
 	exampleResult := nil.
 	testEnv beActiveDuring: [
+		"If we activate at this point the test execution environment we disable the monitor service
+		to not track worker processes and stop them when the test ends."
+		testEnv disableService: ProcessMonitorTestService.
+		
 		exampleResult := testEnv runUnmanagedExampleEvaluator: anExampleEvaluator ].
 		
 	^ exampleResult
