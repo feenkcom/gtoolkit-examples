@@ -297,7 +297,11 @@ GtExample >> hasValidDependencies [
 
 { #category : #testing }
 GtExample >> hasValidReceiverClass [
-	^ self receiverClass includesBehavior: self methodClass
+	self
+		deprecated: 'Please use #hasValidReceiverClass instead.'
+		transformWith: '`@receiver hasValidReceiverClass' -> '`@receiver hasValidReceiverClass'.
+
+	^ self hasValidReceiverClass
 ]
 
 { #category : #comparing }
