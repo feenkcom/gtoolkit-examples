@@ -23,5 +23,5 @@ GtExampleSuperDependencyResolver >> posibleExampleForNode: aMessageNode fromMeth
 	^ possibleExampleMethod ifNotNil: [ :aPossibleExampleMethod |
 		self 
 			exampleFromMethod: aPossibleExampleMethod
-			withProviderClass: anOriginalExample providerClass ]
+			withReceiverClass: anOriginalExample receiverClass ]
 ]

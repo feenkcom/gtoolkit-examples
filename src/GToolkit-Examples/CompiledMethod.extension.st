@@ -52,13 +52,13 @@ CompiledMethod >> gtExampleWithResult [
 CompiledMethod >> gtExampleWithResultForExample: anExample [
 	| aWeak aDictionary aClass aCachedExampleWithResult anExampleWithResult |
 	self
-		assert: [ anExample providerClass ~= anExample methodClass ]
+		assert: [ anExample receiverClass ~= anExample methodClass ]
 		description: [ 'Example provider and method classes must be different. Call anExample asCachedExampleWithResult instead' ].
 	self
 		assert: [ anExample exists and: [ anExample method = self ] ]
 		description: [ 'I can be called only with examples that represents me. Call anExample asCachedExampleWithResult instead' ].
 
-	aClass := anExample providerClass.
+	aClass := anExample receiverClass.
 
 	aDictionary := self
 			propertyAt: #gtExampleWithResultForSubclassesWeakReference

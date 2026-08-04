@@ -17,10 +17,10 @@ GtExampleSelfDependencyResolver >> appliesTo: anASTNode [
 { #category : #action }
 GtExampleSelfDependencyResolver >> posibleExampleForNode: aMessageNode fromMethod: aCompiledMethod forOriginalExample: anOriginalExample [
 	| possibleExampleMethod |
-	possibleExampleMethod := anOriginalExample providerClass
+	possibleExampleMethod := anOriginalExample receiverClass
 		lookupSelector: aMessageNode selector.
 	^ possibleExampleMethod ifNotNil: [ :aPossibleExampleMethod |
 		self 
 			exampleFromMethod: aPossibleExampleMethod
-			withProviderClass: anOriginalExample providerClass ]
+			withReceiverClass: anOriginalExample receiverClass ]
 ]

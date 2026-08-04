@@ -19,12 +19,12 @@ GtExamplesParametrizedExamples >> assertExamples: currentExamples withSelectors:
 ]
 
 { #category : #assertions }
-GtExamplesParametrizedExamples >> assertParametrizedExample: example inClass: aMethodClass withProvider: aProviderClass [
+GtExamplesParametrizedExamples >> assertParametrizedExample: example inClass: aMethodClass withReceiver: aReceiverClass [
 	self assert: example class equals: GtParametrizedExample.
-	self assert: example providerClass equals: aProviderClass.
+	self assert: example receiverClass equals: aReceiverClass.
 	self assert: example methodClass equals: aMethodClass.
-	self assert: example provider class equals: aProviderClass.
-	self assert: example hasValidProviderClass.
+	self assert: example provider class equals: aReceiverClass.
+	self assert: example hasValidReceiverClass.
 	self assert: example isValid.
 	self assert: example exists.
 ]
@@ -110,7 +110,7 @@ GtExamplesParametrizedExamples >> parametrizedExampleInClassA [
 	self
 		assertParametrizedExample: anExample
 		inClass: GtDummyExamplesWithParametrizedExampleA
-		withProvider: GtDummyExamplesWithParametrizedExampleA.
+		withReceiver: GtDummyExamplesWithParametrizedExampleA.
 	self assert: anExample arguments equals: #().
 	^ anExample
 ]
@@ -125,7 +125,7 @@ GtExamplesParametrizedExamples >> parametrizedExampleInClassB [
 	self
 		assertParametrizedExample: anExample
 		inClass: GtDummyExamplesWithParametrizedExampleB
-		withProvider: GtDummyExamplesWithParametrizedExampleB.
+		withReceiver: GtDummyExamplesWithParametrizedExampleB.
 	self assert: anExample arguments equals: #().
 	theDependencies := anExample directDependencies.
 	self assert: theDependencies size equals: 1.
@@ -145,7 +145,7 @@ GtExamplesParametrizedExamples >> parametrizedExampleWithTwoArgumentsInClassA [
 	self
 		assertParametrizedExample: anExample
 		inClass: GtDummyExamplesWithParametrizedExampleA
-		withProvider: GtDummyExamplesWithParametrizedExampleA.
+		withReceiver: GtDummyExamplesWithParametrizedExampleA.
 	self assert: anExample arguments equals: #().
 	^ anExample
 ]
@@ -162,7 +162,7 @@ GtExamplesParametrizedExamples >> parametrizedExampleWithTwoArgumentsInClassB [
 	self
 		assertParametrizedExample: anExample
 		inClass: GtDummyExamplesWithParametrizedExampleB
-		withProvider: GtDummyExamplesWithParametrizedExampleB.
+		withReceiver: GtDummyExamplesWithParametrizedExampleB.
 	self assert: anExample arguments equals: #().
 	theDependencies := anExample directDependencies.
 	self assert: theDependencies size equals: 1.

@@ -196,7 +196,7 @@ GtExamplesExamplesWithDependencies >> exampleWithSelfAndSuperCallsToMethodsWithD
 		assertDependenciesFor: example
 		withDirect: {(GtDummyExamplesSuperclass >> #aSuperclass) gtExamplesFactory
 					createExampleForMethod: GtDummyExamplesSuperclass >> #aSuperclass
-					withProviderClass: GtDummyExamplesInSubclass.
+					withReceiverClass: GtDummyExamplesInSubclass.
 				(GtDummyExamplesInSubclass >> #bInBoth) gtExample}
 		andIndirect: {}.
 
@@ -214,7 +214,7 @@ GtExamplesExamplesWithDependencies >> exampleWithSelfAndSuperCallsToMethodsWithS
 		assertDependenciesFor: example
 		withDirect: {(GtDummyExamplesSuperclass >> #bInBoth) gtExamplesFactory
 					createExampleForMethod: GtDummyExamplesSuperclass >> #bInBoth
-					withProviderClass: GtDummyExamplesInSubclass.
+					withReceiverClass: GtDummyExamplesInSubclass.
 				(GtDummyExamplesInSubclass >> #bInBoth) gtExample}
 		andIndirect: {}.
 
@@ -233,7 +233,7 @@ GtExamplesExamplesWithDependencies >> exampleWithSelfAndSuperCallsToSameMethod [
 		assertDependenciesFor: example
 		withDirect: {(GtDummyExamplesSuperclass >> #aSuperclass) gtExamplesFactory
 					createExampleForMethod: GtDummyExamplesSuperclass >> #aSuperclass
-					withProviderClass: GtDummyExamplesInSubclass}
+					withReceiverClass: GtDummyExamplesInSubclass}
 		andIndirect: {}.
 
 	^ example
@@ -251,7 +251,7 @@ GtExamplesExamplesWithDependencies >> exampleWithSelfCallToSuperMethod [
 		assertDependenciesFor: example
 		withDirect: {(GtDummyExamplesSuperclass >> #aSuperclass) gtExamplesFactory
 					createExampleForMethod: GtDummyExamplesSuperclass >> #aSuperclass
-					withProviderClass: GtDummyExamplesInSubclass}
+					withReceiverClass: GtDummyExamplesInSubclass}
 		andIndirect: {}.
 
 	^ example
@@ -269,7 +269,7 @@ GtExamplesExamplesWithDependencies >> exampleWithSelfSuperExternalDependenciesIn
 		assertDependenciesFor: example
 		withDirect: {(GtDummyExamplesExternalDependencies >> #j) gtExamplesFactory
 					createExampleForMethod: GtDummyExamplesExternalDependencies >> #j
-					withProviderClass: GtDummyExamplesExternalSubclassDependencies}
+					withReceiverClass: GtDummyExamplesExternalSubclassDependencies}
 		andIndirect: {}.
 
 	^ example
@@ -287,7 +287,7 @@ GtExamplesExamplesWithDependencies >> exampleWithSelfSuperExternalDependenciesTo
 		assertDependenciesFor: example
 		withDirect: {(GtDummyExamplesExternalDependencies >> #j) gtExamplesFactory
 					createExampleForMethod: GtDummyExamplesExternalDependencies >> #j
-					withProviderClass: GtDummyExamplesExternalSubclassDependencies.
+					withReceiverClass: GtDummyExamplesExternalSubclassDependencies.
 				(GtDummyExamplesExternalDependencies >> #j) gtExample}
 		andIndirect: {}.
 
@@ -304,7 +304,7 @@ GtExamplesExamplesWithDependencies >> exampleWithSuperDependencyToDifferentSelec
 		assertDependenciesFor: example
 		withDirect: {(GtDummyExamplesSuperclass >> #dCallSuper) gtExamplesFactory
 					createExampleForMethod: GtDummyExamplesSuperclass >> #dCallSuper
-					withProviderClass: GtDummyExamplesInSubclass}
+					withReceiverClass: GtDummyExamplesInSubclass}
 		andIndirect: {}.
 
 	^ example
@@ -320,7 +320,7 @@ GtExamplesExamplesWithDependencies >> exampleWithSuperDependencyToSameSelector [
 		assertDependenciesFor: example
 		withDirect: {(GtDummyExamplesSuperclass >> #dCallSuper) gtExamplesFactory
 					createExampleForMethod: GtDummyExamplesSuperclass >> #dCallSuper
-					withProviderClass: GtDummyExamplesInSubclass}
+					withReceiverClass: GtDummyExamplesInSubclass}
 		andIndirect: {}.
 
 	^ example

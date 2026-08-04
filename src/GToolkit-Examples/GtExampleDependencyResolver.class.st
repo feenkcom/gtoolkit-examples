@@ -18,21 +18,21 @@ GtExampleDependencyResolver >> appliesTo: anASTNode [
 GtExampleDependencyResolver >> exampleFromMethod: aCompiledMethod [
 	^ self 
 		exampleFromMethod: aCompiledMethod 
-		withProviderClass: aCompiledMethod methodClass
+		withReceiverClass: aCompiledMethod methodClass
 ]
 
 { #category : #private }
-GtExampleDependencyResolver >> exampleFromMethod: aCompiledMethod withProviderClass: aProviderClass [
+GtExampleDependencyResolver >> exampleFromMethod: aCompiledMethod withReceiverClass: aReceiverClass [
 	self flag: 'figure out how to remove the if statements'.
 	
 	^ aCompiledMethod isGTExampleMethod 
 		ifTrue: [ aCompiledMethod gtExamplesFactory
 			createExampleForMethod: aCompiledMethod 
-			withProviderClass: aProviderClass ]
+			withReceiverClass: aReceiverClass ]
 		ifFalse: [ aCompiledMethod isGTParametrizedExampleMethod 
 			ifTrue: [ aCompiledMethod gtParametrizedExamplesFactory
 				createExampleForMethod: aCompiledMethod 
-				withProviderClass: aProviderClass ] 
+				withReceiverClass: aReceiverClass ] 
 			ifFalse: [ nil ] ]
 ]
 
