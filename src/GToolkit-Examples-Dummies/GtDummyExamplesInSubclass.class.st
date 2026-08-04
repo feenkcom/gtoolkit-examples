@@ -65,7 +65,7 @@ GtDummyExamplesInSubclass >> eTwoCallsToSameSuperclassMethodWithSameSelector [
 	self
 		assert: dependency method
 		equals: (self class lookupSelector: #aSuperclass).
-	self assert: dependency providerClass equals: self class.
+	self assert: dependency receiverClass equals: self class.
 	self assert: dependency methodClass equals: self class superclass.
 
 	^ result
@@ -127,7 +127,7 @@ GtDummyExamplesInSubclass >> hSelfCallToMethodFromSuperclass [
 	self
 		assert: dependency method
 		equals: (self class lookupSelector: #aSuperclass).
-	self assert: dependency providerClass equals: self class.
+	self assert: dependency receiverClass equals: self class.
 	self assert: dependency methodClass equals: self class superclass.
 
 	^ result

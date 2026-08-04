@@ -17,7 +17,6 @@ Class {
 	#name : #GtExample,
 	#superclass : #Object,
 	#instVars : [
-		'providerClass',
 		'methodClass',
 		'selector',
 		'label',
@@ -29,21 +28,24 @@ Class {
 		'properties',
 		'after',
 		'problems',
-		'timeLimit'
+		'timeLimit',
+		'receiverClass'
 	],
 	#category : #'GToolkit-Examples-Core'
 }
 
 { #category : #comparing }
 GtExample >> = anExample [
-	^ self class = anExample class and: [ 
-		self providerClass = anExample providerClass and: [ 
-			self methodClass = anExample methodClass and: [ 
-				self selector = anExample selector ] ] ]
+	^ self class = anExample class
+		and: [ self receiverClass = anExample receiverClass
+				and: [ self methodClass = anExample methodClass
+						and: [ self selector = anExample selector ] ] ]
 ]
 
 { #category : #adding }
 GtExample >> addProblem: aProblem [
+	GtJustContextStackSignal emit.
+
 	problems add: aProblem
 ]
 
@@ -82,7 +84,7 @@ GtExample >> asCachedExampleWithResult [
 
 	aMethod := self method.
 
-	self providerClass = self methodClass ifTrue: [ ^ aMethod gtExampleWithResult ].
+	self receiverClass = self methodClass ifTrue: [ ^ aMethod gtExampleWithResult ].
 
 	^ aMethod gtExampleWithResultForExample: self
 ]
@@ -295,15 +297,22 @@ GtExample >> hasValidDependencies [
 
 { #category : #testing }
 GtExample >> hasValidProviderClass [
-	^ self providerClass includesBehavior: self methodClass
+	self
+		deprecated: 'Please use #hasValidReceiverClass instead.'
+		transformWith: '`@receiver hasValidProviderClass' -> '`@receiver hasValidReceiverClass'.
+
+	^ self hasValidReceiverClass
+]
+
+{ #category : #testing }
+GtExample >> hasValidReceiverClass [
+	^ self receiverClass includesBehavior: self methodClass
 ]
 
 { #category : #comparing }
 GtExample >> hash [
-	^ ((self class hash * 3
-		bitXor: self providerClass hash * 5)
-			bitXor: self methodClass hash * 7)
-				bitXor: self selector hash * 13
+	^ ((self class hash * 3 bitXor: self receiverClass hash * 5)
+		bitXor: self methodClass hash * 7) bitXor: self selector hash * 13
 ]
 
 { #category : #accessing }
@@ -401,10 +410,10 @@ GtExample >> initialize [
 ]
 
 { #category : #initialization }
-GtExample >> initializeFromMethod: aCompiledMethod withProviderClass: aProviderClass usingFactory: aGTExampleFactory [
+GtExample >> initializeFromMethod: aCompiledMethod withReceiverClass: aReceiverClass usingFactory: aGTExampleFactory [
 	methodClass := aCompiledMethod methodClass.
 	selector := aCompiledMethod selector.
-	providerClass := aProviderClass.
+	receiverClass := aReceiverClass.
 	aGTExampleFactory initializeExample: self fromMethod: aCompiledMethod
 ]
 
@@ -415,7 +424,7 @@ GtExample >> isGTExample [
 
 { #category : #testing }
 GtExample >> isInherited [
-	^ self methodClass ~~ self providerClass
+	^ self methodClass ~~ self receiverClass
 ]
 
 { #category : #testing }
@@ -427,7 +436,7 @@ GtExample >> isMethodDefined [
 GtExample >> isValid [
 	^ self isMethodDefined and: [
 		self hasProblems not
-			and: [ self hasValidProviderClass 
+			and: [ self hasValidReceiverClass 
 				and: [ self traverser canProcess ] ] ]
 ]
 
@@ -520,12 +529,12 @@ GtExample >> openingDebugger [
 
 { #category : #printing }
 GtExample >> printClassLabelOn: aStream [
-	aStream print: self providerClass.
-	(self providerClass ~= self methodClass) ifTrue: [
-		aStream 
-			nextPutAll: '('; 
-			print: self methodClass;
-			nextPutAll: ')' ]
+	aStream print: self receiverClass.
+	self receiverClass ~= self methodClass
+		ifTrue: [ aStream
+				nextPutAll: '(';
+				print: self methodClass;
+				nextPutAll: ')' ]
 ]
 
 { #category : #accessing }
@@ -545,14 +554,23 @@ GtExample >> propertyAt: aKey put: aValue [
 
 { #category : #'accessing-dynamic' }
 GtExample >> provider [
-	^ self providerClass isMeta
-		ifTrue: [ self providerClass instanceSide ]
-		ifFalse: [ self providerClass instanceSide new ]
+	^ self receiverClass isMeta
+		ifTrue: [ self receiverClass instanceSide ]
+		ifFalse: [ self receiverClass instanceSide new ]
 ]
 
 { #category : #accessing }
 GtExample >> providerClass [
-	^ providerClass
+	self
+		deprecated: 'Please use #receiverClass instead.'
+		transformWith: '`@receiver providerClass' -> '`@receiver receiverClass'.
+
+	^ self receiverClass
+]
+
+{ #category : #accessing }
+GtExample >> receiverClass [
+	^ receiverClass
 ]
 
 { #category : #'accessing-dynamic' }

@@ -381,7 +381,16 @@ GtExampleWithResult >> openingDebugger [
 
 { #category : #accessing }
 GtExampleWithResult >> providerClass [
-	^ self example providerClass
+	self
+		deprecated: 'Please use #receiverClass instead.'
+		transformWith: '`@receiver providerClass' -> '`@receiver receiverClass'.
+
+	^ self receiverClass
+]
+
+{ #category : #accessing }
+GtExampleWithResult >> receiverClass [
+	^ self example receiverClass
 ]
 
 { #category : #accessing }

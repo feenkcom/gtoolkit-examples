@@ -19,7 +19,7 @@ GtExamplesProvidingExampleWithResultExamples >> allExamplesOfClass: aClass expec
 				ifFalse: [ self assert: eachExample methodClass equals: aClass ] ].
 
 	allExamples
-		do: [ :eachExample | self assert: eachExample providerClass equals: aClass ].
+		do: [ :eachExample | self assert: eachExample receiverClass equals: aClass ].
 
 	^ allExamples
 ]
@@ -123,7 +123,7 @@ GtExamplesProvidingExampleWithResultExamples >> leafClassTwoExampleOneWithResult
 	self assert: anExampleWithResultOne == anExampleWithResultTwo.
 	self assert: anExampleWithResultOne example == anExample.
 	self
-		assert: anExampleWithResultOne example providerClass
+		assert: anExampleWithResultOne example receiverClass
 		equals: self leafClassTwo.
 
 	^ anExampleWithResultOne

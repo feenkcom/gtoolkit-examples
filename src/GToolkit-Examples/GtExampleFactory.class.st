@@ -95,28 +95,40 @@ GtExampleFactory >> createExample: aCompiledMethod [
 	"Create a new example assuming that the provider is the class containing the example method."
 	^ self 
 		createExampleForMethod: aCompiledMethod 
-		withProviderClass: aCompiledMethod methodClass
+		withReceiverClass: aCompiledMethod methodClass
 ]
 
 { #category : #'private-utils' }
-GtExampleFactory >> createExampleForMethod: aCompiledMethod withProviderClass: aProviderClass [
-	"Create a new example where the provider class is different than the class 
+GtExampleFactory >> createExampleForMethod: aCompiledMethod withProviderClass: aReceiverClass [
+	self
+		deprecated: 'Please use #createExampleForMethod:withReceiverClass: instead.'
+		transformWith: '`@receiver createExampleForMethod: `@statements1 withProviderClass: `@statements2'
+				-> '`@receiver #createExampleForMethod: `@statements1 withReceiverClass: `@statements2'.
+
+	^ self
+		createExampleForMethod: aCompiledMethod
+		withReceiverClass: aReceiverClass
+]
+
+{ #category : #'private-utils' }
+GtExampleFactory >> createExampleForMethod: aCompiledMethod withReceiverClass: aReceiverClass [
+	"Create a new example where the receiver class is different than the class 
 	containing the example method. The method class should however be a direct
-	or indirect superclass of the provider class."
+	or indirect superclass of the receiver class."
 	| newExample |
 	newExample := self exampleClass new.
 	
 	"Allow the example to be created even if there is a issues with the relation between the
-	method class and the provider class, to facilitate debugging. The resulting example can be inspected,
+	method class and the receiver class, to facilitate debugging. The resulting example can be inspected,
 	but it will not be possible to run it."
-	(aProviderClass includesBehavior: aCompiledMethod methodClass) ifFalse: [
-		newExample addProblem: (GtExampleInvalidProviderClass new 	
+	(aReceiverClass includesBehavior: aCompiledMethod methodClass) ifFalse: [
+		newExample addProblem: (GtExampleInvalidReceiverClass new 	
 			example: newExample;
 			yourself) ]. 
 	
 	[ newExample 
 		initializeFromMethod: aCompiledMethod 
-		withProviderClass: aProviderClass
+		withReceiverClass: aReceiverClass
 		usingFactory: self 
 	]
 		on: Deprecation
@@ -155,7 +167,7 @@ GtExampleFactory >> exampleFromMethod: aCompiledMethod withProviderClass: aProvi
 
 	aBlock value: (self 
 		createExampleForMethod: aCompiledMethod 
-		withProviderClass: aProviderClass)
+		withReceiverClass: aProviderClass)
 ]
 
 { #category : #private }
@@ -315,13 +327,13 @@ GtExampleFactory >> subjectsFor: anExample do: aBlock [
 	"I execute the given action with each subject for this example.
 	I use the provider class instead of the method class to take into account inherited examples."
 	
-	anExample providerClass isInstanceSide 
+	anExample receiverClass isInstanceSide 
 		ifTrue: [ 
 			"If the example is on the instance side its subjects are obtained from the class. 
 			Examples on the instance side can choose what classes or objects they want to exemplify."
-			anExample providerClass instanceSide gtExamplesSubjects do: aBlock ]
+			anExample receiverClass instanceSide gtExamplesSubjects do: aBlock ]
 		ifFalse: [ 
 			"In case the example is on the class side the subject for that example is the provider class, 
 			that is the class used to create the object on which the example is going to be executed." 
-			aBlock value: anExample providerClass instanceSide ]
+			aBlock value: anExample receiverClass instanceSide ]
 ]

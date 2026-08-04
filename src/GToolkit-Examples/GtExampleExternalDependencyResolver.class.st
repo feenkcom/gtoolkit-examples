@@ -30,5 +30,5 @@ GtExampleExternalDependencyResolver >> posibleExampleForNode: aGlobalNode fromMe
 	^ possibleExampleMethod ifNotNil: [ :aPossibleExampleMethod | 
 		self 
 			exampleFromMethod: aPossibleExampleMethod
-			withProviderClass: targetClass ]
+			withReceiverClass: targetClass ]
 ]

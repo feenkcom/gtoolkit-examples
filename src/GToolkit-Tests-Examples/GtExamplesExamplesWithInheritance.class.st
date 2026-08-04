@@ -126,12 +126,12 @@ GtExamplesExamplesWithInheritance >> allExamplesFromSubclassOfSubclassB [
 ]
 
 { #category : #assertions }
-GtExamplesExamplesWithInheritance >> assertConcreteExample: example inClass: aMethodClass [.
+GtExamplesExamplesWithInheritance >> assertConcreteExample: example inClass: aMethodClass [
 	self assert: example isInherited not.
-	self assert: example providerClass equals: aMethodClass.
+	self assert: example receiverClass equals: aMethodClass.
 	self assert: example methodClass equals: aMethodClass.
 	self assert: example provider class equals: aMethodClass.
-	self assert: example hasValidProviderClass.
+	self assert: example hasValidReceiverClass.
 	self assert: example isValid.
 	self assert: example exists.
 ]
@@ -151,23 +151,23 @@ GtExamplesExamplesWithInheritance >> assertExamples: currentExamples withSelecto
 ]
 
 { #category : #assertions }
-GtExamplesExamplesWithInheritance >> assertInheritedExample: example inClass: aMethodClass withProvider: aProviderClass [.
+GtExamplesExamplesWithInheritance >> assertInheritedExample: example inClass: aMethodClass withReceiver: aReceiverClass [
 	self assert: example isInherited.
-	self assert: example providerClass equals: aProviderClass.
+	self assert: example receiverClass equals: aReceiverClass.
 	self assert: example methodClass equals: aMethodClass.
-	self assert: example provider class equals: aProviderClass.
-	self assert: example hasValidProviderClass.
+	self assert: example provider class equals: aReceiverClass.
+	self assert: example hasValidReceiverClass.
 	self assert: example isValid.
 	self assert: example exists.
 ]
 
 { #category : #assertions }
-GtExamplesExamplesWithInheritance >> assertInvalidProviderClassExample: example [
+GtExamplesExamplesWithInheritance >> assertInvalidReceiverClassExample: example [
 	self assert: example isValid not.
-	self assert: example hasValidProviderClass not.
+	self assert: example hasValidReceiverClass not.
 	self assert: example isInherited.
 	self assert: example problems size equals: 1.
-	self assert: example problems asArray first class equals: GtExampleInvalidProviderClass.
+	self assert: example problems asArray first class equals: GtExampleInvalidReceiverClass.
 	
 ]
 
@@ -403,7 +403,7 @@ GtExamplesExamplesWithInheritance >> inheritedExampleAInSubclassB [
 	self
 		assertInheritedExample: example
 		inClass: GtDummyExamplesWithInheritanceRoot
-		withProvider: GtDummyExamplesWithInheritanceSubclassB.
+		withReceiver: GtDummyExamplesWithInheritanceSubclassB.
 	^ example
 ]
 
@@ -417,7 +417,7 @@ GtExamplesExamplesWithInheritance >> inheritedExampleAInSubclassG [
 	self
 		assertInheritedExample: example
 		inClass: GtDummyExamplesWithInheritanceRoot
-		withProvider: GtDummyExamplesWithInheritanceSubclassG.
+		withReceiver: GtDummyExamplesWithInheritanceSubclassG.
 	^ example
 ]
 
@@ -431,7 +431,7 @@ GtExamplesExamplesWithInheritance >> inheritedExampleAInSubclassOfSubclassB [
 	self
 		assertInheritedExample: example
 		inClass: GtDummyExamplesWithInheritanceRoot
-		withProvider: GtDummyExamplesWithInheritanceSubclassOfSubclassB.
+		withReceiver: GtDummyExamplesWithInheritanceSubclassOfSubclassB.
 	^ example
 ]
 
@@ -445,7 +445,7 @@ GtExamplesExamplesWithInheritance >> inheritedExampleBClassSideInSubclassD [
 	self
 		assertInheritedExample: example
 		inClass: GtDummyExamplesWithInheritanceClassSideSubclassC class
-		withProvider: GtDummyExamplesWithInheritanceClassSideSubclassD class.
+		withReceiver: GtDummyExamplesWithInheritanceClassSideSubclassD class.
 	^ example
 ]
 
@@ -459,7 +459,7 @@ GtExamplesExamplesWithInheritance >> inheritedExampleBInSubclassEOverridenByNonE
 	self
 		assertInheritedExample: example
 		inClass: GtDummyExamplesWithInheritanceRoot
-		withProvider: GtDummyExamplesWithInheritanceSubclassE.
+		withReceiver: GtDummyExamplesWithInheritanceSubclassE.
 	^ example
 ]
 
@@ -473,7 +473,7 @@ GtExamplesExamplesWithInheritance >> inheritedExampleBInstanceSideInSubclassD [
 	self
 		assertInheritedExample: example
 		inClass: GtDummyExamplesWithInheritanceClassSideSubclassC
-		withProvider: GtDummyExamplesWithInheritanceClassSideSubclassD.
+		withReceiver: GtDummyExamplesWithInheritanceClassSideSubclassD.
 	^ example
 ]
 
@@ -487,7 +487,7 @@ GtExamplesExamplesWithInheritance >> inheritedExampleCInSubclassB [
 	self
 		assertInheritedExample: example
 		inClass: GtDummyExamplesWithInheritanceRoot
-		withProvider: GtDummyExamplesWithInheritanceSubclassB.
+		withReceiver: GtDummyExamplesWithInheritanceSubclassB.
 	^ example
 ]
 
@@ -501,7 +501,7 @@ GtExamplesExamplesWithInheritance >> inheritedExampleCInSubclassOfSubclassA [
 	self
 		assertInheritedExample: example
 		inClass: GtDummyExamplesWithInheritanceRoot
-		withProvider: GtDummyExamplesWithInheritanceSubclassOfSubclassA.
+		withReceiver: GtDummyExamplesWithInheritanceSubclassOfSubclassA.
 	^ example
 ]
 
@@ -570,7 +570,7 @@ GtExamplesExamplesWithInheritance >> inheritedExampleHInSubclassFOnClassSideOver
 	self
 		assertInheritedExample: example
 		inClass: GtDummyExamplesWithInheritanceSubclassE class
-		withProvider: GtDummyExamplesWithInheritanceSubclassF class.
+		withReceiver: GtDummyExamplesWithInheritanceSubclassF class.
 	^ example
 ]
 
@@ -653,7 +653,7 @@ GtExamplesExamplesWithInheritance >> invalidExampleWithInvalidSuperclassProvider
 		withProviderClass: GtDummyExamplesWithInheritanceSubclassB
 		do: [ :anExample | example := anExample ].
 	self assert: example notNil.
-	self assertInvalidProviderClassExample: example.
+	self assertInvalidReceiverClassExample: example.
 	^ example
 ]
 
@@ -669,7 +669,7 @@ GtExamplesExamplesWithInheritance >> invalidExampleWithInvalidUnrelatedClassProv
 		withProviderClass: GtDummyExamplesWithInheritanceSubclassF
 		do: [ :anExample | example := anExample ].
 	self assert: example notNil.
-	self assertInvalidProviderClassExample: example.
+	self assertInvalidReceiverClassExample: example.
 	^ example
 ]
 
