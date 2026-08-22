@@ -9,8 +9,21 @@ Class {
 	#instVars : [
 		'result'
 	],
+	#classVars : [
+		'StartMcpServer'
+	],
 	#category : #'GToolkit-Examples-Runtime'
 }
+
+{ #category : #accessing }
+GtExampleEvaluator class >> startMcpServer [
+	^ StartMcpServer ifNil: [ false ]
+]
+
+{ #category : #accessing }
+GtExampleEvaluator class >> startMcpServer: anObject [
+	StartMcpServer := anObject
+]
 
 { #category : #private }
 GtExampleEvaluator >> basicProcess: anExample [
@@ -100,6 +113,8 @@ GtExampleEvaluator >> result [
 		do: [ result := self runUnmanaged ] 
 		on: GtExampleResult signalableExceptions
 		do: [ :anException |
+			self class startMcpServer value ifTrue:
+				[ self startMcpServerWith: anException ].
 			result := (self newResultFor: self example) 
 				exampleException: (GtSystemUtility freeze: anException) ].
 	^ result
@@ -119,7 +134,7 @@ GtExampleEvaluator >> runUnmanaged [
 	^ CurrentExecutionEnvironment runUnmanagedExampleEvaluator: self
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #private }
 GtExampleEvaluator >> startMcpServerWith: anException [
 	| onDemandServer semaphore debugInfo message |
 
