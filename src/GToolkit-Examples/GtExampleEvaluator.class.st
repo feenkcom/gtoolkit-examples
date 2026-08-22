@@ -119,6 +119,36 @@ GtExampleEvaluator >> runUnmanaged [
 	^ CurrentExecutionEnvironment runUnmanagedExampleEvaluator: self
 ]
 
+{ #category : #'as yet unclassified' }
+GtExampleEvaluator >> startMcpServerWith: anException [
+	| onDemandServer semaphore debugInfo message |
+
+	onDemandServer := GtLOnDemandMcpServer instance.
+	semaphore := Semaphore new.
+	debugInfo := {
+		'exception' -> anException.
+		'evaluator' -> self.
+		'holdingSemaphore' -> semaphore.
+		} asDictionary.
+	onDemandServer objectStorage
+		addNewObject: debugInfo reason:
+			(GtLStoredObjectStringReason text: 'example_', self example checkName asString).
+	message := String streamContents: [ :stream |
+		stream
+			<< 'MCP server available on port: ';
+			print: onDemandServer port;
+			<< ', running: ';
+			print: onDemandServer isRunning;
+			<< ' on: ';
+			print: anException printString. ].
+	Stdio stdout
+		<< message;
+		lf;
+		flush.
+	StringSignal emit: message.
+	semaphore wait.
+]
+
 { #category : #accessing }
 GtExampleEvaluator >> timeLimit [
 	^  example timeLimit

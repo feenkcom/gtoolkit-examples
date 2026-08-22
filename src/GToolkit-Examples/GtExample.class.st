@@ -107,6 +107,13 @@ GtExample >> changeArguments: aCollection [
 	^ false
 ]
 
+{ #category : #'as yet unclassified' }
+GtExample >> checkName [
+	"Answer the receiver's checkName as used by RemoteRunner"
+
+	^ methodClass name -> selector
+]
+
 { #category : #printing }
 GtExample >> classLabel [
 	^ String streamContents: [ :aStream |
