@@ -25,6 +25,16 @@ GtExampleEvaluator class >> startMcpServer: anObject [
 	StartMcpServer := anObject
 ]
 
+{ #category : #accessing }
+GtExampleEvaluator class >> startMcpServerFor: anException [
+	"Answer a boolean indicating whether the MCP server should be started for this exception."
+	| valuable |
+
+	valuable := self startMcpServer.
+	valuable isBoolean ifTrue: [ ^ valuable ].
+	^ valuable cull: anException.
+]
+
 { #category : #private }
 GtExampleEvaluator >> basicProcess: anExample [
 	<return: #GtExampleResult>
@@ -113,7 +123,7 @@ GtExampleEvaluator >> result [
 		do: [ result := self runUnmanaged ] 
 		on: GtExampleResult signalableExceptions
 		do: [ :anException |
-			self class startMcpServer value ifTrue:
+			(self class startMcpServerFor: anException) ifTrue:
 				[ self startMcpServerWith: anException ].
 			result := (self newResultFor: self example) 
 				exampleException: (GtSystemUtility freeze: anException) ].
