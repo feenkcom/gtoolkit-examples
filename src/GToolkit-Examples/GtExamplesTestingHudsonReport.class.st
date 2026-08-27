@@ -23,6 +23,8 @@ GtExamplesTestingHudsonReport >> beginTestCase: aTestCase runBlock: aBlock [
 	progressStream 
 		nextPutAll: 'Starting: ';
 		nextPutAll: (self loggingNameFor: aTestCase);
+		nextPutAll: ' at ';
+		nextPutAll: DateAndTime now asString;
 		nextPutAll: ' ... '; 
 		flush.
 	
@@ -39,8 +41,6 @@ GtExamplesTestingHudsonReport >> beginTestCase: aTestCase runBlock: aBlock [
 		nextPutAll: ' time="'; print: (time asMilliSeconds / 1000.0); 
 		nextPutAll: '">'; 
 		lf
-	
-
 ]
 
 { #category : #'accessing - test case' }
@@ -71,7 +71,12 @@ GtExamplesTestingHudsonReport >> end [
 { #category : #private }
 GtExamplesTestingHudsonReport >> endTestCase [
 	resultsStream tab; nextPutAll: '</testcase>'; lf.
-	progressStream nextPutAll: 'finished' ; crlf; flush.
+	progressStream 
+		nextPutAll: 'finished';
+		nextPutAll: ' at ';
+		nextPutAll: DateAndTime now asString;
+		crlf; 
+		flush.
 ]
 
 { #category : #private }
