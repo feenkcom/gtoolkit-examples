@@ -44,8 +44,6 @@ GtExample >> = anExample [
 
 { #category : #adding }
 GtExample >> addProblem: aProblem [
-	GtJustContextStackSignal emit.
-
 	problems add: aProblem
 ]
 
