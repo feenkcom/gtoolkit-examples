@@ -260,16 +260,23 @@ GtExampleFactory >> initializeExample: aGTExample fromMethod: aCompiledMethod [
 
 { #category : #'private-init' }
 GtExampleFactory >> initializePragmas: aCollection forExample: aGTExample [
-	aCollection do: [ :pragma | 
-		(aGTExample class canPerform: pragma selector) ifTrue: [
-			[ aGTExample perform: pragma selector withArguments: pragma arguments ]
-				on: Error
-				do: [ :exception | 
-					aGTExample addProblem: (GtExamplePragmaError new
-						example: aGTExample;
-						pragma: pragma;
-						signaledException: exception;
-						yourself) ] ] ]
+	aCollection do: [ :pragma |
+		| pragmaSelector |
+		pragmaSelector := self
+			gtDo: [ pragma selector ]
+			gemstoneDo: [ pragma keyword ].
+		(self
+			gtDo: [ aGTExample class canPerform: pragmaSelector ]
+			gemstoneDo: [ aGTExample class canUnderstand: pragmaSelector ])
+			ifTrue: [
+				[ aGTExample perform: pragmaSelector withArguments: pragma arguments ]
+					on: Error
+					do: [ :exception |
+						aGTExample addProblem: (GtExamplePragmaError new
+							example: aGTExample;
+							pragma: pragma;
+							signaledException: exception;
+							yourself) ] ] ]
 ]
 
 { #category : #'private-init' }

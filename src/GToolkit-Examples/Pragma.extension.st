@@ -1,7 +1,7 @@
 Extension { #name : #Pragma }
 
-{ #category : #'*GToolkit-Examples-Core' }
+{ #category : #'*GToolkit-Examples' }
 Pragma >> isGTExamplePragma [
-	<toBeDeprecated: #gtExample:>
+	<gsCode: '^ self keyword = #gtExample or: [ self keyword = #gtExample: ]'>
 	^ self selector = #gtExample or: [ self selector = #gtExample: ]
 ]

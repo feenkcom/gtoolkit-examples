@@ -48,7 +48,8 @@ GtExampleClassResolver >> resolveByName [
 
 { #category : #private }
 GtExampleClassResolver >> theClass [
-	^ self theClassName isClass 
+	<gsCode: '^ self theClassName isClass ifTrue: [ self theClassName ] ifFalse: [ System myUserProfile symbolList objectNamed: self theClassName asSymbol ]'>
+	^ self theClassName isClass
 		ifTrue: [ self theClassName ]
 		ifFalse: [ Smalltalk classNamed: self theClassName asString ]
 ]

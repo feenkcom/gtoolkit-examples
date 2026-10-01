@@ -133,5 +133,5 @@ TGtZnServerExamples >> setServerBasicAuthenticator [
 
 { #category : #'server - basic' }
 TGtZnServerExamples >> stopServer [
-	^ zincServer ifNotNil: #stop
+	^ zincServer ifNotNil: [ :aServer | aServer stop ]
 ]

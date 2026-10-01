@@ -9,7 +9,7 @@ GtDummyExamplesWithGlobalSubjects class >> classSideSubjects1 [
 	<gtExample>
 	
 	self assert: self gtExampleRuntimeContext example subjects first class equals: GtExampleClassSubject.
-	self assert: self gtExampleRuntimeContext example subjects first theClassName equals: 'GtDummyExamplesWithGlobalSubjects'.
+	self assert: self gtExampleRuntimeContext example subjects first theClassName asString equals: 'GtDummyExamplesWithGlobalSubjects'.
 	self assert: self gtExampleRuntimeContext example subjects first theClass equals: GtDummyExamplesWithGlobalSubjects.
 	self assert: self gtExampleRuntimeContext example subjects first exists.
 	
@@ -21,7 +21,7 @@ GtDummyExamplesWithGlobalSubjects class >> classSideSubjects2 [
 	<gtExample>
 	
 	self assert: self gtExampleRuntimeContext example subjects first class equals: GtExampleClassSubject.
-	self assert: self gtExampleRuntimeContext example subjects first theClassName equals: 'GtDummyExamplesWithGlobalSubjects'.
+	self assert: self gtExampleRuntimeContext example subjects first theClassName asString equals: 'GtDummyExamplesWithGlobalSubjects'.
 	self assert: self gtExampleRuntimeContext example subjects first theClass equals: GtDummyExamplesWithGlobalSubjects.
 	self assert: self gtExampleRuntimeContext example subjects first exists.
 	

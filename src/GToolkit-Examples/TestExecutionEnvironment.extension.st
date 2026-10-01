@@ -29,26 +29,23 @@ TestExecutionEnvironment >> runExampleUnderWatchdogUsingEvaluator: anEvaluator [
 	[
 		[ exampleResult := anEvaluator runUnmanaged ] ensure: [
 			"Terminated test is not considered as completed (user just closed a debugger for example)"
-			mainTestProcess isTerminating ifFalse: [ 
+			mainTestProcess isTerminating ifFalse: [
 				self handleCompletedTest ]]
-	] on: Exception do: [ :err | 
-			self handleException: err 
+	] on: Exception do: [ :err |
+		self handleException: err
 	].
-	
 	^ exampleResult
 ]
 
 { #category : #'*GToolkit-Examples-Core' }
 TestExecutionEnvironment >> runUnmanagedExampleEvaluator: anExampleEvaluator [
 	| exampleResult |
-	
-	"We make sure the monitor service is disabled to not track 
+	"We make sure the monitor service is disabled to not track
 	worker processes and stop them when the test ends."
 	self disableService: ProcessMonitorTestService.
-		
 	testCase := anExampleEvaluator.
 	testCompleted := false.
-	[ exampleResult := anExampleEvaluator value ] ensure: [ 
+	[ exampleResult := anExampleEvaluator value ] ensure: [
 		testCompleted := true ].
 	^ exampleResult
 ]

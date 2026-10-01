@@ -119,14 +119,8 @@ GtExampleEvaluator >> processAfterMethodFor: anExample withEvaluationContext: an
 { #category : #public }
 GtExampleEvaluator >> result [
 	<return: #GtExampleResult>
-	self  
-		do: [ result := self runUnmanaged ] 
-		on: GtExampleResult signalableExceptions
-		do: [ :anException |
-			(self class startMcpServerFor: anException) ifTrue:
-				[ self startMcpServerWith: anException ].
-			result := (self newResultFor: self example) 
-				exampleException: (GtSystemUtility freeze: anException) ].
+	<gsCode: 'self do: [ result := self runManaged ] on: GtExampleResult signalableExceptions do: [ :anException | result := (self newResultFor: self example) exampleException: (GtSystemUtility freeze: anException) ]. ^ result'>
+	self do: [ result := self runUnmanaged ] on: GtExampleResult signalableExceptions do: [ :anException | (self class startMcpServerFor: anException) ifTrue: [ self startMcpServerWith: anException ]. result := (self newResultFor: self example) exampleException: (GtSystemUtility freeze: anException) ].
 	^ result
 ]
 
@@ -138,9 +132,10 @@ GtExampleEvaluator >> runManaged [
 
 { #category : #public }
 GtExampleEvaluator >> runUnmanaged [
-	<return: #GtExampleResult>
-	
 	"The ideal case would be to updade the example runner to use runManaged"
+	<return: #GtExampleResult>
+	<gsCode: '^ self value'>
+
 	^ CurrentExecutionEnvironment runUnmanagedExampleEvaluator: self
 ]
 
