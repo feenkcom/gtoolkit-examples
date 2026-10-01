@@ -62,24 +62,24 @@ GtExampleDependenciesResolver >> initialize [
 		GtExampleExternalDependencyResolver new }
 ]
 
-{ #category : #actions }
+{ #category : #resolving }
 GtExampleDependenciesResolver >> resolveDependenciesForExample: anExample [
+	<gsCode: '"GemStone does not provide the Pharo AST protocol used by the standard resolver yet."
+	^ OrderedCollection new'>
 	| exampleDependencies |
-	
+
 	exampleDependencies := OrderedCollection new.
-	anExample methodDo: [ :aMethod | 
-		aMethod ast nodesDo: [ :aNode | 
-			self 
-				withDependencyExampleFrom: aNode 
-				fromMethod: aMethod 
-				forOriginalExample: anExample 
-				ifPresentDo:  [ :possibleExampleDependency |
-					exampleDependencies 
-						detect: [ :anotherExample | 
-							anotherExample = possibleExampleDependency ]
-						ifNone: [ 
-							exampleDependencies add: possibleExampleDependency ] ] ] ].
-	
+	anExample methodDo: [ :aMethod |
+		aMethod ast nodesDo: [ :aNode |
+			self
+				withDependencyExampleFrom: aNode
+				fromMethod: aMethod
+				forOriginalExample: anExample
+				ifPresentDo: [ :possibleExampleDependency |
+					exampleDependencies
+						detect: [ :anotherExample | anotherExample = possibleExampleDependency ]
+						ifNone: [ exampleDependencies add: possibleExampleDependency ] ] ] ].
+
 	^ exampleDependencies
 ]
 

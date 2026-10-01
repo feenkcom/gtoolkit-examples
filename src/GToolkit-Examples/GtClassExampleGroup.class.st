@@ -37,7 +37,7 @@ GtClassExampleGroup >> exampleClass: aClass [
 { #category : #'private - serialization' }
 GtClassExampleGroup >> exampleClassName [
 
-	^ exampleClass ifNotNil: #name
+	^ exampleClass ifNotNil: [ :aClass | aClass name ]
 ]
 
 { #category : #'private - serialization' }

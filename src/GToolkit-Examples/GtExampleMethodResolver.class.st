@@ -37,7 +37,8 @@ GtExampleMethodResolver class >> resolve: anAspectClass example: anExample selec
 
 { #category : #private }
 GtExampleMethodResolver >> methodClass [
-	^ self methodClassName isClass 
+	<gsCode: '^ self methodClassName isClass ifTrue: [ self methodClassName ] ifFalse: [ System myUserProfile symbolList objectNamed: self methodClassName asSymbol ]'>
+	^ self methodClassName isClass
 		ifTrue: [ self methodClassName ]
 		ifFalse: [ Smalltalk classNamed: self methodClassName asString ]
 ]

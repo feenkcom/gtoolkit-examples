@@ -137,6 +137,7 @@ GtExample >> debugger [
 
 { #category : #accessing }
 GtExample >> defaultTimeLimit [
+	<gsCode: '^ Duration seconds: 60'>
 	^ 1 minute
 ]
 
@@ -656,8 +657,8 @@ GtExample >> timeLimit [
 GtExample >> timeLimit: milliSecondsValue [
 	<gtExamplePragma>
 	<description: 'The timeout for the example in milliseconds'>
-	
-	timeLimit :=  milliSecondsValue milliSeconds
+	<gsCode: '^ timeLimit := Duration seconds: milliSecondsValue / 1000'>
+	timeLimit := milliSecondsValue milliSeconds
 ]
 
 { #category : #'accessing-dynamic' }

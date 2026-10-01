@@ -86,9 +86,9 @@ GtExampleWithResult >> changeArguments: aCollection [
 { #category : #ui }
 GtExampleWithResult >> color [
 	<return: #Color>
-	^ self result 
-			ifNotNil: #color
-			ifNil: [ Color fromHexString: #'f0f0f0' ]
+	^ self result
+		ifNotNil: [ :anExampleResult | anExampleResult color ]
+		ifNil: [ Color fromHexString: #'f0f0f0' ]
 ]
 
 { #category : #public }
@@ -243,9 +243,9 @@ GtExampleWithResult >> hash [
 { #category : #ui }
 GtExampleWithResult >> icon [
 	<return: #Form>
-	^ self result 
-			ifNotNil: #icon
-			ifNil: [ ThemeIcons current iconNamed: #testNotRun ]
+	^ self result
+		ifNotNil: [ :anExampleResult | anExampleResult icon ]
+		ifNil: [ ThemeIcons current iconNamed: #testNotRun ]
 ]
 
 { #category : #testing }
