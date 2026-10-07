@@ -36,25 +36,25 @@ GtExamplesCommandLineHandler >> activate [
 
 	theResults := self runPackages.
 	theResults ifNil: [
-		^ self exitFailure: 'There was an Error running examples' ].
+		^ self exitFailureAfterRun: 'There was an Error running examples' ].
 	
 	(self hasOption: 'save')
 		ifTrue: [ Smalltalk saveSession ].
 		
 	((self hasOption: 'fail-on-no-tests-executed') 
 		and: [ theResults allSatisfy: #hasNoExecutedTestCases ])
-		ifTrue: [ ^ self exitFailure: 'No tests were executed!' ].
+		ifTrue: [ ^ self exitFailureAfterRun: 'No tests were executed!' ].
 	
 	((self hasOption: 'fail-on-failure') 
 		and: [ theResults anySatisfy: #hasFailuresOrErrors ])
-		ifTrue: [ ^ self exitFailure: 'Tests do not pass!' ].
+		ifTrue: [ ^ self exitFailureAfterRun: 'Tests do not pass!' ].
 
 	((self hasOption: 'fail-on-error') 
 		and: [ theResults anySatisfy: #hasErrors ])
-		ifTrue: [ ^ self exitFailure: 'Tests do not pass!' ].
+		ifTrue: [ ^ self exitFailureAfterRun: 'Tests do not pass!' ].
 	
 	(self hasOption: 'no-quit')
-		ifFalse: [ self quit ]
+		ifFalse: [ self quitAfterRun ]
 ]
 
 { #category : #accessing }
@@ -100,6 +100,37 @@ GtExamplesCommandLineHandler >> basicRunExamplesInPackages: aCollectionOfPackage
 GtExamplesCommandLineHandler >> exampleReport [
 	(self hasOption: 'junit-xml-output') ifTrue: [ ^ GtExamplesHudsonReport ].
 	^ self error: 'only works for now for junit for now'
+]
+
+{ #category : #'private - quitting' }
+GtExamplesCommandLineHandler >> exitFailureAfterRun: aMessage [
+	"Quit with a failure status, whether or not a windowing event loop is running.
+
+	The counterpart of ${method:GtExamplesCommandLineHandler>>#quitAfterRun}$, and needed for the same
+	reason: ${method:CommandLineHandler>>#exitFailure:}$ signals an `Exit` that leaves a running loop
+	alive, so a failing run would hang instead of failing, which is worse than the success case.
+
+	The message is written here because the `Exit` handler that would normally report it is bypassed, and
+	the exit status is preserved so a caller can still tell failure from success."
+	self hasWindowingEventLoop ifFalse: [ ^ self exitFailure: aMessage ].
+
+	self stderr
+		nextPutAll: aMessage;
+		nextPutAll: OSPlatform current lineEnding;
+		flush.
+
+	BlHost pickHost universe postpone: [ Smalltalk exitFailure ]
+]
+
+{ #category : #'private - quitting' }
+GtExamplesCommandLineHandler >> hasWindowingEventLoop [
+	"Answer whether this image was started with a windowing event loop, as `--interactive` does.
+
+	This is the same test ${method:GtTextEditorLibrary class>>#canRunExamples}$ uses to decide whether an
+	example that renders an element can run at all, which is deliberate: the runs that need the special
+	shutdown below are exactly the runs in which such examples execute."
+	<return: #Boolean>
+	^ RustWindowingEventFetcher default isNotNil
 ]
 
 { #category : #private }
@@ -197,6 +228,26 @@ GtExamplesCommandLineHandler >> packagesToSkip [
 			self addPackagesMatching: eachPackageName trimBoth to: packagesToSkip ] ].
 
 	^ packagesToSkip
+]
+
+{ #category : #'private - quitting' }
+GtExamplesCommandLineHandler >> quitAfterRun [
+	"Quit with a success status, whether or not a windowing event loop is running.
+
+	${method:CommandLineHandler>>#quit}$ answers ${method:CommandLineHandler>>#exitSuccess}$, which signals
+	an `Exit` in this process. That is enough headless, but it does not stop a running windowing event
+	loop: the examples finish, the reports are written, and the process stays alive with a window open
+	until something kills it. On CI that means the stage hangs to its timeout rather than passing.
+
+	So when a loop is running, postpone the quit onto the universe instead, which is what lets the loop
+	shut itself down. ${method:BlParallelUniverse>>#postpone:}$ exists for exactly this, and
+	`gt-installer start` already quits this way.
+
+	The image must not be saved: an examples run is throwaway, and ${method:SmalltalkImage>>#exitSuccess}$
+	discards changes by design."
+	self hasWindowingEventLoop ifFalse: [ ^ self quit ].
+
+	BlHost pickHost universe postpone: [ Smalltalk exitSuccess ]
 ]
 
 { #category : #private }
