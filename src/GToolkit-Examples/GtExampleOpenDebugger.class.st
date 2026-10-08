@@ -61,18 +61,15 @@ GtExampleOpenDebugger >> result [
 	aContext := aProcess suspendedContext.
 	
 	aDebugSession := aProcess newDebugSessionNamed: 'debug it' startedAt: aContext.
-	
-	self 
-		forPharo12AndNewer: [ 
-			"Unclear why this is needed. Currently in Pharo 12 doing stepInto
-			through GtExampleEvaluator>>#dependenciesFor: seems to kill the UI process"
-			aDebugSession stepIntoUntil: [ :currentContext | 
-				currentContext method == aCompiledMethod or: [
-					currentContext method == (GtExampleEvaluator>>#basicProcess: )] ].
-			aDebugSession stepOver.
-			aDebugSession stepOver.
-			aDebugSession stepOver] 
-	forPharo11: [].
+	 
+	"Unclear why this is needed. Since Pharo 12 doing stepInto
+	through GtExampleEvaluator>>#dependenciesFor: seems to kill the UI process"
+	aDebugSession stepIntoUntil: [ :currentContext | 
+			currentContext method == aCompiledMethod or: [
+				currentContext method == (GtExampleEvaluator>>#basicProcess: )] ].
+	aDebugSession stepOver.
+	aDebugSession stepOver.
+	aDebugSession stepOver.
 	
 	aDebugSession stepIntoUntil: [ :currentContext | 
 		currentContext method == aCompiledMethod ].
