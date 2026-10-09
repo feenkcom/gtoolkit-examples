@@ -224,14 +224,8 @@ GtExamplesTestingHudsonReport >> resultsFileName [
 
 { #category : #running }
 GtExamplesTestingHudsonReport >> run [
-	Author 
-		useAuthor: 'hudson'
-		during: [ 
-			[ 
-				self setUp.
-				executionTime := [ self runAll ] timeToRun ]
-			ensure: [ 
-				self tearDown ] ]
+	[ self setUp.
+	executionTime := [ self runAll ] timeToRun ] ensure: [ self tearDown ]
 ]
 
 { #category : #running }
