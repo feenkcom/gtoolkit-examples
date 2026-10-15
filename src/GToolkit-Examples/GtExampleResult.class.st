@@ -162,6 +162,20 @@ GtExampleResult >> gtLiveFor: aView [
 		view: #gtLiveFor:
 ]
 
+{ #category : #ui }
+GtExampleResult >> gtMethodFor: aView [
+	<gtView>
+	
+	(example isNil or: [ example method isNil ]) ifTrue:
+		[ ^ aView empty ].
+
+	^ aView forward
+		title: 'Source';
+		priority: 20;
+		object: [ example method ];
+		view: #gtLiveFor:
+]
+
 { #category : #testing }
 GtExampleResult >> hasException [
 
