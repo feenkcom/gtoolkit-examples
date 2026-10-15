@@ -15,6 +15,7 @@ Class {
 
 { #category : #cleanup }
 GtExampleResultNoValue class >> cleanUp [
+	<gsCode: 'SessionTemps current removeKey: #GtExampleResultNoValue_uniqueInstance ifAbsent: []'>
 
 	super cleanUp.
 	uniqueInstance := nil
@@ -22,6 +23,7 @@ GtExampleResultNoValue class >> cleanUp [
 
 { #category : #accessing }
 GtExampleResultNoValue class >> uniqueInstance [
-
+	<gsCode: 'SessionTemps current at: #GtExampleResultNoValue_uniqueInstance ifAbsentPut: [ self new ]'>
+	
 	^ uniqueInstance ifNil: [ uniqueInstance := self new ]
 ]

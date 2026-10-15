@@ -19,11 +19,15 @@ Class {
 
 { #category : #accessing }
 GtExampleDependenciesResolver class >> default [
+	<gsCode: '^ SessionTemps current at: #GtExampleDependenciesResolver_instance ifAbsentPut: [ self new ]'>
+
 	^ instance ifNil: [ instance := self new ]
 ]
 
 { #category : #cleanup }
 GtExampleDependenciesResolver class >> reset [
+	<gsCode: 'SessionTemps current removeKey: #GtExampleDependenciesResolver_instance ifAbsent: []'>
+	
 	instance := nil
 ]
 
