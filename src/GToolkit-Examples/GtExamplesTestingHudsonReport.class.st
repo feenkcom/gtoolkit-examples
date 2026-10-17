@@ -101,14 +101,20 @@ GtExamplesTestingHudsonReport >> ensureResultsFile [
 		encoding: 'utf8'.
 ]
 
-{ #category : #private }
+{ #category : #running }
 GtExamplesTestingHudsonReport >> ensureStreamsClosed [
+	"Close both streams and then forget them.
+	Leaving a closed stream in an instance variable is what let a second #tearDown write to a closed
+	file and raise a FileWriteError, which escaped #run and failed a whole package run."
+
 	[ resultsStream ifNotNil: [ resultsStream close ] ] 
 		on: Error 
 		do: [ :anError |  Stdio stderr print: anError ].
+	resultsStream := nil.
 	[ progressStream ifNotNil: [ progressStream close ] ] 
 		on: Error 
 		do: [ :anError |  Stdio stderr print: anError ].
+	progressStream := nil
 ]
 
 { #category : #accessing }
@@ -283,7 +289,16 @@ GtExamplesTestingHudsonReport >> startFor: examplesToTest [
 
 { #category : #running }
 GtExamplesTestingHudsonReport >> tearDown [
-	self end. 
+	"Finalise the report.
+	#run calls me from an ensure: block, so I also run when an example terminates the process and the
+	stack unwinds. I must therefore be idempotent: once the streams are gone there is nothing to write.
+	Writing the footer is guarded the same way closing already is, so a failure here truncates one
+	class' report instead of failing the whole package run."
+
+	resultsStream ifNil: [ ^ self ensureStreamsClosed ].
+	[ self end ] 
+		on: Error 
+		do: [ :anError | Stdio stderr print: anError ].
 	self ensureStreamsClosed
 ]
 
