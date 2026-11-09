@@ -120,7 +120,14 @@ GtExampleEvaluator >> processAfterMethodFor: anExample withEvaluationContext: an
 GtExampleEvaluator >> result [
 	<return: #GtExampleResult>
 	<gsCode: 'self do: [ result := self runManaged ] on: GtExampleResult signalableExceptions do: [ :anException | result := (self newResultFor: self example) exampleException: (GtSystemUtility freeze: anException) ]. ^ result'>
-	self do: [ result := self runUnmanaged ] on: GtExampleResult signalableExceptions do: [ :anException | (self class startMcpServerFor: anException) ifTrue: [ self startMcpServerWith: anException ]. result := (self newResultFor: self example) exampleException: (GtSystemUtility freeze: anException) ].
+	self
+		do: [ result := self runManaged ]
+		on: GtExampleResult signalableExceptions
+		do: [ :anException | 
+			(self class startMcpServerFor: anException)
+				ifTrue: [ self startMcpServerWith: anException ].
+			result := (self newResultFor: self example)
+					exampleException: (GtSystemUtility freeze: anException) ].
 	^ result
 ]
 
