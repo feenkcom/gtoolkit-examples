@@ -90,9 +90,7 @@ GtExamplesForExecutionEnvironmentInPromises >> exampleWithFailingPromise [
 { #category : #'examples - cancellation' }
 GtExamplesForExecutionEnvironmentInPromises >> hardCancelledPromise [
 	"Hard cancellation interrupts a running promise: its process is terminated and the promise
-	is rejected with AsyncFutureCancelled. Cancellation is not a failure: the example passes.
-	Note: with AsyncPassExceptionHandler, a hard-cancelled promise is never resolved
-	(AsyncFutureCancelled>>#pass aborts the rejection), also outside of tests"
+	is rejected with AsyncFutureCancelled and marked as cancelled. Cancellation is not a failure: the example passes"
 
 	<gtExample>
 	| aStartedSemaphore aPromiseProcess aPromise |
@@ -107,6 +105,7 @@ GtExamplesForExecutionEnvironmentInPromises >> hardCancelledPromise [
 	aPromise cancelHard.
 
 	self assert: (self waitForPromise: aPromise) class equals: AsyncFutureCancelled.
+	self assert: aPromise isCancelled.
 	self
 		assert: (self waitUntil: [ aPromiseProcess isTerminated ] timeoutMilliseconds: 30000).
 	^ aPromise
