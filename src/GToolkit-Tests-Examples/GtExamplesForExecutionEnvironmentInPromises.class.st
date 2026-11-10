@@ -25,6 +25,39 @@ GtExamplesForExecutionEnvironmentInPromises >> currentObservation [
 ]
 
 { #category : #'examples - setup' }
+GtExamplesForExecutionEnvironmentInPromises >> exampleRunningNestedExample [
+	"This example is a noTest as it is only run from #nestedExampleKeepsOuterThreadPool.
+	It runs another example while its own promise is pending, like a Lepiter example annotation or a locally executed example suite does"
+
+	<gtExample>
+	<noTest>
+	| anEnvironment aService anOuterThreadPool aReleaseSemaphore anOuterPromise anInnerResult anOuterValue |
+	anEnvironment := CurrentExecutionEnvironment value.
+	aService := anEnvironment findService: AsyncFutureThreadPoolTestService.
+	anOuterThreadPool := AsyncFutureThreadPool forCurrentExecutionEnvironment.
+	aReleaseSemaphore := Semaphore new.
+	anOuterPromise := AsyncFuturePromise new
+			future: [ aReleaseSemaphore wait.
+				42 ] asAsyncFuture.
+	anOuterThreadPool schedule: anOuterPromise.
+
+	[ anInnerResult := (self class >> #exampleSchedulingPromise) gtExample run.
+
+	self assert: anInnerResult isSuccess.
+	self assert: (anInnerResult returnValue at: #environment) ~~ anEnvironment.
+	self assert: aService hasThreadPool.
+	self
+		assert: AsyncFutureThreadPool forCurrentExecutionEnvironment == anOuterThreadPool.
+	self assert: anOuterPromise isCancelled not.
+	aReleaseSemaphore signal.
+	anOuterValue := self waitForPromise: anOuterPromise ]
+		ensure: [ aReleaseSemaphore signal ].
+
+	self assert: anOuterValue equals: 42.
+	^ anInnerResult
+]
+
+{ #category : #'examples - setup' }
 GtExamplesForExecutionEnvironmentInPromises >> exampleSchedulingPromise [
 	"This example is a noTest as it is only run from #runExampleSchedulingPromiseLeavesNoWorkerProcess"
 
@@ -37,19 +70,58 @@ GtExamplesForExecutionEnvironmentInPromises >> exampleSchedulingPromise [
 GtExamplesForExecutionEnvironmentInPromises >> exampleWithFailingPromise [
 	"This example is a noTest as it is designed to fail.
 	The promise passes its error (AsyncPassExceptionHandler) instead of only rejecting,
-	so it fails the example like a failing forked process does"
+	so it fails the example like a failing forked process does.
+	The failing promise process is suspended by ProcessMonitorTestService, so it cannot signal anything;
+	we wait until the environment has recorded its failure instead"
 
 	<gtExample>
 	<noTest>
-	| aDoneSemaphore |
-	aDoneSemaphore := Semaphore new.
+	| anEnvironment |
+	anEnvironment := CurrentExecutionEnvironment value.
 
-	[ [ 1 / 0 ] ensure: [ aDoneSemaphore signal ] ] asAsyncFuture
+	[ 1 / 0 ] asAsyncFuture
 		await: (AsyncFutureExecutionConfiguration new
 				errorHandler: AsyncPassExceptionHandler new).
 
-	self assert: (aDoneSemaphore waitTimeoutSeconds: 30) not.
+	self waitUntil: [ anEnvironment failures notEmpty ] timeoutMilliseconds: 30000.
 	self assert: true
+]
+
+{ #category : #'examples - cancellation' }
+GtExamplesForExecutionEnvironmentInPromises >> hardCancelledPromise [
+	"Hard cancellation interrupts a running promise: its process is terminated and the promise
+	is rejected with AsyncFutureCancelled. Cancellation is not a failure: the example passes.
+	Note: with AsyncPassExceptionHandler, a hard-cancelled promise is never resolved
+	(AsyncFutureCancelled>>#pass aborts the rejection), also outside of tests"
+
+	<gtExample>
+	| aStartedSemaphore aPromiseProcess aPromise |
+	aStartedSemaphore := Semaphore new.
+
+	aPromise := [ aPromiseProcess := Processor activeProcess.
+		aStartedSemaphore signal.
+		Semaphore new waitTimeoutSeconds: 30.
+		42 ] asAsyncPromise.
+	self assert: (aStartedSemaphore waitTimeoutSeconds: 30) not.
+
+	aPromise cancelHard.
+
+	self assert: (self waitForPromise: aPromise) class equals: AsyncFutureCancelled.
+	self
+		assert: (self waitUntil: [ aPromiseProcess isTerminated ] timeoutMilliseconds: 30000).
+	^ aPromise
+]
+
+{ #category : #'examples - execution' }
+GtExamplesForExecutionEnvironmentInPromises >> nestedExampleKeepsOuterThreadPool [
+	"An example that runs another example keeps its own thread pool and pending promises when the inner example ends"
+
+	<gtExample>
+	| aResult |
+	aResult := (self class >> #exampleRunningNestedExample) gtExample run.
+
+	self assert: aResult isSuccess.
+	^ aResult
 ]
 
 { #category : #'examples - environment' }
@@ -231,6 +303,38 @@ GtExamplesForExecutionEnvironmentInPromises >> runExampleWithFailingPromise [
 	^ aResult
 ]
 
+{ #category : #'examples - cancellation' }
+GtExamplesForExecutionEnvironmentInPromises >> softCancelledPromises [
+	"Soft cancellation lets a running promise finish, and rejects a promise that is still waiting in a queue.
+	Cancellation is not a failure: the example passes"
+
+	<gtExample>
+	| aConfiguration aStartedSemaphore aReleaseSemaphore aRunning aQueued |
+	"A custom group allows one worker only, so the second promise waits in the queue"
+	aConfiguration := AsyncFutureExecutionConfiguration new
+			customGroup: #SoftCancelledPromises.
+	aStartedSemaphore := Semaphore new.
+	aReleaseSemaphore := Semaphore new.
+
+	aRunning := [ aStartedSemaphore signal.
+		aReleaseSemaphore waitTimeoutSeconds: 30.
+		42 ] asAsyncFuture await: aConfiguration.
+	self assert: (aStartedSemaphore waitTimeoutSeconds: 30) not.
+	aQueued := [ 43 ] asAsyncFuture await: aConfiguration.
+
+	aRunning cancelSoft.
+	aQueued cancelSoft.
+	aReleaseSemaphore signal.
+
+	self assert: (self waitForPromise: aRunning) equals: 42.
+	self assert: aRunning isCancelled not.
+
+	self assert: (self waitForPromise: aQueued) class equals: AsyncFutureCancelled.
+	self assert: aQueued isCancelled.
+	^ {aRunning.
+		aQueued}
+]
+
 { #category : #'examples - thread pool' }
 GtExamplesForExecutionEnvironmentInPromises >> threadPoolInExampleIsOwn [
 	"A running example has its own thread pool, created on first use and reused afterwards"
@@ -321,4 +425,39 @@ GtExamplesForExecutionEnvironmentInPromises >> unfinishedPromisesAreCancelledAtC
 	^ {aRunning.
 		aQueued.
 		aPending}
+]
+
+{ #category : #private }
+GtExamplesForExecutionEnvironmentInPromises >> waitForPromise: aPromise [
+	"Answer the value or the error of aPromise. Fail if it is not resolved within 30 seconds
+	(unlike TAsyncPromise>>#wait, which waits forever)"
+
+	| aSemaphore aResult |
+	aSemaphore := Semaphore new.
+	aPromise
+		then: [ :aValue | 
+			aResult := aValue.
+			aSemaphore signal ]
+		otherwise: [ :anError | 
+			aResult := anError.
+			aSemaphore signal ].
+	self
+		assert: (aSemaphore waitTimeoutSeconds: 30) not
+		description: [ 'The promise was not resolved in time' ].
+	^ aResult
+]
+
+{ #category : #private }
+GtExamplesForExecutionEnvironmentInPromises >> waitUntil: aConditionBlock timeoutMilliseconds: aTimeout [
+	"Answer true as soon as aConditionBlock answers true, or false after aTimeout milliseconds.
+	Wait in short steps instead of yielding: promise workers run at a lower priority than the example,
+	so they only get to run while the example process waits"
+
+	| aStepSemaphore aDeadline |
+	aStepSemaphore := Semaphore new.
+	aDeadline := Time millisecondClockValue + aTimeout.
+	[ aConditionBlock value ]
+		whileFalse: [ Time millisecondClockValue > aDeadline ifTrue: [ ^ false ].
+			aStepSemaphore waitTimeoutMilliseconds: 5 ].
+	^ true
 ]
