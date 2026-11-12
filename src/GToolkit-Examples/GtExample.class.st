@@ -137,10 +137,8 @@ GtExample >> debugger [
 
 { #category : #accessing }
 GtExample >> defaultTimeLimit [
-	"Examples may pulse a scripter for up to 10 minutes; allow 2 more minutes on top of that."
-
-	<gsCode: '^ Duration seconds: 720'>
-	^ 12 minutes
+	<gsCode: '^ Duration seconds: 60'>
+	^ 1 minute
 ]
 
 { #category : #private }
