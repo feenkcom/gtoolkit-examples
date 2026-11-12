@@ -24,6 +24,66 @@ GtExamplesForExecutionEnvironmentInPromises >> currentObservation [
 		yourself
 ]
 
+{ #category : #private }
+GtExamplesForExecutionEnvironmentInPromises >> debugExamplePendingPromiseWith: aResultBlock [
+	"Debug #examplePendingPromise outside a running test, as the Debug action of a method coder does, without opening a debugger window.
+	aResultBlock receives the GtExampleOpenDebugger and runs it (e.g. with #result or #unmanagedResult).
+	Resume the debugged process to its end and answer the example result"
+
+	| anOpenDebugger aSession aResult aResultSemaphore |
+	aResultSemaphore := Semaphore new.
+	anOpenDebugger := (self class >> #examplePendingPromise) gtExample
+			openingDebugger
+			callback: [ :anExampleResult | 
+				aResult := anExampleResult.
+				aResultSemaphore signal ];
+			openDebuggerCallback: [ :aDebugSession | aSession := aDebugSession ];
+			yourself.
+	DefaultExecutionEnvironment
+		beActiveDuring: [ aResultBlock value: anOpenDebugger ].
+
+	self assert: aSession notNil description: [ 'The debugger was not opened' ].
+	aSession resume.
+	self
+		assert: (aResultSemaphore waitTimeoutSeconds: 30) not
+		description: [ 'The debugged example did not finish in time' ].
+	^ aResult
+]
+
+{ #category : #'examples - execution' }
+GtExamplesForExecutionEnvironmentInPromises >> debuggedManagedRunCancelsPromise [
+	"Debugging an example in a managed run (GtExampleOpenDebugger>>#result), as in tests, cancels the promises of the example when the debugged example ends"
+
+	<gtExample>
+	| aResult |
+	aResult := self
+			debugExamplePendingPromiseWith: [ :anOpenDebugger | anOpenDebugger result ].
+	self assert: aResult isSuccess.
+	self assert: (aResult returnValue at: #promise) isCancelled.
+	^ aResult
+]
+
+{ #category : #'examples - execution' }
+GtExamplesForExecutionEnvironmentInPromises >> debuggedUnmanagedRunKeepsPromiseAlive [
+	"Debugging an example without the clean up of managed runs (GtExampleOpenDebugger>>#unmanagedResult), as the Debug action of a method coder does,
+	leaves its promises running on the global thread pool after the debugged example ends"
+
+	<gtExample>
+	| aResult anObservation aPromise |
+	aResult := self
+			debugExamplePendingPromiseWith: [ :anOpenDebugger | anOpenDebugger unmanagedResult ].
+	self assert: aResult isSuccess.
+
+	anObservation := aResult returnValue.
+	aPromise := anObservation at: #promise.
+	[ self assert: (anObservation at: #threadPool) == AsyncFutureThreadPool current.
+	self assert: aPromise isSettled not.
+	(anObservation at: #release) signal.
+	self assert: (self waitForPromise: aPromise) equals: 42 ]
+		ensure: [ (anObservation at: #release) signal ].
+	^ aResult
+]
+
 { #category : #'examples - setup' }
 GtExamplesForExecutionEnvironmentInPromises >> examplePendingPromise [
 	"This example is a noTest as it is only run from the examples about unmanaged runs, e.g. #unmanagedRunKeepsPromiseAlive.
