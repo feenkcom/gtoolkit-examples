@@ -25,6 +25,24 @@ GtExamplesForExecutionEnvironmentInPromises >> currentObservation [
 ]
 
 { #category : #'examples - setup' }
+GtExamplesForExecutionEnvironmentInPromises >> examplePendingPromise [
+	"This example is a noTest as it is only run from the examples about unmanaged runs, e.g. #unmanagedRunKeepsPromiseAlive.
+	It answers a promise that stays pending until its release semaphore is signalled, and what the example observed"
+
+	<gtExample>
+	<noTest>
+	| aReleaseSemaphore aPromise |
+	aReleaseSemaphore := Semaphore new.
+	aPromise := [ aReleaseSemaphore wait.
+		42 ] asAsyncPromise.
+	^ self currentObservation
+		at: #promise put: aPromise;
+		at: #release put: aReleaseSemaphore;
+		at: #threadPool put: AsyncFutureThreadPool forCurrentExecutionEnvironment;
+		yourself
+]
+
+{ #category : #'examples - setup' }
 GtExamplesForExecutionEnvironmentInPromises >> exampleRunningNestedExample [
 	"This example is a noTest as it is only run from #nestedExampleKeepsOuterThreadPool.
 	It runs another example while its own promise is pending, like a Lepiter example annotation or a locally executed example suite does"
@@ -55,6 +73,31 @@ GtExamplesForExecutionEnvironmentInPromises >> exampleRunningNestedExample [
 
 	self assert: anOuterValue equals: 42.
 	^ anInnerResult
+]
+
+{ #category : #'examples - setup' }
+GtExamplesForExecutionEnvironmentInPromises >> exampleRunningUnmanagedExample [
+	"This example is a noTest as it is only run from #unmanagedRunInRunningExampleIsPartOfIt.
+	It runs another example without the clean up of managed runs, like a scripter example clicking the play button of a method coder"
+
+	<gtExample>
+	<noTest>
+	| anEnvironment anInnerResult anObservation |
+	anEnvironment := CurrentExecutionEnvironment value.
+	anInnerResult := (self class >> #examplePendingPromise) gtExample runUnmanaged.
+	self assert: anInnerResult isSuccess.
+
+	anObservation := anInnerResult returnValue.
+	self assert: (anObservation at: #environment) == anEnvironment.
+	self
+		assert: (anObservation at: #threadPool)
+				== AsyncFutureThreadPool forCurrentExecutionEnvironment.
+	self assert: anEnvironment isRunningTestCase.
+	self assert: (anEnvironment findService: ProcessMonitorTestService) isEnabled.
+	self
+		assert: (anEnvironment findService: AsyncFutureThreadPoolTestService) isEnabled.
+	self assert: (anObservation at: #promise) isSettled not.
+	^ anObservation
 ]
 
 { #category : #'examples - setup' }
@@ -109,6 +152,19 @@ GtExamplesForExecutionEnvironmentInPromises >> hardCancelledPromise [
 	self
 		assert: (self waitUntil: [ aPromiseProcess isTerminated ] timeoutMilliseconds: 30000).
 	^ aPromise
+]
+
+{ #category : #'examples - execution' }
+GtExamplesForExecutionEnvironmentInPromises >> managedRunCancelsPromise [
+	"A managed example run (GtExample>>#run), as in tests, cancels the promises of the example when it ends"
+
+	<gtExample>
+	| aResult |
+	DefaultExecutionEnvironment
+		beActiveDuring: [ aResult := (self class >> #examplePendingPromise) gtExample run ].
+	self assert: aResult isSuccess.
+	self assert: (aResult returnValue at: #promise) isCancelled.
+	^ aResult
 ]
 
 { #category : #'examples - execution' }
@@ -424,6 +480,41 @@ GtExamplesForExecutionEnvironmentInPromises >> unfinishedPromisesAreCancelledAtC
 	^ {aRunning.
 		aQueued.
 		aPending}
+]
+
+{ #category : #'examples - execution' }
+GtExamplesForExecutionEnvironmentInPromises >> unmanagedRunInRunningExampleIsPartOfIt [
+	"An example run without the clean up of managed runs while another example is running is a part of the running one:
+	it shares its environment and thread pool without changing its state, and the running example's clean up cancels its promises"
+
+	<gtExample>
+	| aResult |
+	aResult := (self class >> #exampleRunningUnmanagedExample) gtExample run.
+	self assert: aResult isSuccess.
+	self assert: (aResult returnValue at: #promise) isCancelled.
+	^ aResult
+]
+
+{ #category : #'examples - execution' }
+GtExamplesForExecutionEnvironmentInPromises >> unmanagedRunKeepsPromiseAlive [
+	"An example run without the clean up of managed runs (GtExample>>#runUnmanaged), as when a user plays it in a method coder,
+	leaves its promises running on the global thread pool after it ends, so the returned object keeps working"
+
+	<gtExample>
+	| aResult anObservation aPromise |
+	DefaultExecutionEnvironment
+		beActiveDuring: [ aResult := (self class >> #examplePendingPromise) gtExample runUnmanaged ].
+	self assert: aResult isSuccess.
+
+	anObservation := aResult returnValue.
+	aPromise := anObservation at: #promise.
+	[ self assert: (anObservation at: #environment) isTest.
+	self assert: (anObservation at: #threadPool) == AsyncFutureThreadPool current.
+	self assert: aPromise isSettled not.
+	(anObservation at: #release) signal.
+	self assert: (self waitForPromise: aPromise) equals: 42 ]
+		ensure: [ (anObservation at: #release) signal ].
+	^ aResult
 ]
 
 { #category : #private }

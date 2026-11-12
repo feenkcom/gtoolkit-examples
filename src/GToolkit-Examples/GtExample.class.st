@@ -606,6 +606,16 @@ GtExample >> runThenDo: aBlock1 onErrorDo: aBlock2 [
 		ifFalse: [ aBlock2 value: result ]
 ]
 
+{ #category : #actions }
+GtExample >> runUnmanaged [
+	"Run me without the clean up of managed runs (see GtExampleEvaluator>>#unmanagedResult):
+	processes I fork and promises I schedule keep running after I end.
+	Use it when a user runs me interactively, e.g. in a method coder"
+
+	<return: #GtExampleResult>
+	^ self evaluator unmanagedResult
+]
+
 { #category : #accessing }
 GtExample >> selector [
 	^ selector

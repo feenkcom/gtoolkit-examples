@@ -1,6 +1,14 @@
 Extension { #name : #TestExecutionEnvironment }
 
 { #category : #'*GToolkit-Examples-Core' }
+TestExecutionEnvironment >> disableServicesForUnmanagedExampleRun [
+	"Disable the services that clean up after a test, because an unmanaged example run is not cleaned up"
+
+	services
+		do: [ :each | each isEnabledInUnmanagedExampleRuns ifFalse: [ each disable ] ]
+]
+
+{ #category : #'*GToolkit-Examples-Core' }
 TestExecutionEnvironment >> hasCompletedTest [
 	^ testCompleted
 ]
@@ -60,13 +68,17 @@ TestExecutionEnvironment >> runNestedExampleEvaluator: anExampleEvaluator [
 
 { #category : #'*GToolkit-Examples-Core' }
 TestExecutionEnvironment >> runUnmanagedExampleEvaluator: anExampleEvaluator [
+	"Run the example without the clean up of #runExampleEvaluator:, e.g. when a user plays it in a method coder:
+	processes it forks and promises it schedules keep running after it ends.
+	An example that starts while another test case or example is running (e.g. a scripter example clicking a play button)
+	runs as a part of the running one, without changing its state, so that the running one's clean up still covers it"
+
 	| exampleResult |
-	"We make sure the monitor service is disabled to not track
-	worker processes and stop them when the test ends."
-	self disableService: ProcessMonitorTestService.
+	self isRunningTestCase ifTrue: [ ^ anExampleEvaluator value ].
+
+	self disableServicesForUnmanagedExampleRun.
 	testCase := anExampleEvaluator.
 	testCompleted := false.
-	[ exampleResult := anExampleEvaluator value ] ensure: [
-		testCompleted := true ].
+	[ exampleResult := anExampleEvaluator value ] ensure: [ testCompleted := true ].
 	^ exampleResult
 ]

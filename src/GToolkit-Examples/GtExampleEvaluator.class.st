@@ -180,3 +180,22 @@ GtExampleEvaluator >> startMcpServerWith: anException [
 GtExampleEvaluator >> timeLimit [
 	^  example timeLimit
 ]
+
+{ #category : #public }
+GtExampleEvaluator >> unmanagedResult [
+	"Like #result, but run the example without the clean up of managed runs (see #runUnmanaged):
+	processes it forks and promises it schedules keep running after it ends.
+	Used when a user runs an example interactively and keeps working with the returned object"
+
+	<return: #GtExampleResult>
+	<gsCode: 'self do: [ result := self runUnmanaged ] on: GtExampleResult signalableExceptions do: [ :anException | result := (self newResultFor: self example) exampleException: (GtSystemUtility freeze: anException) ]. ^ result'>
+	self
+		do: [ result := self runUnmanaged ]
+		on: GtExampleResult signalableExceptions
+		do: [ :anException | 
+			(self class startMcpServerFor: anException)
+				ifTrue: [ self startMcpServerWith: anException ].
+			result := (self newResultFor: self example)
+					exampleException: (GtSystemUtility freeze: anException) ].
+	^ result
+]
