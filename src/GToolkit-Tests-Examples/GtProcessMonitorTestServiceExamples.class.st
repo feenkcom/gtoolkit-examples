@@ -4,6 +4,12 @@ I exemplify that {{gtClass:ProcessMonitorTestService}} keeps its `forkedProcesse
 All examples of a class share one {{gtClass:TestExecutionEnvironment}} and therefore one {{gtClass:ProcessMonitorTestService}}. {{gtMethod:ProcessMonitorTestService>>#handleNewProcess:}} runs in the forking process, which is often a lower-priority worker, while {{gtMethod:ProcessMonitorTestService>>#cleanUpAfterTest}} runs in the example process after every example. Without synchronization, `forkedProcesses removeAll` (see {{gtMethod:WeakSet>>#initialize:}}) can run while another process is inside {{gtMethod:WeakSet>>#growTo:}}, after the new array was filled with the old empty-slot marker but before it was stored. The set then contains plain objects instead of processes, and {{gtMethod:ProcessMonitorTestService>>#runningProcesses}} or {{gtMethod:ProcessMonitorTestService>>#terminateRunningProcesses}} fail with `doesNotUnderstand: #isTerminated` or `#terminate`, or the adder never finds an empty slot.
 
 {{gtExample:GtProcessMonitorTestServiceExamples>>#cleanUpWaitsForProcessGrowingForkedProcesses}} reproduces this deterministically: it steps an adder process with {{gtMethod:Process>>#step}} to exactly that point and runs the clean-up in a higher-priority process. With the fix (one `Mutex` guarding `forkedProcesses` and `testFailures`, applied as a Pharo patch by `load-patches.st` in `gtoolkit-maestro-rs`), the clean-up waits until the adder leaves the critical section. All step loops and waits are bounded, and helper processes are terminated in an ensure block.
+
+Code outside of the service, for example PharoLink removing its server process from `forkedProcesses`, uses {{gtMethod:ProcessMonitorTestService>>#lock:}} to change the live collections under the same mutex:
+- {{gtExample:GtProcessMonitorTestServiceExamples>>#lockAnswersBlockValueWithServiceAsArgument}} shows that the block gets the service as its argument and that its value is answered,
+- {{gtExample:GtProcessMonitorTestServiceExamples>>#lockMakesOtherProcessesWait}} shows that a higher-priority process registering a process waits until the lock is released,
+- {{gtExample:GtProcessMonitorTestServiceExamples>>#lockAllowsCallingServiceMethods}} shows that the mutex is re-entrant, so service methods can be called inside the block.
+Helper processes catch their errors and are terminated in an ensure block, and waits are bounded, so a missing or deadlocking `lock:` fails the examples instead of blocking them.
 "
 Class {
 	#name : #GtProcessMonitorTestServiceExamples,
@@ -111,6 +117,106 @@ GtProcessMonitorTestServiceExamples >> isProcess: aProcess insideGrowToBeforeSto
 	aContext stackPtr > aContext numTemps ifFalse: [ ^ false ].
 	^ (aContext top isKindOf: WeakArray)
 		and: [ aContext top ~~ (aWeakSet instVarNamed: #array) ]
+]
+
+{ #category : #'examples - lock' }
+GtProcessMonitorTestServiceExamples >> lockAllowsCallingServiceMethods [
+	"The mutex is re-entrant: service methods called inside ProcessMonitorTestService>>#lock: do not wait for the lock.
+	The block runs in a helper process, so that a deadlock fails the example instead of blocking it.
+	Errors in the helper process are caught and the helper process is terminated in an ensure block"
+
+	<gtExample>
+	<return: #ProcessMonitorTestService>
+	| service process done lockOwner runningProcesses error timedOut |
+	service := ProcessMonitorTestService new.
+	process := [  ] newProcess.
+	done := Semaphore new.
+	[ lockOwner := [ [ runningProcesses := service
+				lock: [ :aService | 
+					aService handleNewProcess: process.
+					aService isTestProcessFailed: process.
+					aService runningProcesses ] ] on: Error do: [ :anError | error := anError ].
+		done signal ] newProcess.
+	lockOwner priority: Processor activePriority + 1.
+	lockOwner name: 'ProcessMonitorTestService lock example owner'.
+	lockOwner resume.
+	timedOut := done waitTimeoutMilliseconds: 1000 ]
+		ensure: [ self terminateIfRunning: lockOwner.
+			self terminateIfRunning: process ].
+
+	self
+		assert: timedOut not
+		description: 'The lock owner did not finish (deadlock)'.
+	self
+		assert: error isNil
+		description: [ 'The lock owner failed with ' , error printString ].
+	self assert: (service forkedProcesses includes: process).
+	self assert: runningProcesses isEmpty.
+
+	^ service
+]
+
+{ #category : #'examples - lock' }
+GtProcessMonitorTestServiceExamples >> lockAnswersBlockValueWithServiceAsArgument [
+	"ProcessMonitorTestService>>#lock: evaluates its block with the service as the argument and answers the block value"
+
+	<gtExample>
+	<return: #ProcessMonitorTestService>
+	| service argument result |
+	service := ProcessMonitorTestService new.
+	result := service
+			lock: [ :aService | 
+				argument := aService.
+				#result ].
+
+	self assert: result equals: #result.
+	self
+		assert: argument == service
+		description: 'The block argument is not the service'.
+
+	^ service
+]
+
+{ #category : #'examples - lock' }
+GtProcessMonitorTestServiceExamples >> lockMakesOtherProcessesWait [
+	"A higher-priority process that registers a process while the example process holds the lock
+	waits until the lock is released. Errors in the adder are caught and the adder is terminated in an ensure block"
+
+	<gtExample>
+	<return: #ProcessMonitorTestService>
+	| service process adder added adderFailures adderWasWaiting addedWhileLocked addedTimedOut |
+	service := ProcessMonitorTestService new.
+	process := [  ] newProcess.
+	added := Semaphore new.
+	adderFailures := OrderedCollection new.
+	[ service
+		lock: [ :aService | 
+			adder := [ [ aService handleNewProcess: process ]
+					on: Error
+					do: [ :anError | adderFailures add: anError ].
+				added signal ] newProcess.
+			adder priority: Processor activePriority + 1.
+			adder name: 'ProcessMonitorTestService lock example adder'.
+			adder resume.
+			adderWasWaiting := adder isWaiting.
+			addedWhileLocked := aService forkedProcesses includes: process ].
+	addedTimedOut := added waitTimeoutMilliseconds: 1000 ]
+		ensure: [ self terminateIfRunning: adder.
+			self terminateIfRunning: process ].
+
+	self assert: adderWasWaiting description: 'The adder did not wait for the lock'.
+	self
+		assert: addedWhileLocked not
+		description: 'The adder registered the process while the lock was held'.
+	self
+		assert: addedTimedOut not
+		description: 'The adder did not finish after the lock was released'.
+	self
+		assert: adderFailures isEmpty
+		description: [ 'The adder failed with ' , adderFailures first printString ].
+	self assert: (service forkedProcesses includes: process).
+
+	^ service
 ]
 
 { #category : #'private - processes' }
