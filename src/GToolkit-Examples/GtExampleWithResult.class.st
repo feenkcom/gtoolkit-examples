@@ -426,6 +426,15 @@ GtExampleWithResult >> run [
 	^ self result
 ]
 
+{ #category : #public }
+GtExampleWithResult >> runUnmanaged [
+	"Run my example without the clean up of managed runs (see GtExample>>#runUnmanaged) and remember the result"
+
+	<return: #GtExampleResult>
+	mutex critical: [ self result: self example runUnmanaged ].
+	^ self result
+]
+
 { #category : #accessing }
 GtExampleWithResult >> selector [
 	^ self example selector

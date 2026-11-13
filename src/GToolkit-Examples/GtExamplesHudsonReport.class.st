@@ -92,6 +92,15 @@ GtExamplesHudsonReport >> containerNameFor: anExample [
 ]
 
 { #category : #running }
+GtExamplesHudsonReport >> emitRetrySignalFor: anExample exception: anException retryCount: aRetryCount [
+	GtExamplesReportRetrySignal new
+		example: anExample;
+		exception: anException;
+		retryCount: aRetryCount;
+		emit
+]
+
+{ #category : #running }
 GtExamplesHudsonReport >> fuelOutTheError: error of: anExample [
 	| fileName className methodName |
 	[
@@ -128,6 +137,15 @@ GtExamplesHudsonReport >> nameFor: anExample [
 	^ anExample selector
 ]
 
+{ #category : #running }
+GtExamplesHudsonReport >> prepareForRetryOf: anExample [
+	"Give the system a chance to recover before the next attempt of anExample.
+	I run after the failed attempt has unwound, so the watchdog of the execution environment does not interrupt me"
+
+	3 timesRepeat: [ Smalltalk garbageCollect ].
+	3 seconds wait
+]
+
 { #category : #private }
 GtExamplesHudsonReport >> progressFileName [
 	^ 'progress-examples.log'
@@ -139,34 +157,46 @@ GtExamplesHudsonReport >> resultsFileName [
 ]
 
 { #category : #running }
+GtExamplesHudsonReport >> runAttemptOf: anExample isLastAttempt: isLastAttempt addingStackTo: aCollectionOfStacks [
+	"Run anExample once. Answer the signalled exception, or nil if anExample succeeded.
+	The handler only records the stack and returns, so the stack unwinds and the execution environment
+	marks anExample as completed (its watchdog stops) before any slow work, like #prepareForRetryOf:, starts.
+	A late TestTookTooMuchTime signalled while the stack is recorded is ignored, so it cannot escape the handler."
+
+	^ [ anExample debug.
+	nil ]
+		on: self signalableExceptions
+		do: [ :anError | 
+			[ (isLastAttempt not or: [ (anExample exceptions handles: anError) not ])
+				ifTrue: [ aCollectionOfStacks add: (self stackTraceString: anError of: anExample) ] ]
+				on: TestTookTooMuchTime
+				do: [ :aTimeout | aTimeout return: nil ].
+			anError return: anError ]
+]
+
+{ #category : #running }
 GtExamplesHudsonReport >> runExample: anExample [
-	| errorDetails stacks runStatus retryCount |
+	| errorDetails stacks runStatus retryCount lastError |
 
 	errorDetails := nil.
 	retryCount := 3.
 	stacks := OrderedCollection new.
 
+	"Retry only after a failed attempt has unwound: until then the watchdog of the execution environment
+	keeps signalling TestTookTooMuchTime, which would escape a handler doing slow work"
 	self beginTestCase: anExample runBlock: [ 
-		[ anExample debug ]
-			on: self signalableExceptions
-			do: [ :err | 
-				retryCount := retryCount - 1.
-				GtExamplesReportRetrySignal new
-					example: anExample;
-					exception: err;
-					retryCount: retryCount;
-					emit.
-				retryCount > 0 ifTrue:[ 
-					stacks add: (self stackTraceString: err of: anExample).
-					3 timesRepeat: [ Smalltalk garbageCollect ].
-					3 seconds wait.
-					err retry ]
-				ifFalse:
-					[ errorDetails := Dictionary new.
-					self initializeErrorDetails: errorDetails forError: err.
-					(anExample exceptions handles: err) ifFalse: [ 
-						stacks add: (self stackTraceString: err of: anExample) ] ] ] ].
-
+		[ lastError := self
+				runAttemptOf: anExample
+				isLastAttempt: retryCount <= 1
+				addingStackTo: stacks.
+		lastError notNil and: [ 
+			retryCount := retryCount - 1.
+			self emitRetrySignalFor: anExample exception: lastError retryCount: retryCount.
+			retryCount > 0 ] ]
+				whileTrue: [ self prepareForRetryOf: anExample ].
+		lastError ifNotNil: [ 
+			errorDetails := Dictionary new.
+			self initializeErrorDetails: errorDetails forError: lastError ] ].
 
 	errorDetails 
 		ifNil: [ runStatus := #success ]

@@ -11,6 +11,16 @@ Class {
 	#category : #'GToolkit-Examples-Testing'
 }
 
+{ #category : #'examples - retry' }
+GtExamplesHudsonReportExamples >> exampleExceedingItsTimeLimit [
+	"This example is a noTest as it is designed to fail: it always runs out of time"
+
+	<gtExample>
+	<timeLimit: 200>
+	<noTest>
+	1 second wait
+]
+
 { #category : #examples }
 GtExamplesHudsonReportExamples >> report [
 	"A report with no example to run, writing to temporary files."
@@ -37,6 +47,32 @@ GtExamplesHudsonReportExamples >> reportWritesAndClosesItsFile [
 	contents := aReport resultsFileName asFileReference contents ]
 		ensure: [ aReport deleteFiles ].
 	self assert: (contents includesSubstring: '<testsuite ').
+	self assert: (contents endsWith: '</testsuite>').
+	^ aReport
+]
+
+{ #category : #'examples - retry' }
+GtExamplesHudsonReportExamples >> slowRetryOfTimedOutExampleIsReported [
+	"An example runs out of time in every attempt, and the preparation for the next attempt takes longer than its time limit.
+	The report must still finish and report the example as one error with a stack for each attempt.
+	The preparation must run after the failed attempt has unwound. Otherwise the watchdog signals another
+	TestTookTooMuchTime inside the retry handler, which escapes the report and aborts the whole examples run."
+
+	<gtExample>
+	<return: #GtExamplesHudsonReportWithSlowRetry>
+	| aReport contents |
+	aReport := GtExamplesHudsonReportWithSlowRetry new
+			initializeWithTestCases: {(self class >> #exampleExceedingItsTimeLimit) gtExample};
+			reportName: 'GtExamplesHudsonReportExamples';
+			yourself.
+	[ aReport run.
+	contents := aReport resultsFileName asFileReference contents ]
+		ensure: [ aReport deleteFiles ].
+
+	self assert: aReport errorCount equals: 1.
+	self assert: aReport failureCount equals: 0.
+	self assert: (contents includesSubstring: '<error type="TestTookTooMuchTime"').
+	self assert: (contents includesSubstring: 'Stack 3').
 	self assert: (contents endsWith: '</testsuite>').
 	^ aReport
 ]

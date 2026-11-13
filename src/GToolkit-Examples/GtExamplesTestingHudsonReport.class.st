@@ -236,13 +236,8 @@ GtExamplesTestingHudsonReport >> run [
 
 { #category : #running }
 GtExamplesTestingHudsonReport >> runAll [
-	CurrentExecutionEnvironment runTestsBy: [ 
-		"We only support running examples in unmanaged mode at the moment. 
-		We disable the monitor service to not track worker processes and stop them when the test ends."
-		CurrentExecutionEnvironment value disableService: ProcessMonitorTestService.
-		
-		self testCasesToRun do: [ :each |  
-			self runTestCase: each ] ]
+	CurrentExecutionEnvironment
+		runTestsBy: [ self testCasesToRun do: [ :each | self runTestCase: each ] ]
 ]
 
 { #category : #running }
