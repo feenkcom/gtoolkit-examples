@@ -19,6 +19,21 @@ Object >> assert: actual equals: expected [
 ]
 
 { #category : #'*GToolkit-Examples-Core' }
+Object >> assert: actual sameContentAs: expected [
+	<gsCode: nil>
+
+	self
+		assert: (actual sameContentAs: expected)
+		description: [ String streamContents: [:stream |
+			stream
+				nextPutAll: 'Assertion failed. Got ';
+				nextPutAll: actual fullPrintString;
+				nextPutAll: ' instead of ';
+				nextPutAll: expected fullPrintString;
+				nextPutAll: '.'] ]
+]
+
+{ #category : #'*GToolkit-Examples-Core' }
 Object class >> gtExampleRuntimeContext [
 	^ self gtExamplesFactoryClass gtExampleRuntimeContext
 ]
