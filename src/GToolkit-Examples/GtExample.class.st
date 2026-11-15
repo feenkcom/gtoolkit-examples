@@ -31,8 +31,22 @@ Class {
 		'timeLimit',
 		'receiverClass'
 	],
+	#classVars : [
+		'DefaultGlobalTimeLimit'
+	],
 	#category : #'GToolkit-Examples-Core'
 }
+
+{ #category : #accessing }
+GtExample class >> defaultGlobalTimeLimit [
+	<return: #Duration or: nil>
+	^ DefaultGlobalTimeLimit
+]
+
+{ #category : #accessing }
+GtExample class >> defaultGlobalTimeLimit: aDurationOrNil [
+	DefaultGlobalTimeLimit := aDurationOrNil
+]
 
 { #category : #comparing }
 GtExample >> = anExample [
@@ -138,7 +152,7 @@ GtExample >> debugger [
 { #category : #accessing }
 GtExample >> defaultTimeLimit [
 	<gsCode: '^ Duration seconds: 60'>
-	^ 1 minute
+	^ self class defaultGlobalTimeLimit ifNil: [ 1 minute ]
 ]
 
 { #category : #private }
