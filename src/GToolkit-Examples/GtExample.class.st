@@ -40,12 +40,17 @@ Class {
 { #category : #accessing }
 GtExample class >> defaultGlobalTimeLimit [
 	<return: #Duration or: nil>
-	^ DefaultGlobalTimeLimit
+	^ self
+		gtDo: [ DefaultGlobalTimeLimit ]
+		gemstoneDo: [ SessionTemps current at: #GtExample_defaultGlobalTimeLimit ifAbsent: [] ]
 ]
 
 { #category : #accessing }
 GtExample class >> defaultGlobalTimeLimit: aDurationOrNil [
-	DefaultGlobalTimeLimit := aDurationOrNil
+
+	self
+		gtDo: [ DefaultGlobalTimeLimit := aDurationOrNil ]
+		gemstoneDo: [ SessionTemps current at: #GtExample_defaultGlobalTimeLimit put: aDurationOrNil ]
 ]
 
 { #category : #comparing }
