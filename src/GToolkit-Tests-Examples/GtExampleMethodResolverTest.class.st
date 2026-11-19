@@ -13,7 +13,7 @@ Class {
 GtExampleMethodResolverTest >> assert: aGTExampleMethod class: aClass classNamed: aClassName meta: aBoolean selector: aSelector [
 
 	self assert: aGTExampleMethod methodClass == aClass.
-	self assert: aGTExampleMethod methodClassName = aClassName.
+	self assert: (aGTExampleMethod methodClassName sameContentAs: aClassName).
 	self assert: aGTExampleMethod meta = aBoolean.
 	self assert: aGTExampleMethod selector = aSelector.
 	self assert: aGTExampleMethod selector isSymbol.
@@ -24,7 +24,7 @@ GtExampleMethodResolverTest >> assert: aGTExampleMethod class: aClass classNamed
 	self assert: (aGTExampleMethod instVarNamed: 'methodClass') isNil."
 	
 	self assert: aGTExampleMethod methodClass == aClass.
-	self assert: aGTExampleMethod methodClassName = aClassName.
+	self assert: (aGTExampleMethod methodClassName sameContentAs: aClassName).
 	self assert: aGTExampleMethod meta = aBoolean.
 	self assert: aGTExampleMethod selector = aSelector.
 	self assert: aGTExampleMethod selector isSymbol.

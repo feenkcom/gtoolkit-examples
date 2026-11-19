@@ -13,7 +13,7 @@ Class {
 GtExampleMethodAfterTest >> assert: aGTExampleMethod class: aClass className: aName meta: meta selector: aSelector [ 
 
 	self assert: aGTExampleMethod methodClass == aClass.
-	self assert: aGTExampleMethod methodClassName = aName.
+	self assert: (aGTExampleMethod methodClassName sameContentAs: aName).
 	self assert: aGTExampleMethod meta = meta.
 	self assert: aGTExampleMethod selector = aSelector.
 	
@@ -24,7 +24,7 @@ GtExampleMethodAfterTest >> assert: aGTExampleMethod class: aClass className: aN
 	"self assert: (aGTExampleMethod instVarNamed: 'methodClass') isNil."
 	
 	self assert: aGTExampleMethod methodClass == aClass.
-	self assert: aGTExampleMethod methodClassName = aName.
+	self assert: (aGTExampleMethod methodClassName sameContentAs: aName).
 	self assert: aGTExampleMethod meta = meta.
 	self assert: aGTExampleMethod selector = aSelector.
 	
