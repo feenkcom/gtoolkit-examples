@@ -1,3 +1,6 @@
 {
-	"repositories" : { }
+	"repositories" : {
+		"github://feenkcom/gtoolkit-utility/src" : "v0.9.75",
+		"github://feenkcom/XML-XMLParser/src" : "v0.6.4"
+	}
 }
