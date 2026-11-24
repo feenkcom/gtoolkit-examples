@@ -25,6 +25,15 @@ GtJUnitTestCase >> gtProblemsFor: aView [
 		column: 'Message' text: #message
 ]
 
+{ #category : #views }
+GtJUnitTestCase >> gtXmlFor: aView [
+	<gtView>
+	^ aView forward
+		title: 'Xml';
+		object: [ xml ];
+		view: #gtItemsFor:
+]
+
 { #category : #initialization }
 GtJUnitTestCase >> initializeFromXml: anElement [
 	super initializeFromXml: anElement.
@@ -51,6 +60,15 @@ GtJUnitTestCase >> isPassed [
 { #category : #testing }
 GtJUnitTestCase >> isSkipped [
 	^ self status = #skipped
+]
+
+{ #category : #'gt - views' }
+GtJUnitTestCase >> pharoMethod [
+	<return: #CompiledMethod or: nil>
+	^ self class environment
+		at: self className asSymbol
+		ifPresent: [ :aClass | aClass lookupSelector: self name asSymbol ]
+		ifAbsent: [ nil ]
 ]
 
 { #category : #accessing }

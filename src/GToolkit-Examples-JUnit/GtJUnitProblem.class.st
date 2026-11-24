@@ -12,7 +12,7 @@ GtJUnitProblem >> details [
 { #category : #'gt - views' }
 GtJUnitProblem >> gtDetailsFor: aView [
 	<gtView>
-	^ aView textEditor
+	^ aView text
 		title: 'Details';
 		priority: 10;
 		question: 'What diagnostic output or stack trace was recorded?';
