@@ -11,6 +11,9 @@ I override both names with `.tmp` names that match neither pattern, and {{gtMeth
 Class {
 	#name : #GtExamplesHudsonReportWithTemporaryFiles,
 	#superclass : #GtExamplesHudsonReport,
+	#instVars : [
+		'temporaryFilePrefix'
+	],
 	#category : #'GToolkit-Examples-Testing'
 }
 
@@ -22,12 +25,18 @@ GtExamplesHudsonReportWithTemporaryFiles >> deleteFiles [
 	(File named: self progressFileName) delete
 ]
 
+{ #category : #initialization }
+GtExamplesHudsonReportWithTemporaryFiles >> initialize [
+	super initialize.
+	temporaryFilePrefix := 'gt-examples-hudson-report-example-' , UUID new asString
+]
+
 { #category : #accessing }
 GtExamplesHudsonReportWithTemporaryFiles >> progressFileName [
-	^ 'gt-examples-hudson-report-example-progress.tmp'
+	^ temporaryFilePrefix , '-progress.tmp'
 ]
 
 { #category : #accessing }
 GtExamplesHudsonReportWithTemporaryFiles >> resultsFileName [
-	^ 'gt-examples-hudson-report-example-results.tmp'
+	^ temporaryFilePrefix , '-results.tmp'
 ]

@@ -51,6 +51,35 @@ GtExamplesHudsonReportExamples >> reportWritesAndClosesItsFile [
 	^ aReport
 ]
 
+{ #category : #examples }
+GtExamplesHudsonReportExamples >> reportsHaveIndependentTemporaryFiles [
+	<gtExample>
+	| firstReport secondReport contents |
+	firstReport := self report.
+	secondReport := self report.
+	self assert: firstReport resultsFileName ~= secondReport resultsFileName.
+	self assert: firstReport progressFileName ~= secondReport progressFileName.
+	self assert: firstReport resultsFileName equals: firstReport resultsFileName.
+	self assert: firstReport progressFileName equals: firstReport progressFileName.
+	[ firstReport run.
+	secondReport run.
+	contents := secondReport resultsFileName asFileReference contents.
+	firstReport deleteFiles.
+	self assert: firstReport resultsFileName asFileReference exists not.
+	self assert: firstReport progressFileName asFileReference exists not.
+	self
+		assert: secondReport resultsFileName asFileReference contents
+		equals: contents.
+	self assert: secondReport progressFileName asFileReference exists.
+	self assert: (contents endsWith: '</testsuite>') ]
+		ensure: [ firstReport deleteFiles.
+			secondReport deleteFiles ].
+	self assert: secondReport resultsFileName asFileReference exists not.
+	self assert: secondReport progressFileName asFileReference exists not.
+	^ {firstReport.
+		secondReport}
+]
+
 { #category : #'examples - retry' }
 GtExamplesHudsonReportExamples >> slowRetryOfTimedOutExampleIsReported [
 	"An example runs out of time in every attempt, and the preparation for the next attempt takes longer than its time limit.
