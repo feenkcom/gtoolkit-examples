@@ -19,6 +19,15 @@ GtJUnitProblem >> gtDetailsFor: aView [
 		text: [ self details ]
 ]
 
+{ #category : #'gt - views' }
+GtJUnitProblem >> gtMessageFor: aView [
+	<gtView>
+	^ aView text
+		title: 'Message';
+		priority: 20;
+		text: [ self message ]
+]
+
 { #category : #accessing }
 GtJUnitProblem >> kind [
 	^ xml localName asSymbol

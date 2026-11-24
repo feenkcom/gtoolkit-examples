@@ -12,6 +12,15 @@ GtJUnitXmlElement class >> fromXml: anElement [
 	^ self new initializeFromXml: anElement
 ]
 
+{ #category : #views }
+GtJUnitXmlElement >> gtXmlFor: aView [
+	<gtView>
+	^ aView forward
+		title: 'Xml';
+		object: [ xml ];
+		view: #gtItemsFor:
+]
+
 { #category : #initialization }
 GtJUnitXmlElement >> initializeFromXml: anElement [
 	xml := anElement
