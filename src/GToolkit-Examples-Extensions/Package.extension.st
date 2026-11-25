@@ -38,14 +38,14 @@ Package >> gtExamplesWithReturnPragmas [
 { #category : #'*GToolkit-Examples-Extensions' }
 Package >> gtExamplesWithReturnPragmasClassified [
 	"Return a dictionary of classes to examples returning an instance of that class.
-	NB: We use class names rather than classes as keys."
+	NB: We use class names rather than classes as keys; they are Symbols, also for return pragmas with a String."
 
 	| returnDict |
 	returnDict := Dictionary new.
 	self gtExamplesWithReturnPragmas contents
 		do: [ :m | 
 			| className |
-			className := (m pragmaAt: #return:) arguments first.
+			className := (m pragmaAt: #return:) arguments first asSymbol.
 			(returnDict at: className ifAbsentPut: [ OrderedCollection new ]) add: m ].
 	^ returnDict
 ]
